@@ -24,61 +24,6 @@ sys.path.append(config_path)
 sys.path.append(global_path)
 from config0 import *
 
-# set data and save path
-
-# flags = tf.flags
-# logging = tf.logging
-
-class PTBInput(object):
-	"""The input data."""
-
-	def __init__(self, config, data, name=None):
-		self.batch_size = batch_size = config.batch_size
-		self.num_steps = num_steps = config.num_steps
-		self.epoch_size = ((len(data) // batch_size) - 1) // num_steps
-		self.input_data, self.targets = reader.ptb_producer(
-				data, batch_size, num_steps, name=name)
-
-
-class PTBModel(object):
-	"""The PTB model."""
-
-	def __init__(self, is_training, config, input_):
-		self._input = input_
-
-		batch_size = input_.batch_size
-		num_steps = input_.num_steps
-		size = config.hidden_size
-		vocab_size = config.vocab_size
-
-		# Slightly better results can be obtained with forget gate biases
-		# initialized to 1 but the hyperparameters of the model would need to be
-		# different than reported in the paper.
-		lstm_cell = tf.nn.rnn_cell.BasicLSTMCell(size, forget_bias=0.0, state_is_tuple=True)
-		if is_training and config.keep_prob < 1:
-			lstm_cell = tf.nn.rnn_cell.DropoutWrapper(
-					lstm_cell, output_keep_prob=config.keep_prob)
-		cell = tf.nn.rnn_cell.MultiRNNCell([lstm_cell] * config.num_layers, state_is_tuple=True)
-
-		self._initial_state = cell.zero_state(batch_size, data_type())
-
-		with tf.device("/cpu:0"):
-			embedding = tf.get_variable(
-					"embedding", [vocab_size, size], dtype=data_type())
-			inputs = tf.nn.embedding_lookup(embedding, input_.input_data)
-
-		if is_training and config.keep_prob < 1:
-			inputs = tf.nn.dropout(inputs, config.keep_prob)
-
-		# Simplified version of tensorflow.models.rnn.rnn.py's rnn().
-		# This builds an unrolled LSTM for tutorial purposes only.
-		# In general, use the rnn() or state_saving_rnn() from rnn.py.
-		#
-		# The alternative version of the code below is:
-		#
-		# inputs = [tf.squeeze(input_step, [1])
-		#					 for input_step in tf.split(1, num_steps, inputs)]
-		# outputs, state = tf.nn.rnn(cell, inputs, initial_state=self._initial_state)
 		outputs = []
 		state = self._initial_state
 		with tf.variable_scope("RNN"):
@@ -106,7 +51,7 @@ class PTBModel(object):
 		tvars = tf.trainable_variables()
 		grads, _ = tf.clip_by_global_norm(tf.gradients(cost, tvars),
 																			config.max_grad_norm)
-		#optimizer = tf.train.GradientDescentOptimizer(self._lr)
+		optimizer = tf.train.GradientDescentOptimizer(self._lr)
 		self._train_op = optimizer.apply_gradients(
 				zip(grads, tvars),
 				global_step=tf.contrib.framework.get_or_create_global_step())
@@ -239,10 +184,57 @@ def main():
 	
 	return
 
-def create_model(config):
-	lstm_cell = tf.nn.rnn_cell.BasicLSTMCell(config['hidden_size'], forget_bias=0.0, state_is_tuple=True)
 	
+class Model:
+	
+	def __init__(self,config, train_word_data, validation_word_data, test_word_data):
+		self.init_scale = config['init_scale']
+		self.learning_rate = config['learning_rate']
+		self.max_grad_norm = config['max_grad_norm']
+		self.num_layers = config['num_layers']
+		self.num_unrolls = config['num_unrolls']
+		self.hidden_size = config['hidden_size']
+		self.init_epochs = config['init_epochs']
+		self.max_epochs = config['max_epochs']
+		self.keep_prob = config['keep_prob']
+		self.lr_decay = config['lr_decay']
+		self.batch_size = config['batch_size']
+		self.vocab_size = config['vocab_size']
+		self.embedded_size = config['embedded_size']
+		self.data_type = config['data_type']
+		self.epoch_size = ((len(train_word_data) // self.batch_size) - 1) // self.num_unrolls
 
+		self.train_data, self.train_targets = reader.ptb_producer(train_word_data,self.batch_size,self.num_unrolls)
+		self.validation_data, self.validation_targets = reader.ptb_producer(validation_word_data,self.batch_size,self.num_unrolls)
+		self.test_data, self.test_targets = reader.ptb_producer(test_word_data,self.batch_size,self.num_unrolls)
+		
+		lstm_cell = tf.nn.rnn_cell.BasicLSTMCell(self.hidden_size, forget_bias=0.0, state_is_tuple=True)
+		lstm_cell = tf.nn.rnn_cell.DropoutWrapper(lstm_cell, output_keep_prob=self.keep_prob)
+		self.cell = tf.nn.rnn_cell.MultiRNNCell([lstm_cell] * self.num_layers, state_is_tuple=True)		
+		self.state = cell.zero_state(batch_size, self.data_type)
+		
+		self.embedding = tf.Variable(tf.zeros([self.vocab_size, self.hidden_size]),name="embedding")
+		self.softmax_w = tf.Variable(tf.zeros([self.hidden_size, self.vocab_size]),name="softmax_w")
+		self.softmax_b = tf.Variable(tf.zeros([self.vocab_size]),name="softmax_b")
+		
+		train_inputs = tf.nn.embedding_lookup(self.embedding, self.train_data)
+		validation_inputs = tf.nn.embedding_lookup(self.embedding, self.validation_data)
+		test_inputs = tf.nn.embedding_lookup(self.embedding, self.test_data)
+		
+		logits = tf.matmul(output, softmax_w) + softmax_b
+		self.loss = tf.nn.seq2seq.sequence_loss_by_example(
+        [logits],
+        [tf.reshape(input_.targets, [-1])],
+        [tf.ones([batch_size * num_steps], dtype=data_type())])
+		
+# 		train_inputs = tf.nn.embedding_lookup(embedding, train_data)
+# 		validation_inputs = tf.nn.embedding_lookup(embedding, validation_data)
+# 		test_inputs = tf.nn.embedding_lookup(embedding, test_data)
+
+# 		inputs = tf.nn.dropout(inputs, config.keep_prob)
 
 if __name__ == "__main__":
-	main()
+	train_word_data, valid_word_data, test_word_data, _ = reader.ptb_raw_data(input_path)
+	model = Model(config, train_word_data, validation_word_data, test_word_data)
+	with tf.Session() as sess:
+		Model.trainvanzelf()

@@ -42,14 +42,13 @@ global_path = os.path.join(os.path.split(general_path)[0],'Global')
 sys.path.append(config_path)
 sys.path.append(global_path)
 from config0 import *
-from configeval import *
 
 # set data and save path
 
 flags = tf.flags
 logging = tf.logging
 
-flags.DEFINE_string("model", "small", "Model size..")
+flags.DEFINE_string("model", "test", "Model size..")
 flags.DEFINE_string("data_path", input_path, "Where the training/test data is stored.")
 flags.DEFINE_string("save_path", output_path, "Model output directory.")
 flags.DEFINE_bool("use_fp16", False, "Train using 16-bit floats instead of 32bit floats")
