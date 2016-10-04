@@ -1,17 +1,5 @@
-# Copyright 2015 The TensorFlow Authors. All Rights Reserved.
-#
-# Licensed under the Apache License, Version 2.0 (the "License");
-# you may not use this file except in compliance with the License.
-# You may obtain a copy of the License at
-#
-#     http://www.apache.org/licenses/LICENSE-2.0
-#
-# Unless required by applicable law or agreed to in writing, software
-# distributed under the License is distributed on an "AS IS" BASIS,
-# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-# See the License for the specific language governing permissions and
-# limitations under the License.
-# ==============================================================================
+# authors : Wim Boes & Robbe Van Rompaey
+# date: 4-10-2016 11:00
 
 """
 
@@ -29,35 +17,43 @@
 
 To run:
 
-$ python ptb_word_lm.py --data_path=simple-examples/data/
+$ python ptb_word_lm.py 
 
 """
+
+# imports
 from __future__ import absolute_import
 from __future__ import division
 from __future__ import print_function
-
+import os
+import sys
 import time
-
 import numpy as np
 import tensorflow as tf
-
 import reader
+
+python_path = os.path.abspath(os.getcwd())
+general_path = os.path.split(python_path)[0]
+input_path = os.path.join(general_path,'Input')
+output_path = os.path.join(general_path,'Output')
+config_path = os.path.join(general_path,'Configurations')
+global_path = os.path.join(os.path.split(general_path)[0],'Global')
+
+sys.path.append(config_path)
+sys.path.append(global_path)
+from config0 import *
+from configeval import *
+
+# set data and save path
 
 flags = tf.flags
 logging = tf.logging
 
-flags.DEFINE_string(
-		"model", "small",
-		"A type of model. Possible options are: small, medium, large.")
-flags.DEFINE_string("data_path", None,
-										"Where the training/test data is stored.")
-flags.DEFINE_string("save_path", None,
-										"Model output directory.")
-flags.DEFINE_bool("use_fp16", False,
-									"Train using 16-bit floats instead of 32bit floats")
-
+flags.DEFINE_string("model", "small", "Model size..")
+flags.DEFINE_string("data_path", input_path, "Where the training/test data is stored.")
+flags.DEFINE_string("save_path", output_path, "Model output directory.")
+flags.DEFINE_bool("use_fp16", False, "Train using 16-bit floats instead of 32bit floats")
 FLAGS = flags.FLAGS
-
 
 def data_type():
 	return tf.float16 if FLAGS.use_fp16 else tf.float32
@@ -140,7 +136,7 @@ class PTBModel(object):
 		tvars = tf.trainable_variables()
 		grads, _ = tf.clip_by_global_norm(tf.gradients(cost, tvars),
 																			config.max_grad_norm)
-		optimizer = tf.train.GradientDescentOptimizer(self._lr)
+		#optimizer = tf.train.GradientDescentOptimizer(self._lr)
 		self._train_op = optimizer.apply_gradients(
 				zip(grads, tvars),
 				global_step=tf.contrib.framework.get_or_create_global_step())
@@ -186,7 +182,7 @@ class SmallConfig(object):
 	num_steps = 20
 	hidden_size = 200
 	max_epoch = 4
-	max_max_epoch = 13
+	max_max_epoch = 8
 	keep_prob = 1.0
 	lr_decay = 0.5
 	batch_size = 20
