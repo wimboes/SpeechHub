@@ -1,5 +1,5 @@
-# authors : Wim Boes & Robbe Van Rompaey
-# date: 4-10-2016
+### authors : Wim Boes & Robbe Van Rompaey
+### date: 4-10-2016
 
 import tensorflow as tf
 
@@ -21,19 +21,17 @@ import tensorflow as tf
 
 """
 
-config = {
-'init_scale' : 0.1,
-'learning_rate' : 1.0,
-'max_grad_norm' : 1,
-'num_layers' : 1,
-'num_unrolls' : 2,
-'hidden_size' : 2,
-'init_epochs' : 1,
-'max_epochs' : 2,
-'keep_prob' : 1.0,
-'lr_decay' : 0.5,
-'batch_size' : 20,
-'vocab_size' : 10000,
-'embedded_size' : 2,
-'data_type' : tf.float32
-}
+init_scale = 0.1
+learning_rate = 1.0
+max_grad_norm = 1
+num_layers = 1
+num_unrolls = 2
+hidden_size = 2
+init_epochs = 1
+max_epochs = 2
+keep_prob = 1.0
+lr_decay = 0.5
+batch_size = 20
+vocab_size = 10000
+embedded_size = 2
+data_type = tf.float32
