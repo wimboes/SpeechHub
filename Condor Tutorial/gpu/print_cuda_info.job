@@ -1,0 +1,33 @@
+# Normal execution
+Universe         = vanilla
+# we need just one CPU for this very simple job
+RequestCpus      = 1
+# require 1 MB of RAM 
+RequestMemory    = 1M
+# 2 minutes of wall time should be enough to execute this program, make sure you specify enough time
++RequestWalltime = 120
+
+#Always set this to true unless you have very good reason. This will make your jobs low priority so you don't hinder other people's jobs
+NiceUser = true
+#This will send you an e-mail if an error occurs
+Notification = Error
+
+#These are the requirement for the GPU
+Requirements = 	CUDAGlobalMemoryMb >= 1024 &&\
+				CUDACapability >= 3.5
+
+# This is the directory the job will run from.
+initialdir = .
+
+# This is the executable or script that will run
+executable = print_cuda_info.sh
+
+#This is the file where the log of the execution will be written
+Log          = print_cuda_info.log
+#This is the file where the output of the script will be written.
+Output       = print_cuda_info.out
+#This is the file where errors will be written. If all goes well this file should be empty
+Error        = print_cuda_info.err
+
+# This command will submit the job
+Queue

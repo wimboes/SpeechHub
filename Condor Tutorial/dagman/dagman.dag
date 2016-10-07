@@ -1,0 +1,28 @@
+#define a job that will print the word this. the DIR keyword specifies the working directory
+JOB print_this print.job DIR .
+
+#define the rest f the print jobs
+JOB print_sentence print.job DIR .
+JOB print_is print.job DIR .
+JOB print_in print.job DIR .
+JOB print_the print.job DIR .
+JOB print_correct print.job DIR .
+JOB print_order print.job DIR .
+
+#define the variables for all the jobs
+VARS print_this toprint="this"
+VARS print_sentence toprint="sentence"
+VARS print_is toprint="is"
+VARS print_in toprint="in"
+VARS print_the toprint="the"
+VARS print_correct toprint="correct"
+VARS print_order toprint="order."
+
+#define the parent child relationships
+PARENT print_this CHILD print_sentence
+PARENT print_sentence CHILD print_is
+PARENT print_is CHILD print_in
+PARENT print_in CHILD print_the
+PARENT print_the CHILD print_correct
+PARENT print_correct CHILD print_order
+
