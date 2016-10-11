@@ -338,7 +338,7 @@ def main(_):
 				
 				print("Epoch: %d Learning rate: %.3f" % (i + 1, session.run(m.lr)))
 				train_perplexity, tra_np = run_epoch(session, m, eval_op=m.train_op,
-																		 verbose=True, save_np=tra_np)
+																		 verbose=True)
 				print("Epoch: %d Train Perplexity: %.3f" % (i + 1, train_perplexity))
 				valid_perplexity, val_np _ = run_epoch(session, mvalid)
 				print("Epoch: %d Valid Perplexity: %.3f" % (i + 1, valid_perplexity))
