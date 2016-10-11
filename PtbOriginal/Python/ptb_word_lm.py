@@ -38,6 +38,9 @@ input_path = os.path.join(general_path,'Input')
 output_path = os.path.join(general_path,'Output')
 config_path = os.path.join(general_path,'Configurations')
 global_path = os.path.join(os.path.split(general_path)[0],'Global')
+print(general_path)
+print(input_path)
+print(output_path)
 
 sys.path.append(config_path)
 sys.path.append(global_path)
@@ -135,7 +138,7 @@ class PTBModel(object):
 		tvars = tf.trainable_variables()
 		grads, _ = tf.clip_by_global_norm(tf.gradients(cost, tvars),
 																			config.max_grad_norm)
-		#optimizer = tf.train.GradientDescentOptimizer(self._lr)
+		optimizer = tf.train.GradientDescentOptimizer(self._lr)
 		self._train_op = optimizer.apply_gradients(
 				zip(grads, tvars),
 				global_step=tf.contrib.framework.get_or_create_global_step())
