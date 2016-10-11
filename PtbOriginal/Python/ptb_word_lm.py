@@ -38,9 +38,6 @@ input_path = os.path.join(general_path,'Input')
 output_path = os.path.join(general_path,'Output')
 config_path = os.path.join(general_path,'Configurations')
 global_path = os.path.join(os.path.split(general_path)[0],'Global')
-print(general_path)
-print(input_path)
-print(output_path)
 
 sys.path.append(config_path)
 sys.path.append(global_path)
@@ -51,7 +48,7 @@ from config0 import *
 flags = tf.flags
 logging = tf.logging
 
-flags.DEFINE_string("model", "test", "Model size..")
+flags.DEFINE_string("model", "small", "Model size..")
 flags.DEFINE_string("data_path", input_path, "Where the training/test data is stored.")
 flags.DEFINE_string("save_path", output_path, "Model output directory.")
 flags.DEFINE_bool("use_fp16", False, "Train using 16-bit floats instead of 32bit floats")
@@ -245,6 +242,7 @@ def run_epoch(session, model, eval_op=None, verbose=False):
 	costs = 0.0
 	iters = 0
 	state = session.run(model.initial_state)
+	save_np = np.array()
 
 	fetches = {
 			"cost": model.cost,
@@ -270,8 +268,10 @@ def run_epoch(session, model, eval_op=None, verbose=False):
 			print("%.3f perplexity: %.3f speed: %.0f wps" %
 						(step * 1.0 / model.input.epoch_size, np.exp(costs / iters),
 						 iters * model.input.batch_size / (time.time() - start_time)))
-
-	return np.exp(costs / iters)
+			save_np.append([step * 1.0 / model.input.epoch_size, np.exp(costs / iters),
+						 iters * model.input.batch_size / (time.time() - start_time)])
+	save_np.append([1,np.exp(costs / iters),0])					 
+	return np.exp(costs / iters), save_np
 
 
 def get_config():
@@ -321,27 +321,40 @@ def main(_):
 			with tf.variable_scope("Model", reuse=True, initializer=initializer):
 				mtest = PTBModel(is_training=False, config=eval_config,
 												 input_=test_input)
-
+		param_train_np = np.array(['init_scale',config.init_scale], ['learning_rate', config.learning_rate],
+								['max_grad_norm', config.max_grad_norm], ['num_layers', config.num_layers],
+								['num_steps', config.num_steps], ['hidden_size', config.hidden_size],
+								['max_epoch', config.max_epoch], ['max_max_epoch', config.max_max_epoch],
+								['keep_prob', config.keep_prob], ['lr_decay', config.lr_decay],
+								['batch_size', config.batch_size], ['vocab_size', config.vocab_size])
+		train_np = np.array()
+		valid_np = np.array()
+		
 		sv = tf.train.Supervisor(logdir=FLAGS.save_path)
 		with sv.managed_session() as session:
 			for i in range(config.max_max_epoch):
 				lr_decay = config.lr_decay ** max(i - config.max_epoch, 0.0)
 				m.assign_lr(session, config.learning_rate * lr_decay)
-
+				
 				print("Epoch: %d Learning rate: %.3f" % (i + 1, session.run(m.lr)))
-				train_perplexity = run_epoch(session, m, eval_op=m.train_op,
-																		 verbose=True)
+				train_perplexity, tra_np = run_epoch(session, m, eval_op=m.train_op,
+																		 verbose=True, save_np=tra_np)
 				print("Epoch: %d Train Perplexity: %.3f" % (i + 1, train_perplexity))
-				valid_perplexity = run_epoch(session, mvalid)
+				valid_perplexity, val_np _ = run_epoch(session, mvalid)
 				print("Epoch: %d Valid Perplexity: %.3f" % (i + 1, valid_perplexity))
+				
+				train_np.append([i+1, tra_np])
+				valid_np.append([i+1, val_np])
 
-			test_perplexity = run_epoch(session, mtest)
+			test_perplexity, test_np = run_epoch(session, mtest)
 			print("Test Perplexity: %.3f" % test_perplexity)
 
 			if FLAGS.save_path:
 				print("Saving model to %s." % FLAGS.save_path)
 				sv.saver.save(session, FLAGS.save_path, global_step=sv.global_step)
-
+			
+			np.savez('../Output/123.npz', param_train_np = param_train_np, 
+					train_np = train_np, valid_np=valid_np, test_np = test_np)
 
 if __name__ == "__main__":
 	tf.app.run()
