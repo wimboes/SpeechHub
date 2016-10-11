@@ -29,7 +29,7 @@ flags.DEFINE_integer("num_layers", 2, "num_layers")
 flags.DEFINE_integer("num_steps", 35, "num_steps")
 flags.DEFINE_integer("hidden_size", 650, "hidden_size")
 flags.DEFINE_integer("max_epoch", 6, "max_epoch")
-flags.DEFINE_integer("max_max_epoch", 39, "max_max_epoch")
+flags.DEFINE_integer("max_max_epoch", 1, "max_max_epoch")
 flags.DEFINE_float("keep_prob", 0.5, "keep_prob")
 flags.DEFINE_float("lr_decay", 0.5, "lr_decay")
 flags.DEFINE_integer("batch_size", 20, "batch_size")
@@ -179,13 +179,13 @@ class Config(object):
 	embedded_size = FLAGS.embedded_size
 
 
-def run_epoch(session, model, eval_op=None, verbose=False):
+def run_epoch(session, model, eval_op=None, verbose=False, epoch_nb = 0):
 	"""Runs the model on the given data."""
 	start_time = time.time()
 	costs = 0.0
 	iters = 0
 	state = session.run(model.initial_state)
-	save_np = np.array()
+	save_np = np.array([[0,0,0,0]])
 
 	fetches = {
 			"cost": model.cost,
@@ -211,10 +211,11 @@ def run_epoch(session, model, eval_op=None, verbose=False):
 			print("%.3f perplexity: %.3f speed: %.0f wps" %
 						(step * 1.0 / model.input.epoch_size, np.exp(costs / iters),
 						 iters * model.input.batch_size / (time.time() - start_time)))
-			save_np.append([step * 1.0 / model.input.epoch_size, np.exp(costs / iters),
-						 iters * model.input.batch_size / (time.time() - start_time)])
-	save_np.append([1,np.exp(costs / iters),0])					 
-	return np.exp(costs / iters), save_np
+			save_np = np.append(save_np, [[epoch_nb, step * 1.0 / model.input.epoch_size, np.exp(costs / iters),
+						 iters * model.input.batch_size / (time.time() - start_time)]],axis=0)
+	save_np = np.append(save_np,[[epoch_nb, 1,np.exp(costs / iters),0]],axis=0)
+	print(save_np)					 
+	return np.exp(costs / iters), save_np[1:]
 
 
 def get_config():
@@ -254,14 +255,14 @@ def main(_):
 			with tf.variable_scope("Model", reuse=True, initializer=initializer):
 				mtest = PTBModel(is_training=False, config=eval_config,
 												 input_=test_input)
-		param_train_np = np.array(['init_scale',config.init_scale], ['learning_rate', config.learning_rate],
+		param_train_np = np.array([['init_scale',config.init_scale], ['learning_rate', config.learning_rate],
 								['max_grad_norm', config.max_grad_norm], ['num_layers', config.num_layers],
 								['num_steps', config.num_steps], ['hidden_size', config.hidden_size],
 								['max_epoch', config.max_epoch], ['max_max_epoch', config.max_max_epoch],
 								['keep_prob', config.keep_prob], ['lr_decay', config.lr_decay],
-								['batch_size', config.batch_size], ['vocab_size', config.vocab_size])
-		train_np = np.array()
-		valid_np = np.array()
+								['batch_size', config.batch_size], ['vocab_size', config.vocab_size]])
+		train_np = np.array([[0,0,0,0]])
+		valid_np = np.array([[0,0,0,0]])
 		
 		sv = tf.train.Supervisor(logdir=FLAGS.save_path)
 		with sv.managed_session() as session:
@@ -270,14 +271,15 @@ def main(_):
 				m.assign_lr(session, config.learning_rate * lr_decay)
 				
 				print("Epoch: %d Learning rate: %.3f" % (i + 1, session.run(m.lr)))
-				train_perplexity, tra_np = run_epoch(session, m, eval_op=m.train_op,
-																		 verbose=True)
+				
+				train_perplexity, tra_np = run_epoch(session, m, eval_op=m.train_op, verbose=True, epoch_nb=i+1)
 				print("Epoch: %d Train Perplexity: %.3f" % (i + 1, train_perplexity))
-				valid_perplexity, val_np _ = run_epoch(session, mvalid)
+				
+				valid_perplexity, val_np = run_epoch(session, mvalid, epoch_nb = i+1)
 				print("Epoch: %d Valid Perplexity: %.3f" % (i + 1, valid_perplexity))
 				
-				train_np.append([i+1, tra_np])
-				valid_np.append([i+1, val_np])
+				train_np = np.append(train_np, tra_np, axis=0)
+				valid_np= np.append(valid_np, val_np, axis=0)
 
 			test_perplexity, test_np = run_epoch(session, mtest)
 			print("Test Perplexity: %.3f" % test_perplexity)
@@ -286,8 +288,8 @@ def main(_):
 				print("Saving model to %s." % FLAGS.save_path)
 				sv.saver.save(session, FLAGS.save_path, global_step=sv.global_step)
 			
-			np.savez('../Output/123.npz', param_train_np = param_train_np, 
-					train_np = train_np, valid_np=valid_np, test_np = test_np)
+			np.savez('../Output/' + FLAGS.test_variable + str(FLAGS.num_run) +'.npz', param_train_np = param_train_np, 
+					train_np = train_np[1:], valid_np=valid_np[1:], test_np = test_np[1:])
 
 if __name__ == "__main__":
 	tf.app.run()
