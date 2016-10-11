@@ -1,25 +1,5 @@
 # authors : Wim Boes & Robbe Van Rompaey
-# date: 4-10-2016 11:00
-
-"""
-
-- init_scale - the initial scale of the weights
-- learning_rate - the initial value of the learning rate
-- max_grad_norm - the maximum permissible norm of the gradient
-- num_layers - the number of LSTM layers
-- num_steps - the number of unrolled steps of LSTM
-- hidden_size - the number of LSTM units
-- max_epoch - the number of epochs trained with the initial learning rate
-- max_max_epoch - the total number of epochs for training
-- keep_prob - the probability of keeping weights in the dropout layer
-- lr_decay - the decay of the learning rate for each epoch after "max_epoch"
-- batch_size - the batch size
-
-To run:
-
-$ python ptb_word_lm.py 
-
-"""
+# date: 11-10-2016 
 
 # imports
 from __future__ import absolute_import
@@ -36,22 +16,32 @@ python_path = os.path.abspath(os.getcwd())
 general_path = os.path.split(python_path)[0]
 input_path = os.path.join(general_path,'Input')
 output_path = os.path.join(general_path,'Output')
-config_path = os.path.join(general_path,'Configurations')
-global_path = os.path.join(os.path.split(general_path)[0],'Global')
-
-sys.path.append(config_path)
-sys.path.append(global_path)
-from config0 import *
 
 # set data and save path
 
 flags = tf.flags
 logging = tf.logging
 
-flags.DEFINE_string("model", "small", "Model size..")
-flags.DEFINE_string("data_path", input_path, "Where the training/test data is stored.")
-flags.DEFINE_string("save_path", output_path, "Model output directory.")
-flags.DEFINE_bool("use_fp16", False, "Train using 16-bit floats instead of 32bit floats")
+flags.DEFINE_float("init_scale", 0.05, "init_scale")
+flags.DEFINE_float("learning_rate", 1.0, "learning_rate")
+flags.DEFINE_float("max_grad_norm", 5, "max_grad_norm")
+flags.DEFINE_integer("num_layers", 2, "num_layers")
+flags.DEFINE_integer("num_steps", 35, "num_steps")
+flags.DEFINE_integer("hidden_size", 650, "hidden_size")
+flags.DEFINE_integer("max_epoch", 6, "max_epoch")
+flags.DEFINE_integer("max_max_epoch", 39, "max_max_epoch")
+flags.DEFINE_float("keep_prob", 0.5, "keep_prob")
+flags.DEFINE_float("lr_decay", 0.5, "lr_decay")
+flags.DEFINE_integer("batch_size", 20, "batch_size")
+flags.DEFINE_integer("vocab_size", 10000, "vocab_size")
+flags.DEFINE_integer("embedded_size", 600, "embedded_size")
+flags.DEFINE_integer("num_run", 0, "num_run")
+flags.DEFINE_string("test_variable","notspec","test_variable")
+
+flags.DEFINE_string("data_path", input_path, "data_path")
+flags.DEFINE_string("save_path", output_path, "save_path")
+flags.DEFINE_bool("use_fp16", False, "train using 16-bit floats instead of 32bit floats")
+
 FLAGS = flags.FLAGS
 
 def data_type():
@@ -79,6 +69,7 @@ class PTBModel(object):
 		num_steps = input_.num_steps
 		size = config.hidden_size
 		vocab_size = config.vocab_size
+		embedded_size = config.embedded_size
 
 		# Slightly better results can be obtained with forget gate biases
 		# initialized to 1 but the hyperparameters of the model would need to be
@@ -93,7 +84,7 @@ class PTBModel(object):
 
 		with tf.device("/cpu:0"):
 			embedding = tf.get_variable(
-					"embedding", [vocab_size, size], dtype=data_type())
+					"embedding", [vocab_size, embedded_size], dtype=data_type())
 			inputs = tf.nn.embedding_lookup(embedding, input_.input_data)
 
 		if is_training and config.keep_prob < 1:
@@ -172,68 +163,20 @@ class PTBModel(object):
 		return self._train_op
 
 
-class SmallConfig(object):
-	"""Small config."""
-	init_scale = 0.1
-	learning_rate = 1.0
-	max_grad_norm = 5
-	num_layers = 2
-	num_steps = 20
-	hidden_size = 200
-	max_epoch = 4
-	max_max_epoch = 8
-	keep_prob = 1.0
-	lr_decay = 0.5
-	batch_size = 20
-	vocab_size = 10000
-
-
-class MediumConfig(object):
-	"""Medium config."""
-	init_scale = 0.05
-	learning_rate = 1.0
-	max_grad_norm = 5
-	num_layers = 2
-	num_steps = 35
-	hidden_size = 650
-	max_epoch = 6
-	max_max_epoch = 39
-	keep_prob = 0.5
-	lr_decay = 0.8
-	batch_size = 20
-	vocab_size = 10000
-
-
-class LargeConfig(object):
-	"""Large config."""
-	init_scale = 0.04
-	learning_rate = 1.0
-	max_grad_norm = 10
-	num_layers = 2
-	num_steps = 35
-	hidden_size = 1500
-	max_epoch = 14
-	max_max_epoch = 55
-	keep_prob = 0.35
-	lr_decay = 1 / 1.15
-	batch_size = 20
-	vocab_size = 10000
-
-
-class TestConfig(object):
-	"""Tiny config, for testing."""
-	init_scale = 0.1
-	learning_rate = 1.0
-	max_grad_norm = 1
-	num_layers = 1
-	num_steps = 2
-	hidden_size = 2
-	max_epoch = 1
-	max_max_epoch = 1
-	keep_prob = 1.0
-	lr_decay = 0.5
-	batch_size = 20
-	vocab_size = 10000
+class Config(object):
+	init_scale = FLAGS.init_scale
+	learning_rate = FLAGS.learning_rate
+	max_grad_norm = FLAGS.max_grad_norm
+	num_layers = FLAGS.num_layers
+	num_steps = FLAGS.num_steps
+	hidden_size = FLAGS.hidden_size
+	max_epoch = FLAGS.max_epoch
+	max_max_epoch = FLAGS.max_max_epoch
+	keep_prob = FLAGS.keep_prob
+	lr_decay = FLAGS.lr_decay
+	batch_size = FLAGS.batch_size
+	vocab_size = FLAGS.vocab_size
+	embedded_size = FLAGS.embedded_size
 
 
 def run_epoch(session, model, eval_op=None, verbose=False):
@@ -275,17 +218,7 @@ def run_epoch(session, model, eval_op=None, verbose=False):
 
 
 def get_config():
-	if FLAGS.model == "small":
-		return SmallConfig()
-	elif FLAGS.model == "medium":
-		return MediumConfig()
-	elif FLAGS.model == "large":
-		return LargeConfig()
-	elif FLAGS.model == "test":
-		return TestConfig()
-	else:
-		raise ValueError("Invalid model: %s", FLAGS.model)
-
+	return Config()
 
 def main(_):
 	if not FLAGS.data_path:
