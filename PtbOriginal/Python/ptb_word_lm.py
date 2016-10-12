@@ -29,12 +29,12 @@ flags.DEFINE_integer("num_layers", 2, "num_layers")
 flags.DEFINE_integer("num_steps", 35, "num_steps")
 flags.DEFINE_integer("hidden_size", 650, "hidden_size")
 flags.DEFINE_integer("max_epoch", 6, "max_epoch")
-flags.DEFINE_integer("max_max_epoch", 1, "max_max_epoch")
+flags.DEFINE_integer("max_max_epoch", 39, "max_max_epoch")
 flags.DEFINE_float("keep_prob", 0.5, "keep_prob")
-flags.DEFINE_float("lr_decay", 0.5, "lr_decay")
+flags.DEFINE_float("lr_decay", 0.8, "lr_decay")
 flags.DEFINE_integer("batch_size", 20, "batch_size")
 flags.DEFINE_integer("vocab_size", 10000, "vocab_size")
-flags.DEFINE_integer("embedded_size", 600, "embedded_size")
+flags.DEFINE_integer("embedded_size", 650, "embedded_size")
 flags.DEFINE_integer("num_run", 0, "num_run")
 flags.DEFINE_string("test_variable","notspec","test_variable")
 
@@ -213,8 +213,7 @@ def run_epoch(session, model, eval_op=None, verbose=False, epoch_nb = 0):
 						 iters * model.input.batch_size / (time.time() - start_time)))
 			save_np = np.append(save_np, [[epoch_nb, step * 1.0 / model.input.epoch_size, np.exp(costs / iters),
 						 iters * model.input.batch_size / (time.time() - start_time)]],axis=0)
-	save_np = np.append(save_np,[[epoch_nb, 1,np.exp(costs / iters),0]],axis=0)
-	print(save_np)					 
+	save_np = np.append(save_np,[[epoch_nb, 1,np.exp(costs / iters),0]],axis=0)		 
 	return np.exp(costs / iters), save_np[1:]
 
 
@@ -234,8 +233,7 @@ def main(_):
 	eval_config.num_steps = 1
 
 	with tf.Graph().as_default():
-		initializer = tf.random_uniform_initializer(-config.init_scale,
-																								config.init_scale)
+		initializer = tf.random_uniform_initializer(-config.init_scale, config.init_scale)
 
 		with tf.name_scope("Train"):
 			train_input = PTBInput(config=config, data=train_data, name="TrainInput")
@@ -255,6 +253,7 @@ def main(_):
 			with tf.variable_scope("Model", reuse=True, initializer=initializer):
 				mtest = PTBModel(is_training=False, config=eval_config,
 												 input_=test_input)
+				
 		param_train_np = np.array([['init_scale',config.init_scale], ['learning_rate', config.learning_rate],
 								['max_grad_norm', config.max_grad_norm], ['num_layers', config.num_layers],
 								['num_steps', config.num_steps], ['hidden_size', config.hidden_size],
@@ -264,7 +263,7 @@ def main(_):
 		train_np = np.array([[0,0,0,0]])
 		valid_np = np.array([[0,0,0,0]])
 		
-		sv = tf.train.Supervisor(logdir=FLAGS.save_path)
+		sv = tf.train.Supervisor(summary_writer=None,logdir=FLAGS.save_path + '/' + FLAGS.test_variable + str(FLAGS.num_run))
 		with sv.managed_session() as session:
 			for i in range(config.max_max_epoch):
 				lr_decay = config.lr_decay ** max(i - config.max_epoch, 0.0)
@@ -285,10 +284,10 @@ def main(_):
 			print("Test Perplexity: %.3f" % test_perplexity)
 
 			if FLAGS.save_path:
-				print("Saving model to %s." % FLAGS.save_path)
-				sv.saver.save(session, FLAGS.save_path, global_step=sv.global_step)
+				print("Saving model to %s." % (FLAGS.save_path + '/' + FLAGS.test_variable + str(FLAGS.num_run)  + '/' + FLAGS.test_variable + str(FLAGS.num_run)))
+				sv.saver.save(session, FLAGS.save_path + '/' + FLAGS.test_variable + str(FLAGS.num_run) + '/' + FLAGS.test_variable + str(FLAGS.num_run), global_step=sv.global_step)
 			
-			np.savez('../Output/' + FLAGS.test_variable + str(FLAGS.num_run) +'.npz', param_train_np = param_train_np, 
+			np.savez((FLAGS.save_path + '/' + FLAGS.test_variable + str(FLAGS.num_run)+ '/results' +'.npz'), param_train_np = param_train_np, 
 					train_np = train_np[1:], valid_np=valid_np[1:], test_np = test_np[1:])
 
 if __name__ == "__main__":
