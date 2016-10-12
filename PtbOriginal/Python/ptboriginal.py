@@ -9,6 +9,16 @@ import os
 import sys
 import time
 import numpy as np
+
+if 'LD_LIBRARY_PATH' not in os.environ:
+        os.environ['LD_LIBRARY_PATH'] = '/users/spraak/jpeleman/tf/lib/python2.7/site-packages:/users/spraak/jpeleman/tf/cuda/lib64:/usr/local/cuda/lib64'
+        try:
+            	os.system('/users/start2014/r0385169/bin/python ' + ' '.join(sys.argv))
+                sys.exit(0)
+        except Exception, exc:
+                print('Failed re_exec:', exc)
+                sys.exit(1)
+
 import tensorflow as tf
 import reader
 
@@ -36,7 +46,7 @@ flags.DEFINE_integer("batch_size", 5, "batch_size")
 flags.DEFINE_integer("vocab_size", 10000, "vocab_size")
 flags.DEFINE_integer("embedded_size", 10, "embedded_size")
 flags.DEFINE_integer("num_run", 0, "num_run")
-flags.DEFINE_string("test_variable","notspec","test_variable")
+flags.DEFINE_string("test_name","notspec","test_name")
 
 flags.DEFINE_string("data_path", input_path, "data_path")
 flags.DEFINE_string("save_path", output_path, "save_path")
@@ -263,7 +273,7 @@ def main(_):
 		train_np = np.array([[0,0,0,0]])
 		valid_np = np.array([[0,0,0,0]])
 		
-		sv = tf.train.Supervisor(summary_writer=None,logdir=FLAGS.save_path + '/' + FLAGS.test_variable + str(FLAGS.num_run))
+		sv = tf.train.Supervisor(summary_writer=None,logdir=FLAGS.save_path + '/' + FLAGS.test_name + '_' + str(FLAGS.num_run))
 		with sv.managed_session() as session:
 			for i in range(config.max_max_epoch):
 				lr_decay = config.lr_decay ** max(i - config.max_epoch, 0.0)
@@ -284,10 +294,10 @@ def main(_):
 			print("Test Perplexity: %.3f" % test_perplexity)
 
 			if FLAGS.save_path:
-				print("Saving model to %s." % (FLAGS.save_path + '/' + FLAGS.test_variable + str(FLAGS.num_run)  + '/' + FLAGS.test_variable + str(FLAGS.num_run)))
-				sv.saver.save(session, FLAGS.save_path + '/' + FLAGS.test_variable + str(FLAGS.num_run) + '/' + FLAGS.test_variable + str(FLAGS.num_run), global_step=sv.global_step)
+				print("Saving model to %s." % (FLAGS.save_path + '/' + FLAGS.test_name + '_' + str(FLAGS.num_run)  + '/' + FLAGS.test_name + '_' + str(FLAGS.num_run)))
+				sv.saver.save(session, FLAGS.save_path + '/' + FLAGS.test_name + '_' + str(FLAGS.num_run) + '/' + FLAGS.test_name + '_'  + str(FLAGS.num_run), global_step=sv.global_step)
 			
-			np.savez((FLAGS.save_path + '/' + FLAGS.test_variable + str(FLAGS.num_run)+ '/results' +'.npz'), param_train_np = param_train_np, 
+			np.savez((FLAGS.save_path + '/' + FLAGS.test_name + '_' + str(FLAGS.num_run)+ '/results' +'.npz'), param_train_np = param_train_np, 
 					train_np = train_np[1:], valid_np=valid_np[1:], test_np = test_np)
 
 if __name__ == "__main__":

@@ -26,15 +26,15 @@ flags.DEFINE_float("init_scale", 0.05, "init_scale")
 flags.DEFINE_float("learning_rate", 1.0, "learning_rate")
 flags.DEFINE_float("max_grad_norm", 5, "max_grad_norm")
 flags.DEFINE_integer("num_layers", 2, "num_layers")
-flags.DEFINE_integer("num_steps", 3, "num_steps")
-flags.DEFINE_integer("hidden_size", 10, "hidden_size")
+flags.DEFINE_integer("num_steps", 35, "num_steps")
+flags.DEFINE_integer("hidden_size", 650, "hidden_size")
 flags.DEFINE_integer("max_epoch", 6, "max_epoch")
-flags.DEFINE_integer("max_max_epoch", 6, "max_max_epoch")
+flags.DEFINE_integer("max_max_epoch", 39, "max_max_epoch")
 flags.DEFINE_float("keep_prob", 0.5, "keep_prob")
 flags.DEFINE_float("lr_decay", 0.8, "lr_decay")
-flags.DEFINE_integer("batch_size", 5, "batch_size")
+flags.DEFINE_integer("batch_size", 20, "batch_size")
 flags.DEFINE_integer("vocab_size", 10000, "vocab_size")
-flags.DEFINE_integer("embedded_size", 10, "embedded_size")
+flags.DEFINE_integer("embedded_size", 650, "embedded_size")
 flags.DEFINE_integer("num_run", 0, "num_run")
 flags.DEFINE_string("test_variable","notspec","test_variable")
 
@@ -288,7 +288,7 @@ def main(_):
 				sv.saver.save(session, FLAGS.save_path + '/' + FLAGS.test_variable + str(FLAGS.num_run) + '/' + FLAGS.test_variable + str(FLAGS.num_run), global_step=sv.global_step)
 			
 			np.savez((FLAGS.save_path + '/' + FLAGS.test_variable + str(FLAGS.num_run)+ '/results' +'.npz'), param_train_np = param_train_np, 
-					train_np = train_np[1:], valid_np=valid_np[1:], test_np = test_np)
+					train_np = train_np[1:], valid_np=valid_np[1:], test_np = test_np[1:])
 
 if __name__ == "__main__":
 	tf.app.run()
