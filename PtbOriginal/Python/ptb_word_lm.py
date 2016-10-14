@@ -37,6 +37,7 @@ flags.DEFINE_integer("vocab_size", 10000, "vocab_size")
 flags.DEFINE_integer("embedded_size", 10, "embedded_size")
 flags.DEFINE_integer("num_run", 0, "num_run")
 flags.DEFINE_string("test_variable","notspec","test_variable")
+flags.DEFINE_string("test_variable","notspec","test_variable")
 
 flags.DEFINE_string("data_path", input_path, "data_path")
 flags.DEFINE_string("save_path", output_path, "save_path")
@@ -54,9 +55,9 @@ class PTBInput(object):
 	def __init__(self, config, data, name=None):
 		self.batch_size = batch_size = config.batch_size
 		self.num_steps = num_steps = config.num_steps
-		self.epoch_size = ((len(data) // batch_size) - 1) // num_steps
+		self.epoch_size = ((len(data[:10000]) // batch_size) - 1) // num_steps
 		self.input_data, self.targets = reader.ptb_producer(
-				data, batch_size, num_steps, name=name)
+				data[:10000], batch_size, num_steps, name=name)
 
 
 class PTBModel(object):
@@ -221,6 +222,7 @@ def get_config():
 	return Config()
 
 def main(_):
+	print('job started')
 	if not FLAGS.data_path:
 		raise ValueError("Must set --data_path to PTB data directory")
 
@@ -263,7 +265,8 @@ def main(_):
 		train_np = np.array([[0,0,0,0]])
 		valid_np = np.array([[0,0,0,0]])
 		
-		sv = tf.train.Supervisor(summary_writer=None,logdir=FLAGS.save_path + '/' + FLAGS.test_variable + str(FLAGS.num_run))
+		sv = tf.train.Supervisor(save_summaries_secs=0, save_model_secs=0, summary_writer=None,logdir=FLAGS.save_path + '/' + FLAGS.test_variable + str(FLAGS.num_run))
+		tf.train.Supervisor()
 		with sv.managed_session() as session:
 			for i in range(config.max_max_epoch):
 				lr_decay = config.lr_decay ** max(i - config.max_epoch, 0.0)
@@ -279,6 +282,13 @@ def main(_):
 				
 				train_np = np.append(train_np, tra_np, axis=0)
 				valid_np= np.append(valid_np, val_np, axis=0)
+
+				#early stopping
+				early_stopping = 3; #new valid_PPL will be compared to the previous 3 valid_PPL
+				if i>early_stopping-1:
+					if valid_np[i+1][2] > np.amin(valid_np[i+1-early_stopping:],axis=0)[2]:
+						break
+					
 
 			test_perplexity, test_np = run_epoch(session, mtest)
 			print("Test Perplexity: %.3f" % test_perplexity)

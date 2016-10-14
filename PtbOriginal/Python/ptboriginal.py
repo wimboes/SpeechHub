@@ -10,14 +10,14 @@ import sys
 import time
 import numpy as np
 
-if 'LD_LIBRARY_PATH' not in os.environ:
-        os.environ['LD_LIBRARY_PATH'] = '/users/spraak/jpeleman/tf/lib/python2.7/site-packages:/users/spraak/jpeleman/tf/cuda/lib64:/usr/local/cuda/lib64'
-        try:
-            	os.system('/users/start2014/r0385169/bin/python ' + ' '.join(sys.argv))
-                sys.exit(0)
-        except Exception, exc:
-                print('Failed re_exec:', exc)
-                sys.exit(1)
+# if 'LD_LIBRARY_PATH' not in os.environ:
+#         os.environ['LD_LIBRARY_PATH'] = '/users/spraak/jpeleman/tf/lib/python2.7/site-packages:/users/spraak/jpeleman/tf/cuda/lib64:/usr/local/cuda/lib64'
+#         try:
+#             	os.system('/users/start2014/r0385169/bin/python ' + ' '.join(sys.argv))
+#                 sys.exit(0)
+#         except Exception, exc:
+#                 print('Failed re_exec:', exc)
+#                 sys.exit(1)
 
 import tensorflow as tf
 import reader
@@ -33,20 +33,22 @@ flags = tf.flags
 logging = tf.logging
 
 flags.DEFINE_float("init_scale", 0.05, "init_scale")
-flags.DEFINE_float("learning_rate", 1.0, "learning_rate")
+flags.DEFINE_float("learning_rate", 1, "learning_rate")
 flags.DEFINE_float("max_grad_norm", 5, "max_grad_norm")
 flags.DEFINE_integer("num_layers", 2, "num_layers")
-flags.DEFINE_integer("num_steps", 3, "num_steps")
-flags.DEFINE_integer("hidden_size", 10, "hidden_size")
+flags.DEFINE_integer("num_steps", 35, "num_steps")
+flags.DEFINE_integer("hidden_size", 512, "hidden_size")
 flags.DEFINE_integer("max_epoch", 6, "max_epoch")
-flags.DEFINE_integer("max_max_epoch", 6, "max_max_epoch")
+flags.DEFINE_integer("max_max_epoch", 39, "max_max_epoch")
 flags.DEFINE_float("keep_prob", 0.5, "keep_prob")
 flags.DEFINE_float("lr_decay", 0.8, "lr_decay")
-flags.DEFINE_integer("batch_size", 5, "batch_size")
+flags.DEFINE_integer("batch_size", 20, "batch_size")
 flags.DEFINE_integer("vocab_size", 10000, "vocab_size")
-flags.DEFINE_integer("embedded_size", 10, "embedded_size")
+flags.DEFINE_integer("embedded_size", 256, "embedded_size")
 flags.DEFINE_integer("num_run", 0, "num_run")
-flags.DEFINE_string("test_name","notspec","test_name")
+flags.DEFINE_string("test_name","askoy","test_name")
+flags.DEFINE_string("optimizer","GradDesc","optimizer")
+flags.DEFINE_string("loss_function","sampled_softmax","loss_function")
 
 flags.DEFINE_string("data_path", input_path, "data_path")
 flags.DEFINE_string("save_path", output_path, "save_path")
@@ -121,11 +123,7 @@ class PTBModel(object):
 		softmax_w = tf.get_variable(
 				"softmax_w", [size, vocab_size], dtype=data_type())
 		softmax_b = tf.get_variable("softmax_b", [vocab_size], dtype=data_type())
-		logits = tf.matmul(output, softmax_w) + softmax_b
-		loss = tf.nn.seq2seq.sequence_loss_by_example(
-				[logits],
-				[tf.reshape(input_.targets, [-1])],
-				[tf.ones([batch_size * num_steps], dtype=data_type())])
+		loss = get_loss_function(output, softmax_w, softmax_b,input_.targets, batch_size,num_steps, is_training)
 		self._cost = cost = tf.reduce_sum(loss) / batch_size
 		self._final_state = state
 
@@ -136,7 +134,7 @@ class PTBModel(object):
 		tvars = tf.trainable_variables()
 		grads, _ = tf.clip_by_global_norm(tf.gradients(cost, tvars),
 																			config.max_grad_norm)
-		optimizer = tf.train.GradientDescentOptimizer(self._lr)
+		optimizer = get_optimizer(self._lr)
 		self._train_op = optimizer.apply_gradients(
 				zip(grads, tvars),
 				global_step=tf.contrib.framework.get_or_create_global_step())
@@ -187,7 +185,25 @@ class Config(object):
 	batch_size = FLAGS.batch_size
 	vocab_size = FLAGS.vocab_size
 	embedded_size = FLAGS.embedded_size
+    	optimizer = FLAGS.optimizer
+    	loss_function = FLAGS.loss_function
 
+def get_optimizer(lr):
+    	if FLAGS.optimizer == "GradDesc":
+        	return tf.train.GradientDescentOptimizer(lr)
+    	return 0
+
+def get_loss_function(output, softmax_w, softmax_b,targets, batch_size, num_steps, is_training):
+        if FLAGS.loss_function == "sequence_loss_by_example":
+		logits = tf.matmul(output, softmax_w) + softmax_b
+		return tf.nn.seq2seq.sequence_loss_by_example([logits],[tf.reshape(targets, [-1])], [tf.ones([batch_size * num_steps], dtype=data_type())])
+	if FLAGS.loss_function == 'sampled_softmax':
+		if is_training:
+			return tf.nn.sampled_softmax_loss(tf.transpose(softmax_w), softmax_b, output, tf.reshape(targets, [-1, 1]), 512, FLAGS.vocab_size)
+		else:
+			logits = tf.matmul(output, softmax_w) + softmax_b
+			return tf.nn.seq2seq.sequence_loss_by_example([logits],[tf.reshape(targets, [-1])], [tf.ones([batch_size * num_steps], dtype=data_type())])	
+        return 0
 
 def run_epoch(session, model, eval_op=None, verbose=False, epoch_nb = 0):
 	"""Runs the model on the given data."""
@@ -229,20 +245,20 @@ def run_epoch(session, model, eval_op=None, verbose=False, epoch_nb = 0):
 
 def get_config():
 	return Config()
-
+ 
 def main(_):
-	if not FLAGS.data_path:
-		raise ValueError("Must set --data_path to PTB data directory")
-
-	raw_data = reader.ptb_raw_data(FLAGS.data_path)
-	train_data, valid_data, test_data, _ = raw_data
-
-	config = get_config()
-	eval_config = get_config()
-	eval_config.batch_size = 1
-	eval_config.num_steps = 1
-
-	with tf.Graph().as_default():
+    	print('job started')
+    	if not FLAGS.data_path:
+        	raise ValueError("Must set --data_path to PTB data directory")
+    
+    	raw_data = reader.ptb_raw_data(FLAGS.data_path)
+    	train_data, valid_data, test_data, _ = raw_data
+    
+    	config = get_config()
+    	eval_config = get_config()
+    	eval_config.batch_size = 1
+    	eval_config.num_steps = 1
+    	with tf.Graph().as_default():
 		initializer = tf.random_uniform_initializer(-config.init_scale, config.init_scale)
 
 		with tf.name_scope("Train"):
@@ -269,7 +285,8 @@ def main(_):
 								['num_steps', config.num_steps], ['hidden_size', config.hidden_size],
 								['max_epoch', config.max_epoch], ['max_max_epoch', config.max_max_epoch],
 								['keep_prob', config.keep_prob], ['lr_decay', config.lr_decay],
-								['batch_size', config.batch_size], ['vocab_size', config.vocab_size]])
+								['batch_size', config.batch_size], ['vocab_size', config.vocab_size],
+                                ['optimizer', config.optimizer], ['loss_function', config.loss_function]])
 		train_np = np.array([[0,0,0,0]])
 		valid_np = np.array([[0,0,0,0]])
 		
@@ -289,6 +306,12 @@ def main(_):
 				
 				train_np = np.append(train_np, tra_np, axis=0)
 				valid_np= np.append(valid_np, val_np, axis=0)
+                		
+				#early stopping
+                		early_stopping = 3; #new valid_PPL will be compared to the previous 3 valid_PPL
+                		if i>early_stopping-1:
+                    			if valid_np[i+1][2] > np.mean(valid_np[i+1-early_stopping:],axis=0)[2]:
+                        			break
 
 			test_perplexity, test_np = run_epoch(session, mtest)
 			print("Test Perplexity: %.3f" % test_perplexity)
