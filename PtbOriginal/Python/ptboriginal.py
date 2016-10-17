@@ -10,14 +10,14 @@ import sys
 import time
 import numpy as np
 
-# if 'LD_LIBRARY_PATH' not in os.environ:
-#         os.environ['LD_LIBRARY_PATH'] = '/users/spraak/jpeleman/tf/lib/python2.7/site-packages:/users/spraak/jpeleman/tf/cuda/lib64:/usr/local/cuda/lib64'
-#         try:
-#             	os.system('/users/start2014/r0385169/bin/python ' + ' '.join(sys.argv))
-#                 sys.exit(0)
-#         except Exception, exc:
-#                 print('Failed re_exec:', exc)
-#                 sys.exit(1)
+if 'LD_LIBRARY_PATH' not in os.environ:
+        os.environ['LD_LIBRARY_PATH'] = '/users/spraak/jpeleman/tf/lib/python2.7/site-packages:/users/spraak/jpeleman/tf/cuda/lib64:/usr/local/cuda/lib64'
+        try:
+            	os.system('/users/start2014/r0385169/bin/python ' + ' '.join(sys.argv))
+                sys.exit(0)
+        except Exception, exc:
+                print('Failed re_exec:', exc)
+                sys.exit(1)
 
 import tensorflow as tf
 import reader
@@ -48,7 +48,7 @@ flags.DEFINE_integer("embedded_size", 256, "embedded_size")
 flags.DEFINE_integer("num_run", 0, "num_run")
 flags.DEFINE_string("test_name","askoy","test_name")
 flags.DEFINE_string("optimizer","GradDesc","optimizer")
-flags.DEFINE_string("loss_function","sampled_softmax","loss_function")
+flags.DEFINE_string("loss_function","sequence_loss_by_example","loss_function")
 
 flags.DEFINE_string("data_path", input_path, "data_path")
 flags.DEFINE_string("save_path", output_path, "save_path")
@@ -191,6 +191,14 @@ class Config(object):
 def get_optimizer(lr):
     	if FLAGS.optimizer == "GradDesc":
         	return tf.train.GradientDescentOptimizer(lr)
+	if FLAGS.optimizer == "Adadelta":
+		return tf.train.AdadeltaOptimizer()
+	if FLAGS.optimizer == "Adagrad":
+		return tf.train.AdagradOptimizer(lr)
+	if FLAGS.optimizer == "Momentum":
+		return tf.train.MomentumOptimizer(lr,0.33)
+	if FLAGS.optimizer == "Adam":
+		return tf.train.AdamOptimizer()
     	return 0
 
 def get_loss_function(output, softmax_w, softmax_b,targets, batch_size, num_steps, is_training):
@@ -282,7 +290,7 @@ def main(_):
 				
 		param_train_np = np.array([['init_scale',config.init_scale], ['learning_rate', config.learning_rate],
 								['max_grad_norm', config.max_grad_norm], ['num_layers', config.num_layers],
-								['num_steps', config.num_steps], ['hidden_size', config.hidden_size],
+								['num_steps', config.num_steps], ['hidden_size', config.hidden_size], ['embedded_size', config.embedded_size],
 								['max_epoch', config.max_epoch], ['max_max_epoch', config.max_max_epoch],
 								['keep_prob', config.keep_prob], ['lr_decay', config.lr_decay],
 								['batch_size', config.batch_size], ['vocab_size', config.vocab_size],

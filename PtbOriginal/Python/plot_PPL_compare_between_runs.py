@@ -16,14 +16,14 @@ general_path = os.path.split(python_path)[0]
 input_path = os.path.join(general_path,'Output')
 output_path = os.path.join(general_path,'Output/Figures')
 
-parser = argparse.ArgumentParser(description='Print comparation of train-, valid or test-PPL of certain runs')
-parser.add_argument("test_name", help="give the name of the test you wan't to show")
-parser.add_argument("num_run_start", help="give the startnumber of the tests you wan't to compare",
-                    type=int)
-parser.add_argument("num_run_end", help="give the endnumber of the tests you wan't to compare",
-                    type=int)
-parser.add_argument("train_valid_test", help="compare train, valid or test")
-args = parser.parse_args()
+#parser = argparse.ArgumentParser(description='Print comparation of train-, valid or test-PPL of certain runs')
+#parser.add_argument("test_name", help="give the name of the test you wan't to show")
+#parser.add_argument("num_run_start", help="give the startnumber of the tests you wan't to compare",
+#                    type=int)
+#parser.add_argument("num_run_end", help="give the endnumber of the tests you wan't to compare",
+#                    type=int)
+#parser.add_argument("train_valid_test", help="compare train, valid or test")
+#args = parser.parse_args()
 
 def plot_compare_between_runs(test_name, num_run_start, num_run_end, train_valid_test, input_path, output_path):
     train_valid_test_str = train_valid_test + '_np'
@@ -33,9 +33,12 @@ def plot_compare_between_runs(test_name, num_run_start, num_run_end, train_valid
     colors = ['blue','green','red','purple','black','pink','orange','brown','yellow']
     linestyles = ['--'] #['-','dashed', 'dashdot']
     ax = fig.add_subplot(111)
-    fig.subplots_adjust(top=0.85)
+    fig.subplots_adjust(top=0.86)
     ax.set_xlabel('Steps')
     ax.set_ylabel('Perplexity')
+    
+    min_lims = np.zeros(num_run_end-num_run_start+1)
+    max_lims = np.zeros(num_run_end-num_run_start+1)
     
     param = test_name.split('-')
     
@@ -43,6 +46,8 @@ def plot_compare_between_runs(test_name, num_run_start, num_run_end, train_valid
     data_np = data[train_valid_test_str]
     data_steps = np.array([data_np[i][0]+data_np[i][1] for i in range(0,len(data_np))])
     data_PPL = np.array([data_np[i][2] for i in range(0,len(data_np))])
+    min_lims[0] = np.min(data_PPL)-5
+    max_lims[0] = np.percentile(data_PPL,85)
         
     label = ''
     title = ''
@@ -54,9 +59,12 @@ def plot_compare_between_runs(test_name, num_run_start, num_run_end, train_valid
             title = title +param_np[i][0] + ' = ' + param_np[i][1] + ', '
         if (i+1) % 4 == 0:
             title = title + '\n'
-    label = label[:-2]
-    title = title[:-3]
-    title = title + '\n'
+    while label[-1] != ',':
+	label = label[:-1]
+    label = label[:-1]
+    while title[-1] != ',':
+	title = title[:-1]
+    title = title[:-1]
     
     if train_valid_test == 'test':
         ax.plot(data_steps, data_PPL, color=colors[num_run_start % len(colors)], marker='+', label = label)
@@ -70,6 +78,8 @@ def plot_compare_between_runs(test_name, num_run_start, num_run_end, train_valid
         
         data_steps = np.array([data_np[i][0]+data_np[i][1] for i in range(0,len(data_np))])
         data_PPL = np.array([data_np[i][2] for i in range(0,len(data_np))])
+        min_lims[run-num_run_start] = np.min(data_PPL)-5
+        max_lims[run-num_run_start] = np.percentile(data_PPL,85)
 
         label = ''
         param_np = data['param_train_np']
@@ -82,9 +92,11 @@ def plot_compare_between_runs(test_name, num_run_start, num_run_end, train_valid
         else:
             ax.plot(data_steps, data_PPL, color=colors[run % len(colors)], linestyle=linestyles[run % len(linestyles)], label = label)
     
+    plt.ylim([np.min(min_lims),np.max(max_lims)])
     ax.legend(loc='upper right', fontsize=8)
     fig.savefig(output_path + '/' + test_name + '_from_' + str(num_run_start) + '_to_' + str(num_run_end) + '_' +train_valid_test+ '.png')
-
+    plt.close()
+    
 def main():
     plot_compare_between_runs(args.test_name, args.num_run_start, args.num_run_end, args.train_valid_test, input_path, output_path)
 
