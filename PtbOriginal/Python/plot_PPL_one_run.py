@@ -74,6 +74,7 @@ def plot_PPL_one_run(test_name, num_run, input_path, output_path):
     ax.plot(train_steps, test_PPL, color="red", linewidth=1.0, linestyle="-", label = 'test')
     ax.legend(loc='upper right', fontsize=10)
     fig.savefig(output_path + '/' + test_name + '_' + str(num_run)+ '.png')
+    plt.close()
 
 def main():
     plot_PPL_one_run(args.test_name, args.num_run, input_path, output_path)
