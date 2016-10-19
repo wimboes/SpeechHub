@@ -10,7 +10,7 @@ import sys
 import numpy as np
 import matplotlib.pyplot as plt
 import argparse
-from plot_PPL_compare_between_runs import plot_compare_between_runs
+from plot_PPL_compare_between_runs import plot_compare_between_runs, plot_compare_between_runs_summary
 from plot_PPL_one_run import plot_PPL_one_run
 from plot_speed_compare_between_runs import plot_speed_compare_between_runs
 
@@ -38,6 +38,7 @@ def plot_everything(input_path, output_path):
 	plot_compare_between_runs(test_name, 0, dirsdic[test_name]-1, 'train', input_path, output_path)
 	plot_compare_between_runs(test_name, 0, dirsdic[test_name]-1, 'test', input_path, output_path)
 	plot_compare_between_runs(test_name, 0, dirsdic[test_name]-1, 'valid', input_path, output_path)
+	plot_compare_between_runs_summary(test_name, 0, dirsdic[test_name]-1, input_path, output_path)
     	plot_speed_compare_between_runs(test_name, 0, dirsdic[test_name]-1, input_path, output_path)
     	for i in xrange(dirsdic[test_name]):
         	plot_PPL_one_run(test_name, i, input_path, output_path)
