@@ -1,0 +1,6 @@
+- hidden_size, embedded_size: as expected, hoe hoger hoe beter maar hoe trager (512,256 het beste maar hoger niet getest)
+- init_scale, learning_rate: init_scale 1 gefaald door early stopping (PPL e9,e12), beste init 0.05 en lr 1.0 -> vooral init_scale niet te groot maken
+- loss function: sampled_softmax beter ?!?! en sneller (sampled_softmax felle overfitting?)
+- num_layers faalt vanaf 3, beste is blijkbaar 1 (misschien omwille van grootte data)
+- num_steps,batch_size: beste (20,20), slechtste (50,40) -> ergens optimum, impact niet heel duidelijk
+- optimizers: beste gradient descent ??!! adadelta extreem slecht, adam extreem traag
