@@ -11,7 +11,7 @@ import time
 import numpy as np
 
 if 'LD_LIBRARY_PATH' not in os.environ:
-        os.environ['LD_LIBRARY_PATH'] = '/users/spraak/jpeleman/tf/lib/python2.7/site-packages:/users/spraak/jpeleman/tf/cuda/lib64:/usr/local/cuda/lib64'
+        os.environ['LD_LIBRARY_PATH'] = '/users/spraak/jpeleman/tf/lib/python2.7/site-packages:/users/spraak/jpeleman/tf/cuda/lib64:/usr/local/cuda/lib64:/usr/local/cuda-7.5/lib64:/usr/local/cuda-8.0/lib64:/usr/local/cuda-7.5/targets/x86_64-linux/lib'
         try:
             	os.system('/users/start2014/r0385169/bin/python ' + ' '.join(sys.argv))
                 sys.exit(0)
@@ -316,10 +316,10 @@ def main(_):
 				valid_np= np.append(valid_np, val_np, axis=0)
                 		
 				#early stopping
-                		early_stopping = 3; #new valid_PPL will be compared to the previous 3 valid_PPL
-                		if i>early_stopping-1:
-                    			if valid_np[i+1][2] > np.mean(valid_np[i+1-early_stopping:],axis=0)[2]:
-                        			break
+        			#early_stopping = 3; #new valid_PPL will be compared to the previous 3 valid_PPL
+                		#if i>early_stopping-1:
+                    			#if valid_np[i+1][2] > np.mean(valid_np[i+1-early_stopping:],axis=0)[2]:
+                        			#break
 
 			test_perplexity, test_np = run_epoch(session, mtest)
 			print("Test Perplexity: %.3f" % test_perplexity)
