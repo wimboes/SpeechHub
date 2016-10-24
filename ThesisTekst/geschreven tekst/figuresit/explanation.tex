@@ -100,7 +100,7 @@ This parameter indicates which optimizing algorithm (available in the Tensorflow
 	\item \textit{"GradDesc"}: gradient descent algorithm.
 	\item \textit{"Adadelta"}: Adadelta algorithm, does not use learning rate parameters \textbf{learning\_rate}, \textbf{lr\_decay} and \textbf{max\_epoch}.
 	\item \textit{"Adagrad"}: Adagrad algorithm.
-	\item \textit{"Momentum"}: Momentum algorithm, with a fixed momentum term of 0.33 (arbritary value).
+	\item \textit{"Momentum"}: Momentum algorithm, with a fixed momentum term of 0.33 (arbitrary value).
 	\item \textit{"Adam"}: Adam algorithm, does not use learning rate parameters \textbf{learning\_rate}, \textbf{lr\_decay} and \textbf{max\_epoch}.	
 
 \end{itemize}
@@ -115,9 +115,9 @@ This parameter indicates which loss function is used by the optimizer (see secti
 	\item \textit{"sequence\_loss\_by\_example"}: average negative log probability of the target words:
 	\[ \text{loss} = -\frac{1}{N} \sum_{i=1}^{N} \ln p_{target_{i}} \]
 	\noindent
-	with $p_{target_{i}}$ the probablity indicated by the output of the language model (see section \ref{sec:setup}) and N the length of the considered text piece (\textbf{num\_steps}).
+	with $p_{target_{i}}$ the probability indicated by the output of the language model (see section \ref{sec:setup}) on the position of the target word and N the length of the considered text piece (\textbf{num\_steps}). This corresponds to the Shannon-McMillan-Breimann approximation of the cross-entropy of the language model \cite{cross}.
 	
-	\item \textit{"sampled\_softmax"}: same loss function as above with some modifications. For the above loss function, for each target word the probability of every word in the vocabulary needs to be computed to obtain  the properly normalized probability $p_{target_{i}}$. For vocabularies that are large, this is impractical. Hence, this loss function samples the vocabulary (32 samples in this case) to compute an approximation of the properly normalized $p_{target_{i}}$, this speeds up training. This loss function can only be used during training, not during inference (because the probability is not properly normalized).
+	\item \textit{"sampled\_softmax"}: same loss function as above with some modifications. For the above loss function, for each target word the probability of every word in the vocabulary needs to be computed to obtain  the properly normalized probability $p_{target_{i}}$. For vocabularies that are large, this is impractical. Hence, this loss function samples the vocabulary (32 samples in this case) to compute an approximation of the properly normalized $p_{target_{i}}$, this speeds up training. This loss function can only be used during training, not during inference (because the probability is not properly normalized) \cite{sampled}.
 	
 \end{itemize}
 
@@ -145,7 +145,7 @@ The names of the subsections (one subsection for each experiment) in section \re
 
 This section contains the results and conclusions of the different experiments as described in section \ref{subsec:perf}. As mentioned there, the names of the subsections in this section refer to the variable parameters of the experiment. Each figure shows the different values of the variable parameters as well as the values of the fixed parameters.\\
 \\
-Some of the figures display the test/validation perplexity as a function of the number of training epochs. The (average-per-word) test/validation perplexity is equal to the exponential value of the average negative log probability of the target (test/validation) words:
+Some of the figures display the test/validation perplexity as a function of the number of training epochs. The (average-per-word) test/validation perplexity is equal to the exponential value of the average negative log probability (cross-entropy) of the target (test/validation) words:
 
 \[ e^{-\frac{1}{N} \sum_{i=1}^{N} \ln p_{target_{i}}} \]
 
@@ -316,6 +316,12 @@ The most interesting conclusions that could be drawn from these experiments are 
 	
 	\bibitem{exp}
 	\textit{http://www.wildml.com/2015/10/recurrent-neural-networks-tutorial-part-3-backpropagation-through-time-and-vanishing-gradients/}
+	
+	\bibitem{cross}
+	\textit{http://homes.esat.kuleuven.be/~jpeleman/wim\_en\_robbe/jurafsky04.pdf}
+	
+	\bibitem{sampled}
+	\textit{https://arxiv.org/pdf/1412.2007v2.pdf}
 	
 \end{thebibliography}
 	
