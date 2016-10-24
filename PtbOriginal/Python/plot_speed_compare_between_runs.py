@@ -144,7 +144,7 @@ def plot_speed_compare_between_runs(test_name, num_run_start, num_run_end, input
         barlist[i].set_color(colors[i])
 	barlist[i].set_label(labels[i])
 
-    fig.suptitle('Compare speed plot of ' + test_name + ' from ' + str(num_run_start) + ' to ' + str(num_run_end), fontsize=14, fontweight='bold')
+    #fig.suptitle('Compare speed plot of ' + test_name + ' from ' + str(num_run_start) + ' to ' + str(num_run_end), fontsize=14, fontweight='bold')
     ax.set_title(title, fontsize=7)
     plt.subplots_adjust(top=.855, bottom=.20)
     ax.set_xlabel('Runs')

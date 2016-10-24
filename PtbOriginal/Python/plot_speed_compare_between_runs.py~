@@ -46,13 +46,14 @@ def plot_speed_compare_between_runs(test_name, num_run_start, num_run_end, input
     #select correct part of the data
     data_steps = np.array([data_np[i][0]+data_np[i][1] for i in range(0,len(data_np))])
     data_speed = np.array([data_np[i][3] for i in range(0,len(data_np))])
-    data_speed_mean = np.mean(data_speed[3:])
-    data_speed_std = np.std(data_speed[3:])
 
     #cancel zero's in data_speed
     for i in range(len(data_speed)):
         if data_speed[i] == 0:
             data_speed[i] = data_speed[i-1]
+
+    data_speed_mean = np.mean(data_speed[3:])
+    data_speed_std = np.std(data_speed[3:])
     
     #determine axis limits
     min_lims[0] = np.percentile(data_speed,5)
@@ -87,8 +88,7 @@ def plot_speed_compare_between_runs(test_name, num_run_start, num_run_end, input
         
         data_steps = np.array([data_np[i][0]+data_np[i][1] for i in range(0,len(data_np))])
         data_speed = np.array([data_np[i][3] for i in range(0,len(data_np))])
-	data_speed_mean = np.append(data_speed_mean,np.mean(data_speed[3:]))
-    	data_speed_std = np.append(data_speed_std,np.std(data_speed[3:]))
+	
 
 	#cancel zero's in data_speed
     	for i in range(len(data_speed)):
@@ -96,6 +96,9 @@ def plot_speed_compare_between_runs(test_name, num_run_start, num_run_end, input
             		data_speed[i] = data_speed[i-1]
         min_lims[run-num_run_start] = np.percentile(data_speed,5)
         max_lims[run-num_run_start] = np.max(data_speed) +5
+
+	data_speed_mean = np.append(data_speed_mean,np.mean(data_speed[3:]))
+    	data_speed_std = np.append(data_speed_std,np.std(data_speed[3:]))
 
         label = ''
         param_np = data['param_train_np']

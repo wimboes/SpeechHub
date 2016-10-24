@@ -168,7 +168,7 @@ def plot_compare_between_runs_summary(test_name, num_run_start, num_run_end, inp
         ax.plot(data_steps, test_PPL, color=colors[run % len(colors)], linestyle='--')    
         ax.plot(data_steps, valid_PPL, color=colors[run % len(colors)], linestyle='-', label = label)
 
-    fig.suptitle('Compare valid en test plot of ' + test_name + ' from ' + str(num_run_start) + ' to ' + str(num_run_end), fontsize=14, fontweight='bold')
+    #fig.suptitle('Compare valid en test plot of ' + test_name + ' from ' + str(num_run_start) + ' to ' + str(num_run_end), fontsize=14, fontweight='bold')
     ax.set_title(title, fontsize=7)
     plt.subplots_adjust(top=.855, bottom=.25)
     ax.set_xlabel('Epochs')

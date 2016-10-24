@@ -123,7 +123,7 @@ def plot_compare_between_runs_summary(test_name, num_run_start, num_run_end, inp
     test_PPL = test_np[0][2] +0*data_steps
 
     min_lims[0] = np.min(np.concatenate((valid_PPL,test_PPL),axis=0))-5
-    max_lims[0] = np.percentile(np.concatenate((valid_PPL,test_PPL),axis=0),85)
+    max_lims[0] = np.percentile(np.concatenate((valid_PPL,test_PPL),axis=0),95)
         
     label = ''
     title = ''
@@ -156,7 +156,7 @@ def plot_compare_between_runs_summary(test_name, num_run_start, num_run_end, inp
         test_PPL = test_np[0][2] +0*data_steps
 
         min_lims[run-num_run_start] = np.min(np.concatenate((valid_PPL,test_PPL),axis=0))-5
-        max_lims[run-num_run_start] = np.percentile(np.concatenate((valid_PPL,test_PPL),axis=0),85)
+        max_lims[run-num_run_start] = np.percentile(np.concatenate((valid_PPL,test_PPL),axis=0),95)
 
         label = ''
         param_np = data['param_train_np']
