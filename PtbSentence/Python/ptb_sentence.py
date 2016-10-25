@@ -206,14 +206,15 @@ def get_loss_function(output, softmax_w, softmax_b,targets, batch_size, num_step
         if FLAGS.loss_function == "sequence_loss_by_example":
 		logits = tf.matmul(output, softmax_w) + softmax_b
 		cost = tf.constant(0, dtype=data_type())
+		vocab = tf.constant([[FLAGS.vocab_size]], dtype=tf.int32)
   		zero = tf.constant(0, dtype=tf.int32)
 		for i in xrange(batch_size):
 		    where = tf.equal(tf.slice(targets, [i,0], [1,num_steps]), zero)
 		    where = tf.cast(tf.where(where), tf.int32)      
-		    index = tf.slice(where, [0,0], [1,1])
-#		    span = tf.pack([tf.constant([[1]], dtype=tf.int32),index])
-		    span = tf.reshape(index,[-1])      
-		    cost += tf.nn.seq2seq.sequence_loss_by_example(tf.slice(logits, [i,0], [span,FLAGS.vocab_size])],[tf.slice(tf.reshape(targets,[-1]), [i], span)], [tf.ones(span, dtype=data_type())])
+		    index = tf.constant([[10]], dtype=tf.int32)#tf.slice(where, [0,0], [1,1])  
+		    rng1 = tf.reshape(index,[-1])
+ 		    rng2 = tf.reshape(tf.concat(0,[index, vocab]),[-1])
+		    cost += tf.nn.seq2seq.sequence_loss_by_example([tf.slice(logits, [i*num_steps,0], rng2)],[tf.slice(tf.reshape(targets,[-1]), [i*num_steps], rng1)], [tf.ones(rng1, dtype=data_type())])
 		return cost
 	if FLAGS.loss_function == 'sampled_softmax':
 		if is_training:

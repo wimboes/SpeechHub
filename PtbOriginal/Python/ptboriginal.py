@@ -77,7 +77,7 @@ class PTBModel(object):
 
 	def __init__(self, is_training, config, input_):
 		self._input = input_
-
+		print('targets = ' + str(input_.targets.get_shape()))
 		batch_size = input_.batch_size
 		num_steps = input_.num_steps
 		size = config.hidden_size
@@ -94,12 +94,14 @@ class PTBModel(object):
 		cell = tf.nn.rnn_cell.MultiRNNCell([lstm_cell] * config.num_layers, state_is_tuple=True)
 
 		self._initial_state = cell.zero_state(batch_size, data_type())
+		#print('initial_state = ' + str(self._initial_state[0].get_shape()))
 
 		with tf.device("/cpu:0"):
-			embedding = tf.get_variable(
-					"embedding", [vocab_size, embedded_size], dtype=data_type())
+			embedding = tf.get_variable("embedding", [vocab_size, embedded_size], dtype=data_type())
+			print('embedding = ' + str(embedding.get_shape()))
 			inputs = tf.nn.embedding_lookup(embedding, input_.input_data)
-
+   			print('input = ' + str(input_.input_data.get_shape()))
+			print('inputs = ' + str(inputs.get_shape()))
 		if is_training and config.keep_prob < 1:
 			inputs = tf.nn.dropout(inputs, config.keep_prob)
 
@@ -119,8 +121,11 @@ class PTBModel(object):
 				if time_step > 0: tf.get_variable_scope().reuse_variables()
 				(cell_output, state) = cell(inputs[:, time_step, :], state)
 				outputs.append(cell_output)
-
+				print('cell_output = ' + str(cell_output.get_shape()))
+ 				print('outputs = ' + str(np.shape(outputs)))  
+      			print('outputs = ' + str(outputs[0].get_shape()))  
 		output = tf.reshape(tf.concat(1, outputs), [-1, size])
+		print('output = ' + str(output.get_shape()))
 		softmax_w = tf.get_variable(
 				"softmax_w", [size, vocab_size], dtype=data_type())
 		softmax_b = tf.get_variable("softmax_b", [vocab_size], dtype=data_type())
