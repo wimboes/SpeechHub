@@ -10,17 +10,17 @@ import sys
 import time
 import numpy as np
 
-if 'LD_LIBRARY_PATH' not in os.environ:
-        os.environ['LD_LIBRARY_PATH'] = '/users/spraak/jpeleman/tf/lib/python2.7/site-packages:/users/spraak/jpeleman/tf/cuda/lib64:/usr/local/cuda/lib64'
-        try:
-            	os.system('/users/start2014/r0385169/bin/python ' + ' '.join(sys.argv))
-                sys.exit(0)
-        except Exception, exc:
-                print('Failed re_exec:', exc)
-                sys.exit(1)
+#if 'LD_LIBRARY_PATH' not in os.environ:
+#        os.environ['LD_LIBRARY_PATH'] = '/users/spraak/jpeleman/tf/lib/python2.7/site-packages:/users/spraak/jpeleman/tf/cuda/lib64:/usr/local/cuda/lib64'
+#        try:
+#            	os.system('/users/start2014/r0385169/bin/python ' + ' '.join(sys.argv))
+#                sys.exit(0)
+#        except Exception, exc:
+#                print('Failed re_exec:', exc)
+#                sys.exit(1)
 
 import tensorflow as tf
-import reader
+import reader_sentence
 
 python_path = os.path.abspath(os.getcwd())
 general_path = os.path.split(python_path)[0]
@@ -35,16 +35,16 @@ logging = tf.logging
 flags.DEFINE_float("init_scale", 0.05, "init_scale")
 flags.DEFINE_float("learning_rate", 1, "learning_rate")
 flags.DEFINE_float("max_grad_norm", 5, "max_grad_norm")
-flags.DEFINE_integer("num_layers", 2, "num_layers")
+flags.DEFINE_integer("num_layers", 1, "num_layers")
 #flags.DEFINE_integer("num_steps", 35, "num_steps")
-flags.DEFINE_integer("hidden_size", 512, "hidden_size")
+flags.DEFINE_integer("hidden_size", 256, "hidden_size")
 flags.DEFINE_integer("max_epoch", 6, "max_epoch")
-flags.DEFINE_integer("max_max_epoch", 39, "max_max_epoch")
+flags.DEFINE_integer("max_max_epoch", 32, "max_max_epoch")
 flags.DEFINE_float("keep_prob", 0.5, "keep_prob")
 flags.DEFINE_float("lr_decay", 0.8, "lr_decay")
 flags.DEFINE_integer("batch_size", 20, "batch_size")
-flags.DEFINE_integer("vocab_size", 10000, "vocab_size")
-flags.DEFINE_integer("embedded_size", 256, "embedded_size")
+flags.DEFINE_integer("vocab_size", 10002, "vocab_size")
+flags.DEFINE_integer("embedded_size", 128, "embedded_size")
 flags.DEFINE_integer("num_run", 0, "num_run")
 flags.DEFINE_string("test_name","askoy","test_name")
 flags.DEFINE_string("optimizer","GradDesc","optimizer")
@@ -63,12 +63,13 @@ def data_type():
 class PTBInput(object):
 	"""The input data."""
 
-	def __init__(self, config, data, name=None):
+	def __init__(self, config, num_steps, data, name=None):
 		self.batch_size = batch_size = config.batch_size
-		self.input_data, self.targets, num_steps = reader.ptb_producer(
-				data, batch_size, name=name)
   		self.num_steps = num_steps
-		self.epoch_size = ((len(data) // batch_size) - 1) // num_steps
+		self.epoch_size = (len(data) // batch_size)
+		self.input_data, self.targets = reader_sentence.ptb_producer(
+				data, batch_size, num_steps, name=name)
+
 
 
 class PTBModel(object):
@@ -204,7 +205,16 @@ def get_optimizer(lr):
 def get_loss_function(output, softmax_w, softmax_b,targets, batch_size, num_steps, is_training):
         if FLAGS.loss_function == "sequence_loss_by_example":
 		logits = tf.matmul(output, softmax_w) + softmax_b
-		return tf.nn.seq2seq.sequence_loss_by_example([logits],[tf.reshape(targets, [-1])], [tf.ones([batch_size * num_steps], dtype=data_type())])
+		cost = tf.constant(0, dtype=data_type())
+  		zero = tf.constant(0, dtype=tf.int32)
+		for i in xrange(batch_size):
+		    where = tf.equal(tf.slice(targets, [i,0], [1,num_steps]), zero)
+		    where = tf.cast(tf.where(where), tf.int32)      
+		    index = tf.slice(where, [0,0], [1,1])
+#		    span = tf.pack([tf.constant([[1]], dtype=tf.int32),index])
+		    span = tf.reshape(index,[-1])      
+		    cost += tf.nn.seq2seq.sequence_loss_by_example(tf.slice(logits, [i,0], [span,FLAGS.vocab_size])],[tf.slice(tf.reshape(targets,[-1]), [i], span)], [tf.ones(span, dtype=data_type())])
+		return cost
 	if FLAGS.loss_function == 'sampled_softmax':
 		if is_training:
 			return tf.nn.sampled_softmax_loss(tf.transpose(softmax_w), softmax_b, output, tf.reshape(targets, [-1, 1]), 512, FLAGS.vocab_size)
@@ -223,7 +233,7 @@ def run_epoch(session, model, eval_op=None, verbose=False, epoch_nb = 0):
 
 	fetches = {
 			"cost": model.cost,
-			"final_state": model.final_state,
+			"initial_state": model.initial_state, #aangepast!!!!!!!!!!!!!!!!!!
 	}
 	if eval_op is not None:
 		fetches["eval_op"] = eval_op
@@ -240,6 +250,11 @@ def run_epoch(session, model, eval_op=None, verbose=False, epoch_nb = 0):
 
 		costs += cost
 		iters += model.input.num_steps
+  		print(iters)
+  		print(costs)
+    		print(cost)
+
+
 
 		if verbose and step % (model.input.epoch_size // 10) == 10:
 			print("%.3f perplexity: %.3f speed: %.0f wps" %
@@ -259,8 +274,8 @@ def main(_):
     	if not FLAGS.data_path:
         	raise ValueError("Must set --data_path to PTB data directory")
     
-    	raw_data = reader.ptb_raw_data(FLAGS.data_path)
-    	train_data, valid_data, test_data, _ = raw_data
+    	raw_data = reader_sentence.ptb_raw_data(FLAGS.data_path)
+    	train_data, valid_data, test_data, _, num_steps = raw_data
     
     	config = get_config()
     	eval_config = get_config()
@@ -270,27 +285,27 @@ def main(_):
 		initializer = tf.random_uniform_initializer(-config.init_scale, config.init_scale)
 
 		with tf.name_scope("Train"):
-			train_input = PTBInput(config=config, data=train_data, name="TrainInput")
+			train_input = PTBInput(config=config, num_steps=num_steps, data=train_data, name="TrainInput")
 			with tf.variable_scope("Model", reuse=None, initializer=initializer):
 				m = PTBModel(is_training=True, config=config, input_=train_input)
 			tf.scalar_summary("Training Loss", m.cost)
 			tf.scalar_summary("Learning Rate", m.lr)
 
 		with tf.name_scope("Valid"):
-			valid_input = PTBInput(config=config, data=valid_data, name="ValidInput")
+			valid_input = PTBInput(config=config, num_steps=num_steps, data=valid_data, name="ValidInput")
 			with tf.variable_scope("Model", reuse=True, initializer=initializer):
 				mvalid = PTBModel(is_training=False, config=config, input_=valid_input)
 			tf.scalar_summary("Validation Loss", mvalid.cost)
 
 		with tf.name_scope("Test"):
-			test_input = PTBInput(config=config, data=test_data, name="TestInput")
+			test_input = PTBInput(config=config,num_steps=num_steps, data=test_data, name="TestInput")
 			with tf.variable_scope("Model", reuse=True, initializer=initializer):
 				mtest = PTBModel(is_training=False, config=eval_config,
 												 input_=test_input)
 				
 		param_train_np = np.array([['init_scale',config.init_scale], ['learning_rate', config.learning_rate],
 								['max_grad_norm', config.max_grad_norm], ['num_layers', config.num_layers],
-								['num_steps', 'langste zin in data'], ['hidden_size', config.hidden_size], ['embedded_size', config.embedded_size],
+								['num_steps', num_steps], ['hidden_size', config.hidden_size], ['embedded_size', config.embedded_size],
 								['max_epoch', config.max_epoch], ['max_max_epoch', config.max_max_epoch],
 								['keep_prob', config.keep_prob], ['lr_decay', config.lr_decay],
 								['batch_size', config.batch_size], ['vocab_size', config.vocab_size],
@@ -324,12 +339,10 @@ def main(_):
 #			test_perplexity, test_np = run_epoch(session, mtest)
 #			print("Test Perplexity: %.3f" % test_perplexity)
                 test_np = np.array([[0,0,0,0]])
-
-			if FLAGS.save_path:
+                if FLAGS.save_path:
 				print("Saving model to %s." % (FLAGS.save_path + '/' + FLAGS.test_name + '_' + str(FLAGS.num_run)  + '/' + FLAGS.test_name + '_' + str(FLAGS.num_run)))
 				sv.saver.save(session, FLAGS.save_path + '/' + FLAGS.test_name + '_' + str(FLAGS.num_run) + '/' + FLAGS.test_name + '_'  + str(FLAGS.num_run), global_step=sv.global_step)
-			
-			np.savez((FLAGS.save_path + '/' + FLAGS.test_name + '_' + str(FLAGS.num_run)+ '/results' +'.npz'), param_train_np = param_train_np, 
+                np.savez((FLAGS.save_path + '/' + FLAGS.test_name + '_' + str(FLAGS.num_run)+ '/results' +'.npz'), param_train_np = param_train_np, 
 					train_np = train_np[1:], valid_np=valid_np[1:], test_np = test_np)
 
 if __name__ == "__main__":

@@ -10,14 +10,14 @@ import sys
 import time
 import numpy as np
 
-if 'LD_LIBRARY_PATH' not in os.environ:
-        os.environ['LD_LIBRARY_PATH'] = '/users/spraak/jpeleman/tf/lib/python2.7/site-packages:/users/spraak/jpeleman/tf/cuda/lib64:/usr/local/cuda/lib64:/usr/local/cuda-7.5/lib64:/usr/local/cuda-8.0/lib64:/usr/local/cuda-7.5/targets/x86_64-linux/lib'
-        try:
-            	os.system('/users/start2014/r0385169/bin/python ' + ' '.join(sys.argv))
-                sys.exit(0)
-        except Exception, exc:
-                print('Failed re_exec:', exc)
-                sys.exit(1)
+#if 'LD_LIBRARY_PATH' not in os.environ:
+#        os.environ['LD_LIBRARY_PATH'] = '/users/spraak/jpeleman/tf/lib/python2.7/site-packages:/users/spraak/jpeleman/tf/cuda/lib64:/usr/local/cuda/lib64:/usr/local/cuda-7.5/lib64:/usr/local/cuda-8.0/lib64:/usr/local/cuda-7.5/targets/x86_64-linux/lib'
+#        try:
+#            	os.system('/users/start2014/r0385169/bin/python ' + ' '.join(sys.argv))
+#                sys.exit(0)
+#        except Exception, exc:
+#                print('Failed re_exec:', exc)
+#                sys.exit(1)
 
 import tensorflow as tf
 import reader
@@ -35,16 +35,16 @@ logging = tf.logging
 flags.DEFINE_float("init_scale", 0.05, "init_scale")
 flags.DEFINE_float("learning_rate", 1, "learning_rate")
 flags.DEFINE_float("max_grad_norm", 5, "max_grad_norm")
-flags.DEFINE_integer("num_layers", 2, "num_layers")
-flags.DEFINE_integer("num_steps", 35, "num_steps")
-flags.DEFINE_integer("hidden_size", 512, "hidden_size")
+flags.DEFINE_integer("num_layers", 1, "num_layers")
+flags.DEFINE_integer("num_steps", 84, "num_steps")
+flags.DEFINE_integer("hidden_size", 256, "hidden_size")
 flags.DEFINE_integer("max_epoch", 6, "max_epoch")
-flags.DEFINE_integer("max_max_epoch", 39, "max_max_epoch")
+flags.DEFINE_integer("max_max_epoch", 32, "max_max_epoch")
 flags.DEFINE_float("keep_prob", 0.5, "keep_prob")
 flags.DEFINE_float("lr_decay", 0.8, "lr_decay")
 flags.DEFINE_integer("batch_size", 20, "batch_size")
 flags.DEFINE_integer("vocab_size", 10000, "vocab_size")
-flags.DEFINE_integer("embedded_size", 256, "embedded_size")
+flags.DEFINE_integer("embedded_size", 128, "embedded_size")
 flags.DEFINE_integer("num_run", 0, "num_run")
 flags.DEFINE_string("test_name","askoy","test_name")
 flags.DEFINE_string("optimizer","GradDesc","optimizer")
@@ -67,6 +67,7 @@ class PTBInput(object):
 		self.batch_size = batch_size = config.batch_size
 		self.num_steps = num_steps = config.num_steps
 		self.epoch_size = ((len(data) // batch_size) - 1) // num_steps
+		print('epoch size = ' + str(self.epoch_size))
 		self.input_data, self.targets = reader.ptb_producer(
 				data, batch_size, num_steps, name=name)
 
@@ -240,7 +241,10 @@ def run_epoch(session, model, eval_op=None, verbose=False, epoch_nb = 0):
 
 		costs += cost
 		iters += model.input.num_steps
-
+		print(iters)
+		print(costs)
+		print(cost)
+  
 		if verbose and step % (model.input.epoch_size // 10) == 10:
 			print("%.3f perplexity: %.3f speed: %.0f wps" %
 						(step * 1.0 / model.input.epoch_size, np.exp(costs / iters),
