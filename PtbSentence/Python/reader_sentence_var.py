@@ -101,7 +101,7 @@ def ptb_producer(raw_data, batch_size, num_steps, name=None):
         data_targets = tf.reshape(raw_data[0 : batch_size * (nb_sentences// batch_size),1:],
                                  [batch_size , (nb_sentences// batch_size) * sentence_length])
 
-        epoch_size = (sentence_length/num_steps) * (nb_sentences// batch_size)
+        epoch_size = (sentence_length//num_steps) * (nb_sentences// batch_size)
         i = tf.train.range_input_producer(epoch_size, shuffle=False).dequeue()
 
         x = tf.slice(data_train, [0, i*(num_steps)], [batch_size, num_steps])

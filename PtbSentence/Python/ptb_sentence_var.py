@@ -20,7 +20,7 @@ import numpy as np
 #                sys.exit(1)
 
 import tensorflow as tf
-import reader_sentence
+import reader_sentence_var
 
 python_path = os.path.abspath(os.getcwd())
 general_path = os.path.split(python_path)[0]
@@ -36,7 +36,7 @@ flags.DEFINE_float("init_scale", 0.05, "init_scale")
 flags.DEFINE_float("learning_rate", 1, "learning_rate")
 flags.DEFINE_float("max_grad_norm", 5, "max_grad_norm")
 flags.DEFINE_integer("num_layers", 1, "num_layers")
-#flags.DEFINE_integer("num_steps", 35, "num_steps")
+flags.DEFINE_integer("num_steps", 10, "num_steps")
 flags.DEFINE_integer("hidden_size", 256, "hidden_size")
 flags.DEFINE_integer("max_epoch", 6, "max_epoch")
 flags.DEFINE_integer("max_max_epoch", 32, "max_max_epoch")
@@ -63,11 +63,11 @@ def data_type():
 class PTBInput(object):
 	"""The input data."""
 
-	def __init__(self, config, num_steps, data, name=None):
+	def __init__(self, config, data, name=None):
 		self.batch_size = batch_size = config.batch_size
-  		self.num_steps = num_steps
+  		self.num_steps = num_steps = config.num_steps
 		self.epoch_size = (len(data) // batch_size)
-		self.input_data, self.targets = reader_sentence.ptb_producer(
+		self.input_data, self.targets = reader_sentence_var.ptb_producer(
 				data, batch_size, num_steps, name=name)
 
 
@@ -177,7 +177,7 @@ class Config(object):
 	learning_rate = FLAGS.learning_rate
 	max_grad_norm = FLAGS.max_grad_norm
 	num_layers = FLAGS.num_layers
-	#num_steps = FLAGS.num_steps
+	num_steps = FLAGS.num_steps
 	hidden_size = FLAGS.hidden_size
 	max_epoch = FLAGS.max_epoch
 	max_max_epoch = FLAGS.max_max_epoch
@@ -210,12 +210,12 @@ def get_loss_function(output, softmax_w, softmax_b,targets, batch_size, num_step
   		zero = tf.constant(0, dtype=tf.int32)
 		for i in xrange(batch_size):
 		    where1 = tf.equal(tf.slice(targets, [i,0], [1,num_steps]), zero)
-		    where2 = tf.cast(tf.where(where1), tf.int32)      
-		    index = tf.slice(where2, [0,1], [1,1])
+		    where2 = tf.cast(tf.where(where1), tf.int32)         
+		    index = tf.cond(tf.equal(tf.size(where2), zero), lambda: tf.constant([[num_steps]]),lambda: tf.slice(where2, [0,1], [1,1]))
 		    rng1 = tf.reshape(index,[-1])
- 		    rng2 = tf.reshape(tf.concat(0,[index, vocab]),[-1])
-		    loss = tf.nn.seq2seq.sequence_loss_by_example([tf.slice(logits, [i*num_steps,0], rng2)],[tf.slice(tf.reshape(targets,[-1]), [i*num_steps], rng1)], [tf.ones(rng1, dtype=data_type())])
-		    cost += tf.reduce_sum(loss) / tf.cast(index, dtype=data_type())
+		    rng2 = tf.reshape(tf.concat(0,[index, vocab]),[-1])
+		    loss = tf.cond(tf.equal(index[0,0],zero), lambda: tf.constant([[0]],dtype=data_type()), lambda: tf.reduce_sum(tf.nn.seq2seq.sequence_loss_by_example([tf.slice(logits, [i*num_steps,0], rng2)],[tf.slice(tf.reshape(targets,[-1]), [i*num_steps], rng1)], [tf.ones(rng1, dtype=data_type())]))/ tf.cast(index, dtype=data_type()))
+ 		    cost += loss
 		return cost
 	if FLAGS.loss_function == 'sampled_softmax':
 		if is_training:
@@ -235,7 +235,7 @@ def run_epoch(session, model, eval_op=None, verbose=False, epoch_nb = 0):
 
 	fetches = {
 			"cost": model.cost,
-			"initial_state": model.initial_state, #aangepast!!!!!!!!!!!!!!!!!!
+			"final_state": model.final_state
 	}
 	if eval_op is not None:
 		fetches["eval_op"] = eval_op
@@ -248,10 +248,12 @@ def run_epoch(session, model, eval_op=None, verbose=False, epoch_nb = 0):
 
 		vals = session.run(fetches, feed_dict)
 		cost = vals["cost"]
-		state = vals["initial_state"] #aangepast!!!!!!!!!!!!!!!!!!
-
+		state = vals["final_state"]
 		costs += cost
 		iters += 1          
+          
+		print(cost)
+ 		print(costs) 
 
 		if verbose and step % (model.input.epoch_size // 10) == 10:
 			print("%.3f perplexity: %.3f speed: %.0f wps" %
@@ -271,38 +273,38 @@ def main(_):
     	if not FLAGS.data_path:
         	raise ValueError("Must set --data_path to PTB data directory")
     
-    	raw_data = reader_sentence.ptb_raw_data(FLAGS.data_path)
-    	train_data, valid_data, test_data, _, num_steps = raw_data
+    	raw_data = reader_sentence_var.ptb_raw_data(FLAGS.num_steps,FLAGS.data_path)
+    	train_data, valid_data, test_data, _ = raw_data
     
     	config = get_config()
     	eval_config = get_config()
     	eval_config.batch_size = 1
-    	#eval_config.num_steps = 1
+    	eval_config.num_steps = 1
     	with tf.Graph().as_default():
 		initializer = tf.random_uniform_initializer(-config.init_scale, config.init_scale)
 
 		with tf.name_scope("Train"):
-			train_input = PTBInput(config=config, num_steps=num_steps, data=train_data, name="TrainInput")
+			train_input = PTBInput(config=config, data=train_data, name="TrainInput")
 			with tf.variable_scope("Model", reuse=None, initializer=initializer):
 				m = PTBModel(is_training=True, config=config, input_=train_input)
 			tf.scalar_summary("Training Loss", m.cost)
 			tf.scalar_summary("Learning Rate", m.lr)
 
 		with tf.name_scope("Valid"):
-			valid_input = PTBInput(config=config, num_steps=num_steps, data=valid_data, name="ValidInput")
+			valid_input = PTBInput(config=config, data=valid_data, name="ValidInput")
 			with tf.variable_scope("Model", reuse=True, initializer=initializer):
 				mvalid = PTBModel(is_training=False, config=config, input_=valid_input)
 			tf.scalar_summary("Validation Loss", mvalid.cost)
 
 		with tf.name_scope("Test"):
-			test_input = PTBInput(config=config,num_steps=num_steps, data=test_data, name="TestInput")
+			test_input = PTBInput(config=config, data=test_data, name="TestInput")
 			with tf.variable_scope("Model", reuse=True, initializer=initializer):
 				mtest = PTBModel(is_training=False, config=eval_config,
 												 input_=test_input)
 				
 		param_train_np = np.array([['init_scale',config.init_scale], ['learning_rate', config.learning_rate],
 								['max_grad_norm', config.max_grad_norm], ['num_layers', config.num_layers],
-								['num_steps', num_steps], ['hidden_size', config.hidden_size], ['embedded_size', config.embedded_size],
+								['num_steps', config.num_steps], ['hidden_size', config.hidden_size], ['embedded_size', config.embedded_size],
 								['max_epoch', config.max_epoch], ['max_max_epoch', config.max_max_epoch],
 								['keep_prob', config.keep_prob], ['lr_decay', config.lr_decay],
 								['batch_size', config.batch_size], ['vocab_size', config.vocab_size],
@@ -333,8 +335,8 @@ def main(_):
                     			if valid_np[i+1][2] > np.mean(valid_np[i+1-early_stopping:],axis=0)[2]:
                         			break
 
-#			test_perplexity, test_np = run_epoch(session, mtest)
-#			print("Test Perplexity: %.3f" % test_perplexity)
+			test_perplexity, test_np = run_epoch(session, mtest)
+			print("Test Perplexity: %.3f" % test_perplexity)
                 test_np = np.array([[0,0,0,0]])
                 if FLAGS.save_path:
 				print("Saving model to %s." % (FLAGS.save_path + '/' + FLAGS.test_name + '_' + str(FLAGS.num_run)  + '/' + FLAGS.test_name + '_' + str(FLAGS.num_run)))
