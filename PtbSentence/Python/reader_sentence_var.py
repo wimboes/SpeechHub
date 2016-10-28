@@ -96,12 +96,14 @@ def ptb_producer(raw_data, batch_size, num_steps, name=None):
 
         nb_sentences = tf.shape(raw_data)[0]
         sentence_length = tf.size(raw_data[0])-1 # -1 owv targets
-        data_train = tf.reshape(raw_data[0 : batch_size * (nb_sentences// batch_size)][0:-2],
-                                           [batch_size * (sentence_length/num_steps), num_steps])
-        data_targets = tf.reshape(raw_data[0 : batch_size * (nb_sentences// batch_size)][1:-1],
-                                           [batch_size * (sentence_length/num_steps), num_steps])
+        data_train = tf.reshape(raw_data[0 : batch_size * (nb_sentences// batch_size),0:-1],
+                                 [batch_size , (nb_sentences// batch_size) * sentence_length])
+        data_targets = tf.reshape(raw_data[0 : batch_size * (nb_sentences// batch_size),1:],
+                                 [batch_size , (nb_sentences// batch_size) * sentence_length])
+
         epoch_size = (sentence_length/num_steps) * (nb_sentences// batch_size)
         i = tf.train.range_input_producer(epoch_size, shuffle=False).dequeue()
-        x = tf.slice(data_train, [0, i*(num_steps+1)], [batch_size, num_steps])
-        y = tf.slice(data_targets, [0, i*(num_steps+1)], [batch_size, num_steps])
+
+        x = tf.slice(data_train, [0, i*(num_steps)], [batch_size, num_steps])
+        y = tf.slice(data_targets, [0, i*(num_steps)], [batch_size, num_steps])
         return x, y
