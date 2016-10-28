@@ -216,7 +216,7 @@ def get_loss_function(output, softmax_w, softmax_b,targets, batch_size, num_step
  		    rng2 = tf.reshape(tf.concat(0,[index, vocab]),[-1])
 		    loss = tf.nn.seq2seq.sequence_loss_by_example([tf.slice(logits, [i*num_steps,0], rng2)],[tf.slice(tf.reshape(targets,[-1]), [i*num_steps], rng1)], [tf.ones(rng1, dtype=data_type())])
 		    cost += tf.reduce_sum(loss) / tf.cast(index, dtype=data_type())
-		return loss
+		return cost
 	if FLAGS.loss_function == 'sampled_softmax':
 		if is_training:
 			return tf.nn.sampled_softmax_loss(tf.transpose(softmax_w), softmax_b, output, tf.reshape(targets, [-1, 1]), 512, FLAGS.vocab_size)
