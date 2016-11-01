@@ -32,6 +32,16 @@ def plot_everything(input_path, output_path):
     dirsdic = dict()    
     for elem in dirsset:
     	dirsdic[elem] = dirs.count(elem)
+     
+    f = open(output_path + '/summary_resulst.txt', 'w')
+    f.write("{:<45}".format('TEST_NAME'))
+    f.write("{:<20}".format('LAST_TRAINING_PPL'))
+    f.write("{:<20}".format('LAST_VALID_PPL'))  
+    f.write("{:<20}".format('TEST_PPL'))  
+    f.write("{:<20}".format('AVERAGE_SPEED [WPS]'))
+    f.write("{:<20}".format('STD_SPEED'))  
+    f.write('\n')
+
 
     #printing
     for test_name in dirsdic.keys():
@@ -39,10 +49,10 @@ def plot_everything(input_path, output_path):
 	plot_compare_between_runs(test_name, 0, dirsdic[test_name]-1, 'test', input_path, output_path)
 	plot_compare_between_runs(test_name, 0, dirsdic[test_name]-1, 'valid', input_path, output_path)
 	plot_compare_between_runs_summary(test_name, 0, dirsdic[test_name]-1, input_path, output_path)
-    	plot_speed_compare_between_runs(test_name, 0, dirsdic[test_name]-1, input_path, output_path)
+    	plot_speed_compare_between_runs(test_name, 0, dirsdic[test_name]-1, input_path, output_path,f)
     	for i in xrange(dirsdic[test_name]):
         	plot_PPL_one_run(test_name, i, input_path, output_path)
-    
+    f.close() 
 
 def main():
     plot_everything(input_path, output_path)

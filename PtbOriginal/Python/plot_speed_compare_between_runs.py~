@@ -24,7 +24,7 @@ output_path = os.path.join(general_path,'Output/Figures')
 #                     type=int)
 # args = parser.parse_args()
 
-def plot_speed_compare_between_runs(test_name, num_run_start, num_run_end, input_path, output_path):
+def plot_speed_compare_between_runs(test_name, num_run_start, num_run_end, input_path, output_path,f):
 
     ###################################################
     # line chart
@@ -144,7 +144,7 @@ def plot_speed_compare_between_runs(test_name, num_run_start, num_run_end, input
         barlist[i].set_color(colors[i])
 	barlist[i].set_label(labels[i])
 
-    fig.suptitle('Compare speed plot of ' + test_name + ' from ' + str(num_run_start) + ' to ' + str(num_run_end), fontsize=14, fontweight='bold')
+    #fig.suptitle('Compare speed plot of ' + test_name + ' from ' + str(num_run_start) + ' to ' + str(num_run_end), fontsize=14, fontweight='bold')
     ax.set_title(title, fontsize=7)
     plt.subplots_adjust(top=.855, bottom=.20)
     ax.set_xlabel('Runs')
@@ -154,14 +154,15 @@ def plot_speed_compare_between_runs(test_name, num_run_start, num_run_end, input
     fig.savefig(output_path + '/' + test_name + '_from_' + str(num_run_start) + '_to_' + str(num_run_end) + '_speed_bar.png')
     plt.close()
 
-    #fig.subplots_adjust(top=0.86)
-    #fig.suptitle('Compare speed plot of ' + test_name + ' from ' + str(num_run_start) + ' to ' + str(num_run_end), fontsize=14, fontweight='bold')
-
-    #plt.xlabel('Run')
-    #plt.ylabel('WPS (words per second)')
-    
-    #plt.title(title, fontsize=7)
-    #plt.xticks(index + bar_width, labels, fontsize=5)
+    ###################################################
+    # write to file
+    ###################################################
+    for i in range(np.size(data_speed_mean)):
+        f.write("{:<35}".format(labels[i]))
+        f.write("{:<35}".format(str(data_speed_mean[i])))
+        f.write("{:<35}".format(str(data_speed_std[i])))
+        f.write('\n')
+ 
 
 def main():
     plot_speed_compare_between_runs(args.test_name, args.num_run_start, args.num_run_end, input_path, output_path)

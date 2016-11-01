@@ -10,10 +10,10 @@ import tensorflow as tf
 
 def read_sentences(filename):
     with tf.gfile.GFile(filename, "r") as f:
-         sentences = f.read().decode("utf-8").replace("\n", "<eos>").split("<eos>")
-         for i in xrange(len(sentences)):
-             sentences[i] = sentences[i].split()
-         return sentences
+        sentences = f.read().decode("utf-8").replace("\n", "<eos>").split("<eos>")
+        for i in xrange(len(sentences)):
+            sentences[i] = sentences[i].split()
+            return sentences
          
 def prepare_sentence_training(sentences, max_length):
     sent = list(sentences)

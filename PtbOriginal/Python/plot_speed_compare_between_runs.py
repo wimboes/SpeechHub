@@ -24,7 +24,7 @@ output_path = os.path.join(general_path,'Output/Figures')
 #                     type=int)
 # args = parser.parse_args()
 
-def plot_speed_compare_between_runs(test_name, num_run_start, num_run_end, input_path, output_path):
+def plot_speed_compare_between_runs(test_name, num_run_start, num_run_end, input_path, output_path,f):
 
     ###################################################
     # line chart
@@ -42,6 +42,8 @@ def plot_speed_compare_between_runs(test_name, num_run_start, num_run_end, input
     #load data
     data = np.load(input_path + '/' + test_name + '_'+ str(num_run_start)+ '/results' +'.npz')
     data_np = data['train_np']
+    valid_np = data['valid_np']
+    test_np = data['test_np']
 
     #select correct part of the data
     data_steps = np.array([data_np[i][0]+data_np[i][1] for i in range(0,len(data_np))])
@@ -54,6 +56,9 @@ def plot_speed_compare_between_runs(test_name, num_run_start, num_run_end, input
 
     data_speed_mean = np.mean(data_speed[3:])
     data_speed_std = np.std(data_speed[3:])
+    data_last_training = data_np[-1][2]
+    data_last_valid = valid_np[-1][2]
+    data_test = test_np[-1][2]
     
     #determine axis limits
     min_lims[0] = np.percentile(data_speed,5)
@@ -85,6 +90,9 @@ def plot_speed_compare_between_runs(test_name, num_run_start, num_run_end, input
     for run in range(num_run_start+1,num_run_end+1):
         data = np.load(input_path + '/' + test_name + '_'+ str(run)+ '/results' +'.npz')
         data_np = data['train_np']
+        data_np = data['train_np']
+        valid_np = data['valid_np']
+        test_np = data['test_np']   
         
         data_steps = np.array([data_np[i][0]+data_np[i][1] for i in range(0,len(data_np))])
         data_speed = np.array([data_np[i][3] for i in range(0,len(data_np))])
@@ -99,6 +107,9 @@ def plot_speed_compare_between_runs(test_name, num_run_start, num_run_end, input
 
 	data_speed_mean = np.append(data_speed_mean,np.mean(data_speed[3:]))
     	data_speed_std = np.append(data_speed_std,np.std(data_speed[3:]))
+    	data_last_training = np.append(data_last_training,data_np[-1][2])
+    	data_last_valid = np.append(data_last_valid,valid_np[-1][2])
+    	data_test = np.append(data_test,test_np[-1][2])
 
         label = ''
         param_np = data['param_train_np']
@@ -154,14 +165,18 @@ def plot_speed_compare_between_runs(test_name, num_run_start, num_run_end, input
     fig.savefig(output_path + '/' + test_name + '_from_' + str(num_run_start) + '_to_' + str(num_run_end) + '_speed_bar.png')
     plt.close()
 
-    #fig.subplots_adjust(top=0.86)
-    #fig.suptitle('Compare speed plot of ' + test_name + ' from ' + str(num_run_start) + ' to ' + str(num_run_end), fontsize=14, fontweight='bold')
-
-    #plt.xlabel('Run')
-    #plt.ylabel('WPS (words per second)')
-    
-    #plt.title(title, fontsize=7)
-    #plt.xticks(index + bar_width, labels, fontsize=5)
+    ###################################################
+    # write to file
+    ###################################################
+    for i in range(np.size(data_speed_mean)):
+        f.write("{:<45}".format(labels[i]))
+        f.write("{:<20}".format(str(data_last_training[i])))
+        f.write("{:<20}".format(str(data_last_valid[i])))
+        f.write("{:<20}".format(str(data_test[i])))
+        f.write("{:<20}".format(str(data_speed_mean[i])))
+        f.write("{:<20}".format(str(data_speed_std[i])))
+        f.write('\n')
+ 
 
 def main():
     plot_speed_compare_between_runs(args.test_name, args.num_run_start, args.num_run_end, input_path, output_path)

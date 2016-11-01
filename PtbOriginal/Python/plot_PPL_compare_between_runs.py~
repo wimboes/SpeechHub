@@ -30,7 +30,7 @@ def plot_compare_between_runs(test_name, num_run_start, num_run_end, train_valid
     fig = plt.figure()
     fig.suptitle('Compare '+train_valid_test+ ' plot of ' + test_name + ' from ' + str(num_run_start) + ' to ' + str(num_run_end), fontsize=14, fontweight='bold')
     
-    colors = ['blue','green','red','purple','black','pink','orange','brown','yellow']
+    colors = ['blue','green','red','purple','black','pink','orange','cyan','yellow']
     linestyles = ['--'] #['-','dashed', 'dashdot']
     ax = fig.add_subplot(111)
     fig.subplots_adjust(top=0.86)
@@ -106,6 +106,7 @@ def plot_compare_between_runs_summary(test_name, num_run_start, num_run_end, inp
     ax = plt.subplot(111)
     
     colors = ['blue','green','red','purple','black','pink','orange','brown','cyan','yellow']
+    markers = [ '+' , ',' , '.' , '1' , '2' , '3' , '4' ]
     linestyles = ['-'] #['-','dashed', 'dashdot']
  
     min_lims = np.zeros(num_run_end-num_run_start+1)
@@ -144,7 +145,7 @@ def plot_compare_between_runs_summary(test_name, num_run_start, num_run_end, inp
     title = title[:-1]
     
     ax.plot(data_steps, test_PPL, color=colors[num_run_start % len(colors)], linestyle='--')
-    ax.plot(data_steps, valid_PPL, color=colors[num_run_start % len(colors)], linestyle='-', label = label)
+    ax.plot(data_steps, valid_PPL, color=colors[num_run_start % len(colors)], marker = markers[num_run_start % len(markers)], linestyle='-', label = label)
     
     for run in range(num_run_start+1,num_run_end+1):
         data = np.load(input_path + '/' + test_name + '_'+ str(run)+ '/results' +'.npz')
@@ -166,9 +167,9 @@ def plot_compare_between_runs_summary(test_name, num_run_start, num_run_end, inp
         label = label[:-2]
         
         ax.plot(data_steps, test_PPL, color=colors[run % len(colors)], linestyle='--')    
-        ax.plot(data_steps, valid_PPL, color=colors[run % len(colors)], linestyle='-', label = label)
+        ax.plot(data_steps, valid_PPL, color=colors[run % len(colors)], marker = markers[run % len(markers)], linestyle='-', label = label)
 
-    fig.suptitle('Compare valid en test plot of ' + test_name + ' from ' + str(num_run_start) + ' to ' + str(num_run_end), fontsize=14, fontweight='bold')
+    #fig.suptitle('Compare valid en test plot of ' + test_name + ' from ' + str(num_run_start) + ' to ' + str(num_run_end), fontsize=14, fontweight='bold')
     ax.set_title(title, fontsize=7)
     plt.subplots_adjust(top=.855, bottom=.25)
     ax.set_xlabel('Epochs')
