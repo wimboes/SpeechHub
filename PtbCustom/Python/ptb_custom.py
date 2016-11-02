@@ -102,11 +102,14 @@ class PTBModel(object):
         #inputs = [tf.squeeze(input_step, [1])
         #					 for input_step in tf.split(1, num_steps, inputs)]
         outputs, state = tf.nn.dynamic_rnn(cell, inputs, initial_state=self._initial_state, dtype=tf.float32, sequence_length=self.length_of_seq(inputs))
+        
         output = tf.reshape(tf.concat(1, outputs), [-1, size])
         softmax_w = tf.get_variable("softmax_w", [size, vocab_size], dtype=data_type())
         softmax_b = tf.get_variable("softmax_b", [vocab_size], dtype=data_type())
         loss = get_loss_function(output, softmax_w, softmax_b,input_.targets, batch_size,num_steps, is_training)
-        self._cost = cost = tf.reduce_sum(loss) / batch_size
+        
+        #self._cost = cost = tf.reduce_sum(loss) / batch_size
+        self._cost = cost = loss
         self._final_state = state
 
         if not is_training:
@@ -186,27 +189,22 @@ def get_optimizer(lr):
     	return 0
 
 def get_loss_function(output, softmax_w, softmax_b,targets, batch_size, num_steps, is_training):
-        if FLAGS.loss_function == "sequence_loss_by_example":
-		logits = tf.matmul(output, softmax_w) + softmax_b
-		cost = tf.constant(0, dtype=data_type())
-		vocab = tf.constant([[FLAGS.vocab_size]], dtype=tf.int32)
-  		zero = tf.constant(0, dtype=tf.int32)
-		for i in xrange(batch_size):
-		    where1 = tf.equal(tf.slice(targets, [i,0], [1,num_steps]), zero)
-		    where2 = tf.cast(tf.where(where1), tf.int32)      
-		    index = tf.slice(where2, [0,1], [1,1])
-		    rng1 = tf.reshape(index,[-1])
- 		    rng2 = tf.reshape(tf.concat(0,[index, vocab]),[-1])
-		    loss = tf.nn.seq2seq.sequence_loss_by_example([tf.slice(logits, [i*num_steps,0], rng2)],[tf.slice(tf.reshape(targets,[-1]), [i*num_steps], rng1)], [tf.ones(rng1, dtype=data_type())])
-		    cost += tf.reduce_sum(loss) / tf.cast(index, dtype=data_type())
-		return cost
-	if FLAGS.loss_function == 'sampled_softmax':
-		if is_training:
-			return tf.nn.sampled_softmax_loss(tf.transpose(softmax_w), softmax_b, output, tf.reshape(targets, [-1, 1]), 512, FLAGS.vocab_size)
-		else:
-			logits = tf.matmul(output, softmax_w) + softmax_b
-			return tf.nn.seq2seq.sequence_loss_by_example([logits],[tf.reshape(targets, [-1])], [tf.ones([batch_size * num_steps], dtype=data_type())])	
-        return 0
+    if FLAGS.loss_function == "sequence_loss_by_example":
+        logits = tf.matmul(output, softmax_w) + softmax_b
+        logits = tf.reshape(logits, [batch_size, num_steps, FLAGS.vocab_size])
+        cross_entropy = tf.nn.sparse_softmax_cross_entropy_with_logits(logits,targets)
+        mask = tf.sign(tf.abs(targets))
+        cross_entropy *= tf.cast(mask, dtype = data_type())
+        cross_entropy = tf.reduce_sum(cross_entropy, reduction_indices=1)
+        cross_entropy /= tf.reduce_sum(tf.cast(mask, dtype = data_type()), reduction_indices=1)
+        return tf.reduce_mean(cross_entropy)
+    if FLAGS.loss_function == 'sampled_softmax':
+        if is_training:
+            return tf.nn.sampled_softmax_loss(tf.transpose(softmax_w), softmax_b, output, tf.reshape(targets, [-1, 1]), 512, FLAGS.vocab_size)
+        else:
+            logits = tf.matmul(output, softmax_w) + softmax_b
+            return tf.nn.seq2seq.sequence_loss_by_example([logits],[tf.reshape(targets, [-1])], [tf.ones([batch_size * num_steps], dtype=data_type())])	
+    return 0
 
 def run_epoch(session, model, eval_op=None, verbose=False, epoch_nb = 0):
 	"""Runs the model on the given data."""
