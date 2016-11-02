@@ -234,7 +234,7 @@ def run_epoch(session, model, eval_op=None, verbose=False, epoch_nb = 0):
 		costs += cost
 		iters += 1          
 
-		if verbose and step % (model.input.epoch_size // 10) == 10:
+		if verbose and step % (model.input.epoch_size // 10) == 0:
 			print("%.3f perplexity: %.3f speed: %.0f wps" %
 						(step * 1.0 / model.input.epoch_size, np.exp(costs / iters),
 						 iters * model.input.batch_size * model.input.num_steps / (time.time() - start_time)))
@@ -314,8 +314,8 @@ def main(_):
                     if valid_np[i+1][2] > np.max(valid_np[i+1-early_stopping:i],axis=0)[2]:
                         break
 
-#			test_perplexity, test_np = run_epoch(session, mtest)
-#			print("Test Perplexity: %.3f" % test_perplexity)
+            test_perplexity, test_np = run_epoch(session, mtest)
+            print("Test Perplexity: %.3f" % test_perplexity)
             test_np = np.array([[0,0,0,0]])
             if FLAGS.save_path:
                 print("Saving model to %s." % (FLAGS.save_path + '/' + FLAGS.test_name + '_' + str(FLAGS.num_run)  + '/' + FLAGS.test_name + '_' + str(FLAGS.num_run)))
