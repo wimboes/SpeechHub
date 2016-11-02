@@ -8,8 +8,6 @@ from __future__ import print_function
 import os
 import sys
 import time
-import numpy as np
-import tensorflow as tf
 import reader_sentence_var
 
 #if 'LD_LIBRARY_PATH' not in os.environ:
@@ -20,6 +18,8 @@ import reader_sentence_var
 #        except Exception, exc:
 #                print('Failed re_exec:', exc)
 #                sys.exit(1)
+import numpy as np
+import tensorflow as tf
 
 python_path = os.path.abspath(os.getcwd())
 general_path = os.path.split(python_path)[0]

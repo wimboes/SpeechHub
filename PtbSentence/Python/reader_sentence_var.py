@@ -13,7 +13,7 @@ def read_sentences(filename):
         sentences = f.read().decode("utf-8").replace("\n", "<eos>").split("<eos>")
         for i in xrange(len(sentences)):
             sentences[i] = sentences[i].split()
-            return sentences
+        return sentences
          
 def prepare_sentence_training(sentences, max_length):
     sent = list(sentences)

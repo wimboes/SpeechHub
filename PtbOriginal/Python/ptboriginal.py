@@ -72,6 +72,12 @@ class PTBInput(object):
 class PTBModel(object):
     """The PTB model."""
     
+    def length(self,sequence):
+        used = tf.sign(tf.reduce_max(tf.abs(sequence), reduction_indices=2))
+        length = tf.reduce_sum(used, reduction_indices=1)
+        length = tf.cast(length, tf.int32)
+        return length
+    
     def __init__(self, is_training, config, input_):
         self._input = input_
 
@@ -94,19 +100,18 @@ class PTBModel(object):
 
         if is_training and config.keep_prob < 1:
             inputs = tf.nn.dropout(inputs, config.keep_prob)
+        
+#        inputs = [tf.squeeze(input_step, [1]) for input_step in tf.split(1, num_steps, inputs)]
+#        print(inputs[0].get_shape())
+        outputs, state = tf.nn.dynamic_rnn(cell, inputs, initial_state=self._initial_state, dtype=tf.float32, sequence_length=self.length(inputs))
 
-        # The alternative version of the code below is:
-        #
-        # inputs = [tf.squeeze(input_step, [1])
-        #					 for input_step in tf.split(1, num_steps, inputs)]
-        # outputs, state = tf.nn.rnn(cell, inputs, initial_state=self._initial_state)
-        outputs = []
-        state = self._initial_state
-        with tf.variable_scope("RNN"):
-            for time_step in range(num_steps):
-                if time_step > 0: tf.get_variable_scope().reuse_variables()
-                (cell_output, state) = cell(inputs[:, time_step, :], state)
-                outputs.append(cell_output)
+#        outputs = []
+#        state = self._initial_state
+#        with tf.variable_scope("RNN"):
+#            for time_step in range(num_steps):
+#                if time_step > 0: tf.get_variable_scope().reuse_variables()
+#                (cell_output, state) = cell(inputs[:, time_step, :], state)
+#                outputs.append(cell_output)
 
         output = tf.reshape(tf.concat(1, outputs), [-1, hidden_size])
         softmax_w = tf.get_variable("softmax_w", [hidden_size, vocab_size], dtype=data_type())
@@ -244,24 +249,6 @@ def main(_):
     train_data, valid_data, test_data, _ = raw_data 
     
     config = get_config()
-    print(FLAGS.init_scale)
-    print(FLAGS.learning_rate)
-    print(FLAGS.max_grad_norm)
-    print(FLAGS.num_layers)
-    print(FLAGS.num_steps)
-    print(FLAGS.hidden_size)
-    print(FLAGS.max_epoch)
-    print(FLAGS.max_max_epoch)
-    print(FLAGS.keep_prob)
-    print(FLAGS.lr_decay)
-    print(FLAGS.batch_size)
-    print(FLAGS.vocab_size)
-    print(FLAGS.embedded_size)
-    print(FLAGS.optimizer)
-    print(FLAGS.loss_function)
-    print(FLAGS.num_run)
-    print(FLAGS.test_name)
-
     eval_config = get_config()
     eval_config.batch_size = 1
     eval_config.num_steps = 1
