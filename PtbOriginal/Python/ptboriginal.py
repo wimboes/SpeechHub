@@ -277,7 +277,7 @@ def main(_):
         param_train_np = np.array([['init_scale',config.init_scale], ['learning_rate', config.learning_rate],
                                    ['max_grad_norm', config.max_grad_norm], ['num_layers', config.num_layers],
                                    ['num_steps', config.num_steps], ['hidden_size', config.hidden_size], 
-                                   ['embedded_size', config.embedded_size],['max_epoch', config.max_epoch],
+                                   [' ', config.embedded_size],['max_epoch', config.max_epoch],
                                    ['max_max_epoch', config.max_max_epoch],['keep_prob', config.keep_prob], 
                                    ['lr_decay', config.lr_decay], ['batch_size', config.batch_size], 
                                    ['vocab_size', config.vocab_size], ['optimizer', config.optimizer], 

@@ -256,9 +256,9 @@ def run_epoch(session, model, eval_op=None, verbose=False, epoch_nb = 0):
 		if verbose and step % (model.input.epoch_size // 10) == 10:
 			print("%.3f perplexity: %.3f speed: %.0f wps" %
 						(step * 1.0 / model.input.epoch_size, np.exp(costs / iters),
-						 iters * model.input.batch_size / (time.time() - start_time)))
+						 iters * model.input.batch_size *model.input.num_steps / (time.time() - start_time)))
 			save_np = np.append(save_np, [[epoch_nb, step * 1.0 / model.input.epoch_size, np.exp(costs / iters),
-						 iters * model.input.batch_size / (time.time() - start_time)]],axis=0)
+						 iters * model.input.batch_size *model.input.num_steps  / (time.time() - start_time)]],axis=0)
 	save_np = np.append(save_np,[[epoch_nb, 1,np.exp(costs / iters),0]],axis=0)		 
 	return np.exp(costs/iters), save_np[1:]
 
@@ -280,7 +280,8 @@ def main(_):
     	#eval_config.num_steps = 1
     	with tf.Graph().as_default():
 		initializer = tf.random_uniform_initializer(-config.init_scale, config.init_scale)
-
+ 		tf.set_random_seed(1)         
+  
 		with tf.name_scope("Train"):
 			train_input = PTBInput(config=config, num_steps=num_steps, data=train_data, name="TrainInput")
 			with tf.variable_scope("Model", reuse=None, initializer=initializer):
@@ -318,10 +319,10 @@ def main(_):
 				
 				print("Epoch: %d Learning rate: %.3f" % (i + 1, session.run(m.lr)))
 				
-				train_perplexity, tra_np = run_epoch(session, m, eval_op=m.train_op, verbose=True, epoch_nb=i+1)
+				train_perplexity, tra_np = run_epoch(session, m, eval_op=m.train_op, verbose=True, epoch_nb=i)
 				print("Epoch: %d Train Perplexity: %.3f" % (i + 1, train_perplexity))
 				
-				valid_perplexity, val_np = run_epoch(session, mvalid, epoch_nb = i+1)
+				valid_perplexity, val_np = run_epoch(session, mvalid, epoch_nb = i)
 				print("Epoch: %d Valid Perplexity: %.3f" % (i + 1, valid_perplexity))
 				
 				train_np = np.append(train_np, tra_np, axis=0)
@@ -330,7 +331,7 @@ def main(_):
 				#early stopping
                 		early_stopping = 3; #new valid_PPL will be compared to the previous 3 valid_PPL
                 		if i>early_stopping-1:
-                    			if valid_np[i+1][2] > np.mean(valid_np[i+1-early_stopping:],axis=0)[2]:
+                    			if valid_np[i+1][2] > np.max(valid_np[i+1-early_stopping:i],axis=0)[2]:
                         			break
 
 #			test_perplexity, test_np = run_epoch(session, mtest)

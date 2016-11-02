@@ -264,7 +264,7 @@ def main(_):
     eval_config.batch_size = 1
     eval_config.num_steps = 1
     with tf.Graph().as_default():
-        initializer = tf.random_uniform_initializer(-config.init_scale, config.init_scale, seed = 10)
+        initializer = tf.random_uniform_initializer(-config.init_scale, config.init_scale)
 
         with tf.name_scope("Train"):
             train_input = PTBInput(config=config, data=train_data, name="TrainInput")
