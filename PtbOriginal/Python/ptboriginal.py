@@ -45,9 +45,9 @@ flags.DEFINE_integer("batch_size", 20, "batch_size")
 flags.DEFINE_integer("vocab_size", 10002, "vocab_size")
 flags.DEFINE_integer("embedded_size", 128, "embedded_size")
 flags.DEFINE_integer("num_run", 0, "num_run")
-flags.DEFINE_string("test_name","askoy","test_name")
+flags.DEFINE_string("test_name","askoy2","test_name")
 flags.DEFINE_string("optimizer","GradDesc","optimizer")
-flags.DEFINE_string("loss_function","sequence_loss_by_example","loss_function")
+flags.DEFINE_string("loss_function","noise_contrastive_estimation","loss_function")
 
 flags.DEFINE_string("data_path", input_path, "data_path")
 flags.DEFINE_string("save_path", output_path, "save_path")
@@ -68,10 +68,8 @@ class PTBInput(object):
         self.input_data, self.targets = reader.ptb_producer(data, batch_size, num_steps, name=name)
 
 
-
 class PTBModel(object):
     """The PTB model."""
-    
     def length(self,sequence):
         used = tf.sign(tf.reduce_max(tf.abs(sequence), reduction_indices=2))
         length = tf.reduce_sum(used, reduction_indices=1)
@@ -104,21 +102,13 @@ class PTBModel(object):
 #        inputs = [tf.squeeze(input_step, [1]) for input_step in tf.split(1, num_steps, inputs)]
 #        print(inputs[0].get_shape())
         outputs, state = tf.nn.dynamic_rnn(cell, inputs, initial_state=self._initial_state, dtype=tf.float32, sequence_length=self.length(inputs))
-
-#        outputs = []
-#        state = self._initial_state
-#        with tf.variable_scope("RNN"):
-#            for time_step in range(num_steps):
-#                if time_step > 0: tf.get_variable_scope().reuse_variables()
-#                (cell_output, state) = cell(inputs[:, time_step, :], state)
-#                outputs.append(cell_output)
-
         output = tf.reshape(tf.concat(1, outputs), [-1, hidden_size])
+        
         softmax_w = tf.get_variable("softmax_w", [hidden_size, vocab_size], dtype=data_type())
         softmax_b = tf.get_variable("softmax_b", [vocab_size], dtype=data_type())
         loss = get_loss_function(output, softmax_w, softmax_b,input_.targets, batch_size,num_steps, is_training)
         
-        self._cost = cost = tf.reduce_sum(loss) / batch_size
+        self._cost = cost = loss
         self._final_state = state
 
         if not is_training:
@@ -192,15 +182,26 @@ def get_optimizer(lr):
     return 0
 
 def get_loss_function(output, softmax_w, softmax_b,targets, batch_size, num_steps, is_training):
-    if FLAGS.loss_function == "sequence_loss_by_example":
+    if FLAGS.loss_function == "full_softmax":
         logits = tf.matmul(output, softmax_w) + softmax_b
-        return tf.nn.seq2seq.sequence_loss_by_example([logits],[tf.reshape(targets, [-1])], [tf.ones([batch_size * num_steps], dtype=data_type())])
+        loss = tf.nn.sparse_softmax_cross_entropy_with_logits(logits, tf.reshape(targets, [-1]), name=None)
+        return tf.reduce_sum(loss) / batch_size
     if FLAGS.loss_function == 'sampled_softmax':
         if is_training:
-            return tf.nn.sampled_softmax_loss(tf.transpose(softmax_w), softmax_b, output, tf.reshape(targets, [-1, 1]), 512, FLAGS.vocab_size)
+            loss = tf.nn.sampled_softmax_loss(tf.transpose(softmax_w), softmax_b, output, tf.reshape(targets, [-1, 1]), 32, FLAGS.vocab_size)
+            return tf.reduce_sum(loss) / batch_size
         else:
             logits = tf.matmul(output, softmax_w) + softmax_b
-            return tf.nn.seq2seq.sequence_loss_by_example([logits],[tf.reshape(targets, [-1])], [tf.ones([batch_size * num_steps], dtype=data_type())])	
+            loss = tf.nn.sparse_softmax_cross_entropy_with_logits(logits, tf.reshape(targets, [-1]), name=None)
+            return tf.reduce_sum(loss) / batch_size
+    if FLAGS.loss_function == 'noise_contrastive_estimation':
+        if is_training:
+            loss = tf.nn.nce_loss(tf.transpose(softmax_w), softmax_b, output, tf.reshape(targets, [-1, 1]), 32, FLAGS.vocab_size)
+            return tf.reduce_sum(loss) / batch_size
+        else:
+            logits = tf.matmul(output, softmax_w) + softmax_b
+            loss = tf.nn.sparse_softmax_cross_entropy_with_logits(logits, tf.reshape(targets, [-1]), name=None)
+            return tf.reduce_sum(loss) / batch_size
     return 0
 
 def run_epoch(session, model, eval_op=None, verbose=False, epoch_nb = 0):
