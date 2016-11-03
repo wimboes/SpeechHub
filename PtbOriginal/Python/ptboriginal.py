@@ -9,8 +9,7 @@ import os
 import sys
 import time
 import numpy as np
-import tensorflow as tf
-import reader
+
 
 #if 'LD_LIBRARY_PATH' not in os.environ:
 #        os.environ['LD_LIBRARY_PATH'] = '/users/spraak/jpeleman/tf/lib/python2.7/site-packages:/users/spraak/jpeleman/tf/cuda/lib64:/usr/local/cuda/lib64:/usr/local/cuda-7.5/lib64:/usr/local/cuda-8.0/lib64:/usr/local/cuda-7.5/targets/x86_64-linux/lib'
@@ -20,6 +19,9 @@ import reader
 #        except Exception, exc:
 #                print('Failed re_exec:', exc)
 #                sys.exit(1)
+
+import tensorflow as tf
+import reader
 
 python_path = os.path.abspath(os.getcwd())
 general_path = os.path.split(python_path)[0]
@@ -47,7 +49,7 @@ flags.DEFINE_integer("embedded_size", 128, "embedded_size")
 flags.DEFINE_integer("num_run", 0, "num_run")
 flags.DEFINE_string("test_name","askoy2","test_name")
 flags.DEFINE_string("optimizer","GradDesc","optimizer")
-flags.DEFINE_string("loss_function","noise_contrastive_estimation","loss_function")
+flags.DEFINE_string("loss_function","full_softmax","loss_function")
 
 flags.DEFINE_string("data_path", input_path, "data_path")
 flags.DEFINE_string("save_path", output_path, "save_path")
