@@ -99,9 +99,10 @@ class PTBModel(object):
         if is_training and config.keep_prob < 1:
             inputs = tf.nn.dropout(inputs, config.keep_prob)
 
-        #inputs = [tf.squeeze(input_step, [1])
-        #					 for input_step in tf.split(1, num_steps, inputs)]
-        outputs, state = tf.nn.dynamic_rnn(cell, inputs, initial_state=self._initial_state, dtype=tf.float32, sequence_length=self.length_of_seq(inputs))
+        seq_len = self.length_of_seq(inputs)
+        inputs = [tf.squeeze(input_step, [1])
+        					 for input_step in tf.split(1, num_steps, inputs)]
+        outputs, state = tf.nn.rnn(cell, inputs, initial_state=self._initial_state, dtype=tf.float32, sequence_length=seq_len)
         
         output = tf.reshape(tf.concat(1, outputs), [-1, size])
         softmax_w = tf.get_variable("softmax_w", [size, vocab_size], dtype=data_type())
