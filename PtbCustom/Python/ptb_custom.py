@@ -10,14 +10,18 @@ import sys
 import time
 import numpy as np
 
-#if 'LD_LIBRARY_PATH' not in os.environ:
-#        os.environ['LD_LIBRARY_PATH'] = '/users/spraak/jpeleman/tf/lib/python2.7/site-packages:/users/spraak/jpeleman/tf/cuda/lib64:/usr/local/cuda/lib64'
-#        try:
-#            	os.system('/users/start2014/r0385169/bin/python ' + ' '.join(sys.argv))
-#                sys.exit(0)
-#        except Exception, exc:
-#                print('Failed re_exec:', exc)
-#                sys.exit(1)
+if 'LD_LIBRARY_PATH' not in os.environ:
+    os.environ['PATH'] = "$PATH:/home/wim/cuda-8.0/bin"
+    os.environ['LD_LIBRARY_PATH'] = "/home/wim/cuda-8.0/lib64:/home/wim/cuda-8.0/lib"
+    #os.environ['LD_LIBRARY_PATH'] = '/users/spraak/jpeleman/tf/lib/python2.7/site-packages:/users/spraak/jpeleman/tf/cuda/lib64:/usr/local/cuda/lib64'
+    os.environ['CUDA_HOME'] = '/home/wim/cuda-8.0'  
+    try:
+        os.system('/usr/bin/python ' + ' '.join(sys.argv))
+        #os.system('/users/start2014/r0385169/bin/python ' + ' '.join(sys.argv))
+        sys.exit(0)
+    except Exception, exc:
+        print('Failed re_exec:', exc)
+        sys.exit(1)
 
 import tensorflow as tf
 import reader_custom

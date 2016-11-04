@@ -11,7 +11,7 @@
 \usepackage[justification=centering]{caption}
 \renewcommand{\labelitemi}{$\bullet$}
 \author{Wim Boes \& Robbe Van Rompaey}
-\title{RNN LANGUAGE MODELLING\\Experiments on training parameters}
+\title{LSTM LANGUAGE MODELING\\Experiments on training parameters}
 \date{October 22, 2016}
 \begin{document}
 
@@ -27,16 +27,16 @@
 \subsection{Setup of experiments}
 \label{sec:setup}
 
-The purpose of these experiments is to investigate the impact of the different training parameters involved when using recurrent neural networks for language modelling. To this end, the Tensorflow tutorial model of a recurrent neural network for language modelling (publicly available) is used with the Penn Tree Bank dataset for training, validation and testing of the model \cite{tensorflow}.\\
+The purpose of these experiments is to investigate the impact of the different training parameters involved when using recurrent neural networks for language modeling. To this end, the TensorFlow tutorial model of a recurrent neural network for language modeling (publicly available) is used with the Penn Tree Bank dataset for training, validation and testing of the model \cite{tensorflow}.\\
 \\
-The Tensorflow tutorial language model consists of different parts. The input words, represented by word IDs (integers) unique to each word, are first embedded into multidimensional representations. These are then sequentially fed into a recurrent neural network that consists of layers of LSTM cells \cite{LSTM}. The outputs of this neural network are then turned into a probability vector by a softmax classifier. Each element of this vector is the probability that the next word is the word whose word ID is the index of the element in this vector.\\
+The TensorFlow tutorial language model consists of different parts. The input words, represented by word IDs (integers) unique to each word, are first embedded into multidimensional representations. These are then sequentially fed into a recurrent neural network that consists of layers of LSTM cells \cite{LSTM}. The outputs of this neural network are then turned into a probability vector by a softmax classifier. Each element of this vector is the probability that the next word is the word whose word ID is the index of the element in this vector.\\
 \\
-This language model uses the Penn Tree Bank (PTB) dataset, a popular benchmark for language models \cite{PTB}. This dataset has a vocabulary of 10000 words and is split into train, validation and test sets. It is a relatively small dataset. Words that fall out of this 10000 words vocabulary are set to the <unk>-word and get all by consequence the same word ID.
+This language model uses the Penn TreeBank (PTB) dataset, a popular benchmark for language models \cite{PTB}. This dataset has a vocabulary of 10000 words and is split into train, validation and test sets. It is a relatively small dataset. Out-of-vocabulary words are mapped to a special $<$unk$>$-token that is also a part of the vocabulary.
 
 \subsection{Explanation of training parameters}
 \label{subsec:exp}
 
-This section contains an overview of the different training parameters that will be referenced throughout the rest of this document. These training parameters can be changed in the Tensorflow tutorial language model (Python) files. They do not refer to the actual parameters of the model, such as the weights of the neurons in the neural networks.
+This section contains an overview of the different training parameters that will be referenced throughout the rest of this document. These training parameters can be changed in the TensorFlow tutorial language model (Python) files. They do not refer to the actual parameters of the model, such as the weights of the neurons in the neural networks.
 
 \subsubsection{init\_scale}
 	
@@ -44,7 +44,7 @@ All weights of the language model (the weights of the neurons of the neural netw
 
 \subsubsection{learning\_rate}
 
-The parameter \textbf{learning\_rate} indicates the starting learning rate of the optimizing algorithm (see also section \ref{subsubsec:opt}).
+The parameter \textbf{learning\_rate} indicates the starting learning rate of the optimization algorithm (see also section \ref{subsubsec:opt}).
 
 \subsubsection{max\_grad\_norm}
 
@@ -52,16 +52,16 @@ The gradients calculated by the BackPropagation Through Time algorithm are clipp
 
 \subsubsection{num\_layers}
 
-As mentioned in section \ref{sec:setup}, the neural network consists of layers of LSTM cells. The parameter \textbf{num\_layers} indicates how many layers present in the model.
+As mentioned in section \ref{sec:setup}, the neural network consists of layers of LSTM cells. The parameter \textbf{num\_layers} indicates how many layers are present in the model.
 
 \subsubsection{num\_steps}
 \label{subsubsec:numsteps}
 
-The gradients used during training (by the optimizing algorithms) are calculated by the BackPropagation Through Time algorithm, in which the the recurrent neural network is unfolded and regarded as a deep network \cite{bptt}. The parameter \textbf{num\_steps} indicates the number of unfolded layers used.
+The gradients used during training (by the optimization algorithms) are calculated by the BackPropagation Through Time algorithm, in which the the recurrent neural network is unfolded and regarded as a deep network \cite{bptt}. The parameter \textbf{num\_steps} indicates the number of unfolded layers used.
 
 \subsubsection{hidden\_size}
 
-This parameter indicates the number of hidden neurons in the input gate layers, output gate layers and forget gate layers of the LSTM cells \cite{LSTM}.
+This parameter indicates the number of neurons in each hidden layer.
 
 \subsubsection{max\_epoch}
 \label{subsubsec:max}
@@ -71,7 +71,7 @@ This is the number of training epochs without learning rate decay. For example, 
 \subsubsection{max\_max\_epoch}
 \label{subsubsec:maxmax}
 
-This parameter indicates the total number of training epochs. This explanation holds as long as early stopping is not applied, as is the case in most of the experiments. If early stopping was used, \textbf{max\_max\_epoch} would be the maximum number of training epochs.
+This parameter indicates the total number of training epochs. This explanation holds as long as early stopping is not applied, as is the case in these experiments. If early stopping was used, \textbf{max\_max\_epoch} would be the maximum number of training epochs.
 
 \subsubsection{keep\_prob}
 
@@ -80,7 +80,7 @@ The used neural network uses dropout to prevent overfitting to the training data
 \subsubsection{lr\_decay}
 \label{subsubsec:decay}
 
-As described in section \ref{subsubsec:max}, after \textbf{max\_epoch} epochs learning rate decay is applied. This means that after each epoch, the learning rate is multiplied by the factor \textbf{lr\_decay}.
+As described in section \ref{subsubsec:max}, after \textbf{max\_epoch} epochs exponential learning rate decay is applied with factor \textbf{lr\_decay}.
 
 \subsubsection{batch\_size}
 
@@ -88,12 +88,12 @@ As described in section \ref{subsubsec:max}, after \textbf{max\_epoch} epochs le
 
 \subsubsection{embedded\_size}
 
-As mentioned in section \ref{sec:setup}, the word IDs (integers) are transformed into multidimensional (real-valued) representations called the word embeddings. The number of dimensions used is indicated by the parameter \textbf{embedded\_size}.
+As mentioned in section \ref{sec:setup}, the word IDs (integers) are transformed into multidimensional (real-valued) representations called word embeddings. The number of dimensions used is indicated by the parameter \textbf{embedded\_size}.
 
 \subsubsection{optimizer}
 \label{subsubsec:opt}
 
-This parameter indicates which optimizing algorithm (available in the Tensorflow package) is used to train the model (by minimizing the loss function, see section \ref{subsubsec:loss}) \cite{opt}. The possible values of \textbf{optimizer} are the following:
+This parameter indicates which optimization algorithm (available in the Tensorflow package) is used to train the model (by minimizing the loss function, see section \ref{subsubsec:loss}) \cite{opt}. The possible values of \textbf{optimizer} are the following:
 
 \begin{itemize}
 
@@ -112,7 +112,7 @@ This parameter indicates which loss function is used by the optimizer (see secti
 
 \begin{itemize}
 	
-	\item \textit{"sequence\_loss\_by\_example"}: average negative log probability of the target words:
+	\item \textit{``sequence\_loss\_by\_example''}: cross-entropy using full softmax:
 	\[ \text{loss} = -\frac{1}{N} \sum_{i=1}^{N} \ln p_{target_{i}} \]
 	\noindent
 	with $p_{target_{i}}$ the probability indicated by the output of the language model (see section \ref{sec:setup}) on the position of the target word and N the length of the considered text piece (\textbf{num\_steps}). This corresponds to the Shannon-McMillan-Breimann approximation of the cross-entropy of the language model \cite{cross}.
@@ -120,6 +120,18 @@ This parameter indicates which loss function is used by the optimizer (see secti
 	\item \textit{"sampled\_softmax"}: same loss function as above with some modifications. For the above loss function, for each target word the probability of every word in the vocabulary needs to be computed to obtain  the properly normalized probability $p_{target_{i}}$. For vocabularies that are large, this is impractical. Hence, this loss function samples the vocabulary (32 samples in this case) to compute an approximation of the properly normalized $p_{target_{i}}$, this speeds up training. This loss function can only be used during training, not during inference (because the probability is not properly normalized) \cite{sampled}.
 	
 \end{itemize}
+
+\section{Results and conclusions of experiments}
+\label{sec:results}
+
+This section contains the results and conclusions of the different experiments as described in section \ref{subsec:perf}. As mentioned there, the names of the subsections in this section refer to the variable parameters of the experiment. Each figure shows the different values of the variable parameters as well as the values of the fixed parameters.\\
+\\
+Some of the figures display the test/validation perplexity as a function of the number of training epochs. The (average-per-word) test/validation perplexity is equal to the exponential value of the average negative log probability (cross-entropy) of the target (test/validation) words:
+
+\[ e^{-\frac{1}{N} \sum_{i=1}^{N} \ln p_{target_{i}}} \]
+
+\noindent
+Some of the figures display a bar chart containing the training speed in function of the values of the variable parameters. This speed is expressed in words per seconds.
 
 \subsection{Performed experiments}
 \label{subsec:perf}
@@ -139,18 +151,6 @@ In this section, the list of performed experiments is given. In each experiment,
 
 \noindent
 The names of the subsections (one subsection for each experiment) in section \ref{sec:results} will refer to these variable parameters.
-
-\section{Results and conclusions of experiments}
-\label{sec:results}
-
-This section contains the results and conclusions of the different experiments as described in section \ref{subsec:perf}. As mentioned there, the names of the subsections in this section refer to the variable parameters of the experiment. Each figure shows the different values of the variable parameters as well as the values of the fixed parameters.\\
-\\
-Some of the figures display the test/validation perplexity as a function of the number of training epochs. The (average-per-word) test/validation perplexity is equal to the exponential value of the average negative log probability (cross-entropy) of the target (test/validation) words:
-
-\[ e^{-\frac{1}{N} \sum_{i=1}^{N} \ln p_{target_{i}}} \]
-
-\noindent
-Some of the figures display a bar chart containing the training speed in function of the values of the variable parameters. This speed is expressed in words per seconds.
 
 \subsection{hidden\_size \& embedded\_size}
 
@@ -231,7 +231,7 @@ The results of this experiment are displayed in figures \ref{fig:exp3speed} and 
 	\end{center}	
 \end{figure}
 
-The results of this experiment are displayed in figures \ref{fig:exp4speed} and \ref{fig:exp4perf}. The results are as expected, the sampled softmax loss function trains quicker but performs worse than the full softmax function.
+The results of this experiment are displayed in figures \ref{fig:exp4speed} and \ref{fig:exp4perf}. The results are as expected, the sampled softmax loss function trains quicker but performs worse than the full softmax function. Extra experiments will have to be done to see if this loss in performance is worth the gain in speed
 
 \subsection{optimizer}
 
@@ -251,7 +251,7 @@ The results of this experiment are displayed in figures \ref{fig:exp4speed} and 
 	\end{center}	
 \end{figure}
 
-The results of this experiment are displayed in figures \ref{fig:exp5speed} and \ref{fig:exp5perf}. There seems be one clear loser in this experiment: the Adadelta optimizing algorithm. The rest of the optimizing algorithms are close in terms of speed and performance. One special thing to note is that the Adam algorithm seems to significantly suffer from the fact that early stopping is not applied.
+The results of this experiment are displayed in figures \ref{fig:exp5speed} and \ref{fig:exp5perf}. There seems be one clear loser in this experiment: the Adadelta optimizing algorithm. The rest of the optimizing algorithms are close in terms of speed and performance. One special thing to note is that the Adam algorithm seems to suffer significantly from the fact that early stopping is not applied.
 
 \subsection{num\_layers}
 
@@ -276,7 +276,7 @@ The results of this experiment are displayed in figures \ref{fig:exp6speed} and 
 \newpage
 \section{Conclusion}
 
-These experiments investigated the impact of the different training parameters involved when using recurrent neural networks for language modelling. To this end, the Tensorflow tutorial model of a recurrent neural network for language modelling (publicly available) was used with the Penn Tree Bank dataset for training, validation and testing of the model \cite{tensorflow}.\\
+These experiments investigated the impact of the different training parameters involved when using recurrent neural networks for language modeling. To this end, the Tensorflow tutorial model of a recurrent neural network for language modeling (publicly available) was used with the Penn Tree Bank dataset for training, validation and testing of the model \cite{tensorflow}.\\
 \\
 The most interesting conclusions that could be drawn from these experiments are summarized in this list (see section \ref{subsec:exp} for an explanation of the parameters):
 
