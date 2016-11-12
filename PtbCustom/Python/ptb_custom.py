@@ -10,18 +10,18 @@ import sys
 import time
 import numpy as np
 
-if 'LD_LIBRARY_PATH' not in os.environ:
-    os.environ['PATH'] = "$PATH:/home/wim/cuda-8.0/bin"
-    os.environ['LD_LIBRARY_PATH'] = "/home/wim/cuda-8.0/lib64:/home/wim/cuda-8.0/lib"
-    #os.environ['LD_LIBRARY_PATH'] = '/users/spraak/jpeleman/tf/lib/python2.7/site-packages:/users/spraak/jpeleman/tf/cuda/lib64:/usr/local/cuda/lib64'
-    os.environ['CUDA_HOME'] = '/home/wim/cuda-8.0'  
-    try:
-        os.system('/usr/bin/python ' + ' '.join(sys.argv))
-        #os.system('/users/start2014/r0385169/bin/python ' + ' '.join(sys.argv))
-        sys.exit(0)
-    except Exception, exc:
-        print('Failed re_exec:', exc)
-        sys.exit(1)
+#if 'LD_LIBRARY_PATH' not in os.environ:
+#    os.environ['PATH'] = "$PATH:/home/wim/cuda-8.0/bin"
+#    os.environ['LD_LIBRARY_PATH'] = "/home/wim/cuda-8.0/lib64:/home/wim/cuda-8.0/lib"
+#    #os.environ['LD_LIBRARY_PATH'] = '/users/spraak/jpeleman/tf/lib/python2.7/site-packages:/users/spraak/jpeleman/tf/cuda/lib64:/usr/local/cuda/lib64'
+#    os.environ['CUDA_HOME'] = '/home/wim/cuda-8.0'  
+#    try:
+#        os.system('/usr/bin/python ' + ' '.join(sys.argv))
+#        #os.system('/users/start2014/r0385169/bin/python ' + ' '.join(sys.argv))
+#        sys.exit(0)
+#    except Exception, exc:
+#        print('Failed re_exec:', exc)
+#        sys.exit(1)
 
 import tensorflow as tf
 import reader_custom
@@ -50,7 +50,7 @@ flags.DEFINE_integer("batch_size", 20, "batch_size")
 flags.DEFINE_integer("vocab_size", 10002, "vocab_size")
 flags.DEFINE_integer("embedded_size", 128, "embedded_size")
 flags.DEFINE_integer("num_run", 0, "num_run")
-flags.DEFINE_string("test_name","askoy","test_name")
+flags.DEFINE_string("test_name","askoy3","test_name")
 flags.DEFINE_string("optimizer","GradDesc","optimizer")
 flags.DEFINE_string("loss_function","sequence_loss_by_example","loss_function")
 
@@ -104,9 +104,9 @@ class PTBModel(object):
             inputs = tf.nn.dropout(inputs, config.keep_prob)
 
         seq_len = self.length_of_seq(inputs)
-        inputs = [tf.squeeze(input_step, [1])
-        					 for input_step in tf.split(1, num_steps, inputs)]
-        outputs, state = tf.nn.rnn(cell, inputs, initial_state=self._initial_state, dtype=tf.float32, sequence_length=seq_len)
+#        inputs = [tf.squeeze(input_step, [1])
+#        					 for input_step in tf.split(1, num_steps, inputs)]
+        outputs, state = tf.nn.dynamic_rnn(cell, inputs, initial_state=self._initial_state, dtype=tf.float32, sequence_length=seq_len)
         
         output = tf.reshape(tf.concat(1, outputs), [-1, size])
         softmax_w = tf.get_variable("softmax_w", [size, vocab_size], dtype=data_type())

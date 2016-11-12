@@ -68,12 +68,20 @@ def plot_speed_compare_between_runs(test_name, num_run_start, num_run_end, input
     label = ''
     title = ''
     param = test_name.split('-')
+    if 'embedded_size' in param:
+        param.append(' ')
     param_np = data['param_train_np']
     for i in range(0,len(param_np)):
         if param_np[i][0] in param:
-            label = label +param_np[i][0] + ' = ' + param_np[i][1] + ', '
+            if param_np[i][0] == ' ':
+                label = label +'embedded_size = ' + param_np[i][1] + ', '
+            else:
+                label = label +param_np[i][0] + ' = ' + param_np[i][1] + ', '
         else:
-            title = title +param_np[i][0] + ' = ' + param_np[i][1] + ', '
+            if param_np[i][0] == ' ':
+                title = title +'embedded_size = ' + param_np[i][1] + ', '
+            else:
+                title = title +param_np[i][0] + ' = ' + param_np[i][1] + ', '
         if (i+1) % 4 == 0:
             title = title + '\n'
     while label[-1] != ',':
@@ -115,7 +123,10 @@ def plot_speed_compare_between_runs(test_name, num_run_start, num_run_end, input
         param_np = data['param_train_np']
         for i in range(0,len(param_np)):
             if param_np[i][0] in param:
-                label = label +param_np[i][0] + ' = ' + param_np[i][1] + ', '
+                if param_np[i][0] == ' ':
+                    label = label +'embedded_size = ' + param_np[i][1] + ', '
+                else:
+                    label = label +param_np[i][0] + ' = ' + param_np[i][1] + ', '
         label = label[:-2]
 	labels.append(label)
 
@@ -169,14 +180,25 @@ def plot_speed_compare_between_runs(test_name, num_run_start, num_run_end, input
     # write to file
     ###################################################
     for i in range(np.size(data_speed_mean)):
+#        f.write("{:<45}".format(labels[i]))
+#        f.write("{:<20}".format('& ' + str(data_last_training[i])))
+#        f.write("{:<20}".format('& ' + str(data_last_valid[i])))
+#        f.write("{:<20}".format('& ' + str(data_test[i])))
+#        f.write("{:<20}".format('& ' + str(data_speed_mean[i])))
+#        f.write("{:<20}".format('& ' + str(data_speed_std[i])))
+#        f.write('\n')
+        
         f.write("{:<45}".format(labels[i]))
-        f.write("{:<20}".format(str(data_last_training[i])))
-        f.write("{:<20}".format(str(data_last_valid[i])))
-        f.write("{:<20}".format(str(data_test[i])))
-        f.write("{:<20}".format(str(data_speed_mean[i])))
-        f.write("{:<20}".format(str(data_speed_std[i])))
+        f.write(' & ')
+        f.write("{:<10.4f}".format(data_last_training[i]))
+        f.write(' & ')
+        f.write("{:<10.4f}".format(data_last_valid[i]))
+        f.write(' & ')
+        f.write("{:<10.4f}".format(data_test[i]))
+        f.write(' & ')
+        f.write("{:<10.4f}".format(data_speed_mean[i]))
+        f.write(' \\'+'\\'+' \hline')
         f.write('\n')
- 
 
 def main():
     plot_speed_compare_between_runs(args.test_name, args.num_run_start, args.num_run_end, input_path, output_path)
