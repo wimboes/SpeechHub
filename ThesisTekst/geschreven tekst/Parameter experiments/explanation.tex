@@ -12,7 +12,7 @@
 \renewcommand{\labelitemi}{$\bullet$}
 \author{Wim Boes \& Robbe Van Rompaey}
 \title{LSTM LANGUAGE MODELING\\Experiments on training parameters}
-\date{October 22, 2016}
+\date{November 14, 2016}
 \begin{document}
 
 \maketitle	
@@ -36,28 +36,28 @@ Nog to do:
 \subsection{Setup of experiments}
 \label{sec:setup}
 
-The purpose of these experiments is to investigate the impact of the different training parameters involved when using recurrent neural networks for language modeling. To this end, the TensorFlow tutorial model of a recurrent neural network for language modeling (publicly available) is used with the Penn Tree Bank dataset for training, validation and testing of the model \cite{tensorflow}.\\
+The purpose of these experiments is to investigate the impact of the different training parameters involved when using recurrent neural networks for language modeling. To this end, the TensorFlow tutorial model of a recurrent neural network for language modeling (publicly available) is used with the Penn TreeBank dataset for training, validation and testing of the model \cite{tensorflow}.\\
 \\
 The TensorFlow tutorial language model consists of different parts. The input words, represented by word IDs (integers) unique to each word, are first embedded into multidimensional representations. These are then sequentially fed into a recurrent neural network that consists of layers of LSTM cells \cite{LSTM}. The outputs of this neural network are then turned into a probability vector by a softmax classifier. Each element of this vector is the probability that the next word is the word whose word ID is the index of the element in this vector.\\
 \\
-This language model uses the Penn TreeBank (PTB) dataset, a popular benchmark for language models \cite{PTB}. This dataset has a vocabulary of 10000 words and is split into train, validation and test sets. It is a relatively small dataset. Out-of-vocabulary words are mapped to a special $<$unk$>$-token that is also a part of the vocabulary.
+This language model uses the Penn TreeBank (PTB) dataset, a popular benchmark for language models \cite{PTB}. This dataset has a vocabulary of 10000 words and is split into train, validation and test sets. It is a relatively small dataset. Out-of-vocabulary words are mapped to a special $<$unk$>$-token that is also a part of the vocabulary.\\
+\\
+The principles and architecture of the model will be explained in more detail in the final thesis.
 
 \subsection{Explanation of training parameters}
 \label{subsec:exp}
 
-This section contains an overview of the different training parameters that will be referenced throughout the rest of this document. These training parameters can be changed in the TensorFlow tutorial language model (Python) files. They do not refer to the actual parameters of the model, such as the weights of the neurons in the neural networks.
+This section contains an overview of the different training parameters that will be referenced throughout the rest of this document. These training parameters can be changed in the TensorFlow tutorial language model (Python) files. \\
+\\
+The parameters mentioned in this section will be explained in more detail in the final thesis.
 
 \subsubsection{init\_scale}
 	
 All weights of the language model (the weights of the neurons of the neural network, the coefficients of the logistic regression used in the softmax function, etc.) are initialized uniformly in the range $[\textbf{-init\_scale},\textbf{init\_scale}]$.
 
-\subsubsection{learning\_rate}
+\subsubsection{keep\_prob}
 
-The parameter \textbf{learning\_rate} indicates the starting learning rate of the optimization algorithm (see also section \ref{subsubsec:opt}).
-
-\subsubsection{max\_grad\_norm}
-
-The gradients calculated by the BackPropagation Through Time algorithm are clipped at a threshold, namely \textbf{max\_grad\_norm}, to prevent the exploding gradients problem \cite{bptt,exp}.
+The used neural network uses dropout to prevent overfitting to the training data \cite{dropout}. \textbf{keep\_prob} is the probability of keeping the outputs of each layer (applied to each element of the output separately, not to the output as a whole). The kept outputs are adjusted with a correction factor to conserve the energy in the connection.
 
 \subsubsection{num\_layers}
 
@@ -66,11 +66,24 @@ As mentioned in section \ref{sec:setup}, the neural network consists of layers o
 \subsubsection{num\_steps}
 \label{subsubsec:numsteps}
 
-The gradients used during training (by the optimization algorithms) are calculated by the BackPropagation Through Time algorithm, in which the the recurrent neural network is unfolded and regarded as a deep network \cite{bptt}. The parameter \textbf{num\_steps} indicates the number of unfolded layers used.
+The gradients used during training (by the optimization algorithms) are calculated by the backpropagation through time algorithm, in which the the recurrent neural network is unfolded and regarded as a deep network \cite{bptt}. The parameter \textbf{num\_steps} indicates the number of unfolded layers used.
 
 \subsubsection{hidden\_size}
 
 This parameter indicates the number of neurons in each hidden layer.
+
+\subsubsection{embedded\_size}
+
+As mentioned in section \ref{sec:setup}, the word IDs (integers) are transformed into multidimensional (real-valued) representations called word embeddings. The number of dimensions used is indicated by the parameter \textbf{embedded\_size}.
+
+\subsubsection{learning\_rate}
+
+The parameter \textbf{learning\_rate} indicates the starting learning rate of the optimization algorithm (see also section \ref{subsubsec:opt}).
+
+\subsubsection{lr\_decay}
+\label{subsubsec:decay}
+
+As described in section \ref{subsubsec:max}, after \textbf{max\_epoch} epochs exponential learning rate decay is applied with factor \textbf{lr\_decay}.
 
 \subsubsection{max\_epoch}
 \label{subsubsec:max}
@@ -80,24 +93,15 @@ This is the number of training epochs without learning rate decay. For example, 
 \subsubsection{max\_max\_epoch}
 \label{subsubsec:maxmax}
 
-This parameter indicates the total number of training epochs. This explanation holds as long as early stopping is not applied, as is the case in these experiments. If early stopping was used, \textbf{max\_max\_epoch} would be the maximum number of training epochs.
+This parameter indicates the maximum number of training epochs. Early stopping is applied in the following way: if the current validation perplexity is not lower than the highest validation perplexity of the previous three epochs, training is stopped.
 
-\subsubsection{keep\_prob}
+\subsubsection{max\_grad\_norm}
 
-The used neural network uses dropout to prevent overfitting to the training data \cite{dropout}. \textbf{keep\_prob} is the probability of keeping the outputs of each layer (applied to each element of the output separately, not to the output as a whole). The kept outputs are adjusted with a correction factor to conserve the energy in the connection.
-
-\subsubsection{lr\_decay}
-\label{subsubsec:decay}
-
-As described in section \ref{subsubsec:max}, after \textbf{max\_epoch} epochs exponential learning rate decay is applied with factor \textbf{lr\_decay}.
+The gradients calculated by the backpropagation through time algorithm are clipped at a threshold, namely \textbf{max\_grad\_norm}, to prevent the exploding gradients problem \cite{bptt,exp}.
 
 \subsubsection{batch\_size}
 
 \textbf{batch\_size} is the number of training examples per batch. One training example contains \textbf{num\_steps} words (see section \ref{subsubsec:numsteps}). After each batch the parameters are updated, so that these are updated mutiple times during one epoch.
-
-\subsubsection{embedded\_size}
-
-As mentioned in section \ref{sec:setup}, the word IDs (integers) are transformed into multidimensional (real-valued) representations called word embeddings. The number of dimensions used is indicated by the parameter \textbf{embedded\_size}.
 
 \subsubsection{optimizer}
 \label{subsubsec:opt}
@@ -121,7 +125,7 @@ This parameter indicates which loss function is used by the optimizer (see secti
 
 \begin{itemize}
 	
-	\item \textit{``sequence\_loss\_by\_example''}: cross-entropy using full softmax:
+	\item \textit{``full\_softmax''}: cross-entropy using full softmax:
 	\[ \text{loss} = -\frac{1}{N} \sum_{i=1}^{N} \ln p_{target_{i}} \]
 	\noindent
 	with $p_{target_{i}}$ the probability indicated by the output of the language model (see section \ref{sec:setup}) on the position of the target word and N the length of the considered text piece (\textbf{num\_steps}). This corresponds to the Shannon-McMillan-Breimann approximation of the cross-entropy of the language model \cite{cross}.
@@ -130,6 +134,7 @@ This parameter indicates which loss function is used by the optimizer (see secti
 	
 \end{itemize}
 
+\newpage
 \section{Results and conclusions of experiments}
 \label{sec:results}
 
@@ -140,15 +145,14 @@ Some of the figures display the test/validation perplexity as a function of the 
 \[ e^{-\frac{1}{N} \sum_{i=1}^{N} \ln p_{target_{i}}} \]
 
 \noindent
-Some of the figures display a bar chart containing the training speed in function of the values of the variable parameters. This speed is expressed in words per seconds.
+Some of the tables include the training speed in function of the values of the variable parameters. This speed is expressed in words per seconds.
 
 \subsection{Performed experiments}
 \label{subsec:perf}
 
-In this section, the list of performed experiments is given. In each experiment, one or more parameters are variable while the rest of the parameters stay fixed. The next list indicates the variable parameters of each experiment:
+In this section, the list of performed experiments is given. In each experiment, one or more parameters are variable while the rest of the parameters stay fixed. The fixed parameters are based on the medium configuration of the TensorFlow tutorial model. Each network is also initialized in the same way (by setting the seed of the random initializer). The next list indicates the variable parameters of each experiment:
 
 \begin{itemize}
-	
 	\item \textbf{learning\_rate \& lr\_decay}
 	\item \textbf{init\_scale \& hidden\_size}
 	\item \textbf{hidden\_size} \textbf{\&} \textbf{embedded\_size}
@@ -158,17 +162,17 @@ In this section, the list of performed experiments is given. In each experiment,
 	\item \textbf{num\_steps}
 	\item \textbf{optimizer}
 	\item \textbf{loss\_function}
-	
 \end{itemize}
 
 \noindent
 The names of the subsections (one subsection for each experiment) in section \ref{sec:results} will refer to these variable parameters.
 
+\newpage
 \subsection{learning\_rate \& lr\_decay}
 
 \begin{table}[H]
 \centering
-\caption{Last training perplexity, last validation perplexity, last test perplexity and the speed (in words per second) of experiment with \textbf{learning\_rate \& lr\_decay} as variable parameters.}
+\caption{Last training, validation and test perplexities and the training speed with \textbf{learning\_rate \& lr\_decay} as variable parameters.}
 \label{tab:exp1data}
 \begin{tabular}{|l|l|l|l|l|l|}
 \hline
@@ -187,7 +191,7 @@ The names of the subsections (one subsection for each experiment) in section \re
 
 \begin{figure}[H]
 	\begin{center}
-		\includegraphics[width=0.80\textwidth]{Figures/learninglrdecayperf.png}
+		\includegraphics[width=0.80\textwidth]{Figures/learninglrdecayperf.eps}
 		\caption{Convergence plot of the validation perplexity of the experiment with \textbf{learning\_rate \& lr\_decay} as variable parameters. }
 		\label{fig:exp1perf}
 	\end{center}	
@@ -201,7 +205,7 @@ The results of this experiment are displayed in table \ref{tab:exp1data} and fig
 
 \begin{table}[H]
 \centering
-\caption{Last training perplexity, last validation perplexity, last test perplexity and the speed (in words per second) of experiment with \textbf{init\_scale \& hidden\_size} as variable parameters.}
+\caption{Last training, validation and test perplexities and the training speed with \textbf{init\_scale \& hidden\_size} as variable parameters.}
 \label{tab:exp2data}
 \begin{tabular}{|l|l|l|l|l|l|}
 \hline
@@ -217,7 +221,7 @@ The results of this experiment are displayed in table \ref{tab:exp1data} and fig
 
 \begin{figure}[H]
 	\begin{center}
-		\includegraphics[width=0.80\textwidth]{Figures/inithiddenperf.png}
+		\includegraphics[width=0.80\textwidth]{Figures/inithiddenperf.eps}
 		\caption{Convergence plot of the validation perplexity of the experiment with \textbf{init\_scale \& hidden\_size} as variable parameters. }
 		\label{fig:exp2perf}
 	\end{center}	
@@ -231,7 +235,7 @@ The results of this experiment are displayed in table \ref{tab:exp2data} and fig
 
 \begin{table}[H]
 \centering
-\caption{Last training perplexity, last validation perplexity, last test perplexity and the speed (in words per second) of experiment with \textbf{hidden\_size \& embedded\_size} as variable parameters.}
+\caption{Last training, validation and test perplexities and the training speed with \textbf{hidden\_size \& embedded\_size} as variable parameters.}
 \label{tab:exp3data}
 \begin{tabular}{|l|l|l|l|l|l|}
 \hline
@@ -250,7 +254,7 @@ The results of this experiment are displayed in table \ref{tab:exp2data} and fig
 
 \begin{figure}[H]
 	\begin{center}
-		\includegraphics[width=0.80\textwidth]{Figures/hiddenembeddedperf.png}
+		\includegraphics[width=0.80\textwidth]{Figures/hiddenembeddedperf.eps}
 		\caption{Convergence plot of the validation perplexity of the experiment with \textbf{hidden\_size \& embedded\_size} as variable parameters.}
 		\label{fig:exp3perf}
 	\end{center}	
@@ -263,7 +267,7 @@ The results of this experiment are displayed in table \ref{tab:exp3data} and fig
 
 \begin{table}[H]
 \centering
-\caption{Last training perplexity, last validation perplexity, last test perplexity and the speed (in words per second) of experiment with \textbf{max\_grad\_norm} as variable parameter.}
+\caption{Last training, validation and test perplexities and the training speed with \textbf{max\_grad\_norm} as variable parameter.}
 \label{tab:exp4data}
 \begin{tabular}{|l|l|l|l|l|l|}
 \hline
@@ -276,7 +280,7 @@ The results of this experiment are displayed in table \ref{tab:exp3data} and fig
 
 \begin{figure}[H]
 	\begin{center}
-		\includegraphics[width=0.80\textwidth]{Figures/maxgradperf.png}
+		\includegraphics[width=0.80\textwidth]{Figures/maxgradperf.eps}
 		\caption{Convergence plot of the validation perplexity of the experiment with \textbf{max\_grad\_norm} as variable parameter. }
 		\label{fig:exp4perf}
 	\end{center}	
@@ -290,7 +294,7 @@ The results of this experiment are displayed in table \ref{tab:exp4data} and fig
 
 \begin{table}[H]
 \centering
-\caption{Last training perplexity, last validation perplexity, last test perplexity and the speed (in words per second) of experiment with \textbf{num\_layers} as variable parameter.}
+\caption{Last training, validation and test perplexities and the training speed with \textbf{num\_layers} as variable parameter.}
 \label{tab:exp5data}
 \begin{tabular}{|l|l|l|l|l|l|}
 \hline
@@ -303,7 +307,7 @@ The results of this experiment are displayed in table \ref{tab:exp4data} and fig
 
 \begin{figure}[H]
 	\begin{center}
-		\includegraphics[width=0.80\textwidth]{Figures/numlayersperf.png}
+		\includegraphics[width=0.80\textwidth]{Figures/numlayersperf.eps}
 		\caption{Convergence plot of the validation perplexity of the experiment with \textbf{num\_layers} as variable parameter. }
 		\label{fig:exp5perf}
 	\end{center}	
@@ -317,7 +321,7 @@ The results of this experiment are displayed in table \ref{tab:exp5data} and fig
 
 \begin{table}[H]
 \centering
-\caption{Last training perplexity, last validation perplexity, last test perplexity and the speed (in words per second) of experiment with \textbf{num\_steps \& batch\_size} as variable parameters.}
+\caption{Last training, validation and test perplexities and the training speed with \textbf{num\_steps \& batch\_size} as variable parameters.}
 \label{tab:exp6data}
 \begin{tabular}{|l|l|l|l|l|l|}
 \hline
@@ -336,13 +340,13 @@ The results of this experiment are displayed in table \ref{tab:exp5data} and fig
 
 \begin{figure}[H]
 	\begin{center}
-		\includegraphics[width=0.80\textwidth]{Figures/numstepsbatchperf.png}
+		\includegraphics[width=0.80\textwidth]{Figures/numstepsbatchperf.eps}
 		\caption{Convergence plot of the validation perplexity of the experiment with \textbf{num\_steps \& batch\_size} as variable parameters. }
 		\label{fig:exp6perf}
 	\end{center}	
 \end{figure}
 
-The results of this experiment are displayed in table \ref{tab:exp6data} and figure \ref{fig:exp6perf}. As expected,  as \textbf{batch\_size} goes up, the training speed slows down while there seems to be very little impact of \textbf{num\_steps} on the training speed. When it comes to the performance the results are much less clear: the best performing value for \textbf{batch\_size} is 20, in between 10 and 40, there seems to be a local optimum for this parameter. Regarding the parameter \textbf{num\_steps}, no definitive conclusion can be made based on this experiment.
+The results of this experiment are displayed in table \ref{tab:exp6data} and figure \ref{fig:exp6perf}. As expected,  as \textbf{batch\_size} goes up, the training speed slows down while there seems to be very little impact of \textbf{num\_steps} on the training speed. When it comes to the performance the results are not very clear: there seem to be local optima for these parameters. No definitive conclusion can be made based on this experiment and further experiments may be necessary.
 
 \newpage
 
@@ -350,7 +354,7 @@ The results of this experiment are displayed in table \ref{tab:exp6data} and fig
 
 \begin{table}[H]
 \centering
-\caption{Last training perplexity, last validation perplexity, last test perplexity and the speed (in words per second) of experiment with \textbf{num\_steps} as variable parameter.}
+\caption{Last training, validation and test perplexities and the training speed with \textbf{num\_steps} as variable parameter.}
 \label{tab:exp7data}
 \begin{tabular}{|l|l|l|l|l|l|}
 \hline
@@ -364,7 +368,7 @@ The results of this experiment are displayed in table \ref{tab:exp6data} and fig
 
 \begin{figure}[H]
 	\begin{center}
-		\includegraphics[width=0.80\textwidth]{Figures/numstepsperf.png}
+		\includegraphics[width=0.80\textwidth]{Figures/numstepsperf.eps}
 		\caption{Convergence plot of the validation perplexity of the experiment with \textbf{num\_steps} as variable parameter. }
 		\label{fig:exp7perf}
 	\end{center}	
@@ -378,7 +382,7 @@ The results of this experiment are displayed in table \ref{tab:exp7data} and fig
 
 \begin{table}[H]
 \centering
-\caption{Last training perplexity, last validation perplexity, last test perplexity and the speed (in words per second) of experiment with \textbf{optimizer} as variable parameter.}
+\caption{Last training, validation and test perplexities and the training speed with \textbf{optimizer} as variable parameter.}
 \label{tab:exp8data}
 \begin{tabular}{|l|l|l|l|l|l|}
 \hline
@@ -393,12 +397,11 @@ optimizer = Momentum                          & 58.1349    & 88.0675    & 84.293
 
 \begin{figure}[H]
 	\begin{center}
-		\includegraphics[width=0.80\textwidth]{Figures/optimizerperf.png}
+		\includegraphics[width=0.80\textwidth]{Figures/optimizerperf.eps}
 		\caption{Convergence plot of the validation perplexity of the experiment with \textbf{optimizer} as variable parameter. The Adagrad optimizer is not shown because his last perplexity at epoch 39 was still far above the others.}
 		\label{fig:exp8perf}
 	\end{center}	
 \end{figure}
-
 
 The results of this experiment are displayed in table \ref{tab:exp8data} and figure \ref{fig:exp8perf}. There seems be one clear loser in this experiment: the Adadelta optimizing algorithm. The rest of the optimizing algorithms are close in terms of speed and performance. One special thing to note is that the Adam algorithm seems to suffer significantly from the fact that early stopping is not applied.
 
@@ -408,7 +411,7 @@ The results of this experiment are displayed in table \ref{tab:exp8data} and fig
 
 \begin{table}[H]
 \centering
-\caption{Last training perplexity, last validation perplexity, last test perplexity and the speed (in words per second) of experiment with \textbf{loss\_function} as variable parameter.}
+\caption{Last training, validation and test perplexities and the training speed with \textbf{loss\_function} as variable parameter.}
 \label{tab:exp9data}
 \begin{tabular}{|l|l|l|l|l|l|}
 \hline
@@ -421,7 +424,7 @@ The results of this experiment are displayed in table \ref{tab:exp8data} and fig
 
 \begin{figure}[H]
 	\begin{center}
-		\includegraphics[width=0.80\textwidth]{Figures/lossperf.png}
+		\includegraphics[width=0.80\textwidth]{Figures/lossperf.eps}
 		\caption{Convergence plot of the validation perplexity of the experiment with \textbf{loss\_function} as variable parameter. }
 		\label{fig:exp9perf}
 	\end{center}	
