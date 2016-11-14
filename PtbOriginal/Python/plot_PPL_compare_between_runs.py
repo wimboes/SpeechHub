@@ -104,8 +104,8 @@ def plot_compare_between_runs(test_name, num_run_start, num_run_end, train_valid
         else:
             ax.plot(data_steps, data_PPL, color=colors[run % len(colors)], marker = markers[run % len(markers)], linestyle=linestyles[run % len(linestyles)], label = label)
     
-    plt.ylim([85,250])
-    #plt.ylim([np.min(min_lims),np.max(max_lims)])
+    #plt.ylim([85,250])
+    plt.ylim([np.min(min_lims),np.max(max_lims)])
     ax.legend(loc='upper right', fontsize=8)
     fig.savefig(output_path + '/' + test_name + '_from_' + str(num_run_start) + '_to_' + str(num_run_end) + '_' +train_valid_test+ '.png')
     plt.close()
