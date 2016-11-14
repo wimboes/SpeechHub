@@ -22,15 +22,6 @@
 
 \newpage
 
-
-Nog to do:
-\begin{itemize}
-\item extra tekst schrijven bij extra test
-\item schrijven waarom precies deze test zijn uitgevoerd
-\item figuren omzetten van png naar eps en bijsnijden
-\item random seed toegevoegd om de random initializatie gelijk te houden over de verschillende tests
-\end{itemize}
-
 \section{Introduction}
 
 \subsection{Setup of experiments}
@@ -111,12 +102,15 @@ This parameter indicates which optimization algorithm (available in the Tensorfl
 \begin{itemize}
 
 	\item \textit{``GradDesc''}: gradient descent algorithm.
-	\item \textit{``Adadelta''}: Adadelta algorithm, does not use learning rate parameters \textbf{learning\_rate}, \textbf{lr\_decay} and \textbf{max\_epoch}.
+	\item \textit{``Adadelta''}: Adadelta algorithm.
 	\item \textit{``Adagrad''}: Adagrad algorithm.
 	\item \textit{``Momentum''}: Momentum algorithm, with a fixed momentum term of 0.33 (arbitrary value).
-	\item \textit{``Adam''}: Adam algorithm, does not use learning rate parameters \textbf{learning\_rate}, \textbf{lr\_decay} and \textbf{max\_epoch}.	
+	\item \textit{``Adam''}: Adam algorithm
 
 \end{itemize}
+
+\noindent
+For \textit{``Adadelta''}, \textit{``Adagrad''} and \textit{``Adam''}, the default hyperparameters in the TensorFlow package are chosen. 
 
 \subsubsection{loss\_function}
 \label{subsubsec:loss}
@@ -145,7 +139,7 @@ Some of the figures display the test/validation perplexity as a function of the 
 \[ e^{-\frac{1}{N} \sum_{i=1}^{N} \ln p_{target_{i}}} \]
 
 \noindent
-Some of the tables include the training speed in function of the values of the variable parameters. This speed is expressed in words per seconds.
+Some of the tables include the training speed in function of the values of the variable parameters. This speed is expressed in words per seconds. All experiments are performed on the same machine so the training rate of the different test runs can be compared.
 
 \subsection{Performed experiments}
 \label{subsec:perf}
@@ -191,13 +185,13 @@ The names of the subsections (one subsection for each experiment) in section \re
 
 \begin{figure}[H]
 	\begin{center}
-		\includegraphics[width=0.80\textwidth]{Figures/learninglrdecayperf.eps}
+		\includegraphics[width=0.85\textwidth]{Figures/learninglrdecayperf.eps}
 		\caption{Convergence plot of the validation perplexity of the experiment with \textbf{learning\_rate \& lr\_decay} as variable parameters. }
 		\label{fig:exp1perf}
 	\end{center}	
 \end{figure}
 
-The results of this experiment are displayed in table \ref{tab:exp1data} and figure \ref{fig:exp1perf}.
+The results of this experiment are displayed in table \ref{tab:exp1data} and figure \ref{fig:exp1perf}. The most apparent conclusion of this experiment is the fact that the learning rate should not be too small. The tests with \textbf{learning\_rate} equal to 0.1 perform the worst. This is because the learning rate is too low and exponential learning rate decay is applied too early. This is clearly visible in the figure, especially when \textbf{lr\_decay} is large. The performance of the other tests are much better, in this case there seems to be a local optimum for \textbf{learning\_rate} equal to 1 and \textbf{lr\_decay} equal to 0.8.
 
 \newpage
 
@@ -227,7 +221,9 @@ The results of this experiment are displayed in table \ref{tab:exp1data} and fig
 	\end{center}	
 \end{figure}
 
-The results of this experiment are displayed in table \ref{tab:exp2data} and figure \ref{fig:exp2perf}.
+The results of this experiment are displayed in table \ref{tab:exp2data} and figure \ref{fig:exp2perf}. In this case, bigger values for \textbf{hidden\_size} lead to better validation perplexities. 0.05 and 0.005 seem to be good values for \textbf{init\_scale}, while 0.5 leads to a significantly worse performance. This seems to imply that the weights of the network should be initialized at rather small values.\\
+\\
+The parameter \textbf{hidden\_size} naturally influences the training speed. As the value for this parameter goes up, the training slows down. \textbf{init\_scale} has no effect on the training speed.
 
 \newpage
 
@@ -286,7 +282,9 @@ The results of this experiment are displayed in table \ref{tab:exp3data} and fig
 	\end{center}	
 \end{figure}
 
-The results of this experiment are displayed in table \ref{tab:exp4data} and figure \ref{fig:exp4perf}.
+The results of this experiment are displayed in table \ref{tab:exp4data} and figure \ref{fig:exp4perf}. Choosing \textbf{max\_grad\_norm} equal to 1 is clearly not a good idea: the clipping of the gradients is too strong and the changes to the weights of the network are too small. This leads to a bad validation perplexity. For the other two cases, there does not seem to be much difference in performance.\\
+\\
+This parameter has no impact on the training speed.
 
 \newpage
 
@@ -313,7 +311,9 @@ The results of this experiment are displayed in table \ref{tab:exp4data} and fig
 	\end{center}	
 \end{figure}
 
-The results of this experiment are displayed in table \ref{tab:exp5data} and figure \ref{fig:exp5perf}. The results seem to indicate that in this case it is better to stay away from multiple layers of LSTM cells. This could be because the number of model parameters (weights) increase heavily as \textbf{num\_layers} is increased, and there might not be enough training data available to cope with huge amounts of parameters.
+The results of this experiment are displayed in table \ref{tab:exp5data} and figure \ref{fig:exp5perf}. The results seem to indicate that in this case it is better to stay away from multiple layers of LSTM cells. This could be because the number of model parameters (weights) increase heavily as \textbf{num\_layers} is increased, and there might not be enough training data available to cope with huge amounts of parameters.\\
+\\
+As expected, the training speed goes down significantly when the number of layers is increased. 
 
 \newpage
 
@@ -346,7 +346,7 @@ The results of this experiment are displayed in table \ref{tab:exp5data} and fig
 	\end{center}	
 \end{figure}
 
-The results of this experiment are displayed in table \ref{tab:exp6data} and figure \ref{fig:exp6perf}. As expected,  as \textbf{batch\_size} goes up, the training speed slows down while there seems to be very little impact of \textbf{num\_steps} on the training speed. When it comes to the performance the results are not very clear: there seem to be local optima for these parameters. No definitive conclusion can be made based on this experiment and further experiments may be necessary.
+The results of this experiment are displayed in table \ref{tab:exp6data} and figure \ref{fig:exp6perf}. As expected,  as \textbf{batch\_size} goes up, the training speed slows down while there seems to be very little impact of \textbf{num\_steps} on the training speed. When it comes to the performance the results are not very clear: there seem to be local optima for these parameters. No definitive conclusion can be made based on this experiment.
 
 \newpage
 
@@ -374,7 +374,9 @@ The results of this experiment are displayed in table \ref{tab:exp6data} and fig
 	\end{center}	
 \end{figure}
 
-The results of this experiment are displayed in table \ref{tab:exp7data} and figure \ref{fig:exp7perf}.
+The results of this experiment are displayed in table \ref{tab:exp7data} and figure \ref{fig:exp7perf}. The figure shows a local optimum for \textbf{num\_steps} equal to 35. This is somewhat strange as one would expect the performance to go up when more time steps are taken into account for training.\\
+\\
+The training speed seems to go down as \textbf{num\_steps} is reduced, which is logical as each element of the training batch has length \textbf{num\_steps}. This leads to less batches in one epoch, hence there are less weight updates per epoch and the speed goes up.
 
 \newpage
 
@@ -403,7 +405,7 @@ optimizer = Momentum                          & 58.1349    & 88.0675    & 84.293
 	\end{center}	
 \end{figure}
 
-The results of this experiment are displayed in table \ref{tab:exp8data} and figure \ref{fig:exp8perf}. There seems be one clear loser in this experiment: the Adadelta optimizing algorithm. The rest of the optimizing algorithms are close in terms of speed and performance. One special thing to note is that the Adam algorithm seems to suffer significantly from the fact that early stopping is not applied.
+The results of this experiment are displayed in table \ref{tab:exp8data} and figure \ref{fig:exp8perf}. There seems be one big loser in this experiment: the Adadelta optimizing algorithm. Adam also doesn't seem to perform well and is also the slowest. Adagrad is slightly better, but the gradient descent and momentum algorithms are the clear winners of this experiment. 
 
 \newpage
 
@@ -418,7 +420,6 @@ The results of this experiment are displayed in table \ref{tab:exp8data} and fig
 {\small Name} & {\small Train PPL} & {\small Valid PPL} & {\small Test PPL} & {\small Average speed}\\ \hline
 {\small loss\_function = full softmax }                 & 56.7543    & 88.6126    & 85.5887    & 5318.9263  \\ \hline
 {\small loss\_function = sampled softmax }              & 4.7374     & 99.3000    & 94.9911    & 6250.8133  \\ \hline
-{\small loss\_function = noise contrastive estimation}  & 20.9866    & 141.5380   & 136.0366   & 6247.5336  \\ \hline
 \end{tabular}
 \end{table}
 
@@ -430,37 +431,15 @@ The results of this experiment are displayed in table \ref{tab:exp8data} and fig
 	\end{center}	
 \end{figure}
 
-The results of this experiment are displayed in table \ref{tab:exp9data} and figure \ref{fig:exp9perf}. The results are as expected, the sampled softmax loss function trains quicker but performs worse than the full softmax function. Extra experiments will have to be done to see if this loss in performance is worth the gain in speed
+The results of this experiment are displayed in table \ref{tab:exp9data} and figure \ref{fig:exp9perf}. The results are as expected, the sampled softmax loss function trains quicker but performs worse than the full softmax function. Extra experiments will have to be done to see if this loss in performance is worth the gain in speed.\\
+\\
+Please note that the training perplexity when using the sampled softmax loss function is not a real perplexity value. This is because the training perplexity is calculated based on the output of the sampled softmax probablities. These probabilities are not properly normalized, as described in section \ref{subsubsec:loss}, and hence the training performance is strongly overestimated.
 
 \newpage
 
-
-
-
-
-%\subsection{init\_scale \& learning\_rate}
-%
-%\begin{figure}[H]
-%	\begin{center}
-%		\includegraphics[width=0.72\textwidth]{initlearnspeed.eps}
-%		\caption{Results of speed experiment with \textbf{init\_scale \& learning\_rate} as variable parameters}
-%		\label{fig:exp2speed}
-%	\end{center}	
-%\end{figure}
-%
-%\begin{figure}[H]
-%	\begin{center}
-%		\includegraphics[width=0.72\textwidth]{initlearnperf.eps}
-%		\caption{Results of performance experiment with \textbf{init\_scale \& learning\_rate} as variable parameters. The full line represents the validation perplexity evaluated after each training epoch, the dotted line represent the test perplexity evaluated at the vary last epoch of the training.}
-%		\label{fig:exp2perf}
-%	\end{center}	
-%\end{figure}
-%
-%The results of this experiment are displayed in figures \ref{fig:exp2speed} and \ref{fig:exp2perf}. Experiments with \textbf{init\_scale} equal to 1 were also performed but the performance results were so bad that these experiments are excluded from the figures. The results seem to suggest that it is beneficial to keep \textbf{init\_scale} fairly small and \textbf{learning\_rate} relatively large. The impact of the former also seems more significant than the impact of the latter.
-
 \section{Conclusion}
 
-These experiments investigated the impact of the different training parameters involved when using recurrent neural networks for language modeling. To this end, the Tensorflow tutorial model of a recurrent neural network for language modeling (publicly available) was used with the Penn Tree Bank dataset for training, validation and testing of the model \cite{tensorflow}.\\
+These experiments investigated the impact of the different training parameters involved when using recurrent neural networks for language modeling. To this end, the TensorFlow tutorial model of a recurrent neural network for language modeling (publicly available) was used with the Penn TreeBank dataset for training, validation and testing of the model \cite{tensorflow}.\\
 \\
 The most interesting conclusions that could be drawn from these experiments are summarized in this list (see section \ref{subsec:exp} for an explanation of the parameters):
 
@@ -468,11 +447,11 @@ The most interesting conclusions that could be drawn from these experiments are 
 	\item Increasing \textbf{hidden\_size} improves performance but lowers training speed.
 	\item Increasing \textbf{embedded\_size} improves performance slightly but does not have an impact or very little impact on training speed.
 	\item \textbf{init\_scale} should be kept at a relatively low value.	
-	\item \textbf{learning\_rate} should be kept at a relatively high value.
-	\item The parameter \textbf{batch\_size} seems to have a local optimum regarding performance.
-	\item No real conclusions could be drawn from these experiments regarding \textbf{num\_steps}. 
+	\item \textbf{learning\_rate} should be kept at a relatively high value and \textbf{lr\_decay} should not be too high.
+	\item \textbf{max\_grad\_norm} should not be too low as this hinders the learning process of the network.
+	\item Increasing \textbf{num\_steps} makes training faster, regarding performance this parameter seems to have a local optimum. 
 	\item The sampled softmax loss function has worse performance but better training speed than the full softmax loss function. 
-	\item Most optimizing algorithms are relatively close in performance besides Adadelta, that performs much worse than the other options.
+	\item The gradient descent and momentum optimization algorithms do better than the other algorithms in terms of performance and speed.
 	\item The optimal value for \textbf{num\_layers} in this case is 1. However, this could be because there is not enough training data to properly train the model when multiple LSTM layers are employed.
 \end{itemize}
 
