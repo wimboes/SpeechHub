@@ -95,18 +95,22 @@ class PTBModel(object):
         cell = tf.nn.rnn_cell.MultiRNNCell([lstm_cell] * config.num_layers, state_is_tuple=True)
 
         self._initial_state = cell.zero_state(batch_size, data_type())
-
+        
+        seq_len = self.length_of_seq(input_.input_data)
+        self._seq_len = seq_len
         with tf.device("/cpu:0"):
             embedding = tf.get_variable("embedding", [vocab_size, embedded_size], dtype=data_type())
             inputs = tf.nn.embedding_lookup(embedding, input_.input_data)
 
-        if is_training and config.keep_prob < 1:
+        if 0 and is_training and config.keep_prob < 1:
             inputs = tf.nn.dropout(inputs, config.keep_prob)
 
-        seq_len = self.length_of_seq(inputs)
-#        inputs = [tf.squeeze(input_step, [1])
-#        					 for input_step in tf.split(1, num_steps, inputs)]
+
+        #inputs = [tf.squeeze(input_step, [1])
+       # 					 for input_step in tf.split(1, num_steps, inputs)]
+        self._temp = inputs
         outputs, state = tf.nn.dynamic_rnn(cell, inputs, initial_state=self._initial_state, dtype=tf.float32, sequence_length=seq_len)
+        self._output = outputs
         
         output = tf.reshape(tf.concat(1, outputs), [-1, size])
         softmax_w = tf.get_variable("softmax_w", [size, vocab_size], dtype=data_type())
@@ -130,14 +134,26 @@ class PTBModel(object):
         self._lr_update = tf.assign(self._lr, self._new_lr)
 
     def length_of_seq(self,sequence):
-        used = tf.sign(tf.reduce_max(tf.abs(sequence), reduction_indices=2))
+        used = tf.sign(tf.abs(sequence))
         length = tf.reduce_sum(used, reduction_indices=1)
         length = tf.cast(length, tf.int32)
         return length
+     
+    @property
+    def leng(self):
+        return self._seq_len    
+        
+    @property
+    def temp(self):
+        return self._temp 
   
     def assign_lr(self, session, lr_value):
         session.run(self._lr_update, feed_dict={self._new_lr: lr_value})
 
+    @property
+    def output(self):
+        return self._output
+        
     @property
     def input(self):
         return self._input
@@ -222,11 +238,16 @@ def run_epoch(session, model, eval_op=None, verbose=False, epoch_nb = 0):
 	fetches = {
 			"cost": model.cost,
 			"initial_state": model.initial_state, #aangepast!!!!!!!!!!!!!!!!!!
-	}
+                   "final_state": model.final_state,
+                   "seq_len": model.leng,
+                   "output": model.output,
+                   "input":model.input.input_data,
+                   'temp':model.temp
+   }
 	if eval_op is not None:
 		fetches["eval_op"] = eval_op
 
-	for step in range(model.input.epoch_size):
+	for step in range(2): # range(model.input.epoch_size):
 		feed_dict = {}
 		for i, (c, h) in enumerate(model.initial_state):
 			feed_dict[c] = state[i].c
@@ -234,8 +255,16 @@ def run_epoch(session, model, eval_op=None, verbose=False, epoch_nb = 0):
 
 		vals = session.run(fetches, feed_dict)
 		cost = vals["cost"]
-		state = vals["initial_state"] #aangepast!!!!!!!!!!!!!!!!!!
+		state = vals["initial_state"] #aangepast!!!!!!!!!!!!!!!!! 
+		print(vals['seq_len'])   
+		print(vals['input'])  
+		print(vals['temp'].shape)
+		print(vals['temp'])    
+  		print(vals['output'].shape)
+		print(vals['output'])
 
+#		print(vals['final_state'])  
+		print(vals['initial_state'])    		
 		costs += cost
 		iters += 1          
 

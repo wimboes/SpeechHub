@@ -27,11 +27,11 @@
 \subsection{Setup of experiments}
 \label{sec:setup}
 
-The purpose of these experiments is to investigate the impact of the different training parameters involved when using recurrent neural networks for language modeling. To this end, the TensorFlow tutorial model of a recurrent neural network for language modeling (publicly available) is used with the Penn TreeBank dataset for training, validation and testing of the model \cite{tensorflow}.\\
+The purpose of these experiments is to investigate the impact of the different training parameters involved when using recurrent neural networks for language modeling. To this end, the TensorFlow tutorial model of a recurrent neural network for language modeling (publicly available) is used with the Penn Treebank dataset for training, validation and testing of the model \cite{tensorflow}.\\
 \\
 The TensorFlow tutorial language model consists of different parts. The input words, represented by word IDs (integers) unique to each word, are first embedded into multidimensional representations. These are then sequentially fed into a recurrent neural network that consists of layers of LSTM cells \cite{LSTM}. The outputs of this neural network are then turned into a probability vector by a softmax classifier. Each element of this vector is the probability that the next word is the word whose word ID is the index of the element in this vector.\\
 \\
-This language model uses the Penn TreeBank (PTB) dataset, a popular benchmark for language models \cite{PTB}. This dataset has a vocabulary of 10000 words and is split into train, validation and test sets. It is a relatively small dataset. Out-of-vocabulary words are mapped to a special $<$unk$>$-token that is also a part of the vocabulary.\\
+This language model uses the Penn Treebank (PTB) dataset, a popular benchmark for language models \cite{PTB}. This dataset has a vocabulary of 10000 words and is split into train, validation and test sets. It is a relatively small dataset. Out-of-vocabulary words are mapped to a special $<$unk$>$-token that is also a part of the vocabulary.\\
 \\
 The principles and architecture of the model will be explained in more detail in the final thesis.
 
@@ -92,7 +92,7 @@ The gradients calculated by the backpropagation through time algorithm are clipp
 
 \subsubsection{batch\_size}
 
-\textbf{batch\_size} is the number of training examples per batch. One training example contains \textbf{num\_steps} words (see section \ref{subsubsec:numsteps}). After each batch the parameters are updated, so that these are updated mutiple times during one epoch.
+\textbf{batch\_size} is the number of training examples per batch. One training example contains \textbf{num\_steps} words (see section \ref{subsubsec:numsteps}). After each batch the parameters are updated, so that these are updated multiple times during one epoch.
 
 \subsubsection{optimizer}
 \label{subsubsec:opt}
@@ -139,7 +139,7 @@ Some of the figures display the test/validation perplexity as a function of the 
 \[ e^{-\frac{1}{N} \sum_{i=1}^{N} \ln p_{target_{i}}} \]
 
 \noindent
-Some of the tables include the training speed in function of the values of the variable parameters. This speed is expressed in words per seconds. All experiments are performed on the same machine so the training rate of the different test runs can be compared.
+The tables include the training speed in function of the values of the variable parameters. This speed is expressed in processed words per seconds. All experiments are performed on the same machine so the training rate of the different test runs can be compared.
 
 \subsection{Performed experiments}
 \label{subsec:perf}
@@ -433,13 +433,13 @@ The results of this experiment are displayed in table \ref{tab:exp8data} and fig
 
 The results of this experiment are displayed in table \ref{tab:exp9data} and figure \ref{fig:exp9perf}. The results are as expected, the sampled softmax loss function trains quicker but performs worse than the full softmax function. Extra experiments will have to be done to see if this loss in performance is worth the gain in speed.\\
 \\
-Please note that the training perplexity when using the sampled softmax loss function is not a real perplexity value. This is because the training perplexity is calculated based on the output of the sampled softmax probablities. These probabilities are not properly normalized, as described in section \ref{subsubsec:loss}, and hence the training performance is strongly overestimated.
+Please note that the training perplexity when using the sampled softmax loss function is not a real perplexity value. This is because the training perplexity is calculated based on the output of the sampled softmax probabilities. These probabilities are not properly normalized, as described in section \ref{subsubsec:loss}, and hence the training performance is strongly overestimated.
 
 \newpage
 
 \section{Conclusion}
 
-These experiments investigated the impact of the different training parameters involved when using recurrent neural networks for language modeling. To this end, the TensorFlow tutorial model of a recurrent neural network for language modeling (publicly available) was used with the Penn TreeBank dataset for training, validation and testing of the model \cite{tensorflow}.\\
+These experiments investigated the impact of the different training parameters involved when using recurrent neural networks for language modeling. To this end, the TensorFlow tutorial model of a recurrent neural network for language modeling (publicly available) was used with the Penn Treebank dataset for training, validation and testing of the model \cite{tensorflow}.\\
 \\
 The most interesting conclusions that could be drawn from these experiments are summarized in this list (see section \ref{subsec:exp} for an explanation of the parameters):
 
