@@ -7,7 +7,6 @@ import collections
 import os
 
 import tensorflow as tf
-import numpy as np
 
 def read_sentences(filename):
     with tf.gfile.GFile(filename, "r") as f:
@@ -77,20 +76,6 @@ def ptb_raw_data(data_path=None):
     max_length = calc_max_length(train_path,valid_path,test_path)
     
     train_sentences = read_sentences(train_path)
-    valid_sentences = read_sentences(valid_path)
-    test_sentences = read_sentences(test_path)
-    
-    train_length_array = np.zeros(len(train_sentences),dtype=np.int32)
-    for i in xrange(len(train_sentences)):
-        train_length_array[i] = len(train_sentences[i]) + 2
-
-    valid_length_array = np.zeros(len(valid_sentences),dtype=np.int32)
-    for i in xrange(len(valid_sentences)):
-        valid_length_array[i] = len(valid_sentences[i]) + 2
-
-    test_length_array = np.zeros(len(test_sentences),dtype=np.int32)
-    for i in xrange(len(test_sentences)):
-        test_length_array[i] = len(test_sentences[i]) + 2
     
     train_sentences = prepare_sentence_training(train_sentences)
     
@@ -100,10 +85,9 @@ def ptb_raw_data(data_path=None):
     valid_data = file_to_word_ids(valid_path, word_to_id, max_length)
     test_data = file_to_word_ids(test_path, word_to_id, max_length)
     vocabulary = len(word_to_id)
+    return train_data, valid_data, test_data, vocabulary, max_length+2
     
-    return train_data, valid_data, test_data, vocabulary, max_length+2, train_length_array, valid_length_array, test_length_array 
-    
-def ptb_producer(raw_data, batch_size, num_steps, length_array, name=None):
+def ptb_producer(raw_data, batch_size, num_steps, name=None):
     with tf.name_scope(name):
         raw_data = tf.convert_to_tensor(raw_data, name="raw_data", dtype=tf.int32)
 
@@ -111,15 +95,9 @@ def ptb_producer(raw_data, batch_size, num_steps, length_array, name=None):
         batch_nb_sentences = nb_sentences // batch_size
         data = tf.reshape(raw_data[0 : batch_size * batch_nb_sentences],
                                            [batch_size, batch_nb_sentences*(num_steps+1)])
-        
-        lengths = tf.convert_to_tensor(length_array, name="length_array", dtype=tf.int32)
-        lengths1 = tf.reshape(lengths[0 : batch_size * batch_nb_sentences],
-                                             [batch_size, batch_nb_sentences])
-        lengths2 = tf.reduce_max(lengths1,reduction_indices=0)
 
         epoch_size = (batch_nb_sentences)
         i = tf.train.range_input_producer(epoch_size, shuffle=False).dequeue()
-        x = tf.slice(data, [0, i*(num_steps+1)], [batch_size, lengths2[i]])
-        y = tf.slice(data, [0, i*(num_steps+1)+1], [batch_size, lengths2[i]])
-        
-        return x, y, lengths2[i]
+        x = tf.slice(data, [0, i*(num_steps+1)], [batch_size, num_steps])
+        y = tf.slice(data, [0, i*(num_steps+1)+1], [batch_size, num_steps])
+        return x, y
