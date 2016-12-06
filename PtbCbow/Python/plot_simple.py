@@ -115,7 +115,7 @@ def plot_speed_compare_between_runs(test_name, num_run_start, num_run_end, input
             if param_np[i][0] in param:
                     label = label +param_np[i][0] + ' = ' + param_np[i][1] + ', '
         if label == '':
-            label = test_name + '_' + str(num_run_start)
+            label = test_name + '_' + str(run)
         else:
             label = label[:-2]
         labels.append(label)
@@ -316,7 +316,7 @@ def plot_compare_between_runs(test_name, num_run_start, num_run_end, train_valid
             if param_np[i][0] in param:
                     label = label +param_np[i][0] + ' = ' + param_np[i][1] + ', '
         if label == '':
-            label = test_name + '_' + str(num_run_start)
+            label = test_name + '_' + str(run)
         else:
             label = label[:-2]
         labels.append(label)
@@ -404,7 +404,7 @@ def plot_compare_between_runs_summary(test_name, num_run_start, num_run_end, inp
             if param_np[i][0] in param:
                     label = label +param_np[i][0] + ' = ' + param_np[i][1] + ', '
         if label == '':
-            label = test_name + '_' + str(num_run_start)
+            label = test_name + '_' + str(run)
         else:
             label = label[:-2]
         labels.append(label)

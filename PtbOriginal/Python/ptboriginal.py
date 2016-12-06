@@ -45,19 +45,19 @@ flags.DEFINE_float("init_scale", 0.05, "init_scale")
 flags.DEFINE_float("learning_rate", 1, "learning_rate")
 flags.DEFINE_float("max_grad_norm", 5, "max_grad_norm")
 flags.DEFINE_integer("num_layers", 1, "num_layers")
-flags.DEFINE_integer("num_steps", 10, "num_steps")
-flags.DEFINE_integer("hidden_size", 256, "hidden_size")
+flags.DEFINE_integer("num_steps", 35, "num_steps")
+flags.DEFINE_integer("hidden_size", 512, "hidden_size")
 flags.DEFINE_integer("max_epoch", 6, "max_epoch")
-flags.DEFINE_integer("max_max_epoch", 32, "max_max_epoch")
+flags.DEFINE_integer("max_max_epoch", 39, "max_max_epoch")
 flags.DEFINE_float("keep_prob", 0.5, "keep_prob")
 flags.DEFINE_float("lr_decay", 0.8, "lr_decay")
 flags.DEFINE_integer("batch_size", 20, "batch_size")
-flags.DEFINE_integer("vocab_size", 10002, "vocab_size")
-flags.DEFINE_integer("embedded_size", 128, "embedded_size")
+flags.DEFINE_integer("vocab_size", 10001, "vocab_size")
+flags.DEFINE_integer("embedded_size", 256, "embedded_size")
 flags.DEFINE_integer("num_run", 0, "num_run")
-flags.DEFINE_string("test_name","askoy2","test_name")
+flags.DEFINE_string("test_name","original","test_name")
 flags.DEFINE_string("optimizer","GradDesc","optimizer")
-flags.DEFINE_string("loss_function","noise_contrastive_estimation","loss_function")
+flags.DEFINE_string("loss_function","full_softmax","loss_function")
 
 flags.DEFINE_string("data_path", input_path, "data_path")
 flags.DEFINE_string("save_path", output_path, "save_path")
@@ -80,12 +80,7 @@ class PTBInput(object):
 
 class PTBModel(object):
     """The PTB model."""
-    def length(self,sequence):
-        used = tf.sign(tf.reduce_max(tf.abs(sequence), reduction_indices=2))
-        length = tf.reduce_sum(used, reduction_indices=1)
-        length = tf.cast(length, tf.int32)
-        return length
-    
+   
     def __init__(self, is_training, config, input_):
         self._input = input_
 
@@ -111,7 +106,7 @@ class PTBModel(object):
         
 #        inputs = [tf.squeeze(input_step, [1]) for input_step in tf.split(1, num_steps, inputs)]
 #        print(inputs[0].get_shape())
-        outputs, state = tf.nn.dynamic_rnn(cell, inputs, initial_state=self._initial_state, dtype=tf.float32, sequence_length=self.length(inputs))
+        outputs, state = tf.nn.dynamic_rnn(cell, inputs, initial_state=self._initial_state, dtype=tf.float32)
         output = tf.reshape(tf.concat(1, outputs), [-1, hidden_size])
         
         softmax_w = tf.get_variable("softmax_w", [hidden_size, vocab_size], dtype=data_type())
