@@ -7,14 +7,14 @@ import sys
 import time
 import numpy as np
 
-if 'LD_LIBRARY_PATH' not in os.environ:
-        os.environ['LD_LIBRARY_PATH'] = '/home/wim/cuda-8.0/lib64'
-        try:
-            	os.system('python ' + ' '.join(sys.argv))
-                sys.exit(0)
-        except Exception, exc:
-                print('Failed re_exec:', exc)
-                sys.exit(1)
+#if 'LD_LIBRARY_PATH' not in os.environ:
+#        os.environ['LD_LIBRARY_PATH'] = '/home/wim/cuda-8.0/lib64'
+#        try:
+#            	os.system('python ' + ' '.join(sys.argv))
+#                sys.exit(0)
+#        except Exception, exc:
+#                print('Failed re_exec:', exc)
+#                sys.exit(1)
                 
 import tensorflow as tf
 import LDA_reader
@@ -106,9 +106,8 @@ class PTBModel(object):
         
         softmax_w = tf.get_variable("softmax_w", [hidden_size, nb_topics], dtype=data_type())
         softmax_b = tf.get_variable("softmax_b", [nb_topics], dtype=data_type())
-        loss,self._temp = get_loss_function(output, softmax_w, softmax_b, input_.targets, topic_matrix, batch_size, num_steps, is_training)
+        loss = get_loss_function(output, softmax_w, softmax_b, input_.targets, topic_matrix, batch_size, num_steps, is_training)
         
-        self._temp = embedding
         
         self._cost = cost = loss
         self._final_state = state
@@ -139,9 +138,6 @@ class PTBModel(object):
     @property
     def cost(self):
         return self._cost
-        
-    def temp(self):
-        return self._temp
 
     @property
     def final_state(self):
@@ -197,7 +193,7 @@ def get_loss_function(output, softmax_w, softmax_b, targets, topic_matrix, batch
         y = tf.gather(tf.reshape(output_probs, [-1]), idx_flattened)  # use flattened indices
         loss = -tf.log(y)
         #loss = tf.nn.sparse_softmax_cross_entropy_with_logits(logits, tf.reshape(targets, [-1]), name=None)
-        return tf.reduce_sum(loss) / batch_size, logits
+        return tf.reduce_sum(loss) / batch_size
     if FLAGS.loss_function == 'sampled_softmax':
         if is_training:
             loss = tf.nn.sampled_softmax_loss(tf.transpose(softmax_w), softmax_b, output, tf.reshape(targets, [-1, 1]), 32, FLAGS.vocab_size)
@@ -224,12 +220,11 @@ def run_epoch(session, model, eval_op=None, verbose=False, epoch_nb = 0):
     state = session.run(model.initial_state)
     save_np = np.array([[0,0,0,0]])
 
-    fetches = {"cost": model.cost,"final_state": model.final_state,"temp":model._temp}
+    fetches = {"cost": model.cost,"final_state": model.final_state}
     if eval_op is not None:
         fetches["eval_op"] = eval_op
 
-    #for step in range(model.input.epoch_size):
-    for step in range(2):
+    for step in range(model.input.epoch_size):
         feed_dict = {}
         for i, (c, h) in enumerate(model.initial_state):
             feed_dict[c] = state[i].c
@@ -238,8 +233,6 @@ def run_epoch(session, model, eval_op=None, verbose=False, epoch_nb = 0):
         vals = session.run(fetches, feed_dict)
         cost = vals["cost"]
         state = vals["final_state"]
-        temp = vals["temp"]
-        print(temp)
 
         costs += cost
         iters += model.input.num_steps

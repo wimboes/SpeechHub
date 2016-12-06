@@ -57,8 +57,8 @@ def ptb_raw_data_lda(data_path=None):
     valid_path = os.path.join(data_path, "ptb.valid.txt")
     test_path = os.path.join(data_path, "ptb.test.txt")
 
-    doctrain = _read_words_no_split('/home/wim/SpeechHub/LDA/Input/ptb.train.txt')
-    docvalid = _read_words_no_split('/home/wim/SpeechHub/LDA/Input/ptb.valid.txt')
+    doctrain = _read_words_no_split(train_path)
+    docvalid = _read_words_no_split(valid_path)
  
     docs = [doctrain,docvalid]
     texts = [[word for word in doc.lower().split()] for doc in docs]
