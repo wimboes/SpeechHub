@@ -3,20 +3,27 @@ from __future__ import division
 from __future__ import print_function
 
 import tensorflow as tf
-import gensim
-from pprint import pprint
+from gensim import corpora, models
 
 def read_words(filename):
     with tf.gfile.GFile(filename, "r") as f:
          a = f.read().replace("\n", "<eos>")
-         a = a.split()
+         #a = a.split()
          return a     
          
-text= read_words('/home/robbe/SpeechHub/LDATest/ptb.test.txt')
-corpus=[text]
-dictionary = gensim.corpora.Dictionary(corpus)
-print(dictionary)
-print(dictionary.token2id)
-new_vec = dictionary.doc2bow(text)
+document1= read_words('/home/wim/SpeechHub/LDATest/ptb.test.txt')
+documents=[document1]
+texts = [[word for word in document.lower().split()] for document in documents]
+dictionary = corpora.Dictionary(texts)
 
-#lda = gensim.models.LdaModel(corpus, num_topics=10)
+class MyCorpus(object):
+    def __init__(self,texts,dictionary):
+        self.corpus = texts
+        self.dict = dictionary
+    def __iter__(self):
+        for i in range(len(self.corpus)):
+            yield self.dict.doc2bow(self.corpus[i])
+
+#doc2bowvec = dictionary.doc2bow(texts[0])
+corpus = MyCorpus(texts,dictionary)
+lda = models.LdaModel(corpus=corpus, id2word=dictionary, num_topics=10)
