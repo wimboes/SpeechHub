@@ -59,6 +59,7 @@ flags.DEFINE_integer("num_run", 0, "num_run")
 flags.DEFINE_string("test_name","cbow1","test_name")
 flags.DEFINE_string("optimizer","GradDesc","optimizer")
 flags.DEFINE_string("loss_function","full_softmax","loss_function")
+flags.DEFINE_string("combination","exp","combination")
 
 flags.DEFINE_string("data_path", input_path, "data_path")
 flags.DEFINE_string("save_path", output_path, "save_path")
@@ -101,31 +102,44 @@ class PTBModel(object):
         self._initial_state = cell.zero_state(batch_size, data_type())
         
         history_len = self.length_of_seq(input_.history)
+
+        
+
         
         with tf.device("/cpu:0"):
             embedding = tf.get_variable("embedding", [vocab_size, embedded_size], dtype=data_type())
             inputs = tf.nn.embedding_lookup(embedding, input_.input_data)
             inputs_cbow = tf.nn.embedding_lookup(embedding, input_.history)
 
+
         if is_training and config.keep_prob < 1:
             inputs = tf.nn.dropout(inputs, config.keep_prob)
+            inputs_cbow = tf.nn.dropout(inputs_cbow, config.keep_prob)
 
-#        inputs = [tf.squeeze(input_step, [1]) for input_step in tf.split(1, num_steps, inputs)]
-#        print(inputs[0].get_shape())
         outputs, state = tf.nn.dynamic_rnn(cell, inputs, initial_state=self._initial_state, dtype=tf.float32)
-        output = tf.reshape(tf.concat(1, outputs), [-1, hidden_size])
+        output_LSTM = tf.reshape(tf.concat(1, outputs), [-1, hidden_size])
         
-        #nog problemen met nullen in het begin!!
         outputs_cbow = []
         for i in range(num_steps):
-            mean_ =  tf.reduce_mean(tf.slice(inputs_cbow,[0,tf.maximum(i,num_history+num_steps-history_len-1),0],[batch_size,tf.minimum(num_history,i+1+history_len-num_steps),embedded_size]),1)
-            outputs_cbow.append(mean_)
+            if FLAGS.combination == "mean":
+                comb_ =  tf.reduce_mean(tf.slice(inputs_cbow,[0,tf.maximum(i,num_history+num_steps-history_len-1),0],[batch_size,tf.minimum(num_history,i+1+history_len-num_steps),embedded_size]),1)
+            if  FLAGS.combination == "sum":
+                comb_ = tf.reduce_sum(tf.slice(inputs_cbow,[0,tf.maximum(i,num_history+num_steps-history_len-1),0],[batch_size,tf.minimum(num_history,i+1+history_len-num_steps),embedded_size]),1)
+            if FLAGS.combination == "exp":
+                exp_weights = tf.constant([[embedded_size*[np.exp(-5*k/num_history)] for k in range(num_history)] for j in range(batch_size)])
+                temp1 = tf.slice(inputs_cbow,[0,tf.maximum(i,num_history+num_steps-history_len-1),0],[batch_size,tf.minimum(num_history,i+1+history_len-num_steps),embedded_size])
+                temp2 = tf.slice(exp_weights,[0,0,0],[batch_size,tf.minimum(num_history,i+1+history_len-num_steps),embedded_size])
+                temp2 = tf.reverse(temp2,[False,True,False])
+                comb_ = tf.reduce_sum(temp1*temp2,1)
+                comb_ /= (tf.reduce_sum(temp2)/(embedded_size*batch_size))
+            outputs_cbow.append(comb_)
         output_cbow = tf.reshape(tf.concat(1, outputs_cbow), [-1, embedded_size])
             
-        softmax_w_cbow = tf.get_variable("softmax_w_cbow", [embedded_size, vocab_size], dtype=data_type());
-        softmax_w = tf.get_variable("softmax_w", [hidden_size, vocab_size], dtype=data_type())
+        #softmax_w_cbow = tf.get_variable("softmax_w_cbow", [embedded_size, vocab_size], dtype=data_type());
+        softmax_w = tf.get_variable("softmax_w", [hidden_size+embedded_size, vocab_size], dtype=data_type())
         softmax_b = tf.get_variable("softmax_b", [vocab_size], dtype=data_type())
-        loss = get_loss_function(output, softmax_w, softmax_b, softmax_w_cbow, output_cbow, input_.targets, batch_size,num_steps, is_training)
+        output = tf.concat(1,[output_LSTM,output_cbow])
+        loss = get_loss_function(output, softmax_w, softmax_b, input_.targets, batch_size, num_steps, is_training)
         
         self._cost = cost = loss
         self._final_state = state
@@ -194,6 +208,7 @@ class Config(object):
     optimizer = FLAGS.optimizer
     loss_function = FLAGS.loss_function
     num_history = FLAGS.num_history
+    combination = FLAGS.combination
 
 def get_optimizer(lr):
     if FLAGS.optimizer == "GradDesc":
@@ -208,9 +223,9 @@ def get_optimizer(lr):
         return tf.train.AdamOptimizer()
     return 0
 
-def get_loss_function(output, softmax_w, softmax_b, softmax_w_cbow, output_cbow, targets, batch_size, num_steps, is_training):
+def get_loss_function(output, softmax_w, softmax_b, targets, batch_size, num_steps, is_training):
     if FLAGS.loss_function == "full_softmax":
-        logits = tf.matmul(output, softmax_w) + softmax_b + tf.matmul(output_cbow, softmax_w_cbow)
+        logits = tf.matmul(output, softmax_w)
         loss = tf.nn.sparse_softmax_cross_entropy_with_logits(logits, tf.reshape(targets, [-1]), name=None)
         return tf.reduce_sum(loss) / batch_size
     if FLAGS.loss_function == 'sampled_softmax':
@@ -309,7 +324,7 @@ def main(_):
                                    ['max_max_epoch', config.max_max_epoch],['keep_prob', config.keep_prob], 
                                    ['lr_decay', config.lr_decay], ['batch_size', config.batch_size], 
                                    ['vocab_size', config.vocab_size], ['optimizer', config.optimizer], 
-                                   ['loss_function', config.loss_function], ['num_history', config.num_history]])
+                                   ['loss_function', config.loss_function], ['num_history', config.num_history], ['combination', config.combination]])
         train_np = np.array([[0,0,0,0]])
         valid_np = np.array([[0,0,0,0]])
 		
