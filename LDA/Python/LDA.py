@@ -20,6 +20,7 @@ import tensorflow as tf
 import LDA_reader
 
 #####  topic parameters
+
 nb_topics = 100
 
 ##### script
@@ -48,7 +49,7 @@ flags.DEFINE_integer("batch_size", 20, "batch_size")
 flags.DEFINE_integer("vocab_size", 10000, "vocab_size")
 flags.DEFINE_integer("embedded_size", 256, "embedded_size")
 flags.DEFINE_integer("num_run", 0, "num_run")
-flags.DEFINE_string("test_name","LDA0","test_name")
+flags.DEFINE_string("test_name","LDA","test_name")
 flags.DEFINE_string("optimizer","GradDesc","optimizer")
 flags.DEFINE_string("loss_function","full_softmax","loss_function")
 

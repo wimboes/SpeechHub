@@ -10,13 +10,10 @@ from gensim import corpora, models
 import numpy as np
 
 ##### topic parameters
+
 nb_topics = 100
 
 ##### functions
-
-def _read_words_no_split(filename):
-    with tf.gfile.GFile(filename, "r") as f:
-        return f.read().replace("\n", "<eos>")
 
 def _read_words(filename):
     with tf.gfile.GFile(filename, "r") as f:
@@ -26,15 +23,7 @@ def _file_to_word_ids(filename, word_to_id):
     data = _read_words(filename)
     return [word_to_id[word] for word in data if word in word_to_id]
 
-class MyCorpus(object):
-    def __init__(self,texts,dictionary):
-        self.corpus = texts
-        self.dict = dictionary
-    def __iter__(self):
-        for i in range(len(self.corpus)):
-            yield self.dict.doc2bow(self.corpus[i])
-
-def ptb_raw_data_lda(data_path=None):
+def ptb_raw_data_lda(data_path=None,lda_path='lda.model',dict_path='dictionary.dict'):
     """Load PTB raw data from data directory "data_path".
 
     Reads PTB text files, converts strings to integer ids,
@@ -56,19 +45,9 @@ def ptb_raw_data_lda(data_path=None):
     train_path = os.path.join(data_path, "ptb.train.txt")
     valid_path = os.path.join(data_path, "ptb.valid.txt")
     test_path = os.path.join(data_path, "ptb.test.txt")
-
-    doctrain = _read_words_no_split(train_path)
-    docvalid = _read_words_no_split(valid_path)
- 
-    docs = [doctrain,docvalid]
-    texts = [[word for word in doc.lower().split()] for doc in docs]
-    dictionary = corpora.Dictionary(texts)
-
-    corpus = MyCorpus(texts,dictionary)
-    lda = models.LdaModel(corpus=corpus, id2word=dictionary, num_topics=nb_topics)
     
-    #lda.save('lda.model')
-    #dictionary.save('dict.dictionary')
+    lda = models.LdaModel.load(lda_path)
+    dictionary = corpora.Dictionary.load(dict_path)
     
     word_to_id = dict()
     for (wordid,word) in dictionary.iteritems():
@@ -83,8 +62,6 @@ def ptb_raw_data_lda(data_path=None):
         current_topic = lda.get_topic_terms(topic_nb,topn=vocabulary)
         for i in xrange(vocabulary):
             topic_array[topic_nb,current_topic[i][0]] = current_topic[i][1]
-
-    
 
     return train_data, valid_data, test_data, vocabulary, topic_array
 
