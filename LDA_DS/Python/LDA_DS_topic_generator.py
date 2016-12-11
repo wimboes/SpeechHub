@@ -13,27 +13,43 @@ import string
 ##### topic parameters
 
 nb_topics = 100
-split_nb = 100
+sentences_per_document = 100
+nb_vocab = 25
 
 ##### data path
 
-data_path = '/home/wim/SpeechHub/LDA_DS/Input'
+data_path = '/home/robbe/SpeechHub/LDA_DS/Input'
 
 ##### script
 
-def read_words_comma(filename):
+#def read_words_comma(filename):
+#    with tf.gfile.GFile(filename, "r") as f:
+#        return f.read().decode("utf-8").replace("<s>", "").replace("</s>","").replace("\n", "").split()
+#        
+#def read_and_split_doc(filename,split_nb):
+#    full_doc = read_words_comma(filename)
+#    len_full_doc = len(full_doc)
+#    wpsd = int(np.floor(len_full_doc/split_nb))# words per small document
+#    split_doc = []
+#    for i in xrange(split_nb):
+#        split_doc.append(string.join(full_doc[i*wpsd:(i+1)*wpsd],sep=" "))         
+#    return split_doc
+
+def read_words_split(filename):
     with tf.gfile.GFile(filename, "r") as f:
-        return f.read().decode("utf-8").replace("<s>", "").replace("</s>","").replace("\n", "").split()
+        return f.read().decode("ascii", 'ignore').replace("<s>", "").replace("</s>","").replace("\n", "").split()
         
-def read_and_split_doc(filename,split_nb):
-    full_doc = read_words_comma(filename)
-    len_full_doc = len(full_doc)
-    wpsd = int(np.floor(len_full_doc/split_nb))# words per small document
+def read_and_split_doc(filename,sentences_per_document):
+    with tf.gfile.GFile(filename, "r") as f:
+        full_doc = f.read().decode("ascii", 'ignore').replace("<s>", "").replace("</s>", "<eos>").split("\n")  
+    sentences_full_doc = len(full_doc)
+    nb_doc = int(np.floor(sentences_full_doc/sentences_per_document)) # words per small document
     split_doc = []
-    for i in xrange(split_nb):
-        split_doc.append(string.join(full_doc[i*wpsd:(i+1)*wpsd],sep=" "))         
+    for i in xrange(nb_doc):
+        split_doc.append(string.join(full_doc[i*sentences_per_document:(i+1)*sentences_per_document],sep=""))
+    split_doc.append(string.join(full_doc[nb_doc*sentences_per_document:sentences_full_doc],sep=""))
     return split_doc
-        
+
 class MyCorpus(object):
     def __init__(self,texts,dictionary):
         self.corpus = texts
@@ -42,12 +58,14 @@ class MyCorpus(object):
         for i in range(len(self.corpus)):
             yield self.dict.doc2bow(self.corpus[i])
             
-def lda_generate_model(split_nb, nb_topics, data_path=None,lda_save_path='lda.model',dict_save_path='dictionary.dict'):
-    train_path = os.path.join(data_path, "train.txt")
+def lda_generate_model(sentences_per_document, nb_topics, nb_vocab, data_path=None,lda_save_path='lda.model',dict_save_path='dictionary.dict'):
+    train_path = os.path.join(data_path, "ds.test.txt")
     
-    docs = read_and_split_doc(train_path, split_nb)
+    docs = read_and_split_doc(train_path, sentences_per_document)
     texts = [[word for word in doc.lower().split()] for doc in docs]
-    dictionary = corpora.Dictionary(texts)
+    dictionary = corpora.dictionary.Dictionary(texts, prune_at=nb_vocab)
+#    dic_size = len(dictionary.keys())
+#    dictionary.filter_n_most_frequent(dic_size-nb_vocab)
     corpus = MyCorpus(texts,dictionary)
 
     corpora.MmCorpus.serialize('ds_bow.mm',corpus)
@@ -61,12 +79,12 @@ def lda_generate_model(split_nb, nb_topics, data_path=None,lda_save_path='lda.mo
     
     return lda, lda_dict
     
-def lsa_generate_model(split_nb, nb_topics, data_path=None,lda_save_path='lda.model',dict_save_path='dictionary.dict'):
-    train_path = os.path.join(data_path, "train.txt")
+def lsa_generate_model(sentences_per_document, nb_topics, nb_vocab, data_path=None,lda_save_path='lda.model',dict_save_path='dictionary.dict'):
+    train_path = os.path.join(data_path, "ds.test.txt")
 
-    docs = read_and_split_doc(train_path, split_nb)
+    docs = read_and_split_doc(train_path, sentences_per_document)
     texts = [[word for word in doc.lower().split()] for doc in docs]
-    dictionary = corpora.Dictionary(texts)
+    dictionary = corpora.Dictionary(texts, prune_at=nb_vocab)
     corpus = MyCorpus(texts,dictionary)
 
     corpora.MmCorpus.serialize('ds_bow.mm',corpus)
@@ -80,7 +98,7 @@ def lsa_generate_model(split_nb, nb_topics, data_path=None,lda_save_path='lda.mo
     
     return lsa, lsa_dict
     
-lda, lda_dict = lda_generate_model(split_nb, nb_topics, data_path=data_path)
+lda, lda_dict = lda_generate_model(sentences_per_document, nb_topics, nb_vocab, data_path=data_path)
 lda_txt = open("lda.txt", "w")
 for i in xrange(10):
     lda_txt.write("topic %d\n" % i)
@@ -90,7 +108,7 @@ for i in xrange(10):
 lda_txt.close()
 
 
-lsa, lsa_dict = lsa_generate_model(split_nb, nb_topics, data_path=data_path)   
+lsa, lsa_dict = lsa_generate_model(sentences_per_document, nb_topics, nb_vocab, data_path=data_path)   
 lsa_txt = open("lsa.txt", "w")
 for i in xrange(10):
     lsa_txt.write("topic %d\n" % i)

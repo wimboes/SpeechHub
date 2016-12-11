@@ -69,7 +69,7 @@ def plot_speed_compare_between_runs(test_name, num_run_start, num_run_end, input
             label = label +param_np[i][0] + ' = ' + param_np[i][1] + ', '
         else:
             title = title +param_np[i][0] + ' = ' + param_np[i][1] + ', '
-        if (i+1) % 4 == 0:
+        if (i+1) % 5 == 0:
             title = title + '\n'
     if label == '':
         label = test_name + '_' + str(num_run_start)
@@ -207,7 +207,7 @@ def plot_PPL_one_run(test_name, num_run, input_path, output_path):
     
     for i in range(0,len(param_train_np)):
         param = param + param_train_np[i][0] + ' = ' + param_train_np[i][1] + ', '
-        if (i+1) % 4 == 0:
+        if (i+1) % 5 == 0:
             param = param + '\n'
     if param == '':
         param = test_name + '_' + str(num_run)
@@ -282,7 +282,7 @@ def plot_compare_between_runs(test_name, num_run_start, num_run_end, train_valid
             label = label +param_np[i][0] + ' = ' + param_np[i][1] + ', '
         else:
             title = title +param_np[i][0] + ' = ' + param_np[i][1] + ', '
-        if (i+1) % 4 == 0:
+        if (i+1) % 5 == 0:
             title = title + '\n'
     if label == '':
         label = test_name + '_' + str(num_run_start)
@@ -370,7 +370,7 @@ def plot_compare_between_runs_summary(test_name, num_run_start, num_run_end, inp
             label = label +param_np[i][0] + ' = ' + param_np[i][1] + ', '
         else:
             title = title +param_np[i][0] + ' = ' + param_np[i][1] + ', '
-        if (i+1) % 4 == 0:
+        if (i+1) % 5 == 0:
             title = title + '\n'
     if label == '':
         label = test_name + '_' + str(num_run_start)
