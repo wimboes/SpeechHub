@@ -29,7 +29,7 @@ if 'LD_LIBRARY_PATH' not in os.environ:
 #                sys.exit(1)
 
 import tensorflow as tf
-import reader_cbow
+import reader_cbow_sentence
 
 python_path = os.path.abspath(os.getcwd())
 general_path = os.path.split(python_path)[0]
@@ -45,7 +45,7 @@ flags.DEFINE_float("init_scale", 0.05, "init_scale")
 flags.DEFINE_float("learning_rate", 1, "learning_rate")
 flags.DEFINE_float("max_grad_norm", 5, "max_grad_norm")
 flags.DEFINE_integer("num_layers", 1, "num_layers")
-flags.DEFINE_integer("num_steps", 35, "num_steps")
+#flags.DEFINE_integer("num_steps", 35, "num_steps")
 flags.DEFINE_integer("num_history", 20, "num_history")
 flags.DEFINE_integer("hidden_size", 512, "hidden_size")
 flags.DEFINE_integer("max_epoch", 6, "max_epoch")
@@ -60,7 +60,7 @@ flags.DEFINE_string("test_name","test","test_name")
 flags.DEFINE_string("optimizer","GradDesc","optimizer")
 flags.DEFINE_string("loss_function","sampled_softmax","loss_function")
 flags.DEFINE_string("combination","mean","combination")
-flags.DEFINE_string("position","BeforeLSTMCbowReg","position")
+flags.DEFINE_string("position","BeforeSoftmaxCbow","position")
 flags.DEFINE_string("text_data","PTB","text_data")
 
 
@@ -77,12 +77,12 @@ def data_type():
 
 class PTBInput(object):
     """The input data."""
-    def __init__(self, config, data, name=None):
+    def __init__(self, config, num_steps, data, name=None):
         self.batch_size = batch_size = config.batch_size
-        self.num_steps = num_steps = config.num_steps
         self.num_history = num_history = config.num_history
-        self.epoch_size = ((len(data) // batch_size) - 1) // num_steps
-        self.input_data, self.targets, self.history = reader_cbow.ptb_producer(data, batch_size, num_steps, num_history, name=name)
+        self.num_steps = num_steps
+        self.epoch_size = (len(data) // batch_size)
+        self.input_data, self.targets, self.num_steps_batch, self.history = reader_cbow_sentence.ptb_producer(data, batch_size, num_steps, num_history, name=name)
 
 
 class PTBModel(object):
@@ -92,11 +92,11 @@ class PTBModel(object):
         self._input = input_
 
         batch_size = input_.batch_size
-        num_steps = input_.num_steps
-        num_history = input_.num_history
+        num_steps = input_.num_steps_batch
         hidden_size = config.hidden_size
+        num_history = input_.num_history
         unk_id = config.unk_id
-        vocab_size = FLAGS.vocab_size + 1 #for extra 0 symbol
+        vocab_size = FLAGS.vocab_size + 2 #for extra 0 symbol and <bos>
         embedded_size = config.embedded_size
         history_throw_away = 100
 
@@ -106,7 +106,7 @@ class PTBModel(object):
         cell = tf.nn.rnn_cell.MultiRNNCell([lstm_cell] * config.num_layers, state_is_tuple=True)
 
         self._initial_state = cell.zero_state(batch_size, data_type())
-        
+        seq_len = self.length_of_seq(input_.input_data)
         
         with tf.device("/cpu:0"):
             embedding = tf.get_variable("embedding", [vocab_size, embedded_size], dtype=data_type())
@@ -119,7 +119,7 @@ class PTBModel(object):
             inputs_cbow = tf.nn.dropout(inputs_cbow, config.keep_prob)
             
         outputs_cbow = []
-        for i in range(num_steps):
+        for i in range(input_.num_steps):
             slice1 = tf.slice(input_.history,[0,i],[batch_size,num_history])
             slice2 = tf.slice(inputs_cbow,[0,i,0],[batch_size,num_history,embedded_size])
             
@@ -128,61 +128,71 @@ class PTBModel(object):
                 mask1 = tf.pack([mask]*embedded_size,axis = 2)
                 out = mask1*slice2
                 comb_ = tf.reduce_sum(out,1)/(tf.reduce_sum(mask1,1) + 1e-32)
+
             if FLAGS.combination == "exp":
                 exp_weights = tf.reverse(tf.constant([[embedded_size*[np.exp(-5*k/num_history)] for k in range(num_history)] for j in range(batch_size)]),[False,True,False])
                 mask = tf.cast(tf.greater(slice1,[history_throw_away]), dtype = tf.float32)
                 mask1 = tf.pack([mask]*embedded_size,axis = 2)
                 out = mask1*slice2*exp_weights
                 comb_ = tf.reduce_sum(out,1)/(tf.reduce_sum(mask1*exp_weights,1) + 1e-32)
+
             outputs_cbow.append(comb_)
+
+        
+        self._temp1 = input_.input_data
+        self._temp2 = input_.targets
+        self._temp3 = input_.history
+        self._temp4 = outputs_cbow
+        self._temp5 = tf.reshape(tf.concat(1, outputs_cbow), [-1, embedded_size])
         
         if FLAGS.position == 'NoCbow':
-            outputs, state = tf.nn.dynamic_rnn(cell, inputs_reg, initial_state=self._initial_state, dtype=tf.float32)
+            outputs, state = tf.nn.dynamic_rnn(cell, inputs_reg, initial_state=self._initial_state, dtype=tf.float32, sequence_length=seq_len)
             output_LSTM = tf.reshape(tf.concat(1, outputs), [-1, hidden_size])
-            
-            softmax_w = tf.get_variable("softmax_w", [hidden_size, vocab_size], dtype=data_type())
-            softmax_b = tf.get_variable("softmax_b", [vocab_size], dtype=data_type())
-            output = output_LSTM
-            
-        if FLAGS.position == 'BeforeSoftmaxCbow':
-            output_cbow = tf.reshape(tf.concat(1, outputs_cbow), [-1, embedded_size])
-            
-            outputs, state = tf.nn.dynamic_rnn(cell, inputs_reg, initial_state=self._initial_state, dtype=tf.float32)
-            output_LSTM = tf.reshape(tf.concat(1, outputs), [-1, hidden_size])
-            
-            softmax_w = tf.get_variable("softmax_w", [hidden_size+embedded_size, vocab_size], dtype=data_type())
-            softmax_b = tf.get_variable("softmax_b", [vocab_size], dtype=data_type())
-            output = tf.concat(1,[output_LSTM,output_cbow])
-            
-        if FLAGS.position == 'BeforeLSTMOnlyCbow':
-            output_cbow = tf.reshape(tf.concat(1, outputs_cbow), [-1, embedded_size])
-            
-            inputs = tf.reshape(tf.concat(1, outputs_cbow), [batch_size,num_steps, embedded_size])
-            
-            outputs, state = tf.nn.dynamic_rnn(cell, inputs, initial_state=self._initial_state, dtype=tf.float32)
-            output_LSTM = tf.reshape(tf.concat(1, outputs), [-1, hidden_size])
-            
-            softmax_w = tf.get_variable("softmax_w", [hidden_size, vocab_size], dtype=data_type())
-            softmax_b = tf.get_variable("softmax_b", [vocab_size], dtype=data_type())
-            output = output_LSTM
-        
-        if FLAGS.position == 'BeforeLSTMCbowReg':
-            output_cbow = tf.reshape(tf.concat(1, outputs_cbow), [batch_size,num_steps, embedded_size])
-            
-            inputs = tf.concat(2,[inputs_reg, output_cbow])
-            
-            outputs, state = tf.nn.dynamic_rnn(cell, inputs, initial_state=self._initial_state, dtype=tf.float32)
-            output_LSTM = tf.reshape(tf.concat(1, outputs), [-1, hidden_size])
+
             
             softmax_w = tf.get_variable("softmax_w", [hidden_size, vocab_size], dtype=data_type())
             softmax_b = tf.get_variable("softmax_b", [vocab_size], dtype=data_type())
             output = output_LSTM
 
             
-        loss = get_loss_function(output, softmax_w, softmax_b, input_.targets, batch_size, num_steps, is_training, unk_id)
+        if FLAGS.position == 'BeforeSoftmaxCbow':
+            output_cbow = tf.reshape(tf.concat(1, outputs_cbow), [-1, embedded_size])
+            
+            outputs, state = tf.nn.dynamic_rnn(cell, inputs_reg, initial_state=self._initial_state, dtype=tf.float32, sequence_length=seq_len)
+            output_LSTM = tf.reshape(tf.concat(1, outputs), [-1, hidden_size])
+            
+            softmax_w = tf.get_variable("softmax_w", [hidden_size+embedded_size, vocab_size], dtype=data_type())
+            softmax_b = tf.get_variable("softmax_b", [vocab_size], dtype=data_type())
+            output = tf.concat(1,[output_LSTM,output_cbow])
+            
+#        if FLAGS.position == 'BeforeLSTMOnlyCbow':
+#            output_cbow = tf.reshape(tf.concat(1, outputs_cbow), [-1, embedded_size])
+#            
+#            inputs = tf.reshape(tf.concat(1, outputs_cbow), [batch_size,tf.squeeze(num_steps), embedded_size])
+#            
+#            outputs, state = tf.nn.dynamic_rnn(cell, inputs, initial_state=self._initial_state, dtype=tf.float32)
+#            output_LSTM = tf.reshape(tf.concat(1, outputs), [-1, hidden_size])
+#            
+#            softmax_w = tf.get_variable("softmax_w", [hidden_size, vocab_size], dtype=data_type())
+#            softmax_b = tf.get_variable("softmax_b", [vocab_size], dtype=data_type())
+#            output = output_LSTM
+#        
+#        if FLAGS.position == 'BeforeLSTMCbowReg':
+#            output_cbow = tf.reshape(tf.concat(1, outputs_cbow), [batch_size,tf.squeeze(num_steps), embedded_size])
+#            
+#            inputs = tf.concat(2,[inputs_reg, output_cbow])
+#            
+#            outputs, state = tf.nn.dynamic_rnn(cell, inputs, initial_state=self._initial_state, dtype=tf.float32)
+#            output_LSTM = tf.reshape(tf.concat(1, outputs), [-1, hidden_size])
+#            
+#            softmax_w = tf.get_variable("softmax_w", [hidden_size, vocab_size], dtype=data_type())
+#            softmax_b = tf.get_variable("softmax_b", [vocab_size], dtype=data_type())
+#            output = output_LSTM
+
+            
+        loss = get_loss_function(output, softmax_w, softmax_b, input_.targets, batch_size, is_training, unk_id)
         
         self._cost = cost = loss
-        self._final_state = state
 
         if not is_training:
             return
@@ -198,6 +208,12 @@ class PTBModel(object):
         
     def assign_lr(self, session, lr_value):
         session.run(self._lr_update, feed_dict={self._new_lr: lr_value})
+    
+    def length_of_seq(self,sequence):
+        used = tf.sign(tf.abs(sequence))
+        length = tf.reduce_sum(used, reduction_indices=1)
+        length = tf.cast(length, tf.int32)
+        return length
 
     @property
     def input(self):
@@ -214,6 +230,18 @@ class PTBModel(object):
     @property
     def temp2(self):
         return self._temp2
+        
+    @property
+    def temp3(self):
+        return self._temp3
+    
+    @property
+    def temp4(self):
+        return self._temp4
+        
+    @property
+    def temp5(self):
+        return self._temp5
 
     @property
     def cost(self):
@@ -237,7 +265,7 @@ class Config(object):
     learning_rate = FLAGS.learning_rate
     max_grad_norm = FLAGS.max_grad_norm
     num_layers = FLAGS.num_layers
-    num_steps = FLAGS.num_steps
+#    num_steps = FLAGS.num_steps
     hidden_size = FLAGS.hidden_size
     max_epoch = FLAGS.max_epoch
     max_max_epoch = FLAGS.max_max_epoch
@@ -261,7 +289,7 @@ def get_optimizer(lr):
         return tf.train.AdamOptimizer()
     return 0
 
-def get_loss_function(output, softmax_w, softmax_b, targets, batch_size, num_steps, is_training,unk_id):
+def get_loss_function(output, softmax_w, softmax_b, targets, batch_size, is_training,unk_id):
     
     #masking of 0 id's (always) and unk_id (only during testing)
     targets = tf.reshape(targets, [-1])
@@ -270,7 +298,6 @@ def get_loss_function(output, softmax_w, softmax_b, targets, batch_size, num_ste
     targets = tf.gather(targets, mask2)
     output = tf.gather(output, mask2)
     nb_words_in_batch = tf.reduce_sum(tf.cast(mask,dtype=tf.float32)) + 1e-32
-    
     if FLAGS.loss_function == "full_softmax":    
         logits = tf.matmul(output, softmax_w)
         loss = tf.nn.sparse_softmax_cross_entropy_with_logits(logits, targets, name=None)
@@ -292,23 +319,25 @@ def run_epoch(session, model, eval_op=None, verbose=False, epoch_nb = 0):
     start_time = time.time()
     costs = 0.0
     iters = 0
-    state = session.run(model.initial_state)
     save_np = np.array([[0,0,0,0]])
 
-    fetches = {"cost": model.cost,"final_state": model.final_state}
+    fetches = {"cost": model.cost, 'temp1': model.temp1,'temp2':model.temp2, 'temp3':model.temp3, 'temp4': model.temp4, 'temp5': model.temp5}
     if eval_op is not None:
         fetches["eval_op"] = eval_op
 
     for step in range(model.input.epoch_size):
-        feed_dict = {}
-        for i, (c, h) in enumerate(model.initial_state):
-            feed_dict[c] = state[i].c
-            feed_dict[h] = state[i].h
-
-        vals = session.run(fetches, feed_dict)
+        vals = session.run(fetches)
         cost = vals["cost"]
-        state = vals["final_state"]
-        
+#        out = vals['temp1']
+#        print(out)
+#        print('\n')
+#        print(vals['temp2'])
+#        print('\n')
+#        print(vals['temp3'])
+#        print('\n')
+#        print(vals['temp4'])
+#        print('\n')
+#        print(vals['temp5'])
         costs += cost
         iters += 1
 
@@ -329,39 +358,38 @@ def main(_):
     if not FLAGS.data_path:
         raise ValueError("Must set --data_path to PTB data directory")
     
-    raw_data = reader_cbow.ptb_raw_data(FLAGS.data_path, FLAGS.text_data, FLAGS.vocab_size)
-    train_data, valid_data, test_data, _, unk_id = raw_data 
-    
+    raw_data = reader_cbow_sentence.ptb_raw_data(FLAGS.data_path, FLAGS.text_data, FLAGS.vocab_size)
+    train_data, valid_data, test_data, _, unk_id, num_steps = raw_data 
     config = get_config()
     eval_config = get_config()
     eval_config.batch_size = 1
-    eval_config.num_steps = 1
+    #eval_config.num_steps = 1
     eval_config.unk_id = unk_id
     with tf.Graph().as_default():
         initializer = tf.random_uniform_initializer(-config.init_scale, config.init_scale)
         tf.set_random_seed(1)
 
         with tf.name_scope("Train"):
-            train_input = PTBInput(config=config, data=train_data, name="TrainInput")
+            train_input = PTBInput(config=config, num_steps=num_steps, data=train_data, name="TrainInput")
             with tf.variable_scope("Model", reuse=None, initializer=initializer):
                 m = PTBModel(is_training=True, config=config, input_=train_input)
             tf.scalar_summary("Training Loss", m.cost)
             tf.scalar_summary("Learning Rate", m.lr)
 
         with tf.name_scope("Valid"):
-            valid_input = PTBInput(config=config, data=valid_data, name="ValidInput")
+            valid_input = PTBInput(config=config, num_steps=num_steps, data=valid_data, name="ValidInput")
             with tf.variable_scope("Model", reuse=True, initializer=initializer):
                 mvalid = PTBModel(is_training=False, config=config, input_=valid_input)
             tf.scalar_summary("Validation Loss", mvalid.cost)
 
         with tf.name_scope("Test"):
-            test_input = PTBInput(config=eval_config, data=test_data, name="TestInput")
+            test_input = PTBInput(config=eval_config, num_steps=num_steps, data=test_data, name="TestInput")
             with tf.variable_scope("Model", reuse=True, initializer=initializer):
                 mtest = PTBModel(is_training=False, config=eval_config, input_=test_input)
 				
         param_train_np = np.array([['init_scale',config.init_scale], ['learning_rate', config.learning_rate],
                                    ['max_grad_norm', config.max_grad_norm], ['num_layers', config.num_layers], ['num_history', config.num_history],
-                                   ['num_steps', config.num_steps], ['hidden_size', config.hidden_size], 
+                                   ['num_steps', num_steps], ['hidden_size', config.hidden_size], 
                                    ['embedded_size', config.embedded_size],['max_epoch', config.max_epoch],
                                    ['max_max_epoch', config.max_max_epoch],['keep_prob', config.keep_prob], 
                                    ['lr_decay', config.lr_decay], ['batch_size', config.batch_size], ['data', FLAGS.text_data],
