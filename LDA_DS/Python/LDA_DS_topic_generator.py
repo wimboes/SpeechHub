@@ -14,11 +14,11 @@ import string
 
 nb_topics = 100
 sentences_per_document = 100
-nb_vocab = 25
+nb_vocab = 50000
 
 ##### data path
 
-data_path = '/home/robbe/SpeechHub/LDA_DS/Input'
+data_path = '/home/wim/SpeechHub/LDA_DS/Input'
 
 ##### script
 
@@ -59,11 +59,12 @@ class MyCorpus(object):
             yield self.dict.doc2bow(self.corpus[i])
             
 def lda_generate_model(sentences_per_document, nb_topics, nb_vocab, data_path=None,lda_save_path='lda.model',dict_save_path='dictionary.dict'):
-    train_path = os.path.join(data_path, "ds.test.txt")
+    train_path = os.path.join(data_path, "ds.train.txt")
     
     docs = read_and_split_doc(train_path, sentences_per_document)
     texts = [[word for word in doc.lower().split()] for doc in docs]
-    dictionary = corpora.dictionary.Dictionary(texts, prune_at=nb_vocab)
+    dictionary = corpora.dictionary.Dictionary(texts)
+    dictionary.filter_extremes(no_below=1,no_above=1,keep_n=nb_vocab)
 #    dic_size = len(dictionary.keys())
 #    dictionary.filter_n_most_frequent(dic_size-nb_vocab)
     corpus = MyCorpus(texts,dictionary)
@@ -80,11 +81,12 @@ def lda_generate_model(sentences_per_document, nb_topics, nb_vocab, data_path=No
     return lda, lda_dict
     
 def lsa_generate_model(sentences_per_document, nb_topics, nb_vocab, data_path=None,lda_save_path='lda.model',dict_save_path='dictionary.dict'):
-    train_path = os.path.join(data_path, "ds.test.txt")
+    train_path = os.path.join(data_path, "ds.train.txt")
 
     docs = read_and_split_doc(train_path, sentences_per_document)
     texts = [[word for word in doc.lower().split()] for doc in docs]
-    dictionary = corpora.Dictionary(texts, prune_at=nb_vocab)
+    dictionary = corpora.Dictionary(texts)
+    dictionary.filter_extremes(keep_n=nb_vocab)
     corpus = MyCorpus(texts,dictionary)
 
     corpora.MmCorpus.serialize('ds_bow.mm',corpus)
@@ -99,20 +101,20 @@ def lsa_generate_model(sentences_per_document, nb_topics, nb_vocab, data_path=No
     return lsa, lsa_dict
     
 lda, lda_dict = lda_generate_model(sentences_per_document, nb_topics, nb_vocab, data_path=data_path)
-lda_txt = open("lda.txt", "w")
-for i in xrange(10):
-    lda_txt.write("topic %d\n" % i)
-    for j in xrange(25):
-        lda_txt.write("%s : %f\n" % (lda_dict[lda.get_topic_terms(i,topn=25)[j][0]],lda.get_topic_terms(i,topn=25)[j][1]))
-    lda_txt.write("\n")
-lda_txt.close()
-
-
-lsa, lsa_dict = lsa_generate_model(sentences_per_document, nb_topics, nb_vocab, data_path=data_path)   
-lsa_txt = open("lsa.txt", "w")
-for i in xrange(10):
-    lsa_txt.write("topic %d\n" % i)
-    for j in xrange(25):
-        lsa_txt.write("%s : %f\n" % (lsa.show_topic(i,topn=25)[j][0],lsa.show_topic(i,topn=25)[j][1]))
-    lsa_txt.write("\n")
-lda_txt.close()
+#lda_txt = open("lda.txt", "w")
+#for i in xrange(10):
+#    lda_txt.write("topic %d\n" % i)
+#    for j in xrange(25):
+#        lda_txt.write("%s : %f\n" % (lda_dict[lda.get_topic_terms(i,topn=25)[j][0]],lda.get_topic_terms(i,topn=25)[j][1]))
+#    lda_txt.write("\n")
+#lda_txt.close()
+#
+#
+#lsa, lsa_dict = lsa_generate_model(sentences_per_document, nb_topics, nb_vocab, data_path=data_path)   
+#lsa_txt = open("lsa.txt", "w")
+#for i in xrange(10):
+#    lsa_txt.write("topic %d\n" % i)
+#    for j in xrange(25):
+#        lsa_txt.write("%s : %f\n" % (lsa.show_topic(i,topn=25)[j][0],lsa.show_topic(i,topn=25)[j][1]))
+#    lsa_txt.write("\n")
+#lda_txt.close()

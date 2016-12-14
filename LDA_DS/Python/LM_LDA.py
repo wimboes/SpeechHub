@@ -6,18 +6,8 @@ import os
 import sys
 import time
 import numpy as np
-
-#if 'LD_LIBRARY_PATH' not in os.environ:
-#        os.environ['LD_LIBRARY_PATH'] = '/home/wim/cuda-8.0/lib64'
-#        try:
-#            	os.system('python ' + ' '.join(sys.argv))
-#                sys.exit(0)
-#        except Exception, exc:
-#                print('Failed re_exec:', exc)
-#                sys.exit(1)
-                
 import tensorflow as tf
-import reader_LDA
+import reader_lda
 
 
 ##### script

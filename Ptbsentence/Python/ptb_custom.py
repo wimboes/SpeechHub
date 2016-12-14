@@ -97,7 +97,6 @@ class PTBModel(object):
         self._initial_state = cell.zero_state(batch_size, data_type())
         
         seq_len = self.length_of_seq(input_.input_data)
-        print(seq_len.get_shape())
         
         with tf.device("/cpu:0"):
             embedding = tf.get_variable("embedding", [vocab_size, embedded_size], dtype=data_type())
