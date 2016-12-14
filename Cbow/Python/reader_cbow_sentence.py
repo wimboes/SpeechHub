@@ -139,44 +139,44 @@ def ptb_producer(raw_data, batch_size, num_steps,num_history, name=None):
         
         return x, y, tf.slice(lengths2,[i],[1]), z
         
-#python_path = os.path.abspath(os.getcwd())
-#general_path = os.path.split(python_path)[0]
-#data_path = os.path.join(general_path,'Input')
-#
-#batch_size = 3
-#num_history = 10
-#
-#a  = ptb_raw_data(data_path, 'PTB', 10000)
-#train_data, valid_data, test_data, vocabulary, unk_id, num_steps = a
-#x,y, num, z = ptb_producer(train_data, batch_size, num_steps, num_history)
-#
-#print('ok')
-#
-#sess = tf.Session()
-#coord = tf.train.Coordinator()
-#tf.train.start_queue_runners(sess, coord=coord)
-#
-#[l,p,q,r] = sess.run([x,y,num,z])
-#print(l)
-#print(p)
-#print(q)
-#print(r)
-#print('ok2 \n')
-#[l,p,q,r] = sess.run([x,y,num,z])
-#print(l)
-#print(p)
-#print(q)
-#print(r)
-#print('ok3 \n')
-#[l,p,q,r] = sess.run([x,y,num,z])
-#print(l)
-#print(p)
-#print(q)
-#print(r)
-#for i in range(100):
-#    [l,p,q,r] = sess.run([x,y,num,z])
-#[l,p,q,r] = sess.run([x,y,num,z])
-#print(l)
-#print(p)
-#print(q)
-#print(r)
+python_path = os.path.abspath(os.getcwd())
+general_path = os.path.split(python_path)[0]
+data_path = os.path.join(general_path,'Input')
+
+batch_size = 3
+num_history = 10
+
+a  = ptb_raw_data(data_path, 'PTB', 10000)
+train_data, valid_data, test_data, vocabulary, unk_id, num_steps = a
+x,y, num, z = ptb_producer(train_data, batch_size, num_steps, num_history)
+
+print('ok')
+
+sess = tf.Session()
+coord = tf.train.Coordinator()
+tf.train.start_queue_runners(sess, coord=coord)
+
+[l,p,q,r] = sess.run([x,y,num,z])
+print(l)
+print(p)
+print(q)
+print(r)
+print('ok2 \n')
+[l,p,q,r] = sess.run([x,y,num,z])
+print(l)
+print(p)
+print(q)
+print(r)
+print('ok3 \n')
+[l,p,q,r] = sess.run([x,y,num,z])
+print(l)
+print(p)
+print(q)
+print(r)
+for i in range(100):
+    [l,p,q,r] = sess.run([x,y,num,z])
+[l,p,q,r] = sess.run([x,y,num,z])
+print(l)
+print(p)
+print(q)
+print(r)

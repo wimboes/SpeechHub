@@ -46,21 +46,21 @@ flags.DEFINE_float("learning_rate", 1, "learning_rate")
 flags.DEFINE_float("max_grad_norm", 5, "max_grad_norm")
 flags.DEFINE_integer("num_layers", 1, "num_layers")
 flags.DEFINE_integer("num_steps", 35, "num_steps")
-flags.DEFINE_integer("num_history", 20, "num_history")
-flags.DEFINE_integer("hidden_size", 512, "hidden_size")
+flags.DEFINE_integer("num_history", 100, "num_history")
+flags.DEFINE_integer("hidden_size", 16, "hidden_size")
 flags.DEFINE_integer("max_epoch", 6, "max_epoch")
-flags.DEFINE_integer("max_max_epoch", 39, "max_max_epoch")
+flags.DEFINE_integer("max_max_epoch", 1, "max_max_epoch")
 flags.DEFINE_float("keep_prob", 0.5, "keep_prob")
 flags.DEFINE_float("lr_decay", 0.8, "lr_decay")
-flags.DEFINE_integer("batch_size", 20, "batch_size")
+flags.DEFINE_integer("batch_size", 1000, "batch_size")
 flags.DEFINE_integer("vocab_size", 10000, "vocab_size")
-flags.DEFINE_integer("embedded_size", 256, "embedded_size")
+flags.DEFINE_integer("embedded_size", 8, "embedded_size")
 flags.DEFINE_integer("num_run", 0, "num_run")
 flags.DEFINE_string("test_name","test","test_name")
 flags.DEFINE_string("optimizer","GradDesc","optimizer")
 flags.DEFINE_string("loss_function","sampled_softmax","loss_function")
 flags.DEFINE_string("combination","mean","combination")
-flags.DEFINE_string("position","BeforeLSTMCbowReg","position")
+flags.DEFINE_string("position","BeforeSoftmaxCbow","position")
 flags.DEFINE_string("text_data","PTB","text_data")
 
 
@@ -109,8 +109,8 @@ class PTBModel(object):
         
         
         with tf.device("/cpu:0"):
-            embedding = tf.get_variable("embedding", [vocab_size, embedded_size], dtype=data_type())
-            embedding2 = tf.get_variable("embedding2", [vocab_size, embedded_size], dtype=data_type())
+            embedding = tf.get_variable("embedding", [vocab_size, embedded_size], dtype=data_type(), trainable=False)
+            embedding2 = tf.get_variable("embedding2", [vocab_size, embedded_size], dtype=data_type(), trainable=False)
             inputs_reg = tf.nn.embedding_lookup(embedding, input_.input_data)
             inputs_cbow = tf.nn.embedding_lookup(embedding2, input_.history)
 
@@ -137,7 +137,8 @@ class PTBModel(object):
             outputs_cbow.append(comb_)
         
         if FLAGS.position == 'NoCbow':
-            outputs, state = tf.nn.dynamic_rnn(cell, inputs_reg, initial_state=self._initial_state, dtype=tf.float32)
+            with tf.variable_scope("RNN"):
+                outputs, state = tf.nn.dynamic_rnn(cell, inputs_reg, initial_state=self._initial_state, dtype=tf.float32)
             output_LSTM = tf.reshape(tf.concat(1, outputs), [-1, hidden_size])
             
             softmax_w = tf.get_variable("softmax_w", [hidden_size, vocab_size], dtype=data_type())
@@ -147,11 +148,14 @@ class PTBModel(object):
         if FLAGS.position == 'BeforeSoftmaxCbow':
             output_cbow = tf.reshape(tf.concat(1, outputs_cbow), [-1, embedded_size])
             
-            outputs, state = tf.nn.dynamic_rnn(cell, inputs_reg, initial_state=self._initial_state, dtype=tf.float32)
+            with tf.variable_scope("RNN") as vs:
+                outputs, state = tf.nn.dynamic_rnn(cell, inputs_reg, initial_state=self._initial_state, dtype=tf.float32)
             output_LSTM = tf.reshape(tf.concat(1, outputs), [-1, hidden_size])
             
-            softmax_w = tf.get_variable("softmax_w", [hidden_size+embedded_size, vocab_size], dtype=data_type())
-            softmax_b = tf.get_variable("softmax_b", [vocab_size], dtype=data_type())
+            softmax_w = tf.get_variable("softmax_w", [hidden_size+embedded_size, vocab_size], dtype=data_type(), trainable=False)
+            self._temp1 = softmax_w
+            softmax_b = tf.get_variable("softmax_b", [vocab_size], dtype=data_type(), trainable=False)
+            self._temp2 = softmax_b           
             output = tf.concat(1,[output_LSTM,output_cbow])
             
         if FLAGS.position == 'BeforeLSTMOnlyCbow':
@@ -159,7 +163,8 @@ class PTBModel(object):
             
             inputs = tf.reshape(tf.concat(1, outputs_cbow), [batch_size,num_steps, embedded_size])
             
-            outputs, state = tf.nn.dynamic_rnn(cell, inputs, initial_state=self._initial_state, dtype=tf.float32)
+            with tf.variable_scope("RNN"):
+                outputs, state = tf.nn.dynamic_rnn(cell, inputs, initial_state=self._initial_state, dtype=tf.float32)
             output_LSTM = tf.reshape(tf.concat(1, outputs), [-1, hidden_size])
             
             softmax_w = tf.get_variable("softmax_w", [hidden_size, vocab_size], dtype=data_type())
@@ -171,7 +176,8 @@ class PTBModel(object):
             
             inputs = tf.concat(2,[inputs_reg, output_cbow])
             
-            outputs, state = tf.nn.dynamic_rnn(cell, inputs, initial_state=self._initial_state, dtype=tf.float32)
+            with tf.variable_scope("RNN"):
+                outputs, state = tf.nn.dynamic_rnn(cell, inputs, initial_state=self._initial_state, dtype=tf.float32)
             output_LSTM = tf.reshape(tf.concat(1, outputs), [-1, hidden_size])
             
             softmax_w = tf.get_variable("softmax_w", [hidden_size, vocab_size], dtype=data_type())
@@ -188,7 +194,13 @@ class PTBModel(object):
             return
 
         self._lr = tf.Variable(0.0, trainable=False)
-        tvars = tf.trainable_variables()
+        #tvars = tf.trainable_variables()
+        #print(tvars)
+        #tvars = tf.get_collection(vs)
+        #print(tvars)
+        #tvars = [v for v in tf.trainable_variables() if v.name.startswith(vs.name)]
+        tvars = [softmax_b]
+        print(tvars)
         grads, _ = tf.clip_by_global_norm(tf.gradients(cost, tvars),config.max_grad_norm)
         optimizer = get_optimizer(self._lr)
         self._train_op = optimizer.apply_gradients(zip(grads, tvars),global_step=tf.contrib.framework.get_or_create_global_step())
@@ -295,7 +307,7 @@ def run_epoch(session, model, eval_op=None, verbose=False, epoch_nb = 0):
     state = session.run(model.initial_state)
     save_np = np.array([[0,0,0,0]])
 
-    fetches = {"cost": model.cost,"final_state": model.final_state}
+    fetches = {"cost": model.cost,"final_state": model.final_state,'temp1':model.temp1,'temp2':model.temp2}
     if eval_op is not None:
         fetches["eval_op"] = eval_op
 
@@ -308,6 +320,10 @@ def run_epoch(session, model, eval_op=None, verbose=False, epoch_nb = 0):
         vals = session.run(fetches, feed_dict)
         cost = vals["cost"]
         state = vals["final_state"]
+        
+        if (step == model.input.epoch_size - 1) or (step == model.input.epoch_size - 2):
+            print(vals["temp1"])
+            print(vals['temp2'])
         
         costs += cost
         iters += 1
