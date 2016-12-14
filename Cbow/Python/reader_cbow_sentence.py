@@ -14,20 +14,14 @@ import os
 
 import tensorflow as tf
 import numpy as np
+import copy
 
 def read_sentences(filename):
     with tf.gfile.GFile(filename, "r") as f:
-         sentences = f.read().decode("ascii", 'ignore').replace("\n", "<eos>").split("<eos>")
+         sentences = f.read().decode("ascii", 'ignore').split("\n")
          for i in xrange(len(sentences)):
              sentences[i] = sentences[i].split()
-         return sentences[0:-1]
-         
-def prepare_sentence_training(sentences):
-    sent = list(sentences)
-    for i in xrange(len(sent)):
-        sent[i].insert(0,'<bos>')
-        sent[i].append('<eos>')
-    return sent
+         return sentences
          
 def build_vocab(sentences):
     data = sentences
@@ -36,7 +30,7 @@ def build_vocab(sentences):
     count_pairs = sorted(counter.items(), key=lambda x: (-x[1], x[0]))
     
     words, _ = list(zip(*count_pairs))
-    word_to_id = dict(zip(words, range(1,1+len(words))))
+    word_to_id = dict(zip(words, range(len(words))))
 
     return word_to_id
     
@@ -61,57 +55,60 @@ def calc_max_length(train_path,valid_path,test_path):
 
 def file_to_word_ids(filename, word_to_id):
     data = read_sentences(filename)
-    data = prepare_sentence_training(data)
     for i in xrange(len(data)):
         for j in xrange(len(data[i])):
             data[i][j] = word_to_id[data[i][j]]
     return data
     
 
-def ptb_raw_data(data_path, text_data, vocab_size):
+def ds_raw_data(data_path):
     
-    if text_data == 'PTB' :
-        train_path = os.path.join(data_path, "ptb.train.txt")
-        valid_path = os.path.join(data_path, "ptb.valid.txt")
-        test_path = os.path.join(data_path, "ptb.test.txt")
-    elif text_data == 'DS' :
-        train_path = os.path.join(data_path, "ds.train"+ str(vocab_size) +".txt")
-        valid_path = os.path.join(data_path, "ds.valid"+ str(vocab_size) +".txt")
-        test_path = os.path.join(data_path, "ds.test"+ str(vocab_size) +".txt")
+#    if text_data == 'PTB' :
+#        train_path = os.path.join(data_path, "ptb.train.txt")
+#        valid_path = os.path.join(data_path, "ptb.valid.txt")
+#        test_path = os.path.join(data_path, "ptb.test.txt")
+#    elif text_data == 'DS' :
+    train_path = os.path.join(data_path, "train.txt")
+    valid_path = os.path.join(data_path, "valid.txt")
+    test_path = os.path.join(data_path, "test.txt")
+#        train_path = os.path.join(data_path, "ds.train"+ str(vocab_size) +".txt")
+#        valid_path = os.path.join(data_path, "ds.valid"+ str(vocab_size) +".txt")
+#        test_path = os.path.join(data_path, "ds.test"+ str(vocab_size) +".txt")
     max_length = calc_max_length(train_path,valid_path,test_path)
-
-    train_sentences = prepare_sentence_training(read_sentences(train_path))
     
-    word_to_id = build_vocab(train_sentences)
+    word_to_id = build_vocab(read_sentences(train_path))
     
     train_data = file_to_word_ids(train_path, word_to_id)
     valid_data = file_to_word_ids(valid_path, word_to_id)
     test_data = file_to_word_ids(test_path, word_to_id)
     vocabulary = len(word_to_id)
     unk_id = word_to_id['<unk>']
-    return train_data, valid_data, test_data, vocabulary, unk_id, max_length+2 
+    return train_data, valid_data, test_data, vocabulary, unk_id, max_length, word_to_id 
     
-def ptb_producer(raw_data, batch_size, num_steps,num_history, name=None):
+def ds_producer(raw_data, batch_size, max_length, num_history, word_to_id, name=None):
 
     data_length_array = np.zeros(len(raw_data),dtype=np.int32)
     for i in xrange(len(raw_data)):
-        data_length_array[i] = len(raw_data[i])-1
+        data_length_array[i] = len(raw_data[i])
+    average_length = np.mean(data_length_array)
 
-    history = np.concatenate((np.zeros(num_history-1, dtype = np.int32),np.array([word for sentence in raw_data for word in sentence])))
-    history_data = np.zeros([len(raw_data),num_steps+num_history-1], dtype=np.int32)
+    history = np.concatenate((len(word_to_id)*np.ones(num_history-1, dtype = np.int32),np.array([word for sentence in raw_data for word in sentence])))
+    history_data = np.zeros([len(raw_data),max_length+num_history-1], dtype=np.int32)
     pos = 0
     for i in xrange(len(raw_data)):
         sentence_len = len(raw_data[i])
-        history_data[i] = np.concatenate((history[pos:pos+sentence_len+num_history-1], np.zeros([num_steps-sentence_len],dtype=np.int32)))
+        history_data[i] = np.concatenate((history[pos:pos+sentence_len+num_history-1], len(word_to_id)*np.ones([max_length-sentence_len],dtype=np.int32)))
         pos += sentence_len
 
-    result = list(raw_data)
+    result = copy.deepcopy(raw_data)
     for i in xrange(len(raw_data)):
-        for j in xrange(num_steps+1):
+        for j in xrange(max_length+1):
             if j < len(raw_data[i]):
-                result[i][j] = raw_data[i][j]
+                result[i][j] =raw_data[i][j]
+            elif j == len(raw_data[i]):
+                result[i].append(word_to_id['<bos>'])
             else:
-                result[i].append(0)
+                result[i].append(len(word_to_id))
     raw_data = list(result)
     
     with tf.name_scope(name):
@@ -122,61 +119,61 @@ def ptb_producer(raw_data, batch_size, num_steps,num_history, name=None):
         nb_sentences = tf.shape(raw_data)[0]
         nb_of_batches = nb_sentences // batch_size
         data = tf.reshape(raw_data[0 : batch_size * nb_of_batches],
-                                           [batch_size, nb_of_batches*(num_steps+1)])
+                                           [batch_size, nb_of_batches*(max_length+1)])
         history_data = tf.reshape(history_data[0 : batch_size * nb_of_batches], 
-                                            [batch_size, nb_of_batches*(num_steps+num_history-1)])
+                                            [batch_size, nb_of_batches*(max_length+num_history-1)])
         lengths1 = tf.reshape(lengths[0 : batch_size * nb_of_batches],
                                              [batch_size, nb_of_batches])
         lengths2 = tf.reduce_max(lengths1,reduction_indices=0)
-        lengths3 = tf.add(lengths2, [num_history-1])
+        #lengths3 = tf.add(lengths2, [num_history-1])
 
         epoch_size = (nb_of_batches)
 
         i = tf.train.range_input_producer(epoch_size, shuffle=False).dequeue()
-        x = tf.slice(data, [0, i*(num_steps+1)], [batch_size, num_steps])#tf.squeeze(tf.slice(lengths2,[i],[1]))])
-        y = tf.slice(data, [0, i*(num_steps+1)+1], [batch_size, num_steps])#tf.squeeze(tf.slice(lengths2,[i],[1]))])
-        z = tf.slice(history_data, [0, i*(num_steps+num_history-1)], [batch_size, num_steps + num_history -1])#tf.squeeze(tf.slice(lengths3,[i],[1]))])
+        x = tf.slice(data, [0, i*(max_length+1)], [batch_size, max_length])#tf.squeeze(tf.slice(lengths2,[i],[1]))])
+        y = tf.slice(data, [0, i*(max_length+1)+1], [batch_size, max_length])#tf.squeeze(tf.slice(lengths2,[i],[1]))])
+        z = tf.slice(history_data, [0, i*(max_length+num_history-1)], [batch_size, max_length + num_history -1])#tf.squeeze(tf.slice(lengths3,[i],[1]))])
         
-        return x, y, tf.slice(lengths2,[i],[1]), z
+        return x, y, tf.slice(lengths2,[i],[1]), z, average_length
         
-python_path = os.path.abspath(os.getcwd())
-general_path = os.path.split(python_path)[0]
-data_path = os.path.join(general_path,'Input')
-
-batch_size = 3
-num_history = 10
-
-a  = ptb_raw_data(data_path, 'PTB', 10000)
-train_data, valid_data, test_data, vocabulary, unk_id, num_steps = a
-x,y, num, z = ptb_producer(train_data, batch_size, num_steps, num_history)
-
-print('ok')
-
-sess = tf.Session()
-coord = tf.train.Coordinator()
-tf.train.start_queue_runners(sess, coord=coord)
-
-[l,p,q,r] = sess.run([x,y,num,z])
-print(l)
-print(p)
-print(q)
-print(r)
-print('ok2 \n')
-[l,p,q,r] = sess.run([x,y,num,z])
-print(l)
-print(p)
-print(q)
-print(r)
-print('ok3 \n')
-[l,p,q,r] = sess.run([x,y,num,z])
-print(l)
-print(p)
-print(q)
-print(r)
-for i in range(100):
-    [l,p,q,r] = sess.run([x,y,num,z])
-[l,p,q,r] = sess.run([x,y,num,z])
-print(l)
-print(p)
-print(q)
-print(r)
+#python_path = os.path.abspath(os.getcwd())
+#general_path = os.path.split(python_path)[0]
+#data_path = os.path.join(general_path,'Input')
+#
+#batch_size = 3
+#num_history = 10
+#
+#a  = ptb_raw_data(data_path, 'DS', 10000)
+#train_data, valid_data, test_data, vocabulary, unk_id, max_length, word_to_id = a
+#x,y, num, z = ptb_producer(train_data, batch_size, max_length, num_history, word_to_id)
+#
+#print('ok')
+#
+#sess = tf.Session()
+#coord = tf.train.Coordinator()
+#tf.train.start_queue_runners(sess, coord=coord)
+#
+#[l,p,q,r] = sess.run([x,y,num,z])
+#print(l)
+#print(p)
+#print(q)
+#print(r)
+#print('ok2 \n')
+#[l,p,q,r] = sess.run([x,y,num,z])
+#print(l)
+#print(p)
+#print(q)
+#print(r)
+#print('ok3 \n')
+#[l,p,q,r] = sess.run([x,y,num,z])
+#print(l)
+#print(p)
+#print(q)
+#print(r)
+#for i in range(100):
+#    [l,p,q,r] = sess.run([x,y,num,z])
+#[l,p,q,r] = sess.run([x,y,num,z])
+#print(l)
+#print(p)
+#print(q)
+#print(r)

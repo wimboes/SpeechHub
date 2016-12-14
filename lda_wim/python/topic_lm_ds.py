@@ -94,7 +94,6 @@ class topic_model(object):
             embedding_lda = tf.get_variable("embedding_lda", [vocab_size+1, config.embedded_size_lda], dtype=data_type(), initializer = initializer_lda)
             inputs_lda = tf.nn.embedding_lookup(embedding_lda, input_.input_data)
             
-
         if is_training and config.keep_prob_reg < 1:
             inputs_reg = tf.nn.dropout(inputs_reg, config.keep_prob_reg)
         
