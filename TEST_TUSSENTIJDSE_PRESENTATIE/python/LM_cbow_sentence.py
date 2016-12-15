@@ -27,7 +27,7 @@ import reader_cbow_sentence
 python_path = os.path.abspath(os.getcwd())
 general_path = os.path.split(python_path)[0]
 input_path = os.path.join(general_path,'input')
-output_path = os.path.join(general_path,'output')
+output_path = os.path.join(general_path,'output_cbow')
 
 ##### flags
 
@@ -40,13 +40,13 @@ flags.DEFINE_float("init_scale", 0.05, "init_scale")
 flags.DEFINE_float("learning_rate", 1, "learning_rate")
 flags.DEFINE_float("max_grad_norm", 5, "max_grad_norm")
 flags.DEFINE_integer("num_layers", 1, "num_layers")
-flags.DEFINE_integer("num_history", 100, "num_history")
-flags.DEFINE_integer("hidden_size", 512, "hidden_size")
-flags.DEFINE_integer("max_epoch", 6, "max_epoch")
-flags.DEFINE_integer("max_max_epoch", 2, "max_max_epoch")
+flags.DEFINE_integer("num_history", 250, "num_history")
+flags.DEFINE_integer("hidden_size", 256, "hidden_size")
+flags.DEFINE_integer("max_epoch", 5, "max_epoch")
+flags.DEFINE_integer("max_max_epoch", 10, "max_max_epoch")
 flags.DEFINE_float("keep_prob", 0.5, "keep_prob")
 flags.DEFINE_float("lr_decay", 0.8, "lr_decay")
-flags.DEFINE_integer("embedded_size_reg", 256, "embedded_size_reg")
+flags.DEFINE_integer("embedded_size_reg", 128, "embedded_size_reg")
 flags.DEFINE_integer("embedded_size_cbow", 256, "embedded_size_cbow")
 
 ### general
@@ -57,7 +57,7 @@ flags.DEFINE_string("test_name","cbow_test","test_name")
 flags.DEFINE_string("data_path",input_path,"data_path")
 flags.DEFINE_string("save_path",output_path,"save_path")
 flags.DEFINE_string("use_fp16",False,"train blabla")
-flags.DEFINE_string("loss_function","full_softmax","loss_function")
+flags.DEFINE_string("loss_function","sampled_softmax","loss_function")
 flags.DEFINE_string("optimizer","Adagrad","optimizer")
 flags.DEFINE_string("combination","mean","combination")
 flags.DEFINE_string("position","lstm","position")
@@ -268,7 +268,7 @@ def get_loss_function(output, softmax_w, softmax_b, targets, batch_size, is_trai
     nb_words_in_batch = tf.reduce_sum(tf.cast(mask,dtype=tf.float32)) + 1e-32
 
     if FLAGS.loss_function == "full_softmax":    
-        logits = tf.matmul(output, softmax_w)
+        logits = tf.matmul(output, softmax_w) + softmax_b
         loss = tf.nn.sparse_softmax_cross_entropy_with_logits(logits, targets, name=None)
         return tf.reduce_sum(loss) / nb_words_in_batch
 
@@ -277,7 +277,7 @@ def get_loss_function(output, softmax_w, softmax_b, targets, batch_size, is_trai
             loss = tf.nn.sampled_softmax_loss(tf.transpose(softmax_w), softmax_b, output, tf.reshape(targets, [-1,1]), 32, vocab_size)
             return tf.reduce_sum(loss) / nb_words_in_batch
         else:
-            logits = tf.matmul(output, softmax_w)
+            logits = tf.matmul(output, softmax_w) + softmax_b
             loss = tf.nn.sparse_softmax_cross_entropy_with_logits(logits, targets, name=None)
             return tf.reduce_sum(loss) / nb_words_in_batch
 
@@ -322,7 +322,6 @@ def main(_):
     config.vocab_size = vocab_size
     
     eval_config = config_cbow()
-    eval_config.batch_size = 1
     eval_config.batch_size = 1
     eval_config.vocab_size = vocab_size
     eval_config.unk_id = unk_id

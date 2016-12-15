@@ -63,9 +63,9 @@ def file_to_word_ids(filename, word_to_id):
 
 def ds_raw_data(data_path):
     
-    train_path = os.path.join(data_path, "ds.train.txt")
-    valid_path = os.path.join(data_path, "ds.valid.txt")
-    test_path = os.path.join(data_path, "ds.test.txt")
+    train_path = os.path.join(data_path, "train.txt")
+    valid_path = os.path.join(data_path, "valid.txt")
+    test_path = os.path.join(data_path, "test.txt")
     
     max_length = calc_max_length(train_path,valid_path,test_path)
     
@@ -128,45 +128,3 @@ def ds_producer(raw_data, batch_size, max_length, num_history, word_to_id, name=
         z = tf.slice(history_data, [0, i*(max_length+num_history-1)], [batch_size, max_length + num_history -1])#tf.squeeze(tf.slice(lengths3,[i],[1]))])
         
         return x, y, tf.slice(lengths2,[i],[1]), z, average_length
-        
-#python_path = os.path.abspath(os.getcwd())
-#general_path = os.path.split(python_path)[0]
-#data_path = os.path.join(general_path,'Input')
-#
-#batch_size = 3
-#num_history = 10
-#
-#a  = ptb_raw_data(data_path, 'DS', 10000)
-#train_data, valid_data, test_data, vocabulary, unk_id, max_length, word_to_id = a
-#x,y, num, z = ptb_producer(train_data, batch_size, max_length, num_history, word_to_id)
-#
-#print('ok')
-#
-#sess = tf.Session()
-#coord = tf.train.Coordinator()
-#tf.train.start_queue_runners(sess, coord=coord)
-#
-#[l,p,q,r] = sess.run([x,y,num,z])
-#print(l)
-#print(p)
-#print(q)
-#print(r)
-#print('ok2 \n')
-#[l,p,q,r] = sess.run([x,y,num,z])
-#print(l)
-#print(p)
-#print(q)
-#print(r)
-#print('ok3 \n')
-#[l,p,q,r] = sess.run([x,y,num,z])
-#print(l)
-#print(p)
-#print(q)
-#print(r)
-#for i in range(100):
-#    [l,p,q,r] = sess.run([x,y,num,z])
-#[l,p,q,r] = sess.run([x,y,num,z])
-#print(l)
-#print(p)
-#print(q)
-#print(r)
