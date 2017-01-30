@@ -35,18 +35,18 @@ def build_vocab(sentences):
     return word_to_id
     
 def calc_max_length(train_path,valid_path,test_path):
-    train_sentences = read_sentences(train_path)
-    valid_sentences = read_sentences(valid_path)
+#    train_sentences = read_sentences(train_path)
+#    valid_sentences = read_sentences(valid_path)
     test_sentences = read_sentences(test_path)
     max_length = 0
-    train_length = len(train_sentences)
-    for i in xrange(train_length):
-        if len(train_sentences[i]) > max_length:
-            max_length = len(train_sentences[i])         
-    valid_length = len(valid_sentences)
-    for i in xrange(valid_length):
-        if len(valid_sentences[i]) > max_length:
-            max_length = len(valid_sentences[i]) 
+#    train_length = len(train_sentences)
+#    for i in xrange(train_length):
+#        if len(train_sentences[i]) > max_length:
+#            max_length = len(train_sentences[i])         
+#    valid_length = len(valid_sentences)
+#    for i in xrange(valid_length):
+#        if len(valid_sentences[i]) > max_length:
+#            max_length = len(valid_sentences[i]) 
     test_length = len(test_sentences)
     for i in xrange(test_length):
         if len(test_sentences[i]) > max_length:
@@ -84,20 +84,25 @@ def ds_producer(raw_data, batch_size, max_length, num_history, word_to_id, name=
     for i in xrange(len(raw_data)):
         data_length_array[i] = len(raw_data[i])
     average_length = np.mean(data_length_array)
-
+    
+    
     history = np.concatenate((len(word_to_id)*np.ones(num_history-1, dtype = np.int32),np.array([word for sentence in raw_data for word in sentence])))
     history_data = np.zeros([len(raw_data),max_length+num_history-1], dtype=np.int32)
     pos = 0
     for i in xrange(len(raw_data)):
         sentence_len = len(raw_data[i])
-        history_data[i] = np.concatenate((history[pos:pos+sentence_len+num_history-1], len(word_to_id)*np.ones([max_length-sentence_len],dtype=np.int32)))
-        pos += sentence_len
+        if sentence_len <= max_length:
+            history_data[i] = np.concatenate((history[pos:pos+sentence_len+num_history-1], len(word_to_id)*np.ones([max_length-sentence_len],dtype=np.int32)))
+            pos += sentence_len
+        else:
+            history_data[i] = history[pos:pos+max_length+num_history-1]
+            pos += sentence_len
 
-    result = copy.deepcopy(raw_data)
+    result = [[] for i in range(len(raw_data))]
     for i in xrange(len(raw_data)):
         for j in xrange(max_length+1):
             if j < len(raw_data[i]):
-                result[i][j] =raw_data[i][j]
+                result[i].append(raw_data[i][j])
             elif j == len(raw_data[i]):
                 result[i].append(word_to_id['<bos>'])
             else:
