@@ -9,8 +9,10 @@ from __future__ import absolute_import
 from __future__ import division
 from __future__ import print_function
 import os
+import sys
 import numpy as np
 import matplotlib.pyplot as plt
+import argparse
 
 python_path = os.path.abspath(os.getcwd())
 general_path = os.path.split(python_path)[0]
@@ -244,139 +246,6 @@ def plot_PPL_one_run(test_name, num_run, input_path, output_path):
     ax.legend(loc='upper right', fontsize=10)
     fig.savefig(output_path + '/' + test_name + '_' + str(num_run)+ '.png')
     plt.close()
-    
-def plot_heat_table(test_name,num_run_start, num_run_end, input_paht, output_path):
-    param = test_name.split('-')
-    if len(param) == 1:
-        fig=plt.figure(figsize=(20, 11))
-        fig.suptitle('Heatmap ' + test_name, fontsize=14, fontweight='bold')
-        ax = fig.add_subplot(111, frameon=False, xticks = [], yticks = [])
-        
-        validPPL = np.zeros((1,num_run_end-num_run_start+1))
-        testPPL = np.zeros((1,num_run_end-num_run_start+1))
-        
-        data = np.load(input_path + '/' + test_name + '_'+ str(num_run_start)+ '/results' +'.npz')
-        validPPL[0][0] = data['valid_np'][-1][2]
-        testPPL[0][0] = data['test_np'][-1][2]
-        
-        label = ''
-        title = ''
-        param_np = data['param_train_np']
-        for i in range(0,len(param_np)):
-            if param_np[i][0] in param:
-                label = label +param_np[i][0] + ' = ' + param_np[i][1] + ', '
-            else:
-                title = title +param_np[i][0] + ' = ' + param_np[i][1] + ', '
-            if (i+1) % 5 == 0:
-                title = title + '\n'
-        if label == '':
-            label = test_name + '_' + str(num_run_start)
-        else:
-            while label[-1] != ',':
-                label = label[:-1]
-            label = label[:-1]
-        while title[-1] != ',':
-            title = title[:-1]
-        title = title[:-1]
-        coll = [label]
-        rowl = ['']
-        
-        if label == []:
-            return
-        
-        for run in range(num_run_start+1,num_run_end+1):
-            data = np.load(input_path + '/' + test_name + '_'+ str(run)+ '/results' +'.npz')
-            validPPL[0][run-num_run_start]  = data['valid_np'][-1][2]
-            testPPL[0][run-num_run_start] = data['test_np'][-1][2]
-
-            label = ''
-            param_np = data['param_train_np']
-            for i in range(0,len(param_np)):
-                if param_np[i][0] in param:
-                    label = label +param_np[i][0] + ' = ' + param_np[i][1]
-            coll.append(label)
-        
-        tekst = [[[]for i in range(len(validPPL[0]))] for j in range(len(validPPL))]
-        for i in range(len(validPPL)):
-            for j in range(len(validPPL[0])):
-                tekst[i][j] = str("%.2f" % validPPL[i][j]) + ' / ' + str("%.2f" % testPPL[i][j])
-        img = plt.imshow(testPPL, cmap="OrRd", vmin = 80, vmax = 130)
-        #plt.colorbar()
-        img.set_visible(False)
-        tb = plt.table(cellText = tekst, cellLoc='center', rowLabels = rowl, colLabels = coll, loc = 'center', cellColours = img.to_rgba(testPPL))
-        tb.scale(1, 5)
-        ax.set_title(title, fontsize=13)
-        fig.savefig(output_path + '/heatmap_' + test_name + '.png')
-        plt.close()
-    elif len(param) == 2:
-        fig=plt.figure(figsize=(20, 11))
-        fig.suptitle('Heatmap ' + test_name, fontsize=14, fontweight='bold')
-        ax = fig.add_subplot(111, frameon=False, xticks = [], yticks = [])
-        
-        param1 = param[0]
-        param2 = param[1]
-        coll = []
-        rowl = []
-
-        for run in range(num_run_start,num_run_end+1):
-            data = np.load(input_path + '/' + test_name + '_'+ str(run)+ '/results' +'.npz')
-            param_np = data['param_train_np']
-            for i in range(0,len(param_np)):
-                if param_np[i][0] == param1:
-                    label = param_np[i][0] + ' = ' + param_np[i][1]
-                    if label not in rowl:
-                        rowl.append(label)
-                elif param_np[i][0] == param2:
-                    label = param_np[i][0] + ' = ' + param_np[i][1]
-                    if label not in coll:
-                        coll.append(label)
-        if rowl == [] or coll == []:
-            return 
-        
-        title = ''
-        for i in range(0,len(param_np)):
-            if param_np[i][0] not in param:
-                title = title +param_np[i][0] + ' = ' + param_np[i][1] + ', '
-            if (i+1) % 5 == 0:
-                title = title + '\n'
-        while title[-1] != ',':
-            title = title[:-1]
-        title = title[:-1]
-            
-        validPPL = np.zeros((len(rowl),len(coll)))
-        testPPL = np.zeros((len(rowl),len(coll)))
-        
-        for run in range(num_run_start,num_run_end+1):
-            data = np.load(input_path + '/' + test_name + '_'+ str(run)+ '/results' +'.npz')
-            param_np = data['param_train_np']
-            for i in range(0,len(param_np)):
-                if param_np[i][0] == param1:
-                    label = param_np[i][0] + ' = ' + param_np[i][1]
-                    row = rowl.index(label)
-                elif param_np[i][0] == param2:
-                    label = param_np[i][0] + ' = ' + param_np[i][1]
-                    col = coll.index(label)
-
-            validPPL[row][col]  = data['valid_np'][-1][2]
-            testPPL[row][col] = data['test_np'][-1][2]
-        
-        
-        tekst = [[[]for i in range(len(validPPL[0]))] for j in range(len(validPPL))]
-        for i in range(len(validPPL)):
-            for j in range(len(validPPL[0])):
-                tekst[i][j] = str("%.2f" % validPPL[i][j]) + ' / ' + str("%.2f" % testPPL[i][j])
-        img = plt.imshow(testPPL, cmap="OrRd", vmin = 80, vmax = 130)
-        #plt.colorbar()
-        img.set_visible(False)
-        tb = plt.table(cellText = tekst, cellLoc='center', rowLabels = rowl, colLabels = coll, loc = 'center', cellColours = img.to_rgba(testPPL))
-        tb.scale(1, 5)
-        ax.set_title(title, fontsize=13)
-        fig.savefig(output_path + '/heatmap_' + test_name + '.png')
-        plt.close()
-    else:
-        return
-            
-    
     
 def plot_compare_between_runs(test_name, num_run_start, num_run_end, train_valid_test, input_path, output_path):
     train_valid_test_str = train_valid_test + '_np'
@@ -648,7 +517,6 @@ def plot_everything(input_path, output_path):
         plot_compare_between_runs(test_name, 0, dirsdic[test_name]-1, 'train', input_path, output_path)
         plot_compare_between_runs(test_name, 0, dirsdic[test_name]-1, 'test', input_path, output_path)
         plot_compare_between_runs(test_name, 0, dirsdic[test_name]-1, 'valid', input_path, output_path)
-        plot_heat_table(test_name,0, dirsdic[test_name]-1, input_path, output_path)
         plot_compare_between_runs_summary(test_name, 0, dirsdic[test_name]-1, input_path, output_path)
         plot_speed_compare_between_runs(test_name, 0, dirsdic[test_name]-1, input_path, output_path,f)
         for i in xrange(dirsdic[test_name]):
