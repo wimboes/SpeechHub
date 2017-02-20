@@ -175,12 +175,6 @@ class ds_cbow_sentence_model(object):
         
     def assign_lr(self, session, lr_value):
         session.run(self._lr_update, feed_dict={self._new_lr: lr_value})
-    
-    def length_of_seq(self,sequence, vocab_size):
-        used = tf.sign(tf.abs(sequence-vocab_size))
-        length = tf.reduce_sum(used, reduction_indices=1)
-        length = tf.cast(length, tf.int32)
-        return length
 
     @property
     def input(self):
