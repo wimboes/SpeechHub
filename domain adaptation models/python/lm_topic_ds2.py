@@ -24,7 +24,7 @@ import sys
 
 
 import tensorflow as tf
-import reader_original_ds2 as reader
+import reader
 from gensim import corpora, models
 
 ##### paths
@@ -91,7 +91,7 @@ class ds_topic_model(object):
         
         batch_size = input_.batch_size
         self._num_steps = num_steps = config.num_steps
-        vocab_size = input_.pad_id + 1 #om pad symbool toe te laten
+        vocab_size = input_.pad_id #om pad symbool toe te laten
         nb_topics = topic_matrix.get_shape()[0]
         
         self._data = data =  tf.placeholder(tf.int32, [batch_size, num_steps], name = 'batch_data')
@@ -99,9 +99,9 @@ class ds_topic_model(object):
         self._seq_len = seq_len =  tf.placeholder(tf.int32, [batch_size], name = 'seq_len')
         
         with tf.device("/cpu:0"):
-            embedding_reg = tf.get_variable("embedding_reg", [vocab_size, config.embedded_size_reg], dtype=data_type(), initializer = initializer_reg)
+            embedding_reg = tf.get_variable("embedding_reg", [vocab_size+1, config.embedded_size_reg], dtype=data_type(), initializer = initializer_reg)
             inputs_reg = tf.nn.embedding_lookup(embedding_reg, data)
-            embedding_lda = tf.get_variable("embedding_lda", [vocab_size, config.embedded_size_lda], dtype=data_type(), initializer = initializer_lda)
+            embedding_lda = tf.get_variable("embedding_lda", [vocab_size+1, config.embedded_size_lda], dtype=data_type(), initializer = initializer_lda)
             inputs_lda = tf.nn.embedding_lookup(embedding_lda, data)
             
         if is_training and config.keep_prob_reg < 1:
@@ -132,7 +132,7 @@ class ds_topic_model(object):
             outputs_lda, state_lda = tf.nn.dynamic_rnn(cell_lda, inputs_lda, initial_state=self._initial_state_lda, dtype=data_type(), sequence_length=seq_len)
             output_lda = tf.reshape(tf.concat(1, outputs_lda), [-1, config.hidden_size_lda])
 
-        softmax_w_reg = tf.get_variable("softmax_w_reg", [config.hidden_size_reg, vocab_size-1], dtype=data_type(), initializer = initializer_reg)
+        softmax_w_reg = tf.get_variable("softmax_w_reg", [config.hidden_size_reg, vocab_size], dtype=data_type(), initializer = initializer_reg)
         softmax_b_reg = tf.get_variable("softmax_b_reg", [vocab_size], dtype=data_type(), initializer = initializer_reg)
         
         softmax_w_lda = tf.get_variable("softmax_w_lda", [config.hidden_size_lda, nb_topics], dtype=data_type(), initializer = initializer_lda)
@@ -356,8 +356,10 @@ def run_epoch(session, model, eval_op=None, verbose=False, epoch_nb = 0):
 def main(_):
     print('job started')
     lda_path = os.path.join(FLAGS.data_path, "lda.ds.model")
-    lda = models.LdaModel.load(lda_path)    
-    vocab_size = 50000
+    lda = models.LdaModel.load(lda_path) 
+    dict_path = os.path.join(FLAGS.data_path, "dictionary.ds.dict")
+    dictionary = corpora.Dictionary.load(dict_path)
+    vocab_size = len(dictionary.items())
     
     nb_topics = lda.num_topics
     topic_array = np.zeros((nb_topics, vocab_size))
@@ -374,7 +376,7 @@ def main(_):
     
     eval_config = config_topic()
     eval_config.batch_size = 1
-    eval_config.num_steps = 100 #de langste zin moet hier in passen    
+    eval_config.num_steps = 79 #de langste zin moet hier in passen    
     
     with tf.Graph().as_default(): 
         tf.set_random_seed(1)
@@ -384,7 +386,7 @@ def main(_):
         topic_matrix = tf.constant(topic_array,dtype=tf.float32)
 
         with tf.name_scope("train"):
-            train_data = reader.ds_data(config.batch_size, FLAGS.data_path, valid_name)
+            train_data = reader.ds_data(config.batch_size, FLAGS.data_path, train_name)
             with tf.variable_scope("model", reuse=None):
             	m = ds_topic_model(is_training=True, config=config, input_ = train_data, topic_matrix = topic_matrix, initializer_reg = initializer_reg, initializer_lda = initializer_lda)
             tf.scalar_summary("Training Loss", m.cost)
@@ -397,7 +399,7 @@ def main(_):
             tf.scalar_summary("Validation Loss", mvalid.cost)
 
         with tf.name_scope("test"):
-            test_data = reader.ds_data_(eval_config.batch_size, FLAGS.data_path, valid_name)
+            test_data = reader.ds_data(eval_config.batch_size, FLAGS.data_path, test_name)
             with tf.variable_scope("model", reuse=True):
                 mtest = ds_topic_model(is_training=False, config=eval_config, input_ = test_data, topic_matrix = topic_matrix, initializer_reg = initializer_reg, initializer_lda = initializer_lda) 
 

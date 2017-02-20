@@ -6,16 +6,6 @@ from __future__ import print_function
 import os
 import sys
 
-#if 'LD_LIBRARY_PATH' not in os.environ:
-#        os.environ['LD_LIBRARY_PATH'] = '/usr/local/cuda/lib64:/usr/local/cuda-7.5/lib64:/usr/local/cuda-8.0/lib64:/users/start2014/r0385169/.local/cudnn'
-#        try:
-#            	os.system('/users/start2014/r0385169/bin/python ' + ' '.join(sys.argv))
-#                sys.exit(0)
-#        except Exception, exc:
-#                print('Failed re_exec:', exc)
-#                sys.exit(1)
-
-import tensorflow as tf
 from gensim import corpora, models
 import numpy as np
 import fnmatch
@@ -37,7 +27,7 @@ class ds_data(object):
         if not os.path.exists(self.directory):
             print("Creating directory %s" % self.directory)
             os.mkdir(self.directory)
-        if not len(fnmatch.filter(os.listdir(self.directory), '*.txt')) == batch_size:
+        if not len(fnmatch.filter(os.listdir(self.directory), '*.txt')) == self._epoch_size:
             filelist = [ f for f in os.listdir(self.directory)]
             for f in filelist:
                 os.remove(os.path.join(self.directory,f))
@@ -138,7 +128,7 @@ class ds_data_with_history(object):
         if not os.path.exists(self.directory):
             print("Creating directory %s" % self.directory)
             os.mkdir(self.directory)
-        if not len(fnmatch.filter(os.listdir(self.directory), '*.txt')) == batch_size:
+        if not len(fnmatch.filter(os.listdir(self.directory), '*.txt')) == self._epoch_size:
             filelist = [ f for f in os.listdir(self.directory)]
             for f in filelist:
                 os.remove(os.path.join(self.directory,f))

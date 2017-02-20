@@ -19,7 +19,7 @@ import numpy as np
 
 
 import tensorflow as tf
-import reader_original_ds2 as reader
+import reader
 
 python_path = os.path.abspath(os.getcwd())
 general_path = os.path.split(python_path)[0]
@@ -64,7 +64,7 @@ class ds_original_model(object):
         batch_size = input_.batch_size
         self._num_steps = num_steps = config.num_steps
         hidden_size = config.hidden_size
-        vocab_size = input_.pad_id + 1 #om pad symbool toe te laten
+        vocab_size = input_.pad_id 
         embedded_size = config.embedded_size
         
         self._data = data =  tf.placeholder(tf.int32, [batch_size, num_steps], name = 'batch_data')
@@ -79,7 +79,7 @@ class ds_original_model(object):
         self._initial_state = cell.zero_state(batch_size, data_type())
 
         with tf.device("/cpu:0"):
-            embedding = tf.get_variable("embedding", [vocab_size, embedded_size], dtype=data_type())
+            embedding = tf.get_variable("embedding", [vocab_size + 1, embedded_size], dtype=data_type()) #om pad symbool toe te laten
             inputs = tf.nn.embedding_lookup(embedding, data)
 
         if is_training and config.keep_prob < 1:
@@ -255,14 +255,14 @@ def main(_):
     
     eval_config = config_original()
     eval_config.batch_size = 1
-    eval_config.num_steps = 100 #de langste zin moet hier in passen
+    eval_config.num_steps = 79 #de langste zin moet hier in passen
 
     with tf.Graph().as_default():
         initializer = tf.random_uniform_initializer(-config.init_scale, config.init_scale)
         tf.set_random_seed(1)
 
         with tf.name_scope("train"):
-            train_data = reader.ds_data(config.batch_size, FLAGS.data_path, valid_name)
+            train_data = reader.ds_data(config.batch_size, FLAGS.data_path, train_name)
             with tf.variable_scope("model", reuse=None, initializer=initializer):
                 m = ds_original_model(is_training=True, config=config, input_=train_data)
             tf.scalar_summary("Training Loss", m.cost)
