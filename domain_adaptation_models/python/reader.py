@@ -14,20 +14,36 @@ import fnmatch
         
 class ds_data(object):
     def __init__(self, batch_size, data_path, name):
+        self.batch_size = batch_size
         
         #reading data
         path = os.path.join(data_path, name)
-        self.amount_sentences = sum(1 for line in open(path))
-        self._epoch_size = self.amount_sentences//batch_size
-        self.amount_sentences = self.epoch_size*batch_size
-        self.batch_size = batch_size
+        self.directory = os.path.join(data_path, name + '_batch_files')
+        info_file = os.path.join(self.directory, 'info.txt')
+        if not (os.path.exists(info_file)):
+            print("Creating directory %s" % self.directory)
+            if not (os.path.exists(self.directory)): 
+                os.mkdir(self.directory)
+            amount_sentences = sum(1 for line in open(path))
+            self._epoch_size = amount_sentences//batch_size
+            self.batch_size = batch_size
+            with open(info_file, 'w') as i_f:
+                i_f.write('batch_size: ' + str(batch_size) + '\n')
+                i_f.write('amount_sentences: ' + str(amount_sentences) + '\n')
+            create_new_batch_files = True
+        else:
+            with open(info_file,"r") as i_f:
+                batch_size_previous = int(i_f.readline().split()[1])
+                amount_sentences = int(i_f.readline().split()[1])
+            if batch_size_previous != batch_size:
+                os.remove(info_file)
+                create_new_batch_files = True
+            else:
+                create_new_batch_files = False                     
+        self._epoch_size = amount_sentences//batch_size
         
         #creating batch_files that will later be read
-        self.directory = os.path.join(data_path, name + '_batch_files')
-        if not os.path.exists(self.directory):
-            print("Creating directory %s" % self.directory)
-            os.mkdir(self.directory)
-        if not len(fnmatch.filter(os.listdir(self.directory), '*.txt')) == self._epoch_size:
+        if create_new_batch_files:
             filelist = [ f for f in os.listdir(self.directory)]
             for f in filelist:
                 os.remove(os.path.join(self.directory,f))
@@ -39,6 +55,9 @@ class ds_data(object):
                     for j in xrange(batch_size):
                         new_sentence = sentences[i + j*self._epoch_size]
                         bf.write(new_sentence.encode('utf-8'))
+            with open(info_file, 'w') as i_f:
+                i_f.write('batch_size: ' + str(batch_size) + '\n')
+                i_f.write('amount_sentences: ' + str(amount_sentences) + '\n')   
             print('creating batch_files done')
             
         #reading word_to_id
@@ -114,22 +133,38 @@ class ds_data(object):
 
 class ds_data_with_history(object):
     def __init__(self, batch_size, history_size, data_path, name):
+        self.batch_size = batch_size
         
         #reading data
         path = os.path.join(data_path, name)
-        self.amount_sentences = sum(1 for line in open(path))
-        self._epoch_size = self.amount_sentences//batch_size
-        self.amount_sentences = self.epoch_size*batch_size
-        self.batch_size = batch_size
-        self.history_size = history_size
+        self.directory = os.path.join(data_path, name + '_batch_files')
+        info_file = os.path.join(self.directory, 'info.txt')
+        if not (os.path.exists(info_file)):
+            print("Creating directory %s" % self.directory)
+            if not (os.path.exists(self.directory)): 
+                os.mkdir(self.directory)
+            amount_sentences = sum(1 for line in open(path))
+            self._epoch_size = amount_sentences//batch_size
+            self.batch_size = batch_size
+            with open(info_file, 'w') as i_f:
+                i_f.write('batch_size: ' + str(batch_size) + '\n')
+                i_f.write('amount_sentences: ' + str(amount_sentences) + '\n')
+            create_new_batch_files = True
+        else:
+            with open(info_file,"r") as i_f:
+                batch_size_previous = int(i_f.readline().split()[1])
+                amount_sentences = int(i_f.readline().split()[1])
+            if batch_size_previous != batch_size:
+                os.remove(info_file)
+                create_new_batch_files = True
+            else:
+                create_new_batch_files = False                     
+        self._epoch_size = amount_sentences//batch_size
         
         #creating batch_files that will later be read
-        self.directory = os.path.join(data_path, name + '_batch_files')
-        if not os.path.exists(self.directory):
-            print("Creating directory %s" % self.directory)
-            os.mkdir(self.directory)
-        if not len(fnmatch.filter(os.listdir(self.directory), '*.txt')) == self._epoch_size:
+        if create_new_batch_files:
             filelist = [ f for f in os.listdir(self.directory)]
+            print(filelist)
             for f in filelist:
                 os.remove(os.path.join(self.directory,f))
             with open(path, "r") as f:
@@ -140,6 +175,9 @@ class ds_data_with_history(object):
                     for j in xrange(batch_size):
                         new_sentence = sentences[i + j*self._epoch_size]
                         bf.write(new_sentence.encode('utf-8'))
+            with open(info_file, 'w') as i_f:
+                i_f.write('batch_size: ' + str(batch_size) + '\n')
+                i_f.write('amount_sentences: ' + str(amount_sentences) + '\n')   
             print('creating batch_files done')
             
         #reading word_to_id
