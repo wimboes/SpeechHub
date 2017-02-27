@@ -134,7 +134,8 @@ class ds_data(object):
 class ds_data_with_history(object):
     def __init__(self, batch_size, history_size, data_path, name):
         self.batch_size = batch_size
-        
+	self.history_size = history_size        
+
         #reading data
         path = os.path.join(data_path, name)
         self.directory = os.path.join(data_path, name + '_batch_files')

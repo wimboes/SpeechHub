@@ -24,7 +24,8 @@ if 'LD_LIBRARY_PATH' not in os.environ:
 
 
 import tensorflow as tf
-import reader_topic_ds
+import reader
+from gensim import corpora, models
 
 ##### paths
 
@@ -44,12 +45,12 @@ flags.DEFINE_float("init_scale_reg", 0.05, "init_scale_reg")
 flags.DEFINE_float("learning_rate_reg", 1, "learning_rate_reg")
 flags.DEFINE_float("max_grad_norm_reg", 5, "max_grad_norm_reg")
 flags.DEFINE_integer("num_layers_reg", 1, "num_layers_reg")
-flags.DEFINE_integer("hidden_size_reg", 256, "hidden_size_reg")
-flags.DEFINE_integer("max_epoch_reg", 5, "max_epoch_reg")
-flags.DEFINE_integer("max_max_epoch_reg", 10, "max_max_epoch_reg")
+flags.DEFINE_integer("hidden_size_reg", 128, "hidden_size_reg")
+flags.DEFINE_integer("max_epoch_reg", 3, "max_epoch_reg")
+flags.DEFINE_integer("max_max_epoch_reg", 3, "max_max_epoch_reg")
 flags.DEFINE_float("keep_prob_reg", 0.5, "keep_prob_reg")
 flags.DEFINE_float("lr_decay_reg", 1, "lr_decay_reg")
-flags.DEFINE_integer("embedded_size_reg", 128, "embedded_size_reg")
+flags.DEFINE_integer("embedded_size_reg", 64, "embedded_size_reg")
 
 ### lda
 
@@ -57,17 +58,18 @@ flags.DEFINE_float("init_scale_lda", 0.05, "init_scale_lda")
 flags.DEFINE_float("learning_rate_lda", 1, "learning_rate_lda")
 flags.DEFINE_float("max_grad_norm_lda", 5, "max_grad_norm_lda")
 flags.DEFINE_integer("num_layers_lda", 1, "num_layers_lda")
-flags.DEFINE_integer("hidden_size_lda", 256, "hidden_size_lda")
+flags.DEFINE_integer("hidden_size_lda", 128, "hidden_size_lda")
 flags.DEFINE_integer("max_epoch_lda", 5, "max_epoch_lda")
 flags.DEFINE_integer("max_max_epoch_lda", 10, "max_max_epoch_lda")
 flags.DEFINE_float("keep_prob_lda", 0.5, "keep_prob_lda")
 flags.DEFINE_float("lr_decay_lda", 0.8, "lr_decay_lda")
-flags.DEFINE_integer("embedded_size_lda", 128, "embedded_size_lda")
+flags.DEFINE_integer("embedded_size_lda", 64, "embedded_size_lda")
 
 ### general
 
 flags.DEFINE_string("mode", "reg", "mode")
-flags.DEFINE_integer("batch_size", 40, "batch_size")
+flags.DEFINE_integer("batch_size", 50, "batch_size")
+flags.DEFINE_integer("num_steps", 50, "num_steps")
 flags.DEFINE_integer("num_run", 0, "num_run")
 flags.DEFINE_string("test_name","topic","test_name")
 flags.DEFINE_string("data_path",input_path,"data_path")
@@ -83,29 +85,24 @@ FLAGS = flags.FLAGS
 def data_type():
     return tf.float16 if FLAGS.use_fp16 else tf.float32
 
-
-class ds_input(object):
-    def __init__(self, config, max_length, length_array, data, name=None):
-        self.batch_size = batch_size = config.batch_size
-        self.average_sentence_length = np.mean(length_array)
-        self.epoch_size = (len(data) // batch_size)
-        self.input_data, self.targets, self.sentence_lengths_batch = reader_topic_ds.ds_producer(data, batch_size, length_array, max_length, name=None)
-
 class ds_topic_model(object):
     def __init__(self, is_training, config, input_, topic_matrix, initializer_reg, initializer_lda):
         self._input = input_
-
+        
         batch_size = input_.batch_size
-        vocab_size = config.vocab_size 
+        self._num_steps = num_steps = config.num_steps
+        vocab_size = input_.pad_id #om pad symbool toe te laten
         nb_topics = topic_matrix.get_shape()[0]
-
-        seq_len = self.length_of_seq(input_.input_data, vocab_size)
+        
+        self._data = data =  tf.placeholder(tf.int32, [batch_size, num_steps], name = 'batch_data')
+        self._labels = labels =  tf.placeholder(tf.int32, [batch_size, num_steps], name = 'batch_labels')
+        self._seq_len = seq_len =  tf.placeholder(tf.int32, [batch_size], name = 'seq_len')
         
         with tf.device("/cpu:0"):
             embedding_reg = tf.get_variable("embedding_reg", [vocab_size+1, config.embedded_size_reg], dtype=data_type(), initializer = initializer_reg)
-            inputs_reg = tf.nn.embedding_lookup(embedding_reg, input_.input_data)
+            inputs_reg = tf.nn.embedding_lookup(embedding_reg, data)
             embedding_lda = tf.get_variable("embedding_lda", [vocab_size+1, config.embedded_size_lda], dtype=data_type(), initializer = initializer_lda)
-            inputs_lda = tf.nn.embedding_lookup(embedding_lda, input_.input_data)
+            inputs_lda = tf.nn.embedding_lookup(embedding_lda, data)
             
         if is_training and config.keep_prob_reg < 1:
             inputs_reg = tf.nn.dropout(inputs_reg, config.keep_prob_reg)
@@ -121,7 +118,7 @@ class ds_topic_model(object):
 
             self._initial_state_reg = cell_reg.zero_state(batch_size, data_type())
             
-            outputs_reg, state_reg = tf.nn.dynamic_rnn(cell_reg, inputs_reg, initial_state=self._initial_state_reg, dtype=tf.float32, sequence_length=seq_len)
+            outputs_reg, state_reg = tf.nn.dynamic_rnn(cell_reg, inputs_reg, initial_state=self._initial_state_reg, dtype=data_type(), sequence_length=seq_len)
             output_reg = tf.reshape(tf.concat(1, outputs_reg), [-1, config.hidden_size_reg])
             
         with tf.variable_scope('lda_lstm', initializer = initializer_lda) as lda_lstm:
@@ -132,7 +129,7 @@ class ds_topic_model(object):
 
             self._initial_state_lda = cell_lda.zero_state(batch_size, data_type())
             
-            outputs_lda, state_lda = tf.nn.dynamic_rnn(cell_lda, inputs_lda, initial_state=self._initial_state_lda, dtype=tf.float32, sequence_length=seq_len)
+            outputs_lda, state_lda = tf.nn.dynamic_rnn(cell_lda, inputs_lda, initial_state=self._initial_state_lda, dtype=data_type(), sequence_length=seq_len)
             output_lda = tf.reshape(tf.concat(1, outputs_lda), [-1, config.hidden_size_lda])
 
         softmax_w_reg = tf.get_variable("softmax_w_reg", [config.hidden_size_reg, vocab_size], dtype=data_type(), initializer = initializer_reg)
@@ -146,7 +143,7 @@ class ds_topic_model(object):
         self._new_interpol = tf.placeholder(tf.float32, shape=[], name="new_interpol")
         self._interpol_update = tf.assign(self._interpol, self._new_interpol)
     
-        loss = get_loss_function(output_reg, output_lda, softmax_w_reg, softmax_w_lda, softmax_b_reg, softmax_b_lda, self._interpol, input_.targets, topic_matrix, batch_size, is_training, vocab_size, config.unk_id)
+        loss = get_loss_function(output_reg, output_lda, softmax_w_reg, softmax_w_lda, softmax_b_reg, softmax_b_lda, self._interpol, labels, topic_matrix, input_, is_training)
 
         self._cost = cost = loss
         
@@ -157,7 +154,6 @@ class ds_topic_model(object):
             return
 
         self._lr = tf.Variable(0.0, trainable=False)
-
     
         tvars_reg = [embedding_reg, softmax_w_reg, softmax_b_reg] + [v for v in tf.trainable_variables() if v.name.startswith(reg_lstm.name)]
         grads_reg, _ = tf.clip_by_global_norm(tf.gradients(cost, tvars_reg),config.max_grad_norm_reg)    
@@ -174,12 +170,6 @@ class ds_topic_model(object):
         
         self._new_lr = tf.placeholder(tf.float32, shape=[], name="new_learning_rate")
         self._lr_update = tf.assign(self._lr, self._new_lr)
-
-    def length_of_seq(self,sequence, vocab_size):
-        used = tf.sign(tf.abs(sequence-vocab_size))
-        length = tf.reduce_sum(used, reduction_indices=1)
-        length = tf.cast(length, tf.int32)
-        return length
         
     def assign_lr(self, session, lr_value):
         session.run(self._lr_update, feed_dict={self._new_lr: lr_value})
@@ -190,9 +180,30 @@ class ds_topic_model(object):
     @property
     def temp1(self):
         return self._temp1
+        
     @property
     def input(self):
         return self._input
+    
+    @property
+    def num_steps(self):
+        return self._num_steps
+    
+    @property
+    def data(self):
+        return self._data
+    
+    @property
+    def history(self):
+        return self._history
+        
+    @property
+    def labels(self):
+        return self._labels
+    
+    @property
+    def seq_len(self):
+        return self._seq_len
 
     @property
     def initial_state_reg(self):
@@ -256,9 +267,8 @@ class config_topic(object):
     embedded_size_lda = FLAGS.embedded_size_lda
 
     batch_size = FLAGS.batch_size    
-    vocab_size = 0
+    num_steps = FLAGS.num_steps 
     mode = FLAGS.mode
-    unk_id = 0
     
 def get_optimizer(lr):
     if FLAGS.optimizer == "GradDesc":
@@ -273,55 +283,41 @@ def get_optimizer(lr):
         return tf.train.AdamOptimizer()
     return 0
 
-def get_loss_function(output_reg, output_lda, softmax_w_reg, softmax_w_lda, softmax_b_reg, softmax_b_lda, interpol, targets, topic_matrix, batch_size, is_training, vocab_size, unk_id):
-    if FLAGS.loss_function == "full_softmax":
-        targetsz = tf.reshape(targets, [-1])
-        maskz = tf.logical_and(tf.not_equal(targetsz,[vocab_size]),tf.not_equal(targetsz,[unk_id]))
-        mask2z  = tf.reshape(tf.where(maskz),[-1])
-        targetsz = tf.gather(targetsz, mask2z)
-        output_regz = tf.gather(output_reg, mask2z) #?
-        output_ldaz = tf.gather(output_lda, mask2z) #?
-        nb_words_in_batchz = tf.reduce_sum(tf.cast(maskz,dtype=tf.float32)) + 1e-32
+def get_loss_function(output_reg, output_lda, softmax_w_reg, softmax_w_lda, softmax_b_reg, softmax_b_lda, interpol, targets, topic_matrix, data, is_training):
+    targets = tf.reshape(targets, [-1])
+    if is_training:
+        mask = tf.not_equal(targets,[data.pad_id])
+    else:
+        mask = tf.logical_and(tf.not_equal(targets,[data.pad_id]),tf.not_equal(targets,[data.unk_id]))
+    mask2  = tf.reshape(tf.where(mask),[-1])
+    targets = tf.gather(targets, mask2)
+    output_reg = tf.gather(output_reg, mask2)
+    output_lda = tf.gather(output_lda, mask2) 
+    nb_words_in_batch = tf.reduce_sum(tf.cast(mask,dtype=tf.float32)) + 1e-32
         
-        logits_reg = tf.matmul(output_regz, softmax_w_reg) + softmax_b_reg
+    if FLAGS.loss_function == "full_softmax":        
+        logits_reg = tf.matmul(output_reg, softmax_w_reg) + softmax_b_reg
         probs_reg = tf.nn.softmax(logits_reg) 
         
-        logits_lda = tf.matmul(output_ldaz, softmax_w_lda) + softmax_b_lda
+        logits_lda = tf.matmul(output_lda, softmax_w_lda) + softmax_b_lda
         probs_topic = tf.nn.softmax(logits_lda) 
         probs_lda = tf.matmul(probs_topic,topic_matrix)
         
         probs = (1-interpol)*probs_reg + (interpol)*probs_lda
                 
-        idx = tf.reshape(targetsz, [-1])
+        idx = tf.reshape(targets, [-1])
         idx_flattened = tf.range(0, tf.shape(probs)[0]) * tf.shape(probs)[1] + idx
         y = tf.gather(tf.reshape(probs, [-1]), idx_flattened)  # use flattened indices
         loss = -tf.log(y)
-        #loss = tf.nn.sparse_softmax_cross_entropy_with_logits(logits, tf.reshape(targets, [-1]), name=None)
-        return tf.reduce_sum(loss) / nb_words_in_batchz
+        return tf.reduce_sum(loss) / nb_words_in_batch
 
-        #    if FLAGS.loss_function == 'sampled_softmax':
-#        if is_training:
-#            loss = tf.nn.sampled_softmax_loss(tf.transpose(softmax_w), softmax_b, output, tf.reshape(targets, [-1, 1]), 32, FLAGS.vocab_size)
-#            return tf.reduce_sum(loss) / batch_size
-#        else:
-#            logits = tf.matmul(output, softmax_w) + softmax_b + topic_matrix
-#            loss = tf.nn.sparse_softmax_cross_entropy_with_logits(logits, tf.reshape(targets, [-1]), name=None)
-#            return tf.reduce_sum(loss) / batch_size
-#    if FLAGS.loss_function == 'noise_contrastive_estimation':
-#        if is_training:
-#            loss = tf.nn.nce_loss(tf.transpose(softmax_w), softmax_b, output, tf.reshape(targets, [-1, 1]), 32, FLAGS.vocab_size)
-#            return tf.reduce_sum(loss) / batch_size
-#        else:
-#            logits = tf.matmul(output, softmax_w) + softmax_b
-#            loss = tf.nn.sparse_softmax_cross_entropy_with_logits(logits, tf.reshape(targets, [-1]), name=None)
-#            return tf.reduce_sum(loss) / batch_size
-#    return 0
 
 def run_epoch(session, model, eval_op=None, verbose=False, epoch_nb = 0):
     """Runs the model on the given data."""
     start_time = time.time()
     costs = 0.0
     iters = 0
+    processed_words = 0
     state = session.run(model.initial_state_lda)
     save_np = np.array([[0,0,0,0]])
 
@@ -330,7 +326,11 @@ def run_epoch(session, model, eval_op=None, verbose=False, epoch_nb = 0):
         fetches["eval_op"] = eval_op
 
     for step in range(model.input.epoch_size):
+        batch_data, batch_labels, batch_seq_len = model.input.next_batch(model.num_steps)
         feed_dict = {}
+        feed_dict[model.data] = batch_data
+        feed_dict[model.labels] = batch_labels
+        feed_dict[model.seq_len] = batch_seq_len
         for i, (c, h) in enumerate(model.initial_state_lda):
             feed_dict[c] = state[i].c
             feed_dict[h] = state[i].h
@@ -342,56 +342,66 @@ def run_epoch(session, model, eval_op=None, verbose=False, epoch_nb = 0):
 
         costs += cost
         iters += 1
+        processed_words += sum(batch_seq_len)
 
         if verbose and step % (model.input.epoch_size // 10) == 0:
             print("%.3f perplexity: %.3f speed: %.0f wps" % (step * 1.0 / model.input.epoch_size, np.exp(costs / iters),
-						 iters * model.input.batch_size * model.input.average_sentence_length / (time.time() - start_time)))
+						 processed_words / (time.time() - start_time)))
             save_np = np.append(save_np, [[epoch_nb, step * 1.0 / model.input.epoch_size, np.exp(costs / iters),
-						 iters * model.input.batch_size * model.input.average_sentence_length / (time.time() - start_time)]],axis=0)
+						 processed_words / (time.time() - start_time)]],axis=0)
     save_np = np.append(save_np,[[epoch_nb, 1,np.exp(costs / iters),0]],axis=0)		 
     return np.exp(costs/iters), save_np[1:]
 
  
 def main(_):
     print('job started')
+    lda_path = os.path.join(FLAGS.data_path, "lda.ds.model")
+    lda = models.LdaModel.load(lda_path) 
+    dict_path = os.path.join(FLAGS.data_path, "dictionary.ds.dict")
+    dictionary = corpora.Dictionary.load(dict_path)
+    vocab_size = len(dictionary.items())
     
-    raw_data =  reader_topic_ds.ds_raw_data(FLAGS.data_path)
-    train_data, valid_data, test_data, vocab_size, unk_id, max_length, topic_array, train_length_array, valid_length_array, test_length_array = raw_data 
-    nb_topics = np.shape(topic_array)[0]
+    nb_topics = lda.num_topics
+    topic_array = np.zeros((nb_topics, vocab_size))
+    for topic_nb in xrange(nb_topics):
+        current_topic = lda.get_topic_terms(topic_nb,topn=vocab_size)
+        for i in xrange(vocab_size):
+            topic_array[topic_nb,current_topic[i][0]] = current_topic[i][1]
     
+    train_name = 'ds.train.txt'
+    valid_name = 'ds.valid.txt'
+    test_name = 'ds.test.txt'
+
     config = config_topic()
-    config.vocab_size = vocab_size
-    config.unk_id = vocab_size + 1
+    
     eval_config = config_topic()
     eval_config.batch_size = 1
-    eval_config.vocab_size = vocab_size
-    eval_config.unk_id = unk_id
+    eval_config.num_steps = 79 #de langste zin moet hier in passen    
     
-    with tf.Graph().as_default():    
-        
+    with tf.Graph().as_default(): 
+        tf.set_random_seed(1)
         initializer_reg = tf.random_uniform_initializer(-config.init_scale_reg, config.init_scale_reg)
         initializer_lda = tf.random_uniform_initializer(-config.init_scale_lda, config.init_scale_lda)
-        tf.set_random_seed(1)
         
         topic_matrix = tf.constant(topic_array,dtype=tf.float32)
 
         with tf.name_scope("train"):
-            train_input = ds_input(config=config, max_length=max_length, length_array=train_length_array, data=train_data, name="train_input")
+            train_data = reader.ds_data(config.batch_size, FLAGS.data_path, train_name)
             with tf.variable_scope("model", reuse=None):
-            	m = ds_topic_model(is_training=True, config=config, input_ = train_input, topic_matrix = topic_matrix, initializer_reg = initializer_reg, initializer_lda = initializer_lda)
+            	m = ds_topic_model(is_training=True, config=config, input_ = train_data, topic_matrix = topic_matrix, initializer_reg = initializer_reg, initializer_lda = initializer_lda)
             tf.scalar_summary("Training Loss", m.cost)
             tf.scalar_summary("Learning Rate", m.lr)
 
         with tf.name_scope("valid"):
-            valid_input = ds_input(config=config, max_length=max_length, length_array=valid_length_array, data=valid_data, name="valid_input")
+            valid_data = reader.ds_data(config.batch_size, FLAGS.data_path, valid_name)
             with tf.variable_scope("model", reuse=True):
-                mvalid = ds_topic_model(is_training=False, config=config, input_ = valid_input, topic_matrix = topic_matrix, initializer_reg = initializer_reg, initializer_lda = initializer_lda)
+                mvalid = ds_topic_model(is_training=False, config=config, input_ = valid_data, topic_matrix = topic_matrix, initializer_reg = initializer_reg, initializer_lda = initializer_lda)
             tf.scalar_summary("Validation Loss", mvalid.cost)
 
         with tf.name_scope("test"):
-            test_input = ds_input(config=eval_config, max_length=max_length, length_array=test_length_array, data=test_data, name="test_input")
+            test_data = reader.ds_data(eval_config.batch_size, FLAGS.data_path, test_name)
             with tf.variable_scope("model", reuse=True):
-                mtest = ds_topic_model(is_training=False, config=eval_config, input_ = test_input, topic_matrix = topic_matrix, initializer_reg = initializer_reg, initializer_lda = initializer_lda) 
+                mtest = ds_topic_model(is_training=False, config=eval_config, input_ = test_data, topic_matrix = topic_matrix, initializer_reg = initializer_reg, initializer_lda = initializer_lda) 
 
         param_train_np = np.array([['init_scale_reg',config.init_scale_reg], ['init_scale_lda',config.init_scale_lda],
                                    ['learning_rate_reg', config.learning_rate_reg], ['learning_rate_lda', config.learning_rate_lda],
@@ -402,7 +412,7 @@ def main(_):
                                    ['max_epoch_reg', config.max_epoch_reg], ['max_epoch_lda', config.max_epoch_lda],
                                    ['max_max_epoch_reg', config.max_max_epoch_reg], ['max_max_epoch_lda', config.max_max_epoch_lda],
                                    ['keep_prob_reg', config.keep_prob_reg], ['keep_prob_lda', config.keep_prob_lda],
-                                   ['nb_topics', nb_topics], ['vocab_size', config.vocab_size], ['batch_size', config.batch_size],
+                                   ['nb_topics', nb_topics], ['vocab_size', train_data.pad_id], ['batch_size', config.batch_size], ['num_steps', config.num_steps],
                                    ['lr_decay_reg', config.lr_decay_reg], ['lr_decay_lda', config.lr_decay_lda],
                                    ['optimizer', FLAGS.optimizer],
                                    ['loss_function', FLAGS.loss_function], 

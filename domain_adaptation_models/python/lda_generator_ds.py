@@ -10,16 +10,16 @@ from __future__ import print_function
 import os
 import sys
 
-if 'LD_LIBRARY_PATH' not in os.environ:
-        os.environ['LD_LIBRARY_PATH'] = '/usr/local/cuda/lib64:/usr/local/cuda-7.5/lib64:/usr/local/cuda-8.0/lib64:/users/start2014/r0385169/.local/cudnn'
-        try:
-            	os.system('/users/start2014/r0385169/bin/python ' + ' '.join(sys.argv))
-                sys.exit(0)
-        except Exception, exc:
-                print('Failed re_exec:', exc)
-                sys.exit(1)
+#if 'LD_LIBRARY_PATH' not in os.environ:
+#        os.environ['LD_LIBRARY_PATH'] = '/usr/local/cuda/lib64:/usr/local/cuda-7.5/lib64:/usr/local/cuda-8.0/lib64:/users/start2014/r0385169/.local/cudnn'
+#        try:
+#            	os.system('/users/start2014/r0385169/bin/python ' + ' '.join(sys.argv))
+#                sys.exit(0)
+#        except Exception, exc:
+#                print('Failed re_exec:', exc)
+#                sys.exit(1)
 
-import tensorflow as tf
+#import tensorflow as tf
 from gensim import corpora, models
 import numpy as np
 import string
@@ -36,7 +36,7 @@ sentences_per_document = 100
 ##### functions and classes
   
 def read_and_split_doc(path,sentences_per_document):
-    with tf.gfile.GFile(path, "r") as f:
+    with open(path, "r") as f:
         sentences = f.read().decode("utf-8").split("\n")
     nb_sentences = len(sentences)
     nb_docs = int(np.floor(nb_sentences/sentences_per_document)) # words per small document
@@ -81,3 +81,4 @@ def lda_generate_model(sentences_per_document, nb_topics, data_path, lda_save_pa
 lda_save_path = os.path.join(data_path, "lda.ds.model")
 dict_save_path = os.path.join(data_path, "dictionary.ds.dict")
 lda, lda_dict = lda_generate_model(sentences_per_document, nb_topics, data_path, lda_save_path, dict_save_path)
+print(str(nb_topics)+ ' topics are generated based on documents of ' + str('sentences_per_document') + ' sentences long')
