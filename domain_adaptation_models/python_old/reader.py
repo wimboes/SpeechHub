@@ -4,9 +4,11 @@ from __future__ import absolute_import
 from __future__ import division
 from __future__ import print_function
 import os
+import sys
 
 from gensim import corpora, models
 import numpy as np
+import fnmatch
 
 ##### functions
         
@@ -23,19 +25,16 @@ class ds_data(object):
             if not (os.path.exists(self.directory)): 
                 os.mkdir(self.directory)
             amount_sentences = sum(1 for line in open(path))
-            self._longest_sentence = max(len(line.split()) for line in open(path))
             self._epoch_size = amount_sentences//batch_size
             self.batch_size = batch_size
             with open(info_file, 'w') as i_f:
                 i_f.write('batch_size: ' + str(batch_size) + '\n')
                 i_f.write('amount_sentences: ' + str(amount_sentences) + '\n')
-                i_f.write('longest_sentence: ' + str(self._longest_sentence) + '\n')
             create_new_batch_files = True
         else:
             with open(info_file,"r") as i_f:
                 batch_size_previous = int(i_f.readline().split()[1])
                 amount_sentences = int(i_f.readline().split()[1])
-                self._longest_sentence = int(i_f.readline().split()[1])
             if batch_size_previous != batch_size:
                 os.remove(info_file)
                 create_new_batch_files = True
@@ -58,8 +57,7 @@ class ds_data(object):
                         bf.write(new_sentence.encode('utf-8'))
             with open(info_file, 'w') as i_f:
                 i_f.write('batch_size: ' + str(batch_size) + '\n')
-                i_f.write('amount_sentences: ' + str(amount_sentences) + '\n')  
-                i_f.write('longest_sentence: ' + str(self._longest_sentence) + '\n')
+                i_f.write('amount_sentences: ' + str(amount_sentences) + '\n')   
             print('creating batch_files done')
             
         #reading word_to_id
@@ -128,10 +126,6 @@ class ds_data(object):
     @property
     def word_to_id(self):
         return self._word_to_id
-
-    @property
-    def longest_sentence(self):
-        return self._longest_sentence
         
     @property
     def epoch_size(self):
@@ -156,14 +150,11 @@ class ds_data_with_history(object):
             with open(info_file, 'w') as i_f:
                 i_f.write('batch_size: ' + str(batch_size) + '\n')
                 i_f.write('amount_sentences: ' + str(amount_sentences) + '\n')
-                i_f.write('longest_sentence: ' + str(self._longest_sentence) + '\n')
-                self._longest_sentence = max(len(line.split()) for line in open(path))
             create_new_batch_files = True
         else:
             with open(info_file,"r") as i_f:
                 batch_size_previous = int(i_f.readline().split()[1])
                 amount_sentences = int(i_f.readline().split()[1])
-                self._longest_sentence = int(i_f.readline().split()[1])
             if batch_size_previous != batch_size:
                 os.remove(info_file)
                 create_new_batch_files = True
@@ -187,8 +178,7 @@ class ds_data_with_history(object):
                         bf.write(new_sentence.encode('utf-8'))
             with open(info_file, 'w') as i_f:
                 i_f.write('batch_size: ' + str(batch_size) + '\n')
-                i_f.write('amount_sentences: ' + str(amount_sentences) + '\n')
-                i_f.write('longest_sentence: ' + str(self._longest_sentence) + '\n')
+                i_f.write('amount_sentences: ' + str(amount_sentences) + '\n')   
             print('creating batch_files done')
             
         #reading word_to_id
@@ -266,10 +256,6 @@ class ds_data_with_history(object):
     @property
     def word_to_id(self):
         return self._word_to_id
-    
-    @property
-    def longest_sentence(self):
-        return self._longest_sentence
         
     @property
     def epoch_size(self):

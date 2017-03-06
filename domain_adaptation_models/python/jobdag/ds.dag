@@ -1,34 +1,34 @@
-JOB transform transform.job DIR .
-JOB original original.job DIR .
-JOB cbow_mean_soft cbow.job DIR .
-JOB cbow_exp_soft cbow.job DIR .
-JOB cbow_mean_lstm cbow.job DIR .
-JOB cbow_exp_lstm cbow.job DIR .
-JOB topic_generation topic_generation.job DIR .
-JOB topic_reg topic.job DIR .
-JOB topic_lda topic.job DIR .
-JOB topic_int topic.job DIR .
+#JOB transform jobdag/transform.job DIR ./..
+#JOB original jobdag/original.job DIR ./..
+#JOB cbow_mean_soft jobdag/cbow.job DIR ./..
+#JOB cbow_exp_soft jobdag/cbow.job DIR ./..
+#JOB cbow_mean_lstm jobdag/cbow.job DIR ./..
+#JOB cbow_exp_lstm jobdag/cbow.job DIR ./..
+#JOB topic_generation jobdag/topic_generation.job DIR ./..
+JOB topic_reg jobdag/topic.job DIR ./..
+JOB topic_lda jobdag/topic.job DIR ./..
+JOB topic_int jobdag/topic.job DIR ./..
 
 
-VARS transform data_set="ds"
-VARS original data_set="ds" test_name="original" num_run="0"
-VARS cbow_mean_soft data_set="ds" test_name="cbow_mean_soft" num_run="0" combinati$
-VARS cbow_exp_soft data_set="ds" test_name="cbow_exp_soft" num_run="0" combination$
-VARS cbow_mean_lstm data_set="ds" test_name="cbow_mean_lstm" num_run="0" combinati$
-VARS cbow_exp_lstm data_set="ds" test_name="cbow_exp_lstm" num_run="0" combination$
-VARS topic_generation data_set="ds" 
+#VARS transform data_set="ds" 
+#VARS original data_set="ds" test_name="original" num_run="0"
+#VARS cbow_mean_soft data_set="ds" test_name="cbow_mean_soft" num_run="0" combination="mean" position="soft"
+#VARS cbow_exp_soft data_set="ds" test_name="cbow_exp_soft" num_run="0" combination="exp" position="soft"
+#VARS cbow_mean_lstm data_set="ds" test_name="cbow_mean_lstm" num_run="0" combination="mean" position="lstm"
+#VARS cbow_exp_lstm data_set="ds" test_name="cbow_exp_lstm" num_run="0" combination="exp" position="lstm"
+#VARS topic_generation data_set="ds" 
 VARS topic_reg data_set="ds" test_name="topic"	num_run="0" mode="reg"
 VARS topic_lda data_set="ds" test_name="topic" num_run="0" mode="lda"
 VARS topic_int data_set="ds" test_name="topic" num_run="0" mode="int"
 
 
-PARENT transform CHILD original
-PARENT transform CHILD cbow_mean_soft
-PARENT transform CHILD cbow_exp_soft
-PARENT transform CHILD cbow_mean_lstm
-PARENT transform CHILD cbow_exp_lstm
-PARENT transform CHILD topic_generation
-PARENT topic_generation CHILD topic_reg
+#PARENT transform CHILD original
+#PARENT transform CHILD cbow_mean_soft
+#PARENT transform CHILD cbow_exp_soft
+#PARENT transform CHILD cbow_mean_lstm
+#PARENT transform CHILD cbow_exp_lstm
+#PARENT transform CHILD topic_generation
+#PARENT topic_generation CHILD topic_reg
 PARENT topic_reg CHILD topic_lda
 PARENT topic_lda CHILD topic_int
 

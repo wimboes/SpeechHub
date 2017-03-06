@@ -81,4 +81,4 @@ def lda_generate_model(sentences_per_document, nb_topics, data_path, lda_save_pa
 lda_save_path = os.path.join(data_path, "lda.ds.model")
 dict_save_path = os.path.join(data_path, "dictionary.ds.dict")
 lda, lda_dict = lda_generate_model(sentences_per_document, nb_topics, data_path, lda_save_path, dict_save_path)
-print(str(nb_topics)+ ' topics are generated based on documents of ' + str(sentences_per_document) + ' sentences long')
+print(str(nb_topics)+ ' topics are generated based on documents of ' + str('sentences_per_document') + ' sentences long')

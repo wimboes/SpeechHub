@@ -12,14 +12,14 @@ import time
 import numpy as np
 import sys
 
-if 'LD_LIBRARY_PATH' not in os.environ:
-        os.environ['LD_LIBRARY_PATH'] = '/usr/local/cuda/lib64:/usr/local/cuda-7.5/lib64:/usr/local/cuda-8.0/lib64:/users/start2014/r0385169/.local/cudnn'
-        try:
-            	os.system('/users/start2014/r0385169/bin/python ' + ' '.join(sys.argv))
-                sys.exit(0)
-        except Exception, exc:
-                print('Failed re_exec:', exc)
-                sys.exit(1)
+#if 'LD_LIBRARY_PATH' not in os.environ:
+#        os.environ['LD_LIBRARY_PATH'] = '/usr/local/cuda/lib64:/usr/local/cuda-7.5/lib64:/usr/local/cuda-8.0/lib64:/users/start2014/r0385169/.local/cudnn'
+#        try:
+#            	os.system('/users/start2014/r0385169/bin/python ' + ' '.join(sys.argv))
+#                sys.exit(0)
+#        except Exception, exc:
+#                print('Failed re_exec:', exc)
+#                sys.exit(1)
 
 
 import tensorflow as tf
@@ -46,7 +46,7 @@ flags.DEFINE_float("max_grad_norm_reg", 5, "max_grad_norm_reg")
 flags.DEFINE_integer("num_layers_reg", 1, "num_layers_reg")
 flags.DEFINE_integer("hidden_size_reg", 128, "hidden_size_reg")
 flags.DEFINE_integer("max_epoch_reg", 3, "max_epoch_reg")
-flags.DEFINE_integer("max_max_epoch_reg", 3, "max_max_epoch_reg")
+flags.DEFINE_integer("max_max_epoch_reg", 2, "max_max_epoch_reg")
 flags.DEFINE_float("keep_prob_reg", 0.5, "keep_prob_reg")
 flags.DEFINE_float("lr_decay_reg", 1, "lr_decay_reg")
 flags.DEFINE_integer("embedded_size_reg", 64, "embedded_size_reg")
@@ -59,7 +59,7 @@ flags.DEFINE_float("max_grad_norm_lda", 5, "max_grad_norm_lda")
 flags.DEFINE_integer("num_layers_lda", 1, "num_layers_lda")
 flags.DEFINE_integer("hidden_size_lda", 128, "hidden_size_lda")
 flags.DEFINE_integer("max_epoch_lda", 3, "max_epoch_lda")
-flags.DEFINE_integer("max_max_epoch_lda", 3, "max_max_epoch_lda")
+flags.DEFINE_integer("max_max_epoch_lda", 2, "max_max_epoch_lda")
 flags.DEFINE_float("keep_prob_lda", 0.5, "keep_prob_lda")
 flags.DEFINE_float("lr_decay_lda", 0.8, "lr_decay_lda")
 flags.DEFINE_integer("embedded_size_lda", 64, "embedded_size_lda")
@@ -68,7 +68,7 @@ flags.DEFINE_integer("embedded_size_lda", 64, "embedded_size_lda")
 
 flags.DEFINE_string("mode", "int", "mode")
 flags.DEFINE_integer("batch_size", 50, "batch_size")
-flags.DEFINE_integer("num_steps", 50, "num_steps")
+flags.DEFINE_integer("num_steps", 20, "num_steps")
 flags.DEFINE_integer("num_run", 0, "num_run")
 flags.DEFINE_string("test_name","topic","test_name")
 flags.DEFINE_string("data_path",input_path,"data_path")
@@ -348,9 +348,6 @@ def run_epoch(session, model, eval_op=None, verbose=False, epoch_nb = 0):
 						 processed_words / (time.time() - start_time)))
             save_np = np.append(save_np, [[epoch_nb, step * 1.0 / model.input.epoch_size, np.exp(costs / iters),
 						 processed_words / (time.time() - start_time)]],axis=0)
-    if not verbose:
-        print("with(perplexity: %.3f) speed: %.0f wps" % (np.exp(costs / iters),
-						 processed_words / (time.time() - start_time)))
     save_np = np.append(save_np,[[epoch_nb, 1,np.exp(costs / iters),0]],axis=0)		 
     return np.exp(costs/iters), save_np[1:]
 
@@ -388,7 +385,7 @@ def main(_):
         topic_matrix = tf.constant(topic_array,dtype=tf.float32)
 
         with tf.name_scope("train"):
-            train_data = reader.ds_data(config.batch_size, FLAGS.data_path, train_name)
+            train_data = reader.ds_data(config.batch_size, FLAGS.data_path, valid_name)
             with tf.variable_scope("model", reuse=None):
             	m = ds_topic_model(is_training=True, config=config, input_ = train_data, topic_matrix = topic_matrix, initializer_reg = initializer_reg, initializer_lda = initializer_lda)
             tf.scalar_summary("Training Loss", m.cost)
