@@ -70,9 +70,9 @@ class ds_data_sentence(object):
         self._word_to_id = dict()
         for (wordid,word) in dictionary.iteritems():
             self._word_to_id[word] = wordid
-        self._unk_id = self._word_to_id['<unk>']
-        self._bos_id = self._word_to_id['<bos>']
-        self._eos_id = self._word_to_id['<eos>']
+        self._unk_id = self._word_to_id['<UNK>']
+        self._bos_id = self._word_to_id['<s>']
+        self._eos_id = self._word_to_id['</s>']
         self._pad_id = len(self._word_to_id)
         
         self.batch_id = 0
@@ -110,6 +110,9 @@ class ds_data_sentence(object):
             print(batch_lst[max_seq_len*i:max_seq_len*(i+1)])
             print(targets_lst[max_seq_len*i:max_seq_len*(i+1)])
             print(seq_len[i])
+            
+    def assign_batch_id(self, value):
+        self.batch_id = value
         
     @property
     def unk_id(self):
@@ -202,9 +205,9 @@ class ds_data_continuous(object):
         self._word_to_id = dict()
         for (wordid,word) in dictionary.iteritems():
             self._word_to_id[word] = wordid
-        self._unk_id = self._word_to_id['<unk>']
-        self._bos_id = self._word_to_id['<bos>']
-        self._eos_id = self._word_to_id['<eos>']
+        self._unk_id = self._word_to_id['<UNK>']
+        self._bos_id = self._word_to_id['<s>']
+        self._eos_id = self._word_to_id['</s>']
         self._pad_id = len(self._word_to_id)
         
         self.batch_id = 0
@@ -237,6 +240,9 @@ class ds_data_continuous(object):
             print('batch ' + str(i))
             print(batch_lst[self.num_steps*i:self.num_steps*(i+1)])
             print(targets_lst[self.num_steps*i:self.num_steps*(i+1)])
+
+    def assign_batch_id(self, value):
+        self.batch_id = value
         
     @property
     def unk_id(self):
@@ -277,6 +283,7 @@ class ds_data_sentence_with_history(object):
                 os.mkdir(self.directory)
             amount_sentences = sum(1 for line in open(path))
             self._epoch_size = amount_sentences//batch_size
+            self._longest_sentence = max(len(line.split()) for line in open(path))
             self.batch_size = batch_size
             with open(info_file, 'w') as i_f:
                 i_f.write('batch_size: ' + str(batch_size) + '\n')
@@ -300,7 +307,6 @@ class ds_data_sentence_with_history(object):
         #creating batch_files that will later be read
         if create_new_batch_files:
             filelist = [ f for f in os.listdir(self.directory)]
-            print(filelist)
             for f in filelist:
                 os.remove(os.path.join(self.directory,f))
             with open(path, "r") as f:
@@ -323,9 +329,9 @@ class ds_data_sentence_with_history(object):
         self._word_to_id = dict()
         for (wordid,word) in dictionary.iteritems():
             self._word_to_id[word] = wordid
-        self._unk_id = self._word_to_id['<unk>']
-        self._bos_id = self._word_to_id['<bos>']
-        self._eos_id = self._word_to_id['<eos>']
+        self._unk_id = self._word_to_id['<UNK>']
+        self._bos_id = self._word_to_id['<s>']
+        self._eos_id = self._word_to_id['</s>']
         self._pad_id = len(self._word_to_id)
         
         self.batch_id = 0
@@ -372,6 +378,9 @@ class ds_data_sentence_with_history(object):
             print(targets_lst[max_seq_len*i:max_seq_len*(i+1)])
             print(history_lst[(self.history_size+max_seq_len-1)*i:(self.history_size+max_seq_len-1)*(i+1)])
             print(seq_len[i])
+        
+    def assign_batch_id(self, value):
+        self.batch_id = value
         
     @property
     def unk_id(self):
