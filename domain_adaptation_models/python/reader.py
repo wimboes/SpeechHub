@@ -51,7 +51,6 @@ class ds_data_sentence(object):
                 os.remove(os.path.join(self.directory,f))
             with open(path, "r") as f:
                 sentences = [lines.decode('utf-8') for lines in f]
-                print(sentences)
             for i in xrange(self._epoch_size):
                 batch_file = os.path.join(self.directory, 'batch' + str(i) + '.txt')
                 with open(batch_file, 'w') as bf:
@@ -190,7 +189,6 @@ class ds_data_continuous(object):
                 with open(batch_file, 'w') as bf:
                     for j in xrange(batch_size):
                         new_text_piece = words[i*num_steps+j*self._epoch_size*num_steps:(i+1)*num_steps+1+j*self._epoch_size*num_steps]
-                        print(new_text_piece)
                         new_text_piece_decoded = ' '.join([k.encode('utf-8') for k in new_text_piece])                          
                         bf.write(new_text_piece_decoded +'\n')
             with open(info_file, 'w') as i_f:

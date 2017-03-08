@@ -224,13 +224,11 @@ def run_epoch(session, model, eval_op=None, verbose=False, epoch_nb = 0, pos_epo
         fetches["eval_op"] = eval_op
 
     for step in range(pos_epoch, model.input.epoch_size):
-# aangepast
-        batch_data, batch_labels = model.input.next_batch()
+        batch_data, batch_labels, batch_seq_len = model.input.next_batch(model.num_steps)
         feed_dict = {}
         feed_dict[model.data] = batch_data
         feed_dict[model.labels] = batch_labels
-# aangepast
-        feed_dict[model.seq_len] = np.ones(model.input.batch_size)*model.input.num_steps
+        feed_dict[model.seq_len] = batch_seq_len
         for i, (c, h) in enumerate(model.initial_state):
             feed_dict[c] = state[i].c
             feed_dict[h] = state[i].h
@@ -241,7 +239,7 @@ def run_epoch(session, model, eval_op=None, verbose=False, epoch_nb = 0, pos_epo
 
         costs += cost
         iters += 1 
-        processed_words += sum(np.ones(model.input.batch_size)*model.input.num_steps)
+        processed_words += sum(batch_seq_len)
 
         if verbose and step % (model.input.epoch_size // 10) == 0:
             print("%.3f perplexity: %.3f speed: %.0f wps" % (step * 1.0 / model.input.epoch_size, np.exp(costs / iters),
@@ -259,34 +257,31 @@ def main(_):
     print('job started')
     train_name = 'ds.testshort.txt'
     valid_name = 'ds.testshort.txt'
-    test_name = 'ds.test.txt'
+    test_name = 'ds.testshort1.txt'
 
     
     config = config_original()
     
     eval_config = config_original()
     eval_config.batch_size = 1
-    eval_config.num_steps = 1 
+    eval_config.num_steps = 79 #de langste zin moet hier in passen
 
     with tf.Graph().as_default():
         initializer = tf.random_uniform_initializer(-config.init_scale, config.init_scale)
         tf.set_random_seed(1)
 
         with tf.name_scope("train"):
-# aangepast
-            train_data = reader.ds_data_continuous(config.batch_size, FLAGS.num_steps, FLAGS.data_path, train_name)
+            train_data = reader.ds_data(config.batch_size, FLAGS.data_path, train_name)
             with tf.variable_scope("model", reuse=None, initializer=initializer):
                 m = ds_original_model(is_training=True, config=config, input_=train_data)
 
         with tf.name_scope("valid"):
-# aangepast
-            valid_data = reader.ds_data_continuous(config.batch_size, FLAGS.num_steps, FLAGS.data_path, valid_name)
+            valid_data = reader.ds_data(config.batch_size, FLAGS.data_path, valid_name)
             with tf.variable_scope("model", reuse=True, initializer=initializer):
                 mvalid = ds_original_model(is_training=False, config=config, input_=valid_data)
 
         with tf.name_scope("test"):
-# aangepast
-            test_data = reader.ds_data_continuous(eval_config.batch_size, eval_config.num_steps, FLAGS.data_path, test_name)
+            test_data = reader.ds_data(eval_config.batch_size, FLAGS.data_path, test_name)
             with tf.variable_scope("model", reuse=True, initializer=initializer):
                 mtest = ds_original_model(is_training=False, config=eval_config, input_=test_data)
 				
@@ -311,6 +306,7 @@ def main(_):
         with sv.managed_session() as session:
             start_epoch = session.run(m.global_step) // m.input.epoch_size
             pos_epoch = session.run(m.global_step) % m.input.epoch_size
+	    m.input.assign_batch_id(pos_epoch) 
             for i in range(start_epoch, config.max_max_epoch):
                 if sv.should_stop():
                     break
