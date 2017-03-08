@@ -118,22 +118,8 @@ class ds_cbow_sentence_model(object):
                     comb_ = tf.reduce_sum(out,1)/(tf.reduce_sum(mask1*exp_weights,1) + 1e-32)
     
                 outputs_cbow.append(comb_)
-            output_cbow_soft = tf.reshape(tf.concat(1, outputs_cbow), [-1, config.embedded_size_cbow])
             output_cbow_lstm = tf.reshape(tf.concat(1, outputs_cbow), [batch_size,num_steps, config.embedded_size_cbow])
-            
-        with tf.variable_scope('lstm_soft') as lstm_soft:
-            
-            lstm_cell_soft = tf.nn.rnn_cell.BasicLSTMCell(hidden_size, forget_bias=0.0, state_is_tuple=True)
-            if is_training and config.keep_prob < 1:
-                lstm_cell_soft = tf.nn.rnn_cell.DropoutWrapper(lstm_cell_soft, output_keep_prob=config.keep_prob)
-            cell_soft = tf.nn.rnn_cell.MultiRNNCell([lstm_cell_soft] * config.num_layers, state_is_tuple=True)
-
-            self._initial_state_soft = cell_soft.zero_state(batch_size, data_type())
-   
-            outputs_soft, state_soft = tf.nn.dynamic_rnn(cell_soft, inputs_reg, initial_state=self._initial_state_soft, dtype=data_type(), sequence_length=seq_len)
-            output_LSTM_soft = tf.reshape(tf.concat(1, outputs_soft), [-1, hidden_size])
-            output_soft = tf.concat(1,[output_LSTM_soft,output_cbow_soft])
-
+        
         with tf.variable_scope('lstm_lstm') as lstm_lstm:
 
             lstm_cell_lstm = tf.nn.rnn_cell.BasicLSTMCell(hidden_size, forget_bias=0.0, state_is_tuple=True)
@@ -148,16 +134,11 @@ class ds_cbow_sentence_model(object):
             output_LSTM_lstm = tf.reshape(tf.concat(1, outputs_lstm), [-1, hidden_size])
             output_lstm = output_LSTM_lstm
 
-        softmax_w_soft = tf.get_variable("softmax_w_soft", [hidden_size+config.embedded_size_cbow, vocab_size], dtype=data_type())
-        softmax_b_soft = tf.get_variable("softmax_b_soft", [vocab_size], dtype=data_type())            
-            
         softmax_w_lstm = tf.get_variable("softmax_w_lstm", [hidden_size, vocab_size], dtype=data_type())
         softmax_b_lstm = tf.get_variable("softmax_b_lstm", [vocab_size], dtype=data_type())            
             
-        loss_soft = get_loss_function(output_soft, softmax_w_soft, softmax_b_soft, labels, input_, is_training)
         loss_lstm = get_loss_function(output_lstm, softmax_w_lstm, softmax_b_lstm, labels, input_, is_training)
 
-        self._cost_soft = cost_soft = loss_soft
         self._cost_lstm = cost_lstm = loss_lstm
         
         if not is_training:
@@ -166,12 +147,9 @@ class ds_cbow_sentence_model(object):
         self._global_step = tf.Variable(0, name='global_step', trainable=False)
         self._lr = tf.Variable(0.0, trainable=False)
         
-        tvars_soft = [embedding_reg, embedding_cbow, softmax_w_soft, softmax_b_soft] + [v for v in tf.trainable_variables() if v.name.startswith(lstm_soft.name)] + [v for v in tf.trainable_variables() if v.name.startswith(cbow.name)]
-        grads_soft, _ = tf.clip_by_global_norm(tf.gradients(cost_soft, tvars_soft),config.max_grad_norm)   
         tvars_lstm = [embedding_reg, embedding_cbow, softmax_w_lstm, softmax_b_lstm] + [v for v in tf.trainable_variables() if v.name.startswith(lstm_lstm.name)] + [v for v in tf.trainable_variables() if v.name.startswith(cbow.name)]
         grads_lstm, _ = tf.clip_by_global_norm(tf.gradients(cost_lstm, tvars_lstm),config.max_grad_norm)   
         optimizer = get_optimizer(self._lr)
-        self._train_op_soft = optimizer.apply_gradients(zip(grads_soft, tvars_soft),global_step=self._global_step)
         self._train_op_lstm = optimizer.apply_gradients(zip(grads_lstm, tvars_lstm),global_step=self._global_step)
 
         self._new_lr = tf.placeholder(tf.float32, shape=[], name="new_learning_rate")
@@ -185,12 +163,9 @@ class ds_cbow_sentence_model(object):
         return self._input
 
     @property
-    def initial_state_soft(self):
-        return self._initial_state_soft
-        
-    @property
-    def initial_state_lstm(self):
-        return self._initial_state_lstm
+    def initial_state(self):
+        return self._initial_state
+
     
     @property
     def global_step(self):
@@ -215,13 +190,9 @@ class ds_cbow_sentence_model(object):
     @property
     def seq_len(self):
         return self._seq_len
-
-    @property
-    def cost_soft(self):
-        return self._cost_soft
         
     @property
-    def cost_lstm(self):
+    def cost(self):
         return self._cost_lstm
 
     @property
@@ -233,11 +204,7 @@ class ds_cbow_sentence_model(object):
         return self._lr
 
     @property
-    def train_op_soft(self):
-        return self._train_op_soft
-        
-    @property
-    def train_op_lstm(self):
+    def train_op(self):
         return self._train_op_lstm
 
 
@@ -298,7 +265,7 @@ def get_loss_function(output, softmax_w, softmax_b, targets, data, is_training):
 
     return 0
 
-def run_epoch(session, model, cost=None, eval_op=None, verbose=False, epoch_nb = 0, pos_epoch = 0):
+def run_epoch(session, model, eval_op=None, verbose=False, epoch_nb = 0, pos_epoch = 0):
     """Runs the model on the given data."""
     start_time = time.time()
     costs = 0.0
@@ -306,13 +273,11 @@ def run_epoch(session, model, cost=None, eval_op=None, verbose=False, epoch_nb =
     processed_words = 0
     save_np = np.array([[0,0,0,0]])
 
-    fetches = {}
+    fetches = {"cost":model.cost}
     if eval_op is not None:
         fetches["eval_op"] = eval_op
-    if cost is not None:
-        fetches["cost"] = cost
 
-    for step in range(pos_epoch,model.input.epoch_size):
+    for step in range(pos_epoch, model.input.epoch_size):
         batch_data, batch_history, batch_labels, batch_seq_len = model.input.next_batch(model.num_steps)
         feed_dict = {}
         feed_dict[model.data] = batch_data
@@ -389,72 +354,40 @@ def main(_):
             train_np = np.array([[0,0,0,0]])
             valid_np = np.array([[0,0,0,0]])
 		
-        sv = tf.train.Supervisor(summary_writer=None, save_model_secs=1, logdir=FLAGS.save_path + '/' + FLAGS.test_name + '_' + str(FLAGS.num_run))
+        sv = tf.train.Supervisor(summary_writer=None, save_model_secs=60, logdir=FLAGS.save_path + '/' + FLAGS.test_name + '_' + str(FLAGS.num_run))
         with sv.managed_session() as session:
             start_epoch = session.run(m.global_step) // m.input.epoch_size
             pos_epoch = session.run(m.global_step) % m.input.epoch_size
-            m.input.assign_batch_id(1) #Om op juiste plaats terug te beginnen in data, eventueel anders als reader aangepast is...
-            m.input.print_next_batch
-            
-            if FLAGS.position == 'soft':
-                for i in range(start_epoch, config.max_max_epoch):
-                    if sv.should_stop():
-                        break
+            m.input.assign_batch_id(pos_epoch) 
+        
+            for i in range(start_epoch, config.max_max_epoch):
+                if sv.should_stop():
+                    break
                     
-                    lr_decay = config.lr_decay ** max(i - config.max_epoch, 0.0)
-                    m.assign_lr(session, config.learning_rate * lr_decay)
+                lr_decay = config.lr_decay ** max(i - config.max_epoch, 0.0)
+                m.assign_lr(session, config.learning_rate * lr_decay)
     				
-                    print("Epoch: %d Learning rate: %.3f" % (i + 1, session.run(m.lr)))
+                print("Epoch: %d Learning rate: %.3f" % (i + 1, session.run(m.lr)))
     				
-                    train_perplexity, tra_np = run_epoch(session, m, cost=m.cost_soft, eval_op=m.train_op_soft, verbose=True, epoch_nb=i, pos_epoch = pos_epoch)
-                    print("Epoch: %d Train Perplexity: %.3f" % (i + 1, train_perplexity))
-                    pos_epoch = 0
-
-                    valid_perplexity, val_np = run_epoch(session, mvalid, cost=mvalid.cost_soft, epoch_nb = i)
-                    print("Epoch: %d Valid Perplexity: %.3f" % (i + 1, valid_perplexity))
+                train_perplexity, tra_np = run_epoch(session, m, eval_op=m.train_op, verbose=True, epoch_nb=i, pos_epoch = pos_epoch)
+                print("Epoch: %d Train Perplexity: %.3f" % (i + 1, train_perplexity))
+                pos_epoch = 0
     				
-                    train_np = np.append(train_np, tra_np, axis=0)
-                    valid_np= np.append(valid_np, val_np, axis=0)
-                    np.savez((FLAGS.save_path + '/' + FLAGS.test_name + '_' + str(FLAGS.num_run)+ '/results_temp' +'.npz'), train_np = train_np, valid_np=valid_np)
+                valid_perplexity, val_np = run_epoch(session, mvalid, epoch_nb = i)
+                print("Epoch: %d Valid Perplexity: %.3f" % (i + 1, valid_perplexity))
+                    
+                train_np = np.append(train_np, tra_np, axis=0)
+                valid_np= np.append(valid_np, val_np, axis=0)
+                np.savez((FLAGS.save_path + '/' + FLAGS.test_name + '_' + str(FLAGS.num_run)+ '/results_temp' +'.npz'), train_np = train_np, valid_np=valid_np)
                     		
-                    #early stopping
-                    early_stopping = 3; #new valid_PPL will be compared to the previous 3 valid_PPL: if it is bigger than the maximun of the 3 previous, it will stop
-                    if i>early_stopping-1:
-                        if valid_np[i+1][2] > np.max(valid_np[i+1-early_stopping:i],axis=0)[2]:
-                            break
-                
-                test_perplexity, test_np = run_epoch(session, mtest, cost=mtest.cost_soft)
-                print("Test Perplexity: %.3f" % test_perplexity)
-                
-            elif FLAGS.position == 'lstm':
-                for i in range(start_epoch, config.max_max_epoch):
-                    if sv.should_stop():
+                #early stopping
+                early_stopping = 3; #new valid_PPL will be compared to the previous 3 valid_PPL: if it is bigger than the maximun of the 3 previous, it will stop
+                if i>early_stopping-1:
+                    if valid_np[i+1][2] > np.max(valid_np[i+1-early_stopping:i],axis=0)[2]:
                         break
-                    
-                    lr_decay = config.lr_decay ** max(i - config.max_epoch, 0.0)
-                    m.assign_lr(session, config.learning_rate * lr_decay)
-    				
-                    print("Epoch: %d Learning rate: %.3f" % (i + 1, session.run(m.lr)))
-    				
-                    train_perplexity, tra_np = run_epoch(session, m, cost=m.cost_lstm, eval_op=m.train_op_lstm, verbose=True, epoch_nb=i, pos_epoch = pos_epoch)
-                    print("Epoch: %d Train Perplexity: %.3f" % (i + 1, train_perplexity))
-                    pos_epoch = 0
-    				
-                    valid_perplexity, val_np = run_epoch(session, mvalid, cost=mvalid.cost_lstm, epoch_nb = i)
-                    print("Epoch: %d Valid Perplexity: %.3f" % (i + 1, valid_perplexity))
-                    
-                    train_np = np.append(train_np, tra_np, axis=0)
-                    valid_np= np.append(valid_np, val_np, axis=0)
-                    np.savez((FLAGS.save_path + '/' + FLAGS.test_name + '_' + str(FLAGS.num_run)+ '/results_temp' +'.npz'), train_np = train_np, valid_np=valid_np)
-                    		
-                    #early stopping
-                    early_stopping = 3; #new valid_PPL will be compared to the previous 3 valid_PPL: if it is bigger than the maximun of the 3 previous, it will stop
-                    if i>early_stopping-1:
-                        if valid_np[i+1][2] > np.max(valid_np[i+1-early_stopping:i],axis=0)[2]:
-                            break
                 
-                test_perplexity, test_np = run_epoch(session, mtest, cost=mtest.cost_lstm)
-                print("Test Perplexity: %.3f" % test_perplexity)
+            test_perplexity, test_np = run_epoch(session, mtest)
+            print("Test Perplexity: %.3f" % test_perplexity)
             
             if FLAGS.save_path:
                 print("Saving model to %s." % (FLAGS.save_path + '/' + FLAGS.test_name + '_' + str(FLAGS.num_run)  + '/' + FLAGS.test_name + '_' + str(FLAGS.num_run)))
