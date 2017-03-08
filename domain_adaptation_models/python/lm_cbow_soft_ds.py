@@ -273,7 +273,7 @@ def run_epoch(session, model, eval_op=None, verbose=False, epoch_nb = 0, pos_epo
     processed_words = 0
     save_np = np.array([[0,0,0,0]])
 
-    fetches = {}
+    fetches = {'cost':model.cost}
     if eval_op is not None:
         fetches["eval_op"] = eval_op
 
