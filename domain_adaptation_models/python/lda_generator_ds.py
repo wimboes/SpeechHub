@@ -19,19 +19,26 @@ import sys
 #                print('Failed re_exec:', exc)
 #                sys.exit(1)
 
-#import tensorflow as tf
+import tensorflow as tf
 from gensim import corpora, models
 import numpy as np
 import string
+
+##### flags
+
+flags = tf.flags
+logging = tf.logging
+
+flags.DEFINE_integer("nb_topics", 100, "nb_topics")
+flags.DEFINE_integer("sentences_per_document", 100, "sentences_per_document")
+
+FLAGS = flags.FLAGS
 
 ##### settings
 
 python_path = os.path.abspath(os.getcwd())
 general_path = os.path.split(python_path)[0]
 data_path = os.path.join(general_path,'input')
-
-nb_topics = 100
-sentences_per_document = 100
 
 ##### functions and classes
   
@@ -78,7 +85,29 @@ def lda_generate_model(sentences_per_document, nb_topics, data_path, lda_save_pa
 
 ##### script
 
-lda_save_path = os.path.join(data_path, "lda.ds.model")
-dict_save_path = os.path.join(data_path, "dictionary.ds.dict")
-lda, lda_dict = lda_generate_model(sentences_per_document, nb_topics, data_path, lda_save_path, dict_save_path)
-print(str(nb_topics)+ ' topics are generated based on documents of ' + str(sentences_per_document) + ' sentences long')
+def main(_):
+    
+    nb_topics = FLAGS.nb_topics
+    sentences_per_document = FLAGS.sentences_per_document
+    
+    lda_save_path = os.path.join(data_path, "lda.ds.model")
+    dict_save_path = os.path.join(data_path, "dictionary.ds.dict")
+    lda, lda_dict = lda_generate_model(sentences_per_document, nb_topics, data_path, lda_save_path, dict_save_path)
+    
+    print(str(nb_topics)+ ' topics are generated based on documents of ' + str(sentences_per_document) + ' sentences long')
+    
+    nb_topics_to_print = 10
+    nb_words_per_topic_to_print = 20
+ 
+    for i in xrange(nb_topics_to_print):
+        print('Topic number %d:' % i)
+        word_list = lda.show_topic(i,topn=nb_words_per_topic_to_print)
+        for j in [k for (k,l) in word_list]:
+            print(j)
+        print('')
+            
+    
+if __name__ == "__main__":
+    tf.app.run()
+
+

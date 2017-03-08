@@ -4,18 +4,18 @@ RequestMemory    = 8G
 +RequestWalltime = 518400
 
 #request_GPUs = 1
-#requirements = (CUDAGlobalMemoryMb >= 1024) && (CUDACapability >= 3.5) && (machineowner == "PSI/Spraak")
+#requirements = (CUDAGlobalMemoryMb >= 2000) && (CUDACapability >= 3.5)
 
 NiceUser = true
 Notification = Error
 initialdir = .
 
 executable = /users/start2014/r0385169/bin/python
-arguments = "lda_generator_$(data_set).py"
+arguments = "lda_generator_$(data_set).py --nb_topics=$(nb_topics) --sentences_per_document=$(sentences_per_document)"
 
-Log          = jobdag/$(data_set)_topic_gen.log
-Output       = jobdag/$(data_set)_topic_gen.out
-Error        = jobdag/$(data_set)_topic_gen.err
+Log          = jobdag/$(data_set)_$(nb_topics)_$(sentences_per_document)_topic_gen.log
+Output       = jobdag/$(data_set)_$(nb_topics)_$(sentences_per_document)_topic_gen.out
+Error        = jobdag/$(data_set)_$(nb_topics)_$(sentences_per_document)_topic_gen.err
 
 Queue
 

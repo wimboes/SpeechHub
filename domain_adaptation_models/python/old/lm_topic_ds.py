@@ -10,16 +10,16 @@ from __future__ import print_function
 import os
 import time
 import numpy as np
-#import sys
+import sys
 
-#if 'LD_LIBRARY_PATH' not in os.environ:
-#        os.environ['LD_LIBRARY_PATH'] = '/usr/local/cuda/lib64:/usr/local/cuda-7.5/lib64:/usr/local/cuda-8.0/lib64:/users/start2014/r0385169/.local/cudnn'
-#        try:
-#            	os.system('/users/start2014/r0385169/bin/python ' + ' '.join(sys.argv))
-#                sys.exit(0)
-#        except Exception, exc:
-#                print('Failed re_exec:', exc)
-#                sys.exit(1)
+if 'LD_LIBRARY_PATH' not in os.environ:
+        os.environ['LD_LIBRARY_PATH'] = '/usr/local/cuda/lib64:/usr/local/cuda-7.5/lib64:/usr/local/cuda-8.0/lib64:/users/start2014/r0385169/.local/cudnn'
+        try:
+            	os.system('/users/start2014/r0385169/bin/python ' + ' '.join(sys.argv))
+                sys.exit(0)
+        except Exception, exc:
+                print('Failed re_exec:', exc)
+                sys.exit(1)
 
 
 import tensorflow as tf
@@ -31,7 +31,7 @@ from gensim import corpora, models
 python_path = os.path.abspath(os.getcwd())
 general_path = os.path.split(python_path)[0]
 input_path = os.path.join(general_path,'input')
-output_path = os.path.join(general_path,'output')
+output_path = os.path.join(general_path,'output/output_topic_ds')
 
 ##### flags
 
@@ -67,8 +67,8 @@ flags.DEFINE_integer("embedded_size_lda", 64, "embedded_size_lda")
 ### general
 
 flags.DEFINE_string("mode", "int", "mode")
-flags.DEFINE_integer("batch_size", 5, "batch_size")
-flags.DEFINE_integer("num_steps", 10, "num_steps")
+flags.DEFINE_integer("batch_size", 50, "batch_size")
+flags.DEFINE_integer("num_steps", 50, "num_steps")
 flags.DEFINE_integer("num_run", 0, "num_run")
 flags.DEFINE_string("test_name","topic","test_name")
 flags.DEFINE_string("data_path",input_path,"data_path")
@@ -85,13 +85,12 @@ def data_type():
     return tf.float16 if FLAGS.use_fp16 else tf.float32
 
 class ds_topic_model(object):
-    def __init__(self, is_training, config, input_sentence, input_continuous, topic_matrix, initializer_reg, initializer_lda):
-        self._input_sentence = input_sentence
-        self._input_continuous = input_continuous
+    def __init__(self, is_training, config, input_, topic_matrix, initializer_reg, initializer_lda):
+        self._input = input_
         
-        batch_size = config.batch_size
+        batch_size = input_.batch_size
         self._num_steps = num_steps = config.num_steps
-        vocab_size = input_sentence.pad_id #om pad symbool toe te laten
+        vocab_size = input_.pad_id #om pad symbool toe te laten
         nb_topics = topic_matrix.get_shape()[0]
         
         self._data = data =  tf.placeholder(tf.int32, [batch_size, num_steps], name = 'batch_data')
@@ -143,7 +142,7 @@ class ds_topic_model(object):
         self._new_interpol = tf.placeholder(tf.float32, shape=[], name="new_interpol")
         self._interpol_update = tf.assign(self._interpol, self._new_interpol)
     
-        loss = get_loss_function(output_reg, output_lda, softmax_w_reg, softmax_w_lda, softmax_b_reg, softmax_b_lda, self._interpol, labels, topic_matrix, input_sentence, is_training)
+        loss = get_loss_function(output_reg, output_lda, softmax_w_reg, softmax_w_lda, softmax_b_reg, softmax_b_lda, self._interpol, labels, topic_matrix, input_, is_training)
 
         self._cost = cost = loss
         
@@ -182,12 +181,8 @@ class ds_topic_model(object):
         return self._temp1
         
     @property
-    def input_sentence(self):
-        return self._input_sentence
-
-    @property
-    def input_continuous(self):
-        return self._input_continuous
+    def input(self):
+        return self._input
     
     @property
     def num_steps(self):
@@ -316,127 +311,49 @@ def get_loss_function(output_reg, output_lda, softmax_w_reg, softmax_w_lda, soft
         return tf.reduce_sum(loss) / nb_words_in_batch
 
 
-def run_epoch(session, model, eval_op=None, verbose=False, epoch_nb = 0, mode = None):
+def run_epoch(session, model, eval_op=None, verbose=False, epoch_nb = 0):
     """Runs the model on the given data."""
-    if mode == 'reg':
-        start_time = time.time()
-        costs = 0.0
-        iters = 0
-        processed_words = 0
-        state = session.run(model.initial_state_lda)
-        save_np = np.array([[0,0,0,0]])
-    
-        fetches = {"cost": model.cost}
-        if eval_op is not None:
-            fetches["eval_op"] = eval_op
-    
-        for step in range(model.input_sentence.epoch_size):
-            batch_data, batch_labels, batch_seq_len = model.input_sentence.next_batch(model.num_steps)
-            feed_dict = {}
-            feed_dict[model.data] = batch_data
-            feed_dict[model.labels] = batch_labels
-            feed_dict[model.seq_len] = batch_seq_len
-    
-            vals = session.run(fetches, feed_dict)
-            cost = vals["cost"]
-    
-            costs += cost
-            iters += 1
-            processed_words += sum(batch_seq_len)
-    
-            if verbose and step % (model.input_sentence.epoch_size // 10) == 0:
-                print("%.3f perplexity: %.3f speed: %.0f wps" % (step * 1.0 / model.input_sentence.epoch_size, np.exp(costs / iters),
-    						 processed_words / (time.time() - start_time)))
-                save_np = np.append(save_np, [[epoch_nb, step * 1.0 / model.input_sentence.epoch_size, np.exp(costs / iters),
-    						 processed_words / (time.time() - start_time)]],axis=0)
-    elif mode == 'lda':
-        start_time = time.time()
-        costs = 0.0
-        iters = 0
-        processed_words = 0
-        state = session.run(model.initial_state_lda)
-        save_np = np.array([[0,0,0,0]])
-    
-        fetches = {"cost": model.cost,"final_state_lda": model.final_state_lda}
-        if eval_op is not None:
-            fetches["eval_op"] = eval_op
-    
-        for step in range(model.input_continuous.epoch_size):
-            batch_data, batch_labels = model.input_continuous.next_batch()
-            batch_seq_len = np.ones(model.input_continuous.batch_size)*model.input_continuous.num_steps
-            feed_dict = {}
-            feed_dict[model.data] = batch_data
-            feed_dict[model.labels] = batch_labels
-            feed_dict[model.seq_len] = batch_seq_len
-            for i, (c, h) in enumerate(model.initial_state_lda):
-                feed_dict[c] = state[i].c
-                feed_dict[h] = state[i].h
-    
-            vals = session.run(fetches, feed_dict)
-            cost = vals["cost"]
-            state = vals["final_state_lda"]
-    
-            costs += cost
-            iters += 1
-            processed_words += sum(batch_seq_len)
-    
-            if verbose and step % (model.input_continuous.epoch_size // 10) == 0:
-                print("%.3f perplexity: %.3f speed: %.0f wps" % (step * 1.0 / model.input_continuous.epoch_size, np.exp(costs / iters),
-    						 processed_words / (time.time() - start_time)))
-                save_np = np.append(save_np, [[epoch_nb, step * 1.0 / model.input_continuous.epoch_size, np.exp(costs / iters),
-    						 processed_words / (time.time() - start_time)]],axis=0)
-    else:
-        print('Mis! Mis! Mis! Error!')
+    start_time = time.time()
+    costs = 0.0
+    iters = 0
+    processed_words = 0
+    state = session.run(model.initial_state_lda)
+    save_np = np.array([[0,0,0,0]])
+
+    fetches = {"cost": model.cost,"final_state_lda": model.final_state_lda}
+    if eval_op is not None:
+        fetches["eval_op"] = eval_op
+
+    for step in range(model.input.epoch_size):
+        batch_data, batch_labels, batch_seq_len = model.input.next_batch(model.num_steps)
+        feed_dict = {}
+        feed_dict[model.data] = batch_data
+        feed_dict[model.labels] = batch_labels
+        feed_dict[model.seq_len] = batch_seq_len
+        for i, (c, h) in enumerate(model.initial_state_lda):
+            feed_dict[c] = state[i].c
+            feed_dict[h] = state[i].h
+
+        vals = session.run(fetches, feed_dict)
+        cost = vals["cost"]
+        state = vals["final_state_lda"]
+#        print(vals['temp1'])
+
+        costs += cost
+        iters += 1
+        processed_words += sum(batch_seq_len)
+
+        if verbose and step % (model.input.epoch_size // 10) == 0:
+            print("%.3f perplexity: %.3f speed: %.0f wps" % (step * 1.0 / model.input.epoch_size, np.exp(costs / iters),
+						 processed_words / (time.time() - start_time)))
+            save_np = np.append(save_np, [[epoch_nb, step * 1.0 / model.input.epoch_size, np.exp(costs / iters),
+						 processed_words / (time.time() - start_time)]],axis=0)
     if not verbose:
         print("with(perplexity: %.3f) speed: %.0f wps" % (np.exp(costs / iters),
 						 processed_words / (time.time() - start_time)))
     save_np = np.append(save_np,[[epoch_nb, 1,np.exp(costs / iters),0]],axis=0)		 
     return np.exp(costs/iters), save_np[1:]
 
-def run_test_epoch(session, model, epoch_nb = 0):
-    start_time = time.time()
-    costs = 0.0
-    iters = 0
-    processed_words = 0
-    state_reg = session.run(model.initial_state_reg)
-    state_lda = session.run(model.initial_state_lda)
-    save_np = np.array([[0,0,0,0]])
-
-    fetches = {"cost": model.cost,"final_state_reg": model.final_state_reg,"final_state_lda": model.final_state_lda}
-
-    for step in range(model.input_continuous.epoch_size):
-        batch_data, batch_labels = model.input_continuous.next_batch()
-        batch_seq_len = np.ones(model.input_continuous.batch_size)*model.input_continuous.num_steps
-        feed_dict = {}
-        feed_dict[model.data] = batch_data
-        feed_dict[model.labels] = batch_labels
-        feed_dict[model.seq_len] = batch_seq_len
-
-        for i, (c, h) in enumerate(model.initial_state_lda):
-            feed_dict[c] = state_lda[i].c
-            feed_dict[h] = state_lda[i].h
-
-        for i, (c, h) in enumerate(model.initial_state_reg):
-            feed_dict[c] = state_reg[i].c
-            feed_dict[h] = state_reg[i].h
-
-        vals = session.run(fetches, feed_dict)
-        cost = vals["cost"]
-        state_lda = vals["final_state_lda"]
-
-        if batch_data[0,0] == model.input_continuous.eos_id:
-            state_reg = session.run(model.initial_state_reg)
-        else:
-            state_reg = vals["final_state_reg"]
-
-        costs += cost
-        iters += 1
-        processed_words += sum(batch_seq_len)
-
-    print("with(perplexity: %.3f) speed: %.0f wps" % (np.exp(costs / iters),
-						 processed_words / (time.time() - start_time)))
-    save_np = np.append(save_np,[[epoch_nb, 1,np.exp(costs / iters),0]],axis=0)	
-    return np.exp(costs/iters), save_np[1:]
  
 def main(_):
     print('job started')
@@ -445,24 +362,23 @@ def main(_):
     dict_path = os.path.join(FLAGS.data_path, "dictionary.ds.dict")
     dictionary = corpora.Dictionary.load(dict_path)
     vocab_size = len(dictionary.items())
- 
+    
     nb_topics = lda.num_topics
     topic_array = np.zeros((nb_topics, vocab_size))
     for topic_nb in xrange(nb_topics):
         current_topic = lda.get_topic_terms(topic_nb,topn=vocab_size)
         for i in xrange(vocab_size):
             topic_array[topic_nb,current_topic[i][0]] = current_topic[i][1]
-
-    train_name = 'ds.testshort.txt' # ds.train.txt
-    valid_name = 'ds.testshort.txt' # ds.valid.txt
-    validint_name = 'ds.testshortint.txt' # ds.validint.txt
-    test_name = 'ds.test.txt' # ds.test.txt
+    
+    train_name = 'ds.train.txt'
+    valid_name = 'ds.valid.txt'
+    test_name = 'ds.test.txt'
 
     config = config_topic()
-
+    
     eval_config = config_topic()
     eval_config.batch_size = 1
-    eval_config.num_steps = 1    
+    eval_config.num_steps = 79 #de langste zin moet hier in passen    
     
     with tf.Graph().as_default(): 
         tf.set_random_seed(1)
@@ -472,28 +388,22 @@ def main(_):
         topic_matrix = tf.constant(topic_array,dtype=tf.float32)
 
         with tf.name_scope("train"):
-            train_data_sentence = reader.ds_data_sentence(config.batch_size, FLAGS.data_path, train_name)
-            train_data_continuous = reader.ds_data_continuous(config.batch_size, config.num_steps, FLAGS.data_path, train_name)
+            train_data = reader.ds_data(config.batch_size, FLAGS.data_path, train_name)
             with tf.variable_scope("model", reuse=None):
-            	m = ds_topic_model(is_training=True, config=config, input_sentence = train_data_sentence, input_continuous = train_data_continuous, topic_matrix = topic_matrix, initializer_reg = initializer_reg, initializer_lda = initializer_lda)
+            	m = ds_topic_model(is_training=True, config=config, input_ = train_data, topic_matrix = topic_matrix, initializer_reg = initializer_reg, initializer_lda = initializer_lda)
+            tf.scalar_summary("Training Loss", m.cost)
+            tf.scalar_summary("Learning Rate", m.lr)
 
         with tf.name_scope("valid"):
-            valid_data_sentence = reader.ds_data_sentence(config.batch_size, FLAGS.data_path, valid_name)
-            valid_data_continuous = reader.ds_data_continuous(config.batch_size, config.num_steps, FLAGS.data_path, valid_name)
+            valid_data = reader.ds_data(config.batch_size, FLAGS.data_path, valid_name)
             with tf.variable_scope("model", reuse=True):
-                mvalid = ds_topic_model(is_training=False, config=config, input_sentence = valid_data_sentence, input_continuous = valid_data_continuous, topic_matrix = topic_matrix, initializer_reg = initializer_reg, initializer_lda = initializer_lda)
-        
-        with tf.name_scope("int"):
-            validint_data_sentence = reader.ds_data_sentence(eval_config.batch_size, FLAGS.data_path, validint_name)
-            validint_data_continuous = reader.ds_data_continuous(eval_config.batch_size, eval_config.num_steps, FLAGS.data_path, validint_name)
-            with tf.variable_scope("model", reuse=True):
-                mvalidint = ds_topic_model(is_training=False, config=eval_config, input_sentence = validint_data_sentence, input_continuous = validint_data_continuous, topic_matrix = topic_matrix, initializer_reg = initializer_reg, initializer_lda = initializer_lda)
+                mvalid = ds_topic_model(is_training=False, config=config, input_ = valid_data, topic_matrix = topic_matrix, initializer_reg = initializer_reg, initializer_lda = initializer_lda)
+            tf.scalar_summary("Validation Loss", mvalid.cost)
 
         with tf.name_scope("test"):
-            test_data_sentence = reader.ds_data_sentence(eval_config.batch_size, FLAGS.data_path, test_name)
-            test_data_continuous = reader.ds_data_continuous(eval_config.batch_size, eval_config.num_steps, FLAGS.data_path, test_name)
+            test_data = reader.ds_data(eval_config.batch_size, FLAGS.data_path, test_name)
             with tf.variable_scope("model", reuse=True):
-                mtest = ds_topic_model(is_training=False, config=eval_config, input_sentence = test_data_sentence, input_continuous = test_data_continuous, topic_matrix = topic_matrix, initializer_reg = initializer_reg, initializer_lda = initializer_lda) 
+                mtest = ds_topic_model(is_training=False, config=eval_config, input_ = test_data, topic_matrix = topic_matrix, initializer_reg = initializer_reg, initializer_lda = initializer_lda) 
 
         param_train_np = np.array([['init_scale_reg',config.init_scale_reg], ['init_scale_lda',config.init_scale_lda],
                                    ['learning_rate_reg', config.learning_rate_reg], ['learning_rate_lda', config.learning_rate_lda],
@@ -504,7 +414,7 @@ def main(_):
                                    ['max_epoch_reg', config.max_epoch_reg], ['max_epoch_lda', config.max_epoch_lda],
                                    ['max_max_epoch_reg', config.max_max_epoch_reg], ['max_max_epoch_lda', config.max_max_epoch_lda],
                                    ['keep_prob_reg', config.keep_prob_reg], ['keep_prob_lda', config.keep_prob_lda],
-                                   ['nb_topics', nb_topics], ['vocab_size', train_data_sentence.pad_id], ['batch_size', config.batch_size], ['num_steps', config.num_steps],
+                                   ['nb_topics', nb_topics], ['vocab_size', train_data.pad_id], ['batch_size', config.batch_size], ['num_steps', config.num_steps],
                                    ['lr_decay_reg', config.lr_decay_reg], ['lr_decay_lda', config.lr_decay_lda],
                                    ['optimizer', FLAGS.optimizer],
                                    ['loss_function', FLAGS.loss_function], 
@@ -526,10 +436,10 @@ def main(_):
                      
                     print("Epoch: %d Learning rate: %.3f" % (i + 1, session.run(m.lr)))
 				
-                    train_perplexity, tra_np = run_epoch(session, m, eval_op=m.train_op_reg, verbose=True, epoch_nb=i, mode = 'reg')
+                    train_perplexity, tra_np = run_epoch(session, m, eval_op=m.train_op_reg, verbose=True, epoch_nb=i)
                     print("Epoch: %d Train Perplexity: %.3f" % (i + 1, train_perplexity))
 				
-                    valid_perplexity, val_np = run_epoch(session, mvalid, epoch_nb = i, mode ='reg')
+                    valid_perplexity, val_np = run_epoch(session, mvalid, epoch_nb = i)
                     print("Epoch: %d Valid Perplexity: %.3f" % (i + 1, valid_perplexity))
 				
                     train_np = np.append(train_np, tra_np, axis=0)
@@ -541,7 +451,7 @@ def main(_):
                         if valid_np[i+1][2] > np.max(valid_np[i+1-early_stopping:i],axis=0)[2]:
                             break
             
-                test_perplexity, test_np = run_test_epoch(session, mtest)
+                test_perplexity, test_np = run_epoch(session, mtest)
                 print("Test Perplexity: %.3f" % test_perplexity)
                 if FLAGS.save_path:
                     print("Saving model to %s." % (FLAGS.save_path + '/' + FLAGS.test_name + '_' + str(FLAGS.num_run)  + '/' + FLAGS.test_name + '_' + str(FLAGS.num_run)))
@@ -558,10 +468,10 @@ def main(_):
                      
                     print("Epoch: %d Learning rate: %.3f" % (i + 1, session.run(m.lr)))
 				
-                    train_perplexity, tra_np = run_epoch(session, m, eval_op=m.train_op_lda, verbose=True, epoch_nb=i, mode = 'lda')
+                    train_perplexity, tra_np = run_epoch(session, m, eval_op=m.train_op_lda, verbose=True, epoch_nb=i)
                     print("Epoch: %d Train Perplexity: %.3f" % (i + 1, train_perplexity))
 				
-                    valid_perplexity, val_np = run_epoch(session, mvalid, epoch_nb = i, mode = 'lda')
+                    valid_perplexity, val_np = run_epoch(session, mvalid, epoch_nb = i)
                     print("Epoch: %d Valid Perplexity: %.3f" % (i + 1, valid_perplexity))
 				
                     train_np = np.append(train_np, tra_np, axis=0)
@@ -573,7 +483,7 @@ def main(_):
                         if valid_np[i+1][2] > np.max(valid_np[i+1-early_stopping:i],axis=0)[2]:
                             break
             
-                test_perplexity, test_np = run_test_epoch(session, mtest)
+                test_perplexity, test_np = run_epoch(session, mtest)
                 print("Test Perplexity: %.3f" % test_perplexity)
                 if FLAGS.save_path:
                     print("Saving model to %s." % (FLAGS.save_path + '/' + FLAGS.test_name + '_' + str(FLAGS.num_run)  + '/' + FLAGS.test_name + '_' + str(FLAGS.num_run)))
@@ -585,15 +495,16 @@ def main(_):
                 interpol_best = 0
                 interpol_best_perplexity = 1e9
                 for interpol_value in interpol_values:
-                    mvalidint.assign_interpol(session, interpol_value)                
-                    validint_perplexity, _ = run_test_epoch(session, mvalidint)
-                    print("Interpolation factor = %.3f : valid perplexity = %.3f" % (interpol_value, validint_perplexity))
-                    if validint_perplexity < interpol_best_perplexity:
+                    mvalid.assign_interpol(session, interpol_value)                
+                    valid_perplexity, _ = run_epoch(session, mvalid)
+                    print("Interpolation factor = %.3f : valid perplexity = %.3f" % (interpol_value, valid_perplexity))
+                    if valid_perplexity < interpol_best_perplexity:
                         interpol_best = interpol_value
-                        interpol_best_perplexity = validint_perplexity
+                        interpol_best_perplexity = valid_perplexity
                 print("Best interpolation factor = %.3f" % interpol_best)
+                m.assign_interpol(session, interpol_best)  
                 mtest.assign_interpol(session, interpol_best) 
-                test_perplexity, test_np = run_test_epoch(session, mtest)
+                test_perplexity, test_np = run_epoch(session, mtest)
                 print("Test Perplexity: %.3f" % test_perplexity)
                 if FLAGS.save_path:
                     print("Saving model to %s." % (FLAGS.save_path + '/' + FLAGS.test_name + '_' + str(FLAGS.num_run)  + '/' + FLAGS.test_name + '_' + str(FLAGS.num_run)))
