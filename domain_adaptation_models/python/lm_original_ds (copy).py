@@ -230,7 +230,7 @@ def run_epoch(session, model, eval_op=None, verbose=False, epoch_nb = 0, pos_epo
         feed_dict[model.data] = batch_data
         feed_dict[model.labels] = batch_labels
 # aangepast
-        feed_dict[model.seq_len] = model.input.num_steps
+        feed_dict[model.seq_len] = np.ones(model.input.batch_size)*model.input.num_steps
         for i, (c, h) in enumerate(model.initial_state):
             feed_dict[c] = state[i].c
             feed_dict[h] = state[i].h
@@ -241,7 +241,7 @@ def run_epoch(session, model, eval_op=None, verbose=False, epoch_nb = 0, pos_epo
 
         costs += cost
         iters += 1 
-        processed_words += sum(model.input.num_steps)
+        processed_words += sum(np.ones(model.input.batch_size)*model.input.num_steps)
 
         if verbose and step % (model.input.epoch_size // 10) == 0:
             print("%.3f perplexity: %.3f speed: %.0f wps" % (step * 1.0 / model.input.epoch_size, np.exp(costs / iters),
@@ -259,14 +259,14 @@ def main(_):
     print('job started')
     train_name = 'ds.testshort.txt'
     valid_name = 'ds.testshort.txt'
-    test_name = 'ds.testshort1.txt'
+    test_name = 'ds.test.txt'
 
     
     config = config_original()
     
     eval_config = config_original()
     eval_config.batch_size = 1
-    eval_config.num_steps = 79 #de langste zin moet hier in passen
+    eval_config.num_steps = 1 
 
     with tf.Graph().as_default():
         initializer = tf.random_uniform_initializer(-config.init_scale, config.init_scale)
@@ -280,13 +280,13 @@ def main(_):
 
         with tf.name_scope("valid"):
 # aangepast
-            valid_data = reader.ds_data_continuous(config.batch_size, FLAGS.num_steps FLAGS.data_path, valid_name)
+            valid_data = reader.ds_data_continuous(config.batch_size, FLAGS.num_steps, FLAGS.data_path, valid_name)
             with tf.variable_scope("model", reuse=True, initializer=initializer):
                 mvalid = ds_original_model(is_training=False, config=config, input_=valid_data)
 
         with tf.name_scope("test"):
 # aangepast
-            test_data = reader.ds_data_continuous(eval_config.batch_size, 1, FLAGS.data_path, test_name)
+            test_data = reader.ds_data_continuous(eval_config.batch_size, eval_config.num_steps, FLAGS.data_path, test_name)
             with tf.variable_scope("model", reuse=True, initializer=initializer):
                 mtest = ds_original_model(is_training=False, config=eval_config, input_=test_data)
 				
