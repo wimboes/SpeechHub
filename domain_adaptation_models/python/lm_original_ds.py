@@ -224,12 +224,10 @@ def run_epoch(session, model, eval_op=None, verbose=False, epoch_nb = 0, pos_epo
         fetches["eval_op"] = eval_op
 
     for step in range(pos_epoch, model.input.epoch_size):
-# aangepast
         batch_data, batch_labels = model.input.next_batch()
         feed_dict = {}
         feed_dict[model.data] = batch_data
         feed_dict[model.labels] = batch_labels
-# aangepast
         feed_dict[model.seq_len] = np.ones(model.input.batch_size)*model.input.num_steps
         for i, (c, h) in enumerate(model.initial_state):
             feed_dict[c] = state[i].c
@@ -273,19 +271,16 @@ def main(_):
         tf.set_random_seed(1)
 
         with tf.name_scope("train"):
-# aangepast
             train_data = reader.ds_data_continuous(config.batch_size, FLAGS.num_steps, FLAGS.data_path, train_name)
             with tf.variable_scope("model", reuse=None, initializer=initializer):
                 m = ds_original_model(is_training=True, config=config, input_=train_data)
 
         with tf.name_scope("valid"):
-# aangepast
             valid_data = reader.ds_data_continuous(config.batch_size, FLAGS.num_steps, FLAGS.data_path, valid_name)
             with tf.variable_scope("model", reuse=True, initializer=initializer):
                 mvalid = ds_original_model(is_training=False, config=config, input_=valid_data)
 
         with tf.name_scope("test"):
-# aangepast
             test_data = reader.ds_data_continuous(eval_config.batch_size, eval_config.num_steps, FLAGS.data_path, test_name)
             with tf.variable_scope("model", reuse=True, initializer=initializer):
                 mtest = ds_original_model(is_training=False, config=eval_config, input_=test_data)
@@ -311,6 +306,8 @@ def main(_):
         with sv.managed_session() as session:
             start_epoch = session.run(m.global_step) // m.input.epoch_size
             pos_epoch = session.run(m.global_step) % m.input.epoch_size
+	    m.input.assign_batch_id(pos_epoch) 
+
             for i in range(start_epoch, config.max_max_epoch):
                 if sv.should_stop():
                     break
@@ -330,7 +327,6 @@ def main(_):
                 train_np = np.append(train_np, tra_np, axis=0)
                 valid_np= np.append(valid_np, val_np, axis=0)
                 np.savez((FLAGS.save_path + '/' + FLAGS.test_name + '_' + str(FLAGS.num_run)+ '/results_temp' +'.npz'), train_np = train_np, valid_np=valid_np)
-                
                 		
                 #early stopping
                 early_stopping = 3; #new valid_PPL will be compared to the previous 3 valid_PPL: if it is bigger than the maximun of the 3 previous, it will stop
