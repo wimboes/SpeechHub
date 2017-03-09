@@ -24,7 +24,7 @@ import reader
 python_path = os.path.abspath(os.getcwd())
 general_path = os.path.split(python_path)[0]
 input_path = os.path.join(general_path,'input')
-output_path = os.path.join(general_path,'output/output_original_ds')
+output_path = os.path.join(general_path,'output')
 
 # set data and save path
 
@@ -302,11 +302,11 @@ def main(_):
             train_np = np.array([[0,0,0,0]])
             valid_np = np.array([[0,0,0,0]])
 		
-        sv = tf.train.Supervisor(summary_writer=None,save_model_secs=60, logdir=FLAGS.save_path + '/' + FLAGS.test_name + '_' + str(FLAGS.num_run))
+        sv = tf.train.Supervisor(summary_writer=None,save_model_secs=300, logdir=FLAGS.save_path + '/' + FLAGS.test_name + '_' + str(FLAGS.num_run))
         with sv.managed_session() as session:
             start_epoch = session.run(m.global_step) // m.input.epoch_size
             pos_epoch = session.run(m.global_step) % m.input.epoch_size
-	    m.input.assign_batch_id(pos_epoch) 
+            m.input.assign_batch_id(pos_epoch) 
 
             for i in range(start_epoch, config.max_max_epoch):
                 if sv.should_stop():

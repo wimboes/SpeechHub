@@ -16,7 +16,7 @@ class ds_data_sentence(object):
         
         #reading data
         path = os.path.join(data_path, name)
-        self.directory = os.path.join(data_path, name + '_batch_files_sentence')
+        self.directory = os.path.join(data_path, name + '_batch_files_sentence_' + str(batch_size))
         info_file = os.path.join(self.directory, 'info.txt')
         if not (os.path.exists(info_file)):
             print("Creating directory %s" % self.directory)
@@ -147,7 +147,7 @@ class ds_data_continuous(object):
         
         #reading data
         path = os.path.join(data_path, name)
-        self.directory = os.path.join(data_path, name + '_batch_files_continuous')
+        self.directory = os.path.join(data_path, name + '_batch_files_continuous_' + str(batch_size) + '_' + str(num_steps))
         info_file = os.path.join(self.directory, 'info.txt')
         if not (os.path.exists(info_file)):
             print("Creating directory %s" % self.directory)
@@ -273,7 +273,7 @@ class ds_data_sentence_with_history(object):
 
         #reading data
         path = os.path.join(data_path, name)
-        self.directory = os.path.join(data_path, name + '_batch_files')
+        self.directory = os.path.join(data_path, name + '_batch_files_sentence_' + str(batch_size))
         info_file = os.path.join(self.directory, 'info.txt')
         if not (os.path.exists(info_file)):
             print("Creating directory %s" % self.directory)

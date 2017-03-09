@@ -24,7 +24,7 @@ import reader
 python_path = os.path.abspath(os.getcwd())
 general_path = os.path.split(python_path)[0]
 input_path = os.path.join(general_path,'input')
-output_path = os.path.join(general_path,'output/output_original_ds')
+output_path = os.path.join(general_path,'output')
 
 # set data and save path
 

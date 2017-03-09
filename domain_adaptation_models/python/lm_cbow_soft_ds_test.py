@@ -36,7 +36,7 @@ logging = tf.logging
 flags.DEFINE_integer("num_run", 0, "num_run")
 flags.DEFINE_string("test_name","cbow_soft_exp","test_name")
 flags.DEFINE_string("eval_name",'ds.testshort.txt',"eval_name")
-flags.DEFINE_integer("top_k",9,"top_k")
+flags.DEFINE_integer("top_k",10,"top_k")
 
 flags.DEFINE_string("loss_function","full_softmax","loss_function")
 

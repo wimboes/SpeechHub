@@ -354,7 +354,7 @@ def main(_):
             train_np = np.array([[0,0,0,0]])
             valid_np = np.array([[0,0,0,0]])
 		
-        sv = tf.train.Supervisor(summary_writer=None, save_model_secs=60, logdir=FLAGS.save_path + '/' + FLAGS.test_name + '_' + str(FLAGS.num_run))
+        sv = tf.train.Supervisor(summary_writer=None, save_model_secs=300, logdir=FLAGS.save_path + '/' + FLAGS.test_name + '_' + str(FLAGS.num_run))
         with sv.managed_session() as session:
             start_epoch = session.run(m.global_step) // m.input.epoch_size
             pos_epoch = session.run(m.global_step) % m.input.epoch_size
