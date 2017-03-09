@@ -7,15 +7,15 @@ import sys
 import time
 import numpy as np
 
-#if 'LD_LIBRARY_PATH' not in os.environ:
-#        print('hihi')
-#        os.environ['LD_LIBRARY_PATH'] = '/usr/local/cuda/lib64:/usr/local/cuda-7.5/lib64:/usr/local/cuda-8.0/lib64:/users/start2014/r0385169/.local/cudnn'
-#        try:
-#            	os.system('/users/start2014/r0385169/bin/python ' + ' '.join(sys.argv))
-#                sys.exit(0)
-#        except Exception, exc:
-#                print('Failed re_exec:', exc)
-#                sys.exit(1)
+if 'LD_LIBRARY_PATH' not in os.environ:
+        print('hihi')
+        os.environ['LD_LIBRARY_PATH'] = '/usr/local/cuda/lib64:/usr/local/cuda-7.5/lib64:/usr/local/cuda-8.0/lib64:/users/start2014/r0385169/.local/cudnn'
+        try:
+            	os.system('/users/start2014/r0385169/bin/python ' + ' '.join(sys.argv))
+                sys.exit(0)
+        except Exception, exc:
+                print('Failed re_exec:', exc)
+                sys.exit(1)
 
 
 import tensorflow as tf
@@ -51,7 +51,7 @@ flags.DEFINE_integer("embedded_size_cbow", 64, "embedded_size_cbow")
 
 ### general
 
-flags.DEFINE_integer("batch_size", 5, "batch_size")
+flags.DEFINE_integer("batch_size", 50, "batch_size")
 flags.DEFINE_integer("num_steps", 50, "num_steps")
 flags.DEFINE_integer("num_run", 0, "num_run")
 flags.DEFINE_string("test_name","cbow_soft_exp","test_name")
@@ -306,9 +306,9 @@ def run_epoch(session, model, eval_op=None, verbose=False, epoch_nb = 0, pos_epo
  
 def main(_):
     print('job started')
-    train_name = 'ds.test.txt'
-    valid_name = 'ds.test.txt'
-    test_name = 'ds.testshort.txt'
+    train_name = 'ds.train.txt'
+    valid_name = 'ds.valid.txt'
+    test_name = 'ds.test.txt'
 
     config = config_cbow()
     

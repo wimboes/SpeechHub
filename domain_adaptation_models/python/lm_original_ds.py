@@ -7,14 +7,14 @@ import sys
 import time
 import numpy as np
 
-#if 'LD_LIBRARY_PATH' not in os.environ:
-#        os.environ['LD_LIBRARY_PATH'] = '/usr/local/cuda/lib64:/usr/local/cuda-7.5/lib64:/usr/local/cuda-8.0/lib64:/users/start2014/r0385169/.local/cudnn'
-#        try:
-#            	os.system('/users/start2014/r0385169/bin/python ' + ' '.join(sys.argv))
-#                sys.exit(0)
-#        except Exception, exc:
-#                print('Failed re_exec:', exc)
-#                sys.exit(1)
+if 'LD_LIBRARY_PATH' not in os.environ:
+        os.environ['LD_LIBRARY_PATH'] = '/usr/local/cuda/lib64:/usr/local/cuda-7.5/lib64:/usr/local/cuda-8.0/lib64:/users/start2014/r0385169/.local/cudnn'
+        try:
+            	os.system('/users/start2014/r0385169/bin/python ' + ' '.join(sys.argv))
+                sys.exit(0)
+        except Exception, exc:
+                print('Failed re_exec:', exc)
+                sys.exit(1)
 
 
 
@@ -41,7 +41,7 @@ flags.DEFINE_integer("max_epoch", 3, "max_epoch")
 flags.DEFINE_integer("max_max_epoch", 5, "max_max_epoch")
 flags.DEFINE_float("keep_prob", 0.5, "keep_prob")
 flags.DEFINE_float("lr_decay", 0.8, "lr_decay")
-flags.DEFINE_integer("batch_size", 5, "batch_size")
+flags.DEFINE_integer("batch_size", 50, "batch_size")
 flags.DEFINE_integer("embedded_size", 64, "embedded_size")
 flags.DEFINE_integer("num_run", 0, "num_run")
 flags.DEFINE_string("test_name","original","test_name")
@@ -255,8 +255,8 @@ def run_epoch(session, model, eval_op=None, verbose=False, epoch_nb = 0, pos_epo
 
 def main(_):
     print('job started')
-    train_name = 'ds.testshort.txt'
-    valid_name = 'ds.testshort.txt'
+    train_name = 'ds.train.txt'
+    valid_name = 'ds.valid.txt'
     test_name = 'ds.test.txt'
 
     
