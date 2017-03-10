@@ -10,14 +10,14 @@ from __future__ import print_function
 import os
 import sys
 
-#if 'LD_LIBRARY_PATH' not in os.environ:
-#        os.environ['LD_LIBRARY_PATH'] = '/usr/local/cuda/lib64:/usr/local/cuda-7.5/lib64:/usr/local/cuda-8.0/lib64:/users/start2014/r0385169/.local/cudnn'
-#        try:
-#            	os.system('/users/start2014/r0385169/bin/python ' + ' '.join(sys.argv))
-#                sys.exit(0)
-#        except Exception, exc:
-#                print('Failed re_exec:', exc)
-#                sys.exit(1)
+if 'LD_LIBRARY_PATH' not in os.environ:
+        os.environ['LD_LIBRARY_PATH'] = '/usr/local/cuda/lib64:/usr/local/cuda-7.5/lib64:/usr/local/cuda-8.0/lib64:/users/start2014/r0385169/.local/cudnn'
+        try:
+            	os.system('/users/start2014/r0385169/bin/python ' + ' '.join(sys.argv))
+                sys.exit(0)
+        except Exception, exc:
+                print('Failed re_exec:', exc)
+                sys.exit(1)
 
 import tensorflow as tf
 from gensim import corpora, models
@@ -63,23 +63,23 @@ class corpus_iterator(object):
             yield self.dict.doc2bow(self.corpus[i])
 
 def lda_generate_model(sentences_per_document, nb_topics, data_path, lda_save_path, dict_save_path, tf_save_path):
-    train_path = os.path.join(data_path, "ds.test.txt")
+    train_path = os.path.join(data_path, "ds.train.txt")
 
     docs = read_and_split_doc(train_path, sentences_per_document)
     texts = [[word for word in doc.lower().split()] for doc in docs]
     dictionary = corpora.dictionary.Dictionary(texts)
     corpus = corpus_iterator(texts,dictionary)
 
-    corpora.MmCorpus.serialize('bow.ds.mm',corpus)
-    mm = corpora.MmCorpus('bow.ds.mm')
+    corpora.MmCorpus.serialize('bow_'+str(nb_topics)+'_'+str(sentences_per_documents)+'.ds.mm',corpus)
+    mm = corpora.MmCorpus('bow_'+str(nb_topics)+'_'+str(sentences_per_documents)+'.ds.mm')
     tfidf = models.TfidfModel(mm,id2word=dictionary,normalize=True)
-    corpora.MmCorpus.serialize('tfidf.ds.mm', tfidf[mm], progress_cnt=10000)
+    corpora.MmCorpus.serialize('tfidf_'+str(nb_topics)+'_'+str(sentences_per_documents)+'.ds.mm', tfidf[mm], progress_cnt=10000)
 
     tfidf_dict = {dictionary.get(id): value for doc in tfidf[corpus] for id, value in doc}
     np.save(tf_save_path, tfidf_dict)
 
 
-    mm = corpora.MmCorpus('tfidf.ds.mm')
+    mm = corpora.MmCorpus('tfidf_'+str(nb_topics)+'_'+str(sentences_per_documents)+'.ds.mm')
     lda = models.ldamodel.LdaModel(corpus=mm, id2word=dictionary, num_topics=nb_topics)
     lda.save(lda_save_path)
     lda_dict = dictionary
@@ -94,9 +94,9 @@ def main(_):
     nb_topics = FLAGS.nb_topics
     sentences_per_document = FLAGS.sentences_per_document
     
-    lda_save_path = os.path.join(data_path, "lda.ds.model")
-    dict_save_path = os.path.join(data_path, "dictionary.ds.dict")
-    tf_save_path = os.path.join(data_path, "tfidf.ds.npy")
+    lda_save_path = os.path.join(data_path, 'lda_'+str(nb_topics)+'_'+str(sentences_per_documents)+'.ds.model')
+    dict_save_path = os.path.join(data_path, 'dictionary_'+str(nb_topics)+'_'+str(sentences_per_documents)+'.ds.dict')
+    tf_save_path = os.path.join(data_path, 'tfidf_'+str(nb_topics)+'_'+str(sentences_per_documents)+'.ds.npy')
     lda, lda_dict = lda_generate_model(sentences_per_document, nb_topics, data_path, lda_save_path, dict_save_path,tf_save_path)
     
     print(str(nb_topics)+ ' topics are generated based on documents of ' + str(sentences_per_document) + ' sentences long')
