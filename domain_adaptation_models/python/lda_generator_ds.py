@@ -110,6 +110,46 @@ def main(_):
         for j in [k for (k,l) in word_list]:
             print(j)
         print('')
+
+    nb_topics_to_print_tex = 6
+    nb_words_per_topic_to_print_tex = 8
+    with open('topics_'+str(nb_topics)+'_'+str(sentences_per_document)+'.tex','w') as f:
+        f.write('\\begin{table}[H]\n')
+        f.write('\\centering\n')
+        f.write('\\caption[Number of topics = '+str(nb_topics)+', sentences per document = '+str(sentences_per_document)+']{Number of topics = '+str(nb_topics)+', sentences per document = '+str(sentences_per_document)+'}'+'\n')
+        f.write('\\label{tab:topics_'+str(nb_topics)+'_'+str(sentences_per_document)+'}\n')
+
+        tex_str = '\\begin{tabular}{'
+        for j in xrange(nb_topics_to_print_tex-1):
+            tex_str = tex_str + '|c'
+        tex_str = tex_str + '|}'
+        f.write(tex_str+'\n')
+
+        f.write('\\hline\n')
+
+        tex_str = ''
+        for j in xrange(nb_topics_to_print_tex-1):
+            tex_str = tex_str + 'Topic ' + str(j+1) + ' & '
+        tex_str = tex_str + 'Topic ' + str(nb_topics_to_print_tex) + ' \\\\ \\hline \\hline'
+        f.write(tex_str+'\n')
+
+        topic_word_list = []
+        for i in xrange(nb_topics_to_print_tex):
+            current_topic_word_list = []
+            for j in [k for (k,l) in lda.show_topic(i,topn=nb_words_per_topic_to_print_tex)]:
+                current_topic_word_list.append(j.encode('utf-8'))
+            topic_word_list.append(current_topic_word_list)
+
+        for i in xrange(nb_words_per_topic_to_print_tex):
+            tex_str = ''
+            for j in xrange(nb_topics_to_print_tex-1):
+                tex_str = tex_str + str(topic_word_list[j][i] + ' & ')
+            tex_str = tex_str + str(topic_word_list[nb_topics_to_print_tex-1][i]) + '\\\\'
+            f.write(tex_str+'\n')
+
+        f.write('\hline\n')
+        f.write('\\end{tabular}\n')
+        f.write('\\end{table}\n')
             
     
 if __name__ == "__main__":
