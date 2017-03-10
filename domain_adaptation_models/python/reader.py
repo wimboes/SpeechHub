@@ -327,6 +327,10 @@ class ds_data_sentence_with_history(object):
         self._word_to_id = dict()
         for (wordid,word) in dictionary.iteritems():
             self._word_to_id[word] = wordid
+	
+	tfidf_path = os.path.join(data_path,"tfidf.ds.npy")
+        self._tfidf = np.load(tfidf_path).item()	
+
         self._unk_id = self._word_to_id['<UNK>']
         self._bos_id = self._word_to_id['<s>']
         self._eos_id = self._word_to_id['</s>']
@@ -399,6 +403,10 @@ class ds_data_sentence_with_history(object):
     @property
     def word_to_id(self):
         return self._word_to_id
+
+    @property
+    def tfidf(self):
+        return self._tfidf
     
     @property
     def longest_sentence(self):

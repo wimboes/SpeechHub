@@ -67,8 +67,8 @@ flags.DEFINE_integer("embedded_size_lda", 64, "embedded_size_lda")
 ### general
 
 flags.DEFINE_string("mode", "int", "mode")
-flags.DEFINE_integer("batch_size", 50, "batch_size")
-flags.DEFINE_integer("num_steps", 50, "num_steps")
+flags.DEFINE_integer("batch_size", 5, "batch_size")
+flags.DEFINE_integer("num_steps", 5, "num_steps")
 flags.DEFINE_integer("num_run", 0, "num_run")
 flags.DEFINE_string("test_name","topic","test_name")
 flags.DEFINE_string("data_path",input_path,"data_path")
@@ -139,7 +139,7 @@ class ds_topic_model(object):
         softmax_b_lda = tf.get_variable("softmax_b_lda", [nb_topics], dtype=data_type(), initializer = initializer_lda)
         
         
-        self._interpol = tf.Variable(0.0)
+        self._interpol = tf.get_variable("interpol", [], dtype=data_type())
         self._new_interpol = tf.placeholder(tf.float32, shape=[], name="new_interpol")
         self._interpol_update = tf.assign(self._interpol, self._new_interpol)
     
@@ -453,10 +453,10 @@ def main(_):
         for i in xrange(vocab_size):
             topic_array[topic_nb,current_topic[i][0]] = current_topic[i][1]
 
-    train_name = ds.train.txt
-    valid_name = ds.valid.txt
-    validint_name = ds.validint.txt
-    test_name = ds.test.txt
+    train_name = 'ds.testshort.txt'
+    valid_name = 'ds.testshort.txt'
+    validint_name = 'ds.testshort.txt'
+    test_name = 'ds.testshort.txt'
 
     config = config_topic()
 
@@ -514,7 +514,7 @@ def main(_):
         valid_np = np.array([[0,0,0,0]])
 
         
-        sv = tf.train.Supervisor(summary_writer=None,,save_model_secs=300,logdir=FLAGS.save_path + '/' + FLAGS.test_name + '_' + str(FLAGS.num_run))
+        sv = tf.train.Supervisor(summary_writer=None,save_model_secs=300,logdir=FLAGS.save_path + '/' + FLAGS.test_name + '_' + str(FLAGS.num_run))
         with sv.managed_session() as session:
             if FLAGS.mode == 'reg':
                 m.assign_interpol(session, 0.0)
@@ -581,7 +581,7 @@ def main(_):
                     np.savez((FLAGS.save_path + '/' + FLAGS.test_name + '_' + str(FLAGS.num_run)+ '/results' +'.npz'), param_train_np = param_train_np, train_np = train_np[1:], valid_np=valid_np[1:], test_np = test_np)
                     
             elif FLAGS.mode == 'int':
-                interpol_values = np.linspace(0,1,num=50)
+                interpol_values = np.linspace(0,1,num=4)
                 interpol_best = 0
                 interpol_best_perplexity = 1e9
                 for interpol_value in interpol_values:

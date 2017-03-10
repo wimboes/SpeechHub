@@ -29,8 +29,8 @@ import string
 flags = tf.flags
 logging = tf.logging
 
-flags.DEFINE_integer("nb_topics", 100, "nb_topics")
-flags.DEFINE_integer("sentences_per_document", 100, "sentences_per_document")
+flags.DEFINE_integer("nb_topics", 75, "nb_topics")
+flags.DEFINE_integer("sentences_per_document", 3, "sentences_per_document")
 
 FLAGS = flags.FLAGS
 
@@ -62,8 +62,8 @@ class corpus_iterator(object):
         for i in range(len(self.corpus)):
             yield self.dict.doc2bow(self.corpus[i])
 
-def lda_generate_model(sentences_per_document, nb_topics, data_path, lda_save_path, dict_save_path):
-    train_path = os.path.join(data_path, "ds.train.txt")
+def lda_generate_model(sentences_per_document, nb_topics, data_path, lda_save_path, dict_save_path, tf_save_path):
+    train_path = os.path.join(data_path, "ds.test.txt")
 
     docs = read_and_split_doc(train_path, sentences_per_document)
     texts = [[word for word in doc.lower().split()] for doc in docs]
@@ -74,6 +74,10 @@ def lda_generate_model(sentences_per_document, nb_topics, data_path, lda_save_pa
     mm = corpora.MmCorpus('bow.ds.mm')
     tfidf = models.TfidfModel(mm,id2word=dictionary,normalize=True)
     corpora.MmCorpus.serialize('tfidf.ds.mm', tfidf[mm], progress_cnt=10000)
+
+    tfidf_dict = {dictionary.get(id): value for doc in tfidf[corpus] for id, value in doc}
+    np.save(tf_save_path, tfidf_dict)
+
 
     mm = corpora.MmCorpus('tfidf.ds.mm')
     lda = models.ldamodel.LdaModel(corpus=mm, id2word=dictionary, num_topics=nb_topics)
@@ -92,7 +96,8 @@ def main(_):
     
     lda_save_path = os.path.join(data_path, "lda.ds.model")
     dict_save_path = os.path.join(data_path, "dictionary.ds.dict")
-    lda, lda_dict = lda_generate_model(sentences_per_document, nb_topics, data_path, lda_save_path, dict_save_path)
+    tf_save_path = os.path.join(data_path, "tfidf.ds.npy")
+    lda, lda_dict = lda_generate_model(sentences_per_document, nb_topics, data_path, lda_save_path, dict_save_path,tf_save_path)
     
     print(str(nb_topics)+ ' topics are generated based on documents of ' + str(sentences_per_document) + ' sentences long')
     
