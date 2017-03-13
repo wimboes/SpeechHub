@@ -8,31 +8,21 @@ from __future__ import absolute_import
 from __future__ import division
 from __future__ import print_function
 import os
-import sys
 
-if 'LD_LIBRARY_PATH' not in os.environ:
-        os.environ['LD_LIBRARY_PATH'] = '/usr/local/cuda/lib64:/usr/local/cuda-7.5/lib64:/usr/local/cuda-8.0/lib64:/users/start2014/r0385169/.local/cudnn'
-        try:
-            	os.system('/users/start2014/r0385169/bin/python ' + ' '.join(sys.argv))
-                sys.exit(0)
-        except Exception, exc:
-                print('Failed re_exec:', exc)
-                sys.exit(1)
-
-import tensorflow as tf
 from gensim import corpora, models
 import numpy as np
 import string
+import argparse
 
 ##### flags
 
-flags = tf.flags
-logging = tf.logging
+ap = argparse.ArgumentParser()
+ap.add_argument('--nb_topics', default=75, type=int)
+ap.add_argument('--sentences_per_document', default=75, type=int)
 
-flags.DEFINE_integer("nb_topics", 75, "nb_topics")
-flags.DEFINE_integer("sentences_per_document", 3, "sentences_per_document")
-
-FLAGS = flags.FLAGS
+opts = ap.parse_args()
+nb_topics = opts.nb_topics
+sentences_per_document = opts.sentences_per_document
 
 ##### settings
 
@@ -63,10 +53,10 @@ class corpus_iterator(object):
             yield self.dict.doc2bow(self.corpus[i])
 
 def lda_generate_model(sentences_per_document, nb_topics, data_path, lda_save_path, dict_save_path, tf_save_path):
-    train_path = os.path.join(data_path, "ds.train.txt")
+    train_path = os.path.join(data_path, "ds.valid.txt")
 
     docs = read_and_split_doc(train_path, sentences_per_document)
-    texts = [[word for word in doc.lower().split()] for doc in docs]
+    texts = [[word for word in doc.split()] for doc in docs]
     dictionary = corpora.dictionary.Dictionary(texts)
     corpus = corpus_iterator(texts,dictionary)
 
@@ -89,70 +79,62 @@ def lda_generate_model(sentences_per_document, nb_topics, data_path, lda_save_pa
 
 ##### script
 
-def main(_):
-    
-    nb_topics = FLAGS.nb_topics
-    sentences_per_document = FLAGS.sentences_per_document
-    
-    lda_save_path = os.path.join(data_path, 'lda_'+str(nb_topics)+'_'+str(sentences_per_document)+'.ds.model')
-    dict_save_path = os.path.join(data_path, 'dictionary_'+str(nb_topics)+'_'+str(sentences_per_document)+'.ds.dict')
-    tf_save_path = os.path.join(data_path, 'tfidf_'+str(nb_topics)+'_'+str(sentences_per_document)+'.ds.npy')
-    lda, lda_dict = lda_generate_model(sentences_per_document, nb_topics, data_path, lda_save_path, dict_save_path,tf_save_path)
-    
-    print(str(nb_topics)+ ' topics are generated based on documents of ' + str(sentences_per_document) + ' sentences long')
-    
-    nb_topics_to_print = 10
-    nb_words_per_topic_to_print = 20
+lda_save_path = os.path.join(data_path, 'lda_'+str(nb_topics)+'_'+str(sentences_per_document)+'.ds.model')
+dict_save_path = os.path.join(data_path, 'dictionary_'+str(nb_topics)+'_'+str(sentences_per_document)+'.ds.dict')
+tf_save_path = os.path.join(data_path, 'tfidf_'+str(nb_topics)+'_'+str(sentences_per_document)+'.ds.npy')
+lda, lda_dict = lda_generate_model(sentences_per_document, nb_topics, data_path, lda_save_path, dict_save_path,tf_save_path)
+
+print(str(nb_topics)+ ' topics are generated based on documents of ' + str(sentences_per_document) + ' sentences long')
+
+nb_topics_to_print = 10
+nb_words_per_topic_to_print = 20
  
-    for i in xrange(nb_topics_to_print):
-        print('Topic number %d:' % i)
-        word_list = lda.show_topic(i,topn=nb_words_per_topic_to_print)
-        for j in [k for (k,l) in word_list]:
-            print(j)
-        print('')
+for i in xrange(nb_topics_to_print):
+    print('Topic number %d:' % i)
+    word_list = lda.show_topic(i,topn=nb_words_per_topic_to_print)
+    for j in [k for (k,l) in word_list]:
+        print(j)
+    print('')
 
-    nb_topics_to_print_tex = 6
-    nb_words_per_topic_to_print_tex = 8
-    with open('topics_'+str(nb_topics)+'_'+str(sentences_per_document)+'.tex','w') as f:
-        f.write('\\begin{table}[H]\n')
-        f.write('\\centering\n')
-        f.write('\\caption[Number of topics = '+str(nb_topics)+', sentences per document = '+str(sentences_per_document)+']{Number of topics = '+str(nb_topics)+', sentences per document = '+str(sentences_per_document)+'}'+'\n')
-        f.write('\\label{tab:topics_'+str(nb_topics)+'_'+str(sentences_per_document)+'}\n')
+nb_topics_to_print_tex = 6
+nb_words_per_topic_to_print_tex = 8
+with open('topics_'+str(nb_topics)+'_'+str(sentences_per_document)+'.tex','w') as f:
+    f.write('\\begin{table}[H]\n')
+    f.write('\\centering\n')
+    f.write('\\caption[Number of topics = '+str(nb_topics)+', sentences per document = '+str(sentences_per_document)+']{Number of topics = '+str(nb_topics)+', sentences per document = '+str(sentences_per_document)+'}'+'\n')
+    f.write('\\label{tab:topics_'+str(nb_topics)+'_'+str(sentences_per_document)+'}\n')
 
-        tex_str = '\\begin{tabular}{'
-        for j in xrange(nb_topics_to_print_tex-1):
-            tex_str = tex_str + '|c'
-        tex_str = tex_str + '|}'
-        f.write(tex_str+'\n')
+    tex_str = '\\begin{tabular}{'
+    for j in xrange(nb_topics_to_print_tex-1):
+        tex_str = tex_str + '|c'
+    tex_str = tex_str + '|}'
+    f.write(tex_str+'\n')
 
-        f.write('\\hline\n')
+    f.write('\\hline\n')
 
+    tex_str = ''
+    for j in xrange(nb_topics_to_print_tex-1):
+        tex_str = tex_str + 'Topic ' + str(j+1) + ' & '
+    tex_str = tex_str + 'Topic ' + str(nb_topics_to_print_tex) + ' \\\\ \\hline \\hline'
+    f.write(tex_str+'\n')
+
+    topic_word_list = []
+    for i in xrange(nb_topics_to_print_tex):
+        current_topic_word_list = []
+        for j in [k for (k,l) in lda.show_topic(i,topn=nb_words_per_topic_to_print_tex)]:
+            current_topic_word_list.append(j.encode('utf-8'))
+        topic_word_list.append(current_topic_word_list)
+
+    for i in xrange(nb_words_per_topic_to_print_tex):
         tex_str = ''
         for j in xrange(nb_topics_to_print_tex-1):
-            tex_str = tex_str + 'Topic ' + str(j+1) + ' & '
-        tex_str = tex_str + 'Topic ' + str(nb_topics_to_print_tex) + ' \\\\ \\hline \\hline'
+            tex_str = tex_str + str(topic_word_list[j][i] + ' & ')
+        tex_str = tex_str + str(topic_word_list[nb_topics_to_print_tex-1][i]) + '\\\\'
         f.write(tex_str+'\n')
 
-        topic_word_list = []
-        for i in xrange(nb_topics_to_print_tex):
-            current_topic_word_list = []
-            for j in [k for (k,l) in lda.show_topic(i,topn=nb_words_per_topic_to_print_tex)]:
-                current_topic_word_list.append(j.encode('utf-8'))
-            topic_word_list.append(current_topic_word_list)
-
-        for i in xrange(nb_words_per_topic_to_print_tex):
-            tex_str = ''
-            for j in xrange(nb_topics_to_print_tex-1):
-                tex_str = tex_str + str(topic_word_list[j][i] + ' & ')
-            tex_str = tex_str + str(topic_word_list[nb_topics_to_print_tex-1][i]) + '\\\\'
-            f.write(tex_str+'\n')
-
-        f.write('\hline\n')
-        f.write('\\end{tabular}\n')
-        f.write('\\end{table}\n')
-            
-    
-if __name__ == "__main__":
-    tf.app.run()
+    f.write('\hline\n')
+    f.write('\\end{tabular}\n')
+    f.write('\\end{table}\n')
+        
 
 

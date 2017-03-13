@@ -56,7 +56,7 @@ def lda_generate_model(sentences_per_document, nb_topics, data_path, lda_save_pa
     train_path = os.path.join(data_path, "ds.test.txt")
 
     docs = read_and_split_doc(train_path, sentences_per_document)
-    texts = [[word for word in doc.lower().split()] for doc in docs]
+    texts = [[word for word in doc.split()] for doc in docs]
     dictionary = corpora.dictionary.Dictionary(texts)
     corpus = corpus_iterator(texts,dictionary)
 
