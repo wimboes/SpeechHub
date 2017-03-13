@@ -53,7 +53,7 @@ class corpus_iterator(object):
             yield self.dict.doc2bow(self.corpus[i])
 
 def lda_generate_model(sentences_per_document, nb_topics, data_path, lda_save_path, dict_save_path, tf_save_path):
-    train_path = os.path.join(data_path, "ds.valid.txt")
+    train_path = os.path.join(data_path, "ds.train.txt")
 
     docs = read_and_split_doc(train_path, sentences_per_document)
     texts = [[word for word in doc.split()] for doc in docs]
@@ -97,7 +97,7 @@ for i in xrange(nb_topics_to_print):
     print('')
 
 nb_topics_to_print_tex = 6
-nb_words_per_topic_to_print_tex = 8
+nb_words_per_topic_to_print_tex = 20
 with open('topics_'+str(nb_topics)+'_'+str(sentences_per_document)+'.tex','w') as f:
     f.write('\\begin{table}[H]\n')
     f.write('\\centering\n')

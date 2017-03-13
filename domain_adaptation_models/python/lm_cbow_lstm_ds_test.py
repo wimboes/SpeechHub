@@ -7,15 +7,15 @@ import sys
 import time
 import numpy as np
 
-#if 'LD_LIBRARY_PATH' not in os.environ:
-#        print('hihi')
-#        os.environ['LD_LIBRARY_PATH'] = '/usr/local/cuda/lib64:/usr/local/cuda-7.5/lib64:/usr/local/cuda-8.0/lib64:/users/start2014/r0385169/.local/cudnn'
-#        try:
-#            	os.system('/users/start2014/r0385169/bin/python ' + ' '.join(sys.argv))
-#                sys.exit(0)
-#        except Exception, exc:
-#                print('Failed re_exec:', exc)
-#                sys.exit(1)
+if 'LD_LIBRARY_PATH' not in os.environ:
+        print('hihi')
+        os.environ['LD_LIBRARY_PATH'] = '/usr/local/cuda/lib64:/usr/local/cuda-7.5/lib64:/usr/local/cuda-8.0/lib64:/users/start2014/r0385169/.local/cudnn'
+        try:
+            	os.system('/users/start2014/r0385169/bin/python ' + ' '.join(sys.argv))
+                sys.exit(0)
+        except Exception, exc:
+                print('Failed re_exec:', exc)
+                sys.exit(1)
 
 
 import tensorflow as tf
@@ -36,7 +36,7 @@ logging = tf.logging
 flags.DEFINE_integer("num_run", 0, "num_run")
 flags.DEFINE_string("test_name","cbow_lstm_exp","test_name")
 flags.DEFINE_string("eval_name",'ds.testshort.txt',"eval_name")
-flags.DEFINE_integer("top_k",10,"top_k")
+flags.DEFINE_integer("top_k",7,"top_k")
 
 flags.DEFINE_string("loss_function","full_softmax","loss_function")
 

@@ -67,8 +67,8 @@ flags.DEFINE_integer("embedded_size_lda", 64, "embedded_size_lda")
 ### general
 
 flags.DEFINE_string("mode", "int", "mode")
-flags.DEFINE_integer("batch_size", 5, "batch_size")
-flags.DEFINE_integer("num_steps", 5, "num_steps")
+flags.DEFINE_integer("batch_size", 50, "batch_size")
+flags.DEFINE_integer("num_steps", 50, "num_steps")
 flags.DEFINE_integer("num_run", 0, "num_run")
 flags.DEFINE_string("test_name","topic","test_name")
 flags.DEFINE_string("data_path",input_path,"data_path")
@@ -453,10 +453,9 @@ def main(_):
         for i in xrange(vocab_size):
             topic_array[topic_nb,current_topic[i][0]] = current_topic[i][1]
 
-    train_name = 'ds.testshort.txt'
-    valid_name = 'ds.testshort.txt'
-    validint_name = 'ds.testshort.txt'
-    test_name = 'ds.testshort.txt'
+    train_name = 'ds.train.txt'
+    valid_name = 'ds.valid.txt'
+    test_name = 'ds.test.txt'
 
     config = config_topic()
 
@@ -484,8 +483,8 @@ def main(_):
                 mvalid = ds_topic_model(is_training=False, config=config, input_sentence = valid_data_sentence, input_continuous = valid_data_continuous, topic_matrix = topic_matrix, initializer_reg = initializer_reg, initializer_lda = initializer_lda)
         
         with tf.name_scope("int"):
-            validint_data_sentence = reader.ds_data_sentence(eval_config.batch_size, FLAGS.data_path, validint_name)
-            validint_data_continuous = reader.ds_data_continuous(eval_config.batch_size, eval_config.num_steps, FLAGS.data_path, validint_name)
+            validint_data_sentence = reader.ds_data_sentence(eval_config.batch_size, FLAGS.data_path, valid_name)
+            validint_data_continuous = reader.ds_data_continuous(eval_config.batch_size, eval_config.num_steps, FLAGS.data_path, valid_name)
             with tf.variable_scope("model", reuse=True):
                 mvalidint = ds_topic_model(is_training=False, config=eval_config, input_sentence = validint_data_sentence, input_continuous = validint_data_continuous, topic_matrix = topic_matrix, initializer_reg = initializer_reg, initializer_lda = initializer_lda)
 
@@ -514,7 +513,7 @@ def main(_):
         valid_np = np.array([[0,0,0,0]])
 
         
-        sv = tf.train.Supervisor(summary_writer=None,save_model_secs=300,logdir=FLAGS.save_path + '/' + FLAGS.test_name + '_' + str(FLAGS.num_run))
+        sv = tf.train.Supervisor(summary_writer=None,,save_model_secs=300,logdir=FLAGS.save_path + '/' + FLAGS.test_name + '_' + str(FLAGS.num_run))
         with sv.managed_session() as session:
             if FLAGS.mode == 'reg':
                 m.assign_interpol(session, 0.0)
@@ -581,7 +580,7 @@ def main(_):
                     np.savez((FLAGS.save_path + '/' + FLAGS.test_name + '_' + str(FLAGS.num_run)+ '/results' +'.npz'), param_train_np = param_train_np, train_np = train_np[1:], valid_np=valid_np[1:], test_np = test_np)
                     
             elif FLAGS.mode == 'int':
-                interpol_values = np.linspace(0,1,num=4)
+                interpol_values = np.linspace(0,1,num=50)
                 interpol_best = 0
                 interpol_best_perplexity = 1e9
                 for interpol_value in interpol_values:
