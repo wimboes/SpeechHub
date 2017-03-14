@@ -162,7 +162,8 @@ class ds_data_continuous(object):
                 i_f.write('num_steps: ' + str(num_steps) + '\n')
                 i_f.write('amount_words: ' + str(amount_words) + '\n')
             create_new_batch_files = True
-        else:
+            print('OK1')
+	else:
             with open(info_file,"r") as i_f:
                 batch_size_previous = int(i_f.readline().split()[1])
                 num_steps_previous = int(i_f.readline().split()[1])
@@ -182,8 +183,11 @@ class ds_data_continuous(object):
             for f in filelist:
                 os.remove(os.path.join(self.directory,f))
             with open(path, "r") as f:
+		print('OK2')
                 words = [lines.decode('utf-8').split() for lines in f]
-                words = [item for sentence in words for item in sentence]
+                print('OK3')
+		words = [item for sentence in words for item in sentence]
+            	print('OK4')
             for i in xrange(self._epoch_size):
                 batch_file = os.path.join(self.directory, 'batch' + str(i) + '.txt')
                 with open(batch_file, 'w') as bf:
