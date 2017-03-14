@@ -331,14 +331,20 @@ class ds_data_sentence_with_history(object):
         self._word_to_id = dict()
         for (wordid,word) in dictionary.iteritems():
             self._word_to_id[word] = wordid
-	
-	tfidf_path = os.path.join(data_path,"tfidf.ds.npy")
-        self._tfidf = np.load(tfidf_path).item()	
 
         self._unk_id = self._word_to_id['<UNK>']
         self._bos_id = self._word_to_id['<s>']
         self._eos_id = self._word_to_id['</s>']
         self._pad_id = len(self._word_to_id)
+        
+        tfidf_path = os.path.join(data_path,"tfidf.ds.npy")
+        self._tfidf = np.load(tfidf_path).item()
+        self._tfidf_id = dict((self._word_to_id[key], value) for (key, value) in self._tfidf.items())
+        self._tfidf_id[self._pad_id] = 0
+        self._tfidf_id[self._bos_id] = 0
+        self._tfidf_id[self._eos_id] = 0
+        self._tfidf_id[self._unk_id] = 0
+
         
         self.batch_id = 0
         self.history = self.pad_id*np.ones((batch_size,history_size))
@@ -349,6 +355,7 @@ class ds_data_sentence_with_history(object):
             self.batch_id = 0
         batch_data = self.pad_id*np.ones((self.batch_size,max_seq_len))
         history_data = np.concatenate((self.history,self.pad_id*np.ones((self.batch_size,max_seq_len-1))), axis=1)
+        history_tfidf = np.zeros(np.shape(history_data)) 
         batch_labels = self.pad_id*np.ones((self.batch_size,max_seq_len))
         seq_len = np.zeros(self.batch_size)
         
@@ -362,6 +369,7 @@ class ds_data_sentence_with_history(object):
 
             batch_data[i,0:min(seqlen, max_seq_len)] = new_sentence[0:min(seqlen, max_seq_len)]
             history_data[i,-max_seq_len+1:] = batch_data[i,0:-1]
+            history_tfidf[i,:] = [self._tfidf_id[id] for id in history_data[i,:]]
             if seqlen >= self.history_size:
                 self.history[i] = np.array(new_sentence[-self.history_size:])
             else:
@@ -369,7 +377,8 @@ class ds_data_sentence_with_history(object):
             new_sentence.append(self.bos_id)
             batch_labels[i,0:min(seqlen, max_seq_len)] = new_sentence[1:min(seqlen, max_seq_len)+1]
         self.batch_id += 1 
-        return batch_data, history_data, batch_labels, seq_len
+        
+        return batch_data, history_data, history_tfidf, batch_labels, seq_len
         
     def print_next_batch(self, max_seq_len):
         batch_data, history_data, batch_labels, seq_len = self.next_batch(max_seq_len)
@@ -411,6 +420,10 @@ class ds_data_sentence_with_history(object):
     @property
     def tfidf(self):
         return self._tfidf
+
+    @property
+    def tfidf_id(self):
+        return self._tfidf_id
     
     @property
     def longest_sentence(self):

@@ -60,7 +60,7 @@ flags.DEFINE_string("save_path",output_path,"save_path")
 flags.DEFINE_string("use_fp16",False,"train blabla")
 flags.DEFINE_string("loss_function","full_softmax","loss_function")
 flags.DEFINE_string("optimizer","Adagrad","optimizer")
-flags.DEFINE_string("combination","exp","combination")
+flags.DEFINE_string("combination","tfidf","combination")
 flags.DEFINE_string("position","lstm","position")
 
 
@@ -84,6 +84,7 @@ class ds_cbow_sentence_model(object):
         
         self._data = data =  tf.placeholder(tf.int32, [batch_size, num_steps], name = 'batch_data')
         self._history = history = tf.placeholder(tf.int32, [batch_size, num_history+num_steps-1], name = 'batch_history')
+        self._history_tfidf = history_tfidf = tf.placeholder(tf.int32, [batch_size, num_history+num_steps-1], name = 'batch_history_tfidf')
         self._labels = labels =  tf.placeholder(tf.int32, [batch_size, num_steps], name = 'batch_labels')
         self._seq_len = seq_len =  tf.placeholder(tf.int32, [batch_size], name = 'seq_len')
         
@@ -116,6 +117,11 @@ class ds_cbow_sentence_model(object):
                     mask1 = tf.pack([mask]*config.embedded_size_cbow,axis = 2)
                     out = mask1*slice2*exp_weights
                     comb_ = tf.reduce_sum(out,1)/(tf.reduce_sum(mask1*exp_weights,1) + 1e-32)
+
+                if FLAGS.combination == "tfidf":
+                    tfidf =  tf.slice(history_tfidf,[0,i],[batch_size,num_history])                   
+                    out = slice2*tf.expand_dims(tf.cast(tfidf, dtype=data_type()), -1)
+                    comb_ = tf.reduce_sum(out,1)/(tf.reduce_sum(tf.expand_dims(tf.cast(tfidf, dtype=data_type()), -1),1) + 1e-32)    
     
                 outputs_cbow.append(comb_)
             output_cbow_soft = tf.reshape(tf.concat(1, outputs_cbow), [-1, config.embedded_size_cbow])
@@ -182,6 +188,10 @@ class ds_cbow_sentence_model(object):
     @property
     def history(self):
         return self._history
+        
+    @property
+    def history_tfidf(self):
+        return self._history_tfidf 
         
     @property
     def labels(self):
@@ -278,10 +288,11 @@ def run_epoch(session, model, eval_op=None, verbose=False, epoch_nb = 0, pos_epo
         fetches["eval_op"] = eval_op
 
     for step in range(pos_epoch, model.input.epoch_size):
-        batch_data, batch_history, batch_labels, batch_seq_len = model.input.next_batch(model.num_steps)
+        batch_data, batch_history, batch_history_tfidf, batch_labels, batch_seq_len = model.input.next_batch(model.num_steps)
         feed_dict = {}
         feed_dict[model.data] = batch_data
         feed_dict[model.history] = batch_history
+        feed_dict[model.history_tfidf] = batch_history_tfidf
         feed_dict[model.labels] = batch_labels
         feed_dict[model.seq_len] = batch_seq_len
 
