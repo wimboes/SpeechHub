@@ -89,12 +89,12 @@ print(str(nb_topics)+ ' topics are generated based on documents of ' + str(sente
 nb_topics_to_print = 10
 nb_words_per_topic_to_print = 20
  
-for i in xrange(nb_topics_to_print):
-    print('Topic number %d:' % i)
-    word_list = lda.show_topic(i,topn=nb_words_per_topic_to_print)
-    for j in [k for (k,l) in word_list]:
-        print(j)
-    print('')
+#for i in xrange(nb_topics_to_print):
+#    print('Topic number %d:' % i)
+#    word_list = lda.show_topic(i,topn=nb_words_per_topic_to_print)
+#    for j in [k for (k,l) in word_list]:
+#        print(j)
+#    print('')
 
 nb_topics_to_print_tex = 6
 nb_words_per_topic_to_print_tex = 20

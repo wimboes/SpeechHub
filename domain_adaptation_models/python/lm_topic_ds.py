@@ -513,7 +513,7 @@ def main(_):
         valid_np = np.array([[0,0,0,0]])
 
         
-        sv = tf.train.Supervisor(summary_writer=None,,save_model_secs=300,logdir=FLAGS.save_path + '/' + FLAGS.test_name + '_' + str(FLAGS.num_run))
+        sv = tf.train.Supervisor(summary_writer=None,save_model_secs=300,logdir=FLAGS.save_path + '/' + FLAGS.test_name + '_' + str(FLAGS.num_run))
         with sv.managed_session() as session:
             if FLAGS.mode == 'reg':
                 m.assign_interpol(session, 0.0)
