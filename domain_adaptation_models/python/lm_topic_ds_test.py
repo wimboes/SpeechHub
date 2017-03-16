@@ -344,9 +344,9 @@ def run_test_epoch(session, model, epoch_nb = 0):
 def main(_):
     print('Eval job started')
     
-    lda_path = os.path.join(FLAGS.data_path, "lda.ds.model")
+    lda_path = os.path.join(FLAGS.data_path, "lda.ds")
     lda = models.LdaModel.load(lda_path) 
-    dict_path = os.path.join(FLAGS.data_path, "dictionary.ds.dict")
+    dict_path = os.path.join(FLAGS.data_path, "dictionary.ds")
     dictionary = corpora.Dictionary.load(dict_path)
     vocab_size = len(dictionary.items())
  

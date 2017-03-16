@@ -5,7 +5,7 @@ from __future__ import division
 from __future__ import print_function
 import os
 
-from gensim import corpora
+from gensim import corpora, models
 import numpy as np
 import collections
 
@@ -327,7 +327,7 @@ class ds_data_sentence_with_history(object):
             print('creating batch_files done')
             
         #reading word_to_id
-        dict_path = os.path.join(data_path, "dictionary.ds.dict")
+        dict_path = os.path.join(data_path, "dictionary.ds")
         dictionary = corpora.Dictionary.load(dict_path)
         self._word_to_id = dict()
         for (wordid,word) in dictionary.iteritems():
@@ -338,13 +338,8 @@ class ds_data_sentence_with_history(object):
         self._eos_id = self._word_to_id['</s>']
         self._pad_id = len(self._word_to_id)
         
-        tfidf_path = os.path.join(data_path,"tfidf.ds.npy")
-        self._tfidf = np.load(tfidf_path).item()
-        self._tfidf_id = dict((self._word_to_id[key], value) for (key, value) in self._tfidf.items())
-        self._tfidf_id[self._pad_id] = 0
-        self._tfidf_id[self._bos_id] = 0
-        self._tfidf_id[self._eos_id] = 0
-        self._tfidf_id[self._unk_id] = 0
+        tfidf_path = os.path.join(data_path,"tfidf.ds")
+        self._tfidf = models.TfidfModel.load(tfidf_path)
 
         
         self.batch_id = 0
@@ -371,8 +366,9 @@ class ds_data_sentence_with_history(object):
             batch_data[i,0:min(seqlen, max_seq_len)] = new_sentence[0:min(seqlen, max_seq_len)]
             history_data[i,-max_seq_len+1:] = batch_data[i,0:-1]
             count_pairs = collections.Counter(history_data[i]).items()    
+            dict_tfidf = dict(self._tfidf[count_pairs])          
             
-            history_tfidf[i,:] = [self._tfidf_id[id] for id in history_data[i,:]]
+            history_tfidf[i,:] = [dict_tfidf[id] if id in dict_tfidf.keys() else 0 for id in history_data[i,:]]
             if seqlen >= self.history_size:
                 self.history[i] = np.array(new_sentence[-self.history_size:])
             else:
@@ -384,7 +380,7 @@ class ds_data_sentence_with_history(object):
         return batch_data, history_data, history_tfidf, batch_labels, seq_len
         
     def print_next_batch(self, max_seq_len):
-        batch_data, history_data, batch_labels, seq_len = self.next_batch(max_seq_len)
+        batch_data, history_data, history_tfidf, batch_labels, seq_len = self.next_batch(max_seq_len)
         reverse = {v: k for k, v in self._word_to_id.iteritems()}
         reverse[self.pad_id] = 'PAD'
         batch_lst = [reverse[int(word_id)] for sentence in batch_data for word_id in sentence]
@@ -395,6 +391,7 @@ class ds_data_sentence_with_history(object):
             print(batch_lst[max_seq_len*i:max_seq_len*(i+1)])
             print(targets_lst[max_seq_len*i:max_seq_len*(i+1)])
             print(history_lst[(self.history_size+max_seq_len-1)*i:(self.history_size+max_seq_len-1)*(i+1)])
+            print(history_tfidf[i,:])
             print(seq_len[i])
         
     def assign_batch_id(self, value):
@@ -423,10 +420,6 @@ class ds_data_sentence_with_history(object):
     @property
     def tfidf(self):
         return self._tfidf
-
-    @property
-    def tfidf_id(self):
-        return self._tfidf_id
     
     @property
     def longest_sentence(self):
