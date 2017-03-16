@@ -40,7 +40,7 @@ logging = tf.logging
 
 flags.DEFINE_integer("num_run", 0, "num_run")
 flags.DEFINE_string("test_name","topic","test_name")
-flags.DEFINE_string("eval_name",'ds.testshort.txt',"eval_name")
+flags.DEFINE_string("eval_name",'ds.valid.txt',"eval_name")
 flags.DEFINE_integer("interpol",0.5,"interpol") #0 is reg, 1 is lda
 
 flags.DEFINE_string("loss_function","full_softmax","loss_function")
