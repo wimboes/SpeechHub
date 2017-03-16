@@ -7,6 +7,7 @@ import os
 
 from gensim import corpora
 import numpy as np
+import collections
 
 ##### functions
         
@@ -369,6 +370,8 @@ class ds_data_sentence_with_history(object):
 
             batch_data[i,0:min(seqlen, max_seq_len)] = new_sentence[0:min(seqlen, max_seq_len)]
             history_data[i,-max_seq_len+1:] = batch_data[i,0:-1]
+            count_pairs = collections.Counter(history_data[i]).items()    
+            
             history_tfidf[i,:] = [self._tfidf_id[id] for id in history_data[i,:]]
             if seqlen >= self.history_size:
                 self.history[i] = np.array(new_sentence[-self.history_size:])

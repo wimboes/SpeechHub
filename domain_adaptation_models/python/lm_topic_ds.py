@@ -66,7 +66,7 @@ flags.DEFINE_integer("embedded_size_lda", 64, "embedded_size_lda")
 
 ### general
 
-flags.DEFINE_string("mode", "int", "mode")
+flags.DEFINE_string("mode", "lda", "mode")
 flags.DEFINE_integer("batch_size", 50, "batch_size")
 flags.DEFINE_integer("num_steps", 50, "num_steps")
 flags.DEFINE_integer("num_run", 0, "num_run")
@@ -453,9 +453,9 @@ def main(_):
         for i in xrange(vocab_size):
             topic_array[topic_nb,current_topic[i][0]] = current_topic[i][1]
 
-    train_name = 'ds.train.txt'
-    valid_name = 'ds.valid.txt'
-    test_name = 'ds.test.txt'
+    train_name = 'ds.test.txt'
+    valid_name = 'ds.test.txt'
+    test_name = 'ds.testshort.txt'
 
     config = config_topic()
 
