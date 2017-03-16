@@ -65,9 +65,7 @@ def lda_generate_model(sentences_per_document, nb_topics, data_path, lda_save_pa
     tfidf = models.TfidfModel(mm,id2word=dictionary,normalize=True)
     corpora.MmCorpus.serialize('tfidf_'+str(nb_topics)+'_'+str(sentences_per_document)+'.ds.mm', tfidf[mm], progress_cnt=10000)
 
-    tfidf_dict = {dictionary.get(id): value for doc in tfidf[corpus] for id, value in doc}
-    np.save(tf_save_path, tfidf_dict)
-
+    tfidf.save(tf_save_path)
 
     mm = corpora.MmCorpus('tfidf_'+str(nb_topics)+'_'+str(sentences_per_document)+'.ds.mm')
     lda = models.ldamodel.LdaModel(corpus=mm, id2word=dictionary, num_topics=nb_topics)
@@ -79,25 +77,18 @@ def lda_generate_model(sentences_per_document, nb_topics, data_path, lda_save_pa
 
 ##### script
 
-lda_save_path = os.path.join(data_path, 'lda_'+str(nb_topics)+'_'+str(sentences_per_document)+'.ds.model')
-dict_save_path = os.path.join(data_path, 'dictionary_'+str(nb_topics)+'_'+str(sentences_per_document)+'.ds.dict')
-tf_save_path = os.path.join(data_path, 'tfidf_'+str(nb_topics)+'_'+str(sentences_per_document)+'.ds.npy')
+lda_save_path = os.path.join(data_path, 'lda_'+str(nb_topics)+'_'+str(sentences_per_document)+'.ds')
+dict_save_path = os.path.join(data_path, 'dictionary_'+str(nb_topics)+'_'+str(sentences_per_document)+'.ds')
+tf_save_path = os.path.join(data_path, 'tfidf_'+str(nb_topics)+'_'+str(sentences_per_document)+'.ds')
 lda, lda_dict = lda_generate_model(sentences_per_document, nb_topics, data_path, lda_save_path, dict_save_path,tf_save_path)
 
 print(str(nb_topics)+ ' topics are generated based on documents of ' + str(sentences_per_document) + ' sentences long')
 
 nb_topics_to_print = 10
 nb_words_per_topic_to_print = 20
- 
-#for i in xrange(nb_topics_to_print):
-#    print('Topic number %d:' % i)
-#    word_list = lda.show_topic(i,topn=nb_words_per_topic_to_print)
-#    for j in [k for (k,l) in word_list]:
-#        print(j)
-#    print('')
 
 nb_topics_to_print_tex = 6
-nb_words_per_topic_to_print_tex = 20
+nb_words_per_topic_to_print_tex = 8
 with open('topics_'+str(nb_topics)+'_'+str(sentences_per_document)+'.tex','w') as f:
     f.write('\\begin{table}[H]\n')
     f.write('\\centering\n')
