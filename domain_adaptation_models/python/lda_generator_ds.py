@@ -105,7 +105,7 @@ with open('topics_'+str(nb_topics)+'_'+str(sentences_per_document)+'.tex','w') a
     f.write('\\label{tab:topics_'+str(nb_topics)+'_'+str(sentences_per_document)+'}\n')
 
     tex_str = '\\begin{tabular}{'
-    for j in xrange(nb_topics_to_print_tex-1):
+    for j in xrange(nb_topics_to_print_tex):
         tex_str = tex_str + '|c'
     tex_str = tex_str + '|}'
     f.write(tex_str+'\n')
