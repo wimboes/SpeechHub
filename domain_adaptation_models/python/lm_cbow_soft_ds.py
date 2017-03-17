@@ -61,7 +61,7 @@ flags.DEFINE_string("use_fp16",False,"train blabla")
 flags.DEFINE_string("loss_function","full_softmax","loss_function")
 flags.DEFINE_string("optimizer","Adagrad","optimizer")
 flags.DEFINE_string("combination","tfidf","combination")
-flags.DEFINE_string("position","lstm","position")
+flags.DEFINE_string("position","tfidf","position")
 
 
 FLAGS = flags.FLAGS
@@ -317,8 +317,8 @@ def run_epoch(session, model, eval_op=None, verbose=False, epoch_nb = 0, pos_epo
  
 def main(_):
     print('job started')
-    train_name = 'ds.train.txt'
-    valid_name = 'ds.valid.txt'
+    train_name = 'ds.test.txt'
+    valid_name = 'ds.test.txt'
     test_name = 'ds.test.txt'
 
     config = config_cbow()

@@ -261,7 +261,7 @@ def main(_):
 
     with tf.Graph().as_default():
         with tf.name_scope("test"):
-            eval_data = reader.ds_data(eval_config['batch_size'], FLAGS.data_path, FLAGS.eval_name)
+            eval_data = reader.ds_data_sentence(eval_config['batch_size'], FLAGS.data_path, FLAGS.eval_name)
             eval_config['num_steps'] = eval_data.longest_sentence
             with tf.variable_scope("model"):
                 mtest = ds_original_model(is_training=False, config=eval_config, input_=eval_data)

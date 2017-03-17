@@ -10,8 +10,6 @@ Traceback (most recent call last):
     tf.app.run()
   File "/users/start2014/r0364650/.local/lib/python2.7/site-packages/tensorflow/python/platform/app.py", line 43, in run
     sys.exit(main(sys.argv[:1] + flags_passthrough))
-  File "lm_original_ds_test.py", line 250, in main
-    param_np = np.load((FLAGS.save_path + '/' + FLAGS.test_name + '_' + str(FLAGS.num_run)+ '/results' +'.npz'))
-  File "/users/start2014/r0364650/.local/lib/python2.7/site-packages/numpy/lib/npyio.py", line 362, in load
-    fid = open(file, "rb")
-IOError: [Errno 2] No such file or directory: '/esat/spchtemp/scratch/robbe/SpeechHub/domain_adaptation_models/output/original_0/results.npz'
+  File "lm_original_ds_test.py", line 264, in main
+    eval_data = reader.ds_data(eval_config['batch_size'], FLAGS.data_path, FLAGS.eval_name)
+AttributeError: 'module' object has no attribute 'ds_data'
