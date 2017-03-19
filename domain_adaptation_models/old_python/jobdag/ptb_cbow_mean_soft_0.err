@@ -1,0 +1,40 @@
+I tensorflow/stream_executor/dso_loader.cc:128] successfully opened CUDA library libcublas.so locally
+I tensorflow/stream_executor/dso_loader.cc:128] successfully opened CUDA library libcudnn.so locally
+I tensorflow/stream_executor/dso_loader.cc:128] successfully opened CUDA library libcufft.so locally
+I tensorflow/stream_executor/dso_loader.cc:128] successfully opened CUDA library libcuda.so.1 locally
+I tensorflow/stream_executor/dso_loader.cc:128] successfully opened CUDA library libcurand.so locally
+/users/start2014/r0364650/.local/lib/python2.7/site-packages/gensim/utils.py:1015: UserWarning: Pattern library is not installed, lemmatization won't be available.
+  warnings.warn("Pattern library is not installed, lemmatization won't be available.")
+E tensorflow/core/common_runtime/direct_session.cc:135] Internal: failed initializing StreamExecutor for CUDA device ordinal 0: Internal: failed call to cuDevicePrimaryCtxRetain: CUDA_ERROR_OUT_OF_MEMORY; total memory reported: 18446744073709551615
+Traceback (most recent call last):
+  File "lm_cbow_sentence_ptb.py", line 415, in <module>
+    tf.app.run()
+  File "/users/start2014/r0364650/.local/lib/python2.7/site-packages/tensorflow/python/platform/app.py", line 43, in run
+    sys.exit(main(sys.argv[:1] + flags_passthrough))
+  File "lm_cbow_sentence_ptb.py", line 360, in main
+    with sv.managed_session() as session:
+  File "/usr/lib64/python2.7/contextlib.py", line 17, in __enter__
+    return self.gen.next()
+  File "/users/start2014/r0364650/.local/lib/python2.7/site-packages/tensorflow/python/training/supervisor.py", line 974, in managed_session
+    self.stop(close_summary_writer=close_summary_writer)
+  File "/users/start2014/r0364650/.local/lib/python2.7/site-packages/tensorflow/python/training/supervisor.py", line 802, in stop
+    stop_grace_period_secs=self._stop_grace_secs)
+  File "/users/start2014/r0364650/.local/lib/python2.7/site-packages/tensorflow/python/training/coordinator.py", line 386, in join
+    six.reraise(*self._exc_info_to_raise)
+  File "/users/start2014/r0364650/.local/lib/python2.7/site-packages/tensorflow/python/training/supervisor.py", line 963, in managed_session
+    start_standard_services=start_standard_services)
+  File "/users/start2014/r0364650/.local/lib/python2.7/site-packages/tensorflow/python/training/supervisor.py", line 720, in prepare_or_wait_for_session
+    init_feed_dict=self._init_feed_dict, init_fn=self._init_fn)
+  File "/users/start2014/r0364650/.local/lib/python2.7/site-packages/tensorflow/python/training/session_manager.py", line 227, in prepare_session
+    config=config)
+  File "/users/start2014/r0364650/.local/lib/python2.7/site-packages/tensorflow/python/training/session_manager.py", line 153, in _restore_checkpoint
+    sess = session.Session(self._target, graph=self._graph, config=config)
+  File "/users/start2014/r0364650/.local/lib/python2.7/site-packages/tensorflow/python/client/session.py", line 1186, in __init__
+    super(Session, self).__init__(target, graph, config=config)
+  File "/users/start2014/r0364650/.local/lib/python2.7/site-packages/tensorflow/python/client/session.py", line 551, in __init__
+    self._session = tf_session.TF_NewDeprecatedSession(opts, status)
+  File "/usr/lib64/python2.7/contextlib.py", line 24, in __exit__
+    self.gen.next()
+  File "/users/start2014/r0364650/.local/lib/python2.7/site-packages/tensorflow/python/framework/errors_impl.py", line 469, in raise_exception_on_not_ok_status
+    pywrap_tensorflow.TF_GetCode(status))
+tensorflow.python.framework.errors_impl.InternalError: Failed to create session.

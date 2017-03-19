@@ -270,7 +270,7 @@ def run_test_epoch(session, model, epoch_nb = 0):
     if (os.path.exists((FLAGS.save_path + '/' + FLAGS.test_name + '_' + str(FLAGS.num_run)+ '/eval' +'.txt'))):
         os.remove(FLAGS.save_path + '/' + FLAGS.test_name + '_' + str(FLAGS.num_run)+ '/eval' +'.txt')
 
-    with open((FLAGS.save_path + '/' + FLAGS.test_name + '_' + str(FLAGS.num_run) + '/intepol' + str(FLAGS.interpol)+'.txt'), "w") as f:
+    with open((FLAGS.save_path + '/' + FLAGS.test_name + '_' + str(FLAGS.num_run) + '/interpol' + str(FLAGS.interpol)+'.txt'), "w") as f:
         f.write('\n')        
         for step in range(model.input_continuous.epoch_size):
             batch_data, batch_labels = model.input_continuous.next_batch()

@@ -317,8 +317,8 @@ def run_epoch(session, model, eval_op=None, verbose=False, epoch_nb = 0, pos_epo
  
 def main(_):
     print('job started')
-    train_name = 'ds.test.txt'
-    valid_name = 'ds.test.txt'
+    train_name = 'ds.train.txt'
+    valid_name = 'ds.valid.txt'
     test_name = 'ds.test.txt'
 
     config = config_cbow()
