@@ -54,14 +54,14 @@ flags.DEFINE_integer("embedded_size_cbow", 64, "embedded_size_cbow")
 flags.DEFINE_integer("batch_size", 50, "batch_size")
 flags.DEFINE_integer("num_steps", 50, "num_steps")
 flags.DEFINE_integer("num_run", 0, "num_run")
-flags.DEFINE_string("test_name","cbow_soft_exp","test_name")
+flags.DEFINE_string("test_name","cbow_test_sotf","test_name")
 flags.DEFINE_string("data_path",input_path,"data_path")
 flags.DEFINE_string("save_path",output_path,"save_path")
 flags.DEFINE_string("use_fp16",False,"train blabla")
 flags.DEFINE_string("loss_function","full_softmax","loss_function")
 flags.DEFINE_string("optimizer","Adagrad","optimizer")
 flags.DEFINE_string("combination","tfidf","combination")
-flags.DEFINE_string("position","tfidf","position")
+flags.DEFINE_string("position","soft","position")
 
 
 FLAGS = flags.FLAGS
