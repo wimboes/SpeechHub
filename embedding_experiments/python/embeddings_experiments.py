@@ -51,7 +51,7 @@ _, closest_ids = tf.nn.top_k(cosine_similarity, k=neigbourhoud, sorted=True)
 
 
 
-dict_path = os.path.join(os.path.join(general_path,'input'), "dictionary.ds")
+dict_path = os.path.join(os.path.join(os.path.split(os.path.split(python_path)[0])[0],'input'), "dictionary.ds")
 dictionary = corpora.Dictionary.load(dict_path)
 word_to_id = dict()
 for (wordid,word) in dictionary.iteritems():

@@ -27,7 +27,7 @@ sentences_per_document = opts.sentences_per_document
 ##### settings
 
 python_path = os.path.abspath(os.getcwd())
-general_path = os.path.split(python_path)[0]
+general_path = os.path.split(os.path.split(python_path)[0])[0]
 data_path = os.path.join(general_path,'input')
 
 ##### functions and classes
@@ -77,9 +77,9 @@ def lda_generate_model(sentences_per_document, nb_topics, data_path, lda_save_pa
 
 ##### script
 
-lda_save_path = os.path.join(data_path, 'lda_'+str(nb_topics)+'_'+str(sentences_per_document)+'.ds')
-dict_save_path = os.path.join(data_path, 'dictionary_'+str(nb_topics)+'_'+str(sentences_per_document)+'.ds')
-tf_save_path = os.path.join(data_path, 'tfidf_'+str(nb_topics)+'_'+str(sentences_per_document)+'.ds')
+lda_save_path = os.path.join(data_path,'topic_experiments', 'lda_'+str(nb_topics)+'_'+str(sentences_per_document)+'.ds')
+dict_save_path = os.path.join(data_path, 'topic_experiments', 'dictionary_'+str(nb_topics)+'_'+str(sentences_per_document)+'.ds')
+tf_save_path = os.path.join(data_path, 'topic_experiments', 'tfidf_'+str(nb_topics)+'_'+str(sentences_per_document)+'.ds')
 lda, lda_dict = lda_generate_model(sentences_per_document, nb_topics, data_path, lda_save_path, dict_save_path,tf_save_path)
 
 print(str(nb_topics)+ ' topics are generated based on documents of ' + str(sentences_per_document) + ' sentences long')

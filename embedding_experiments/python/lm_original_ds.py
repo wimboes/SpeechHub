@@ -23,7 +23,7 @@ import reader
 
 python_path = os.path.abspath(os.getcwd())
 general_path = os.path.split(python_path)[0]
-input_path = os.path.join(general_path,'input')
+input_path = os.path.join(os.path.split(os.path.split(python_path)[0])[0],'input')
 output_path = os.path.join(general_path,'output')
 
 # set data and save path
@@ -42,7 +42,7 @@ flags.DEFINE_integer("max_max_epoch", 3, "max_max_epoch")
 flags.DEFINE_float("keep_prob", 0.5, "keep_prob")
 flags.DEFINE_float("lr_decay", 0.8, "lr_decay")
 flags.DEFINE_integer("batch_size", 50, "batch_size")
-flags.DEFINE_integer("embedded_size", 64, "embedded_size")
+flags.DEFINE_integer("embedded_size", 128, "embedded_size")
 flags.DEFINE_integer("num_run", 0, "num_run")
 flags.DEFINE_string("test_name","original","test_name")
 flags.DEFINE_string("optimizer","Adagrad","optimizer")
@@ -246,7 +246,7 @@ def run_epoch(session, model, eval_op=None, verbose=False, epoch_nb = 0, pos_epo
         iters += 1 
         processed_words += sum(np.ones(model.input.batch_size)*model.input.num_steps)
 
-        if verbose and step % (model.input.epoch_size // 1000) == 0:
+        if verbose and step % (model.input.epoch_size // 10) == 0:
             print("%.3f perplexity: %.3f speed: %.0f wps" % (step * 1.0 / model.input.epoch_size, np.exp(costs / iters),
 						 processed_words / (time.time() - start_time)))
             save_np = np.append(save_np, [[epoch_nb, step * 1.0 / model.input.epoch_size, np.exp(costs / iters),

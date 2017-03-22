@@ -27,7 +27,7 @@ sentences_per_document = opts.sentences_per_document
 ##### settings
 
 python_path = os.path.abspath(os.getcwd())
-general_path = os.path.split(python_path)[0]
+general_path = os.path.split(os.path.split(python_path)[0])[0]
 data_path = os.path.join(general_path,'input')
 
 ##### functions and classes

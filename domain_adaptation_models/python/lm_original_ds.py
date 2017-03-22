@@ -23,7 +23,7 @@ import reader
 
 python_path = os.path.abspath(os.getcwd())
 general_path = os.path.split(python_path)[0]
-input_path = os.path.join(general_path,'input')
+input_path = os.path.join(os.path.split(os.path.split(python_path)[0])[0],'input')
 output_path = os.path.join(general_path,'output')
 
 # set data and save path
