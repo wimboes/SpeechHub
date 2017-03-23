@@ -82,14 +82,14 @@ class ds_cbow_sentence_model(object):
                 slice2 = tf.slice(inputs_cbow,[0,i,0],[batch_size,num_history,config['embedded_size_cbow']])
                 
                 if config['cbow_combination'] == "mean":
-                    mask = tf.cast(tf.not_equal(slice1,[input_.pad_id]), dtype = data_type())
+                    mask = tf.cast(tf.logical_and(tf.not_equal(slice1,[input_.pad_id]), dtype = data_type()),tf.not_equal(slice1,[input_.unk_id]), dtype = data_type()),tf.not_equal(slice1,[input_.bos_id]), dtype = data_type()),tf.logical_and(tf.not_equal(slice1,[input_.eos_id]), dtype = data_type()))
                     mask1 = tf.pack([mask]*config['embedded_size_cbow'],axis = 2)
                     out = mask1*slice2
                     comb_ = tf.reduce_sum(out,1)/(tf.reduce_sum(mask1,1) + 1e-32)
     
                 if config['cbow_combination'] == "exp":
                     exp_weights = tf.reverse(tf.constant([[config['embedded_size_cbow']*[config['cbow_exp_decay']**k] for k in range(num_history)] for j in range(batch_size)]),[False,True,False])
-                    mask = tf.cast(tf.not_equal(slice1,[input_.pad_id]), dtype = data_type())
+                    mask = tf.cast(tf.logical_and(tf.not_equal(slice1,[input_.pad_id]), dtype = data_type()),tf.not_equal(slice1,[input_.unk_id]), dtype = data_type()),tf.not_equal(slice1,[input_.bos_id]), dtype = data_type()),tf.logical_and(tf.not_equal(slice1,[input_.eos_id]), dtype = data_type()))
                     mask1 = tf.pack([mask]*config['embedded_size_cbow'],axis = 2)
                     out = mask1*slice2*exp_weights
                     comb_ = tf.reduce_sum(out,1)/(tf.reduce_sum(mask1*exp_weights,1) + 1e-32)
@@ -102,7 +102,14 @@ class ds_cbow_sentence_model(object):
     
                 outputs_cbow.append(comb_)
             output_cbow_lstm = tf.reshape(tf.concat(1, outputs_cbow), [batch_size,num_steps, config['embedded_size_cbow']])
-            
+
+            normed_embedding_cbow = tf.nn.l2_normalize(embedding_cbow, dim=1)
+            normed_array = tf.nn.l2_normalize(output_cbow_soft, dim=1)
+
+            cosine_similarity = tf.matmul(normed_array, tf.transpose(normed_embedding_cbow, [1, 0]))
+            _, closest_ids = tf.nn.top_k(cosine_similarity, k=FLAGS.neighborhood, sorted=True)
+            self._temp5 = closest_ids
+
 
         with tf.variable_scope('lstm_lstm'):
 
@@ -260,7 +267,7 @@ def run_epoch(session, model, cost=None, eval_op=None):
     if (os.path.exists((FLAGS.save_path + '/' + FLAGS.test_name + '_' + str(FLAGS.num_run)+ '/eval' +'.txt'))):
         os.remove(FLAGS.save_path + '/' + FLAGS.test_name + '_' + str(FLAGS.num_run)+ '/eval' +'.txt')
 
-    with open((FLAGS.save_path + '/' + FLAGS.test_name + '_' + str(FLAGS.num_run) + '/eval' +'.txt'), "w") as f:
+    with open((FLAGS.save_path + '/' + FLAGS.test_name + '_' + str(FLAGS.num_run) + '/eval' +'.txt'), "w") as f, open((FLAGS.save_path + '/' + FLAGS.test_name + '_' + str(FLAGS.num_run) + '/domain_eval' +'.txt'), "w") as g:
         for step in range(model.input.epoch_size):
             batch_data, batch_history, batch_history_tfidf, batch_labels, batch_seq_len = model.input.next_batch(model.num_steps)
             feed_dict = {}
@@ -289,6 +296,14 @@ def run_epoch(session, model, cost=None, eval_op=None):
                 for j in xrange(len(top_k[i])):
                     f.write("{:<15}".format(reverse_dict[top_k[i][j]].encode('utf-8')))
                 f.write("\n")
+
+            domain_info = vals["temp_5"]
+            for i in xrange(len(data)):
+                g.write("{:<15}".format(reverse_dict[data[i]].encode('utf-8')))
+                g.write("| ")
+                for j in xrange(len(domain_info[i])):
+                    g.write("{:<15}".format(reverse_dict[domain_info[i][j]].encode('utf-8')))
+                g.write("\n")   
 
             costs += cost
             iters += 1
