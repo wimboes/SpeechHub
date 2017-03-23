@@ -37,6 +37,8 @@ data = os.path.join(path,'embeddings_' + str(vocab_size) + '_' + str(embedded_si
 
 ###model
 
+embedded_size = 128
+
 batch = tf.placeholder(tf.int32, [None])
 
 
@@ -44,6 +46,8 @@ embedding = tf.get_variable("embedding", [vocab_size, embedded_size])
 normed_embedding = tf.nn.l2_normalize(embedding, dim=1)
 
 batch_array =  tf.nn.embedding_lookup(embedding, batch)
+print()
+print(batch_array.get_shape())
 normed_array = tf.nn.l2_normalize(batch_array, dim=1)
 
 cosine_similarity = tf.matmul(normed_array, tf.transpose(normed_embedding, [1, 0]))
