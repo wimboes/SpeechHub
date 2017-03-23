@@ -7,15 +7,15 @@ import sys
 import time
 import numpy as np
 
-if 'LD_LIBRARY_PATH' not in os.environ:
-        print('hihi')
-        os.environ['LD_LIBRARY_PATH'] = '/usr/local/cuda/lib64:/usr/local/cuda-7.5/lib64:/usr/local/cuda-8.0/lib64:/users/start2014/r0385169/.local/cudnn'
-        try:
-            	os.system('/users/start2014/r0385169/bin/python ' + ' '.join(sys.argv))
-                sys.exit(0)
-        except Exception, exc:
-                print('Failed re_exec:', exc)
-                sys.exit(1)
+#if 'LD_LIBRARY_PATH' not in os.environ:
+#        print('hihi')
+#        os.environ['LD_LIBRARY_PATH'] = '/usr/local/cuda/lib64:/usr/local/cuda-7.5/lib64:/usr/local/cuda-8.0/lib64:/users/start2014/r0385169/.local/cudnn'
+#        try:
+#            	os.system('/users/start2014/r0385169/bin/python ' + ' '.join(sys.argv))
+#                sys.exit(0)
+#        except Exception, exc:
+#                print('Failed re_exec:', exc)
+#                sys.exit(1)
 
 
 import tensorflow as tf
@@ -34,9 +34,10 @@ flags = tf.flags
 logging = tf.logging
 
 flags.DEFINE_integer("num_run", 0, "num_run")
-flags.DEFINE_string("test_name","cbow_soft_exp","test_name")
+flags.DEFINE_string("test_name","cbow_exp_soft","test_name")
 flags.DEFINE_string("eval_name",'ds.testshort.txt',"eval_name")
 flags.DEFINE_integer("top_k",7,"top_k")
+flags.DEFINE_integer("neighborhood",7,"neighborhood")
 
 flags.DEFINE_string("loss_function","full_softmax","loss_function")
 
@@ -102,6 +103,14 @@ class ds_cbow_sentence_model(object):
    
                 outputs_cbow.append(comb_)
             output_cbow_soft = tf.reshape(tf.concat(1, outputs_cbow), [-1, config['embedded_size_cbow']])
+            #self._temp5 = output_cbow_soft
+            
+            normed_embedding_cbow = tf.nn.l2_normalize(embedding_cbow, dim=1)
+            normed_array = tf.nn.l2_normalize(output_cbow_soft, dim=1)
+
+            cosine_similarity = tf.matmul(normed_array, tf.transpose(normed_embedding_cbow, [1, 0]))
+            _, closest_ids = tf.nn.top_k(cosine_similarity, k=FLAGS.neighborhood, sorted=True)
+            self._temp5 = closest_ids
 
         with tf.variable_scope('lstm_soft') as lstm_soft:
             
@@ -140,6 +149,10 @@ class ds_cbow_sentence_model(object):
     @property
     def temp4(self):
         return self._temp4
+        
+    @property
+    def temp5(self):
+        return self._temp5
 
     @property
     def input(self):
@@ -253,12 +266,12 @@ def run_epoch(session, model, cost=None, eval_op=None):
     reverse_dict = {v: k for k, v in model.input.word_to_id.iteritems()}
     reverse_dict[model.input.pad_id] = 'PAD'
     
-    fetches = {"cost": model.cost, "temp1" :model.temp1, "temp2" :model.temp2, "temp3" :model.temp3, "temp4" :model.temp4}
+    fetches = {"cost": model.cost, "temp1" :model.temp1, "temp2" :model.temp2, "temp3" :model.temp3, "temp4" :model.temp4, "temp5": model.temp5}
 
     if (os.path.exists((FLAGS.save_path + '/' + FLAGS.test_name + '_' + str(FLAGS.num_run)+ '/eval' +'.txt'))):
         os.remove(FLAGS.save_path + '/' + FLAGS.test_name + '_' + str(FLAGS.num_run)+ '/eval' +'.txt')
 
-    with open((FLAGS.save_path + '/' + FLAGS.test_name + '_' + str(FLAGS.num_run) + '/eval' +'.txt'), "w") as f:
+    with open((FLAGS.save_path + '/' + FLAGS.test_name + '_' + str(FLAGS.num_run) + '/eval' +'.txt'), "w") as f, open((FLAGS.save_path + '/' + FLAGS.test_name + '_' + str(FLAGS.num_run) + '/domain_eval' +'.txt'), "w") as g:
         for step in range(model.input.epoch_size):
             batch_data, batch_history, batch_history_tfidf, batch_labels, batch_seq_len = model.input.next_batch(model.num_steps)
             feed_dict = {}
@@ -287,6 +300,14 @@ def run_epoch(session, model, cost=None, eval_op=None):
                 for j in xrange(len(top_k[i])):
                     f.write("{:<15}".format(reverse_dict[top_k[i][j]].encode('utf-8')))
                 f.write("\n")
+                
+            domain_info = vals["temp_5"]
+            for i in xrange(len(data)):
+                g.write("{:<15}".format(reverse_dict[data[i]].encode('utf-8')))
+                g.write("| ")
+                for j in xrange(len(domain_info[i])):
+                    g.write("{:<15}".format(reverse_dict[domain_info[i][j]].encode('utf-8')))
+                g.write("\n")           
 
             costs += cost
             iters += 1
