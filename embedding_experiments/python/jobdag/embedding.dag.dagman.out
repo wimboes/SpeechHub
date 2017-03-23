@@ -1,2070 +1,564 @@
-03/17/17 12:29:22 ******************************************************
-03/17/17 12:29:22 ** condor_scheduniv_exec.247.0 (CONDOR_DAGMAN) STARTING UP
-03/17/17 12:29:22 ** /usr/bin/condor_dagman
-03/17/17 12:29:22 ** SubsystemInfo: name=DAGMAN type=DAGMAN(10) class=DAEMON(1)
-03/17/17 12:29:22 ** Configuration: subsystem:DAGMAN local:<NONE> class:DAEMON
-03/17/17 12:29:22 ** $CondorVersion: 8.6.1 Mar 01 2017 BuildID: 398585 $
-03/17/17 12:29:22 ** $CondorPlatform: x86_64_RedHat7 $
-03/17/17 12:29:22 ** PID = 12121
-03/17/17 12:29:22 ** Log last touched time unavailable (No such file or directory)
-03/17/17 12:29:22 ******************************************************
-03/17/17 12:29:22 Using config source: /etc/condor/condor_config
-03/17/17 12:29:22 Using local config sources: 
-03/17/17 12:29:22    /etc/condor/config.d/00esat.config
-03/17/17 12:29:22    /etc/condor/config.d/01java.config
-03/17/17 12:29:22    /etc/condor/config.d/80optout_users.config
-03/17/17 12:29:22    /etc/condor/condor_config.local
-03/17/17 12:29:22 config Macros = 166, Sorted = 166, StringBytes = 6024, TablesBytes = 6048
-03/17/17 12:29:22 CLASSAD_CACHING is ENABLED
-03/17/17 12:29:22 Daemon Log is logging: D_ALWAYS D_ERROR
-03/17/17 12:29:22 DaemonCore: No command port requested.
-03/17/17 12:29:22 DAGMAN_USE_STRICT setting: 1
-03/17/17 12:29:22 DAGMAN_VERBOSITY setting: 3
-03/17/17 12:29:22 DAGMAN_DEBUG_CACHE_SIZE setting: 5242880
-03/17/17 12:29:22 DAGMAN_DEBUG_CACHE_ENABLE setting: False
-03/17/17 12:29:22 DAGMAN_SUBMIT_DELAY setting: 0
-03/17/17 12:29:22 DAGMAN_MAX_SUBMIT_ATTEMPTS setting: 6
-03/17/17 12:29:22 DAGMAN_STARTUP_CYCLE_DETECT setting: False
-03/17/17 12:29:22 DAGMAN_MAX_SUBMITS_PER_INTERVAL setting: 5
-03/17/17 12:29:22 DAGMAN_USER_LOG_SCAN_INTERVAL setting: 5
-03/17/17 12:29:22 DAGMAN_DEFAULT_PRIORITY setting: 0
-03/17/17 12:29:22 DAGMAN_SUPPRESS_NOTIFICATION setting: True
-03/17/17 12:29:22 allow_events (DAGMAN_ALLOW_EVENTS) setting: 114
-03/17/17 12:29:22 DAGMAN_RETRY_SUBMIT_FIRST setting: True
-03/17/17 12:29:22 DAGMAN_RETRY_NODE_FIRST setting: False
-03/17/17 12:29:22 DAGMAN_MAX_JOBS_IDLE setting: 1000
-03/17/17 12:29:22 DAGMAN_MAX_JOBS_SUBMITTED setting: 0
-03/17/17 12:29:22 DAGMAN_MAX_PRE_SCRIPTS setting: 20
-03/17/17 12:29:22 DAGMAN_MAX_POST_SCRIPTS setting: 20
-03/17/17 12:29:22 DAGMAN_MUNGE_NODE_NAMES setting: True
-03/17/17 12:29:22 DAGMAN_PROHIBIT_MULTI_JOBS setting: False
-03/17/17 12:29:22 DAGMAN_SUBMIT_DEPTH_FIRST setting: False
-03/17/17 12:29:22 DAGMAN_ALWAYS_RUN_POST setting: False
-03/17/17 12:29:22 DAGMAN_ABORT_DUPLICATES setting: True
-03/17/17 12:29:22 DAGMAN_ABORT_ON_SCARY_SUBMIT setting: True
-03/17/17 12:29:22 DAGMAN_PENDING_REPORT_INTERVAL setting: 600
-03/17/17 12:29:22 DAGMAN_AUTO_RESCUE setting: True
-03/17/17 12:29:22 DAGMAN_MAX_RESCUE_NUM setting: 100
-03/17/17 12:29:22 DAGMAN_WRITE_PARTIAL_RESCUE setting: True
-03/17/17 12:29:22 DAGMAN_DEFAULT_NODE_LOG setting: @(DAG_DIR)/@(DAG_FILE).nodes.log
-03/17/17 12:29:22 DAGMAN_GENERATE_SUBDAG_SUBMITS setting: True
-03/17/17 12:29:22 DAGMAN_MAX_JOB_HOLDS setting: 100
-03/17/17 12:29:22 DAGMAN_HOLD_CLAIM_TIME setting: 20
-03/17/17 12:29:22 ALL_DEBUG setting: 
-03/17/17 12:29:22 DAGMAN_DEBUG setting: 
-03/17/17 12:29:22 DAGMAN_SUPPRESS_JOB_LOGS setting: False
-03/17/17 12:29:22 DAGMAN_REMOVE_NODE_JOBS setting: True
-03/17/17 12:29:22 argv[0] == "condor_scheduniv_exec.247.0"
-03/17/17 12:29:22 argv[1] == "-Lockfile"
-03/17/17 12:29:22 argv[2] == "embedding.dag.lock"
-03/17/17 12:29:22 argv[3] == "-AutoRescue"
-03/17/17 12:29:22 argv[4] == "1"
-03/17/17 12:29:22 argv[5] == "-DoRescueFrom"
-03/17/17 12:29:22 argv[6] == "0"
-03/17/17 12:29:22 argv[7] == "-Dag"
-03/17/17 12:29:22 argv[8] == "embedding.dag"
-03/17/17 12:29:22 argv[9] == "-Suppress_notification"
-03/17/17 12:29:22 argv[10] == "-CsdVersion"
-03/17/17 12:29:22 argv[11] == "$CondorVersion: 8.6.1 Mar 01 2017 BuildID: 398585 $"
-03/17/17 12:29:22 argv[12] == "-Dagman"
-03/17/17 12:29:22 argv[13] == "/usr/bin/condor_dagman"
-03/17/17 12:29:22 Workflow batch-name: <embedding.dag+247>
-03/17/17 12:29:22 Workflow accounting_group: <>
-03/17/17 12:29:22 Workflow accounting_group_user: <>
-03/17/17 12:29:22 Warning: failed to get attribute DAGNodeName
-03/17/17 12:29:22 DAGMAN_LOG_ON_NFS_IS_ERROR setting: False
-03/17/17 12:29:22 Default node log file is: </esat/spchtemp/scratch/robbe/SpeechHub/embedding_experiments/python/jobdag/./embedding.dag.nodes.log>
-03/17/17 12:29:22 DAG Lockfile will be written to embedding.dag.lock
-03/17/17 12:29:22 DAG Input file is embedding.dag
-03/17/17 12:29:22 Parsing 1 dagfiles
-03/17/17 12:29:22 Parsing embedding.dag ...
-03/17/17 12:29:22 Dag contains 3 total jobs
-03/17/17 12:29:22 Sleeping for 3 seconds to ensure ProcessId uniqueness
-03/17/17 12:29:25 Bootstrapping...
-03/17/17 12:29:25 Number of pre-completed nodes: 0
-03/17/17 12:29:25 MultiLogFiles: truncating log file /esat/spchtemp/scratch/robbe/SpeechHub/embedding_experiments/python/jobdag/./embedding.dag.nodes.log
-03/17/17 12:29:25 DAG status: 0 (DAG_STATUS_OK)
-03/17/17 12:29:25 Of 3 nodes total:
-03/17/17 12:29:25  Done     Pre   Queued    Post   Ready   Un-Ready   Failed
-03/17/17 12:29:25   ===     ===      ===     ===     ===        ===      ===
-03/17/17 12:29:25     0       0        0       0       1          2        0
-03/17/17 12:29:25 0 job proc(s) currently held
-03/17/17 12:29:25 Registering condor_event_timer...
-03/17/17 12:29:26 Submitting HTCondor Node create_embedding job(s)...
-03/17/17 12:29:26 Adding a DAGMan workflow log /esat/spchtemp/scratch/robbe/SpeechHub/embedding_experiments/python/jobdag/./embedding.dag.nodes.log
-03/17/17 12:29:26 Masking the events recorded in the DAGMAN workflow log
-03/17/17 12:29:26 Mask for workflow log is 0,1,2,4,5,7,9,10,11,12,13,16,17,24,27
-03/17/17 12:29:26 submitting: /usr/bin/condor_submit -a dag_node_name' '=' 'create_embedding -a +DAGManJobId' '=' '247 -a DAGManJobId' '=' '247 -batch-name embedding.dag+247 -a submit_event_notes' '=' 'DAG' 'Node:' 'create_embedding -a dagman_log' '=' '/esat/spchtemp/scratch/robbe/SpeechHub/embedding_experiments/python/jobdag/./embedding.dag.nodes.log -a +DAGManNodesMask' '=' '"0,1,2,4,5,7,9,10,11,12,13,16,17,24,27" -a data_set' '=' 'ds -a test_name' '=' 'embedding -a num_run' '=' '0 -a DAG_STATUS' '=' '0 -a FAILED_COUNT' '=' '0 -a +KeepClaimIdle' '=' '20 -a notification' '=' 'never -a +DAGParentNodeNames' '=' '"" jobdag/create_embedding.job
-03/17/17 12:29:26 From submit: Submitting job(s).
-03/17/17 12:29:26 From submit: 1 job(s) submitted to cluster 248.
-03/17/17 12:29:26 	assigned HTCondor ID (248.0.0)
-03/17/17 12:29:26 Just submitted 1 job this cycle...
-03/17/17 12:29:26 Currently monitoring 1 HTCondor log file(s)
-03/17/17 12:29:26 Reassigning the id of job create_embedding from (248.0.0) to (248.0.0)
-03/17/17 12:29:26 Event: ULOG_SUBMIT for HTCondor Node create_embedding (248.0.0) {03/17/17 12:29:26}
-03/17/17 12:29:26 Number of idle job procs: 1
-03/17/17 12:29:26 DAG status: 0 (DAG_STATUS_OK)
-03/17/17 12:29:26 Of 3 nodes total:
-03/17/17 12:29:26  Done     Pre   Queued    Post   Ready   Un-Ready   Failed
-03/17/17 12:29:26   ===     ===      ===     ===     ===        ===      ===
-03/17/17 12:29:26     0       0        1       0       0          2        0
-03/17/17 12:29:26 0 job proc(s) currently held
-03/17/17 12:29:46 Currently monitoring 1 HTCondor log file(s)
-03/17/17 12:29:46 Event: ULOG_EXECUTE for HTCondor Node create_embedding (248.0.0) {03/17/17 12:29:44}
-03/17/17 12:29:46 Number of idle job procs: 0
-03/17/17 12:39:50 604 seconds since last log event
-03/17/17 12:39:50 Pending DAG nodes:
-03/17/17 12:39:50   Node create_embedding, HTCondor ID 248, status STATUS_SUBMITTED
-03/17/17 12:49:29 Currently monitoring 1 HTCondor log file(s)
-03/17/17 12:49:29 Event: ULOG_JOB_SUSPENDED for HTCondor Node create_embedding (248.0.0) {03/17/17 12:49:24}
-03/17/17 12:49:29 Number of idle job procs: 1
-03/17/17 12:55:10 Currently monitoring 1 HTCondor log file(s)
-03/17/17 12:55:10 Event: ULOG_JOB_UNSUSPENDED for HTCondor Node create_embedding (248.0.0) {03/17/17 12:55:07}
-03/17/17 12:55:10 Number of idle job procs: 0
-03/17/17 13:05:13 603 seconds since last log event
-03/17/17 13:05:13 Pending DAG nodes:
-03/17/17 13:05:13   Node create_embedding, HTCondor ID 248, status STATUS_SUBMITTED
-03/17/17 13:15:17 1207 seconds since last log event
-03/17/17 13:15:17 Pending DAG nodes:
-03/17/17 13:15:17   Node create_embedding, HTCondor ID 248, status STATUS_SUBMITTED
-03/17/17 13:19:58 Currently monitoring 1 HTCondor log file(s)
-03/17/17 13:19:58 Event: ULOG_JOB_SUSPENDED for HTCondor Node create_embedding (248.0.0) {03/17/17 13:19:54}
-03/17/17 13:19:58 Number of idle job procs: 1
-03/17/17 13:25:05 Currently monitoring 1 HTCondor log file(s)
-03/17/17 13:25:05 Event: ULOG_JOB_UNSUSPENDED for HTCondor Node create_embedding (248.0.0) {03/17/17 13:25:01}
-03/17/17 13:25:05 Number of idle job procs: 0
-03/17/17 13:35:08 603 seconds since last log event
-03/17/17 13:35:08 Pending DAG nodes:
-03/17/17 13:35:08   Node create_embedding, HTCondor ID 248, status STATUS_SUBMITTED
-03/17/17 13:45:11 1206 seconds since last log event
-03/17/17 13:45:11 Pending DAG nodes:
-03/17/17 13:45:11   Node create_embedding, HTCondor ID 248, status STATUS_SUBMITTED
-03/17/17 13:55:13 1808 seconds since last log event
-03/17/17 13:55:13 Pending DAG nodes:
-03/17/17 13:55:13   Node create_embedding, HTCondor ID 248, status STATUS_SUBMITTED
-03/17/17 14:05:16 2411 seconds since last log event
-03/17/17 14:05:16 Pending DAG nodes:
-03/17/17 14:05:16   Node create_embedding, HTCondor ID 248, status STATUS_SUBMITTED
-03/17/17 14:15:19 3014 seconds since last log event
-03/17/17 14:15:19 Pending DAG nodes:
-03/17/17 14:15:19   Node create_embedding, HTCondor ID 248, status STATUS_SUBMITTED
-03/17/17 14:25:21 3616 seconds since last log event
-03/17/17 14:25:21 Pending DAG nodes:
-03/17/17 14:25:21   Node create_embedding, HTCondor ID 248, status STATUS_SUBMITTED
-03/17/17 14:35:24 4219 seconds since last log event
-03/17/17 14:35:24 Pending DAG nodes:
-03/17/17 14:35:24   Node create_embedding, HTCondor ID 248, status STATUS_SUBMITTED
-03/17/17 14:45:28 4823 seconds since last log event
-03/17/17 14:45:28 Pending DAG nodes:
-03/17/17 14:45:28   Node create_embedding, HTCondor ID 248, status STATUS_SUBMITTED
-03/17/17 14:55:30 5425 seconds since last log event
-03/17/17 14:55:30 Pending DAG nodes:
-03/17/17 14:55:30   Node create_embedding, HTCondor ID 248, status STATUS_SUBMITTED
-03/17/17 15:05:34 6029 seconds since last log event
-03/17/17 15:05:34 Pending DAG nodes:
-03/17/17 15:05:34   Node create_embedding, HTCondor ID 248, status STATUS_SUBMITTED
-03/17/17 15:15:37 6632 seconds since last log event
-03/17/17 15:15:37 Pending DAG nodes:
-03/17/17 15:15:37   Node create_embedding, HTCondor ID 248, status STATUS_SUBMITTED
-03/17/17 15:25:39 7234 seconds since last log event
-03/17/17 15:25:39 Pending DAG nodes:
-03/17/17 15:25:39   Node create_embedding, HTCondor ID 248, status STATUS_SUBMITTED
-03/17/17 15:35:42 7837 seconds since last log event
-03/17/17 15:35:42 Pending DAG nodes:
-03/17/17 15:35:42   Node create_embedding, HTCondor ID 248, status STATUS_SUBMITTED
-03/17/17 15:45:45 8440 seconds since last log event
-03/17/17 15:45:45 Pending DAG nodes:
-03/17/17 15:45:45   Node create_embedding, HTCondor ID 248, status STATUS_SUBMITTED
-03/17/17 15:55:48 9043 seconds since last log event
-03/17/17 15:55:48 Pending DAG nodes:
-03/17/17 15:55:48   Node create_embedding, HTCondor ID 248, status STATUS_SUBMITTED
-03/17/17 16:05:51 9646 seconds since last log event
-03/17/17 16:05:51 Pending DAG nodes:
-03/17/17 16:05:51   Node create_embedding, HTCondor ID 248, status STATUS_SUBMITTED
-03/17/17 16:15:53 10248 seconds since last log event
-03/17/17 16:15:53 Pending DAG nodes:
-03/17/17 16:15:53   Node create_embedding, HTCondor ID 248, status STATUS_SUBMITTED
-03/17/17 16:25:54 10849 seconds since last log event
-03/17/17 16:25:54 Pending DAG nodes:
-03/17/17 16:25:54   Node create_embedding, HTCondor ID 248, status STATUS_SUBMITTED
-03/17/17 16:35:57 11452 seconds since last log event
-03/17/17 16:35:57 Pending DAG nodes:
-03/17/17 16:35:57   Node create_embedding, HTCondor ID 248, status STATUS_SUBMITTED
-03/17/17 16:46:00 12055 seconds since last log event
-03/17/17 16:46:00 Pending DAG nodes:
-03/17/17 16:46:00   Node create_embedding, HTCondor ID 248, status STATUS_SUBMITTED
-03/17/17 16:56:01 12656 seconds since last log event
-03/17/17 16:56:01 Pending DAG nodes:
-03/17/17 16:56:01   Node create_embedding, HTCondor ID 248, status STATUS_SUBMITTED
-03/17/17 17:06:04 13259 seconds since last log event
-03/17/17 17:06:04 Pending DAG nodes:
-03/17/17 17:06:04   Node create_embedding, HTCondor ID 248, status STATUS_SUBMITTED
-03/17/17 17:16:07 13862 seconds since last log event
-03/17/17 17:16:07 Pending DAG nodes:
-03/17/17 17:16:07   Node create_embedding, HTCondor ID 248, status STATUS_SUBMITTED
-03/17/17 17:26:10 14465 seconds since last log event
-03/17/17 17:26:10 Pending DAG nodes:
-03/17/17 17:26:10   Node create_embedding, HTCondor ID 248, status STATUS_SUBMITTED
-03/17/17 17:36:13 15068 seconds since last log event
-03/17/17 17:36:13 Pending DAG nodes:
-03/17/17 17:36:13   Node create_embedding, HTCondor ID 248, status STATUS_SUBMITTED
-03/17/17 17:46:16 15671 seconds since last log event
-03/17/17 17:46:16 Pending DAG nodes:
-03/17/17 17:46:16   Node create_embedding, HTCondor ID 248, status STATUS_SUBMITTED
-03/17/17 17:56:18 16273 seconds since last log event
-03/17/17 17:56:18 Pending DAG nodes:
-03/17/17 17:56:18   Node create_embedding, HTCondor ID 248, status STATUS_SUBMITTED
-03/17/17 18:06:20 16875 seconds since last log event
-03/17/17 18:06:20 Pending DAG nodes:
-03/17/17 18:06:20   Node create_embedding, HTCondor ID 248, status STATUS_SUBMITTED
-03/17/17 18:16:22 17477 seconds since last log event
-03/17/17 18:16:22 Pending DAG nodes:
-03/17/17 18:16:22   Node create_embedding, HTCondor ID 248, status STATUS_SUBMITTED
-03/17/17 18:26:25 18080 seconds since last log event
-03/17/17 18:26:25 Pending DAG nodes:
-03/17/17 18:26:25   Node create_embedding, HTCondor ID 248, status STATUS_SUBMITTED
-03/17/17 18:36:28 18683 seconds since last log event
-03/17/17 18:36:28 Pending DAG nodes:
-03/17/17 18:36:28   Node create_embedding, HTCondor ID 248, status STATUS_SUBMITTED
-03/17/17 18:46:29 19284 seconds since last log event
-03/17/17 18:46:29 Pending DAG nodes:
-03/17/17 18:46:29   Node create_embedding, HTCondor ID 248, status STATUS_SUBMITTED
-03/17/17 18:56:32 19887 seconds since last log event
-03/17/17 18:56:32 Pending DAG nodes:
-03/17/17 18:56:32   Node create_embedding, HTCondor ID 248, status STATUS_SUBMITTED
-03/17/17 19:06:35 20490 seconds since last log event
-03/17/17 19:06:35 Pending DAG nodes:
-03/17/17 19:06:35   Node create_embedding, HTCondor ID 248, status STATUS_SUBMITTED
-03/17/17 19:16:37 21092 seconds since last log event
-03/17/17 19:16:37 Pending DAG nodes:
-03/17/17 19:16:37   Node create_embedding, HTCondor ID 248, status STATUS_SUBMITTED
-03/17/17 19:26:38 21693 seconds since last log event
-03/17/17 19:26:38 Pending DAG nodes:
-03/17/17 19:26:38   Node create_embedding, HTCondor ID 248, status STATUS_SUBMITTED
-03/17/17 19:36:41 22296 seconds since last log event
-03/17/17 19:36:41 Pending DAG nodes:
-03/17/17 19:36:41   Node create_embedding, HTCondor ID 248, status STATUS_SUBMITTED
-03/17/17 19:46:44 22899 seconds since last log event
-03/17/17 19:46:44 Pending DAG nodes:
-03/17/17 19:46:44   Node create_embedding, HTCondor ID 248, status STATUS_SUBMITTED
-03/17/17 19:56:46 23501 seconds since last log event
-03/17/17 19:56:46 Pending DAG nodes:
-03/17/17 19:56:46   Node create_embedding, HTCondor ID 248, status STATUS_SUBMITTED
-03/17/17 20:06:49 24104 seconds since last log event
-03/17/17 20:06:49 Pending DAG nodes:
-03/17/17 20:06:49   Node create_embedding, HTCondor ID 248, status STATUS_SUBMITTED
-03/17/17 20:16:49 24704 seconds since last log event
-03/17/17 20:16:49 Pending DAG nodes:
-03/17/17 20:16:49   Node create_embedding, HTCondor ID 248, status STATUS_SUBMITTED
-03/17/17 20:26:52 25307 seconds since last log event
-03/17/17 20:26:52 Pending DAG nodes:
-03/17/17 20:26:52   Node create_embedding, HTCondor ID 248, status STATUS_SUBMITTED
-03/17/17 20:36:55 25910 seconds since last log event
-03/17/17 20:36:55 Pending DAG nodes:
-03/17/17 20:36:55   Node create_embedding, HTCondor ID 248, status STATUS_SUBMITTED
-03/17/17 20:46:57 26512 seconds since last log event
-03/17/17 20:46:57 Pending DAG nodes:
-03/17/17 20:46:57   Node create_embedding, HTCondor ID 248, status STATUS_SUBMITTED
-03/17/17 20:57:00 27115 seconds since last log event
-03/17/17 20:57:00 Pending DAG nodes:
-03/17/17 20:57:00   Node create_embedding, HTCondor ID 248, status STATUS_SUBMITTED
-03/17/17 21:07:01 27716 seconds since last log event
-03/17/17 21:07:01 Pending DAG nodes:
-03/17/17 21:07:01   Node create_embedding, HTCondor ID 248, status STATUS_SUBMITTED
-03/17/17 21:17:03 28318 seconds since last log event
-03/17/17 21:17:03 Pending DAG nodes:
-03/17/17 21:17:03   Node create_embedding, HTCondor ID 248, status STATUS_SUBMITTED
-03/17/17 21:27:06 28921 seconds since last log event
-03/17/17 21:27:06 Pending DAG nodes:
-03/17/17 21:27:06   Node create_embedding, HTCondor ID 248, status STATUS_SUBMITTED
-03/17/17 21:37:08 29523 seconds since last log event
-03/17/17 21:37:08 Pending DAG nodes:
-03/17/17 21:37:08   Node create_embedding, HTCondor ID 248, status STATUS_SUBMITTED
-03/17/17 21:47:11 30126 seconds since last log event
-03/17/17 21:47:11 Pending DAG nodes:
-03/17/17 21:47:11   Node create_embedding, HTCondor ID 248, status STATUS_SUBMITTED
-03/17/17 21:57:13 30728 seconds since last log event
-03/17/17 21:57:13 Pending DAG nodes:
-03/17/17 21:57:13   Node create_embedding, HTCondor ID 248, status STATUS_SUBMITTED
-03/17/17 22:07:15 31330 seconds since last log event
-03/17/17 22:07:15 Pending DAG nodes:
-03/17/17 22:07:15   Node create_embedding, HTCondor ID 248, status STATUS_SUBMITTED
-03/17/17 22:17:18 31933 seconds since last log event
-03/17/17 22:17:18 Pending DAG nodes:
-03/17/17 22:17:18   Node create_embedding, HTCondor ID 248, status STATUS_SUBMITTED
-03/17/17 22:27:20 32535 seconds since last log event
-03/17/17 22:27:20 Pending DAG nodes:
-03/17/17 22:27:20   Node create_embedding, HTCondor ID 248, status STATUS_SUBMITTED
-03/17/17 22:37:23 33138 seconds since last log event
-03/17/17 22:37:23 Pending DAG nodes:
-03/17/17 22:37:23   Node create_embedding, HTCondor ID 248, status STATUS_SUBMITTED
-03/17/17 22:47:23 33738 seconds since last log event
-03/17/17 22:47:23 Pending DAG nodes:
-03/17/17 22:47:23   Node create_embedding, HTCondor ID 248, status STATUS_SUBMITTED
-03/17/17 22:57:26 34341 seconds since last log event
-03/17/17 22:57:26 Pending DAG nodes:
-03/17/17 22:57:26   Node create_embedding, HTCondor ID 248, status STATUS_SUBMITTED
-03/17/17 23:07:29 34944 seconds since last log event
-03/17/17 23:07:29 Pending DAG nodes:
-03/17/17 23:07:29   Node create_embedding, HTCondor ID 248, status STATUS_SUBMITTED
-03/17/17 23:17:31 35546 seconds since last log event
-03/17/17 23:17:31 Pending DAG nodes:
-03/17/17 23:17:31   Node create_embedding, HTCondor ID 248, status STATUS_SUBMITTED
-03/17/17 23:27:33 36148 seconds since last log event
-03/17/17 23:27:33 Pending DAG nodes:
-03/17/17 23:27:33   Node create_embedding, HTCondor ID 248, status STATUS_SUBMITTED
-03/17/17 23:37:33 36748 seconds since last log event
-03/17/17 23:37:34 Pending DAG nodes:
-03/17/17 23:37:34   Node create_embedding, HTCondor ID 248, status STATUS_SUBMITTED
-03/17/17 23:47:36 37351 seconds since last log event
-03/17/17 23:47:36 Pending DAG nodes:
-03/17/17 23:47:36   Node create_embedding, HTCondor ID 248, status STATUS_SUBMITTED
-03/17/17 23:57:39 37954 seconds since last log event
-03/17/17 23:57:39 Pending DAG nodes:
-03/17/17 23:57:39   Node create_embedding, HTCondor ID 248, status STATUS_SUBMITTED
-03/18/17 00:07:41 38556 seconds since last log event
-03/18/17 00:07:41 Pending DAG nodes:
-03/18/17 00:07:41   Node create_embedding, HTCondor ID 248, status STATUS_SUBMITTED
-03/18/17 00:17:44 39159 seconds since last log event
-03/18/17 00:17:44 Pending DAG nodes:
-03/18/17 00:17:44   Node create_embedding, HTCondor ID 248, status STATUS_SUBMITTED
-03/18/17 00:27:46 39761 seconds since last log event
-03/18/17 00:27:46 Pending DAG nodes:
-03/18/17 00:27:46   Node create_embedding, HTCondor ID 248, status STATUS_SUBMITTED
-03/18/17 00:37:48 40363 seconds since last log event
-03/18/17 00:37:48 Pending DAG nodes:
-03/18/17 00:37:48   Node create_embedding, HTCondor ID 248, status STATUS_SUBMITTED
-03/18/17 00:47:50 40965 seconds since last log event
-03/18/17 00:47:50 Pending DAG nodes:
-03/18/17 00:47:50   Node create_embedding, HTCondor ID 248, status STATUS_SUBMITTED
-03/18/17 00:57:53 41568 seconds since last log event
-03/18/17 00:57:53 Pending DAG nodes:
-03/18/17 00:57:53   Node create_embedding, HTCondor ID 248, status STATUS_SUBMITTED
-03/18/17 01:07:55 42170 seconds since last log event
-03/18/17 01:07:55 Pending DAG nodes:
-03/18/17 01:07:55   Node create_embedding, HTCondor ID 248, status STATUS_SUBMITTED
-03/18/17 01:17:59 42774 seconds since last log event
-03/18/17 01:17:59 Pending DAG nodes:
-03/18/17 01:17:59   Node create_embedding, HTCondor ID 248, status STATUS_SUBMITTED
-03/18/17 01:28:01 43376 seconds since last log event
-03/18/17 01:28:01 Pending DAG nodes:
-03/18/17 01:28:01   Node create_embedding, HTCondor ID 248, status STATUS_SUBMITTED
-03/18/17 01:38:04 43979 seconds since last log event
-03/18/17 01:38:04 Pending DAG nodes:
-03/18/17 01:38:04   Node create_embedding, HTCondor ID 248, status STATUS_SUBMITTED
-03/18/17 01:48:07 44582 seconds since last log event
-03/18/17 01:48:07 Pending DAG nodes:
-03/18/17 01:48:07   Node create_embedding, HTCondor ID 248, status STATUS_SUBMITTED
-03/18/17 01:58:10 45185 seconds since last log event
-03/18/17 01:58:10 Pending DAG nodes:
-03/18/17 01:58:10   Node create_embedding, HTCondor ID 248, status STATUS_SUBMITTED
-03/18/17 02:08:12 45787 seconds since last log event
-03/18/17 02:08:12 Pending DAG nodes:
-03/18/17 02:08:12   Node create_embedding, HTCondor ID 248, status STATUS_SUBMITTED
-03/18/17 02:18:15 46390 seconds since last log event
-03/18/17 02:18:15 Pending DAG nodes:
-03/18/17 02:18:15   Node create_embedding, HTCondor ID 248, status STATUS_SUBMITTED
-03/18/17 02:28:16 46991 seconds since last log event
-03/18/17 02:28:16 Pending DAG nodes:
-03/18/17 02:28:16   Node create_embedding, HTCondor ID 248, status STATUS_SUBMITTED
-03/18/17 02:38:19 47594 seconds since last log event
-03/18/17 02:38:19 Pending DAG nodes:
-03/18/17 02:38:19   Node create_embedding, HTCondor ID 248, status STATUS_SUBMITTED
-03/18/17 02:48:22 48197 seconds since last log event
-03/18/17 02:48:22 Pending DAG nodes:
-03/18/17 02:48:22   Node create_embedding, HTCondor ID 248, status STATUS_SUBMITTED
-03/18/17 02:58:24 48799 seconds since last log event
-03/18/17 02:58:24 Pending DAG nodes:
-03/18/17 02:58:24   Node create_embedding, HTCondor ID 248, status STATUS_SUBMITTED
-03/18/17 03:08:26 49401 seconds since last log event
-03/18/17 03:08:26 Pending DAG nodes:
-03/18/17 03:08:26   Node create_embedding, HTCondor ID 248, status STATUS_SUBMITTED
-03/18/17 03:18:29 50004 seconds since last log event
-03/18/17 03:18:29 Pending DAG nodes:
-03/18/17 03:18:29   Node create_embedding, HTCondor ID 248, status STATUS_SUBMITTED
-03/18/17 03:28:32 50607 seconds since last log event
-03/18/17 03:28:32 Pending DAG nodes:
-03/18/17 03:28:32   Node create_embedding, HTCondor ID 248, status STATUS_SUBMITTED
-03/18/17 03:38:35 51210 seconds since last log event
-03/18/17 03:38:35 Pending DAG nodes:
-03/18/17 03:38:35   Node create_embedding, HTCondor ID 248, status STATUS_SUBMITTED
-03/18/17 03:48:38 51813 seconds since last log event
-03/18/17 03:48:38 Pending DAG nodes:
-03/18/17 03:48:38   Node create_embedding, HTCondor ID 248, status STATUS_SUBMITTED
-03/18/17 03:58:40 52415 seconds since last log event
-03/18/17 03:58:40 Pending DAG nodes:
-03/18/17 03:58:40   Node create_embedding, HTCondor ID 248, status STATUS_SUBMITTED
-03/18/17 04:08:43 53018 seconds since last log event
-03/18/17 04:08:43 Pending DAG nodes:
-03/18/17 04:08:43   Node create_embedding, HTCondor ID 248, status STATUS_SUBMITTED
-03/18/17 04:18:46 53621 seconds since last log event
-03/18/17 04:18:46 Pending DAG nodes:
-03/18/17 04:18:46   Node create_embedding, HTCondor ID 248, status STATUS_SUBMITTED
-03/18/17 04:28:48 54223 seconds since last log event
-03/18/17 04:28:48 Pending DAG nodes:
-03/18/17 04:28:48   Node create_embedding, HTCondor ID 248, status STATUS_SUBMITTED
-03/18/17 04:38:51 54826 seconds since last log event
-03/18/17 04:38:51 Pending DAG nodes:
-03/18/17 04:38:51   Node create_embedding, HTCondor ID 248, status STATUS_SUBMITTED
-03/18/17 04:48:54 55429 seconds since last log event
-03/18/17 04:48:54 Pending DAG nodes:
-03/18/17 04:48:54   Node create_embedding, HTCondor ID 248, status STATUS_SUBMITTED
-03/18/17 04:58:55 56030 seconds since last log event
-03/18/17 04:58:55 Pending DAG nodes:
-03/18/17 04:58:55   Node create_embedding, HTCondor ID 248, status STATUS_SUBMITTED
-03/18/17 05:08:58 56633 seconds since last log event
-03/18/17 05:08:58 Pending DAG nodes:
-03/18/17 05:08:58   Node create_embedding, HTCondor ID 248, status STATUS_SUBMITTED
-03/18/17 05:19:01 57236 seconds since last log event
-03/18/17 05:19:01 Pending DAG nodes:
-03/18/17 05:19:01   Node create_embedding, HTCondor ID 248, status STATUS_SUBMITTED
-03/18/17 05:29:04 57839 seconds since last log event
-03/18/17 05:29:04 Pending DAG nodes:
-03/18/17 05:29:04   Node create_embedding, HTCondor ID 248, status STATUS_SUBMITTED
-03/18/17 05:39:06 58441 seconds since last log event
-03/18/17 05:39:06 Pending DAG nodes:
-03/18/17 05:39:06   Node create_embedding, HTCondor ID 248, status STATUS_SUBMITTED
-03/18/17 05:49:09 59044 seconds since last log event
-03/18/17 05:49:09 Pending DAG nodes:
-03/18/17 05:49:09   Node create_embedding, HTCondor ID 248, status STATUS_SUBMITTED
-03/18/17 05:59:11 59646 seconds since last log event
-03/18/17 05:59:11 Pending DAG nodes:
-03/18/17 05:59:11   Node create_embedding, HTCondor ID 248, status STATUS_SUBMITTED
-03/18/17 06:09:13 60248 seconds since last log event
-03/18/17 06:09:13 Pending DAG nodes:
-03/18/17 06:09:13   Node create_embedding, HTCondor ID 248, status STATUS_SUBMITTED
-03/18/17 06:19:13 60848 seconds since last log event
-03/18/17 06:19:13 Pending DAG nodes:
-03/18/17 06:19:13   Node create_embedding, HTCondor ID 248, status STATUS_SUBMITTED
-03/18/17 06:29:16 61451 seconds since last log event
-03/18/17 06:29:16 Pending DAG nodes:
-03/18/17 06:29:16   Node create_embedding, HTCondor ID 248, status STATUS_SUBMITTED
-03/18/17 06:39:18 62053 seconds since last log event
-03/18/17 06:39:18 Pending DAG nodes:
-03/18/17 06:39:18   Node create_embedding, HTCondor ID 248, status STATUS_SUBMITTED
-03/18/17 06:49:22 62657 seconds since last log event
-03/18/17 06:49:22 Pending DAG nodes:
-03/18/17 06:49:22   Node create_embedding, HTCondor ID 248, status STATUS_SUBMITTED
-03/18/17 06:59:24 63259 seconds since last log event
-03/18/17 06:59:24 Pending DAG nodes:
-03/18/17 06:59:24   Node create_embedding, HTCondor ID 248, status STATUS_SUBMITTED
-03/18/17 07:09:27 63862 seconds since last log event
-03/18/17 07:09:27 Pending DAG nodes:
-03/18/17 07:09:27   Node create_embedding, HTCondor ID 248, status STATUS_SUBMITTED
-03/18/17 07:19:29 64464 seconds since last log event
-03/18/17 07:19:29 Pending DAG nodes:
-03/18/17 07:19:29   Node create_embedding, HTCondor ID 248, status STATUS_SUBMITTED
-03/18/17 07:29:32 65067 seconds since last log event
-03/18/17 07:29:32 Pending DAG nodes:
-03/18/17 07:29:32   Node create_embedding, HTCondor ID 248, status STATUS_SUBMITTED
-03/18/17 07:39:35 65670 seconds since last log event
-03/18/17 07:39:35 Pending DAG nodes:
-03/18/17 07:39:35   Node create_embedding, HTCondor ID 248, status STATUS_SUBMITTED
-03/18/17 07:49:38 66273 seconds since last log event
-03/18/17 07:49:38 Pending DAG nodes:
-03/18/17 07:49:38   Node create_embedding, HTCondor ID 248, status STATUS_SUBMITTED
-03/18/17 07:59:40 66875 seconds since last log event
-03/18/17 07:59:40 Pending DAG nodes:
-03/18/17 07:59:40   Node create_embedding, HTCondor ID 248, status STATUS_SUBMITTED
-03/18/17 08:09:42 67477 seconds since last log event
-03/18/17 08:09:42 Pending DAG nodes:
-03/18/17 08:09:42   Node create_embedding, HTCondor ID 248, status STATUS_SUBMITTED
-03/18/17 08:19:45 68080 seconds since last log event
-03/18/17 08:19:45 Pending DAG nodes:
-03/18/17 08:19:45   Node create_embedding, HTCondor ID 248, status STATUS_SUBMITTED
-03/18/17 08:29:47 68682 seconds since last log event
-03/18/17 08:29:47 Pending DAG nodes:
-03/18/17 08:29:47   Node create_embedding, HTCondor ID 248, status STATUS_SUBMITTED
-03/18/17 08:39:49 69284 seconds since last log event
-03/18/17 08:39:49 Pending DAG nodes:
-03/18/17 08:39:49   Node create_embedding, HTCondor ID 248, status STATUS_SUBMITTED
-03/18/17 08:49:51 69886 seconds since last log event
-03/18/17 08:49:51 Pending DAG nodes:
-03/18/17 08:49:51   Node create_embedding, HTCondor ID 248, status STATUS_SUBMITTED
-03/18/17 08:59:53 70488 seconds since last log event
-03/18/17 08:59:53 Pending DAG nodes:
-03/18/17 08:59:53   Node create_embedding, HTCondor ID 248, status STATUS_SUBMITTED
-03/18/17 09:09:56 71091 seconds since last log event
-03/18/17 09:09:56 Pending DAG nodes:
-03/18/17 09:09:56   Node create_embedding, HTCondor ID 248, status STATUS_SUBMITTED
-03/18/17 09:19:58 71693 seconds since last log event
-03/18/17 09:19:58 Pending DAG nodes:
-03/18/17 09:19:58   Node create_embedding, HTCondor ID 248, status STATUS_SUBMITTED
-03/18/17 09:30:01 72296 seconds since last log event
-03/18/17 09:30:01 Pending DAG nodes:
-03/18/17 09:30:01   Node create_embedding, HTCondor ID 248, status STATUS_SUBMITTED
-03/18/17 09:40:04 72899 seconds since last log event
-03/18/17 09:40:04 Pending DAG nodes:
-03/18/17 09:40:04   Node create_embedding, HTCondor ID 248, status STATUS_SUBMITTED
-03/18/17 09:50:06 73501 seconds since last log event
-03/18/17 09:50:06 Pending DAG nodes:
-03/18/17 09:50:06   Node create_embedding, HTCondor ID 248, status STATUS_SUBMITTED
-03/18/17 10:00:09 74104 seconds since last log event
-03/18/17 10:00:09 Pending DAG nodes:
-03/18/17 10:00:09   Node create_embedding, HTCondor ID 248, status STATUS_SUBMITTED
-03/18/17 10:10:11 74706 seconds since last log event
-03/18/17 10:10:11 Pending DAG nodes:
-03/18/17 10:10:11   Node create_embedding, HTCondor ID 248, status STATUS_SUBMITTED
-03/18/17 10:20:14 75309 seconds since last log event
-03/18/17 10:20:14 Pending DAG nodes:
-03/18/17 10:20:14   Node create_embedding, HTCondor ID 248, status STATUS_SUBMITTED
-03/18/17 10:30:16 75911 seconds since last log event
-03/18/17 10:30:16 Pending DAG nodes:
-03/18/17 10:30:16   Node create_embedding, HTCondor ID 248, status STATUS_SUBMITTED
-03/18/17 10:40:19 76514 seconds since last log event
-03/18/17 10:40:19 Pending DAG nodes:
-03/18/17 10:40:19   Node create_embedding, HTCondor ID 248, status STATUS_SUBMITTED
-03/18/17 10:50:22 77117 seconds since last log event
-03/18/17 10:50:22 Pending DAG nodes:
-03/18/17 10:50:22   Node create_embedding, HTCondor ID 248, status STATUS_SUBMITTED
-03/18/17 11:00:25 77720 seconds since last log event
-03/18/17 11:00:25 Pending DAG nodes:
-03/18/17 11:00:25   Node create_embedding, HTCondor ID 248, status STATUS_SUBMITTED
-03/18/17 11:10:28 78323 seconds since last log event
-03/18/17 11:10:28 Pending DAG nodes:
-03/18/17 11:10:28   Node create_embedding, HTCondor ID 248, status STATUS_SUBMITTED
-03/18/17 11:20:30 78925 seconds since last log event
-03/18/17 11:20:30 Pending DAG nodes:
-03/18/17 11:20:30   Node create_embedding, HTCondor ID 248, status STATUS_SUBMITTED
-03/18/17 11:30:33 79528 seconds since last log event
-03/18/17 11:30:33 Pending DAG nodes:
-03/18/17 11:30:33   Node create_embedding, HTCondor ID 248, status STATUS_SUBMITTED
-03/18/17 11:40:36 80131 seconds since last log event
-03/18/17 11:40:36 Pending DAG nodes:
-03/18/17 11:40:36   Node create_embedding, HTCondor ID 248, status STATUS_SUBMITTED
-03/18/17 11:50:38 80733 seconds since last log event
-03/18/17 11:50:38 Pending DAG nodes:
-03/18/17 11:50:38   Node create_embedding, HTCondor ID 248, status STATUS_SUBMITTED
-03/18/17 12:00:41 81336 seconds since last log event
-03/18/17 12:00:41 Pending DAG nodes:
-03/18/17 12:00:41   Node create_embedding, HTCondor ID 248, status STATUS_SUBMITTED
-03/18/17 12:10:44 81939 seconds since last log event
-03/18/17 12:10:44 Pending DAG nodes:
-03/18/17 12:10:44   Node create_embedding, HTCondor ID 248, status STATUS_SUBMITTED
-03/18/17 12:20:47 82542 seconds since last log event
-03/18/17 12:20:47 Pending DAG nodes:
-03/18/17 12:20:47   Node create_embedding, HTCondor ID 248, status STATUS_SUBMITTED
-03/18/17 12:30:49 83144 seconds since last log event
-03/18/17 12:30:49 Pending DAG nodes:
-03/18/17 12:30:49   Node create_embedding, HTCondor ID 248, status STATUS_SUBMITTED
-03/18/17 12:40:53 83748 seconds since last log event
-03/18/17 12:40:53 Pending DAG nodes:
-03/18/17 12:40:53   Node create_embedding, HTCondor ID 248, status STATUS_SUBMITTED
-03/18/17 12:50:55 84350 seconds since last log event
-03/18/17 12:50:55 Pending DAG nodes:
-03/18/17 12:50:55   Node create_embedding, HTCondor ID 248, status STATUS_SUBMITTED
-03/18/17 13:00:57 84952 seconds since last log event
-03/18/17 13:00:57 Pending DAG nodes:
-03/18/17 13:00:57   Node create_embedding, HTCondor ID 248, status STATUS_SUBMITTED
-03/18/17 13:11:00 85555 seconds since last log event
-03/18/17 13:11:00 Pending DAG nodes:
-03/18/17 13:11:00   Node create_embedding, HTCondor ID 248, status STATUS_SUBMITTED
-03/18/17 13:21:02 86157 seconds since last log event
-03/18/17 13:21:02 Pending DAG nodes:
-03/18/17 13:21:02   Node create_embedding, HTCondor ID 248, status STATUS_SUBMITTED
-03/18/17 13:31:05 86760 seconds since last log event
-03/18/17 13:31:05 Pending DAG nodes:
-03/18/17 13:31:05   Node create_embedding, HTCondor ID 248, status STATUS_SUBMITTED
-03/18/17 13:41:08 87363 seconds since last log event
-03/18/17 13:41:08 Pending DAG nodes:
-03/18/17 13:41:08   Node create_embedding, HTCondor ID 248, status STATUS_SUBMITTED
-03/18/17 13:51:11 87966 seconds since last log event
-03/18/17 13:51:11 Pending DAG nodes:
-03/18/17 13:51:11   Node create_embedding, HTCondor ID 248, status STATUS_SUBMITTED
-03/18/17 14:01:14 88569 seconds since last log event
-03/18/17 14:01:14 Pending DAG nodes:
-03/18/17 14:01:14   Node create_embedding, HTCondor ID 248, status STATUS_SUBMITTED
-03/18/17 14:11:16 89171 seconds since last log event
-03/18/17 14:11:16 Pending DAG nodes:
-03/18/17 14:11:16   Node create_embedding, HTCondor ID 248, status STATUS_SUBMITTED
-03/18/17 14:21:19 89774 seconds since last log event
-03/18/17 14:21:19 Pending DAG nodes:
-03/18/17 14:21:19   Node create_embedding, HTCondor ID 248, status STATUS_SUBMITTED
-03/18/17 14:31:22 90377 seconds since last log event
-03/18/17 14:31:22 Pending DAG nodes:
-03/18/17 14:31:22   Node create_embedding, HTCondor ID 248, status STATUS_SUBMITTED
-03/18/17 14:41:24 90979 seconds since last log event
-03/18/17 14:41:24 Pending DAG nodes:
-03/18/17 14:41:24   Node create_embedding, HTCondor ID 248, status STATUS_SUBMITTED
-03/18/17 14:51:25 91580 seconds since last log event
-03/18/17 14:51:25 Pending DAG nodes:
-03/18/17 14:51:25   Node create_embedding, HTCondor ID 248, status STATUS_SUBMITTED
-03/18/17 15:01:27 92182 seconds since last log event
-03/18/17 15:01:27 Pending DAG nodes:
-03/18/17 15:01:27   Node create_embedding, HTCondor ID 248, status STATUS_SUBMITTED
-03/18/17 15:11:30 92785 seconds since last log event
-03/18/17 15:11:30 Pending DAG nodes:
-03/18/17 15:11:30   Node create_embedding, HTCondor ID 248, status STATUS_SUBMITTED
-03/18/17 15:21:32 93387 seconds since last log event
-03/18/17 15:21:32 Pending DAG nodes:
-03/18/17 15:21:32   Node create_embedding, HTCondor ID 248, status STATUS_SUBMITTED
-03/18/17 15:31:34 93989 seconds since last log event
-03/18/17 15:31:34 Pending DAG nodes:
-03/18/17 15:31:34   Node create_embedding, HTCondor ID 248, status STATUS_SUBMITTED
-03/18/17 15:41:37 94592 seconds since last log event
-03/18/17 15:41:37 Pending DAG nodes:
-03/18/17 15:41:37   Node create_embedding, HTCondor ID 248, status STATUS_SUBMITTED
-03/18/17 15:51:39 95194 seconds since last log event
-03/18/17 15:51:39 Pending DAG nodes:
-03/18/17 15:51:39   Node create_embedding, HTCondor ID 248, status STATUS_SUBMITTED
-03/18/17 16:01:43 95798 seconds since last log event
-03/18/17 16:01:43 Pending DAG nodes:
-03/18/17 16:01:43   Node create_embedding, HTCondor ID 248, status STATUS_SUBMITTED
-03/18/17 16:11:45 96400 seconds since last log event
-03/18/17 16:11:45 Pending DAG nodes:
-03/18/17 16:11:45   Node create_embedding, HTCondor ID 248, status STATUS_SUBMITTED
-03/18/17 16:21:48 97003 seconds since last log event
-03/18/17 16:21:48 Pending DAG nodes:
-03/18/17 16:21:48   Node create_embedding, HTCondor ID 248, status STATUS_SUBMITTED
-03/18/17 16:31:50 97605 seconds since last log event
-03/18/17 16:31:50 Pending DAG nodes:
-03/18/17 16:31:50   Node create_embedding, HTCondor ID 248, status STATUS_SUBMITTED
-03/18/17 16:41:52 98207 seconds since last log event
-03/18/17 16:41:52 Pending DAG nodes:
-03/18/17 16:41:52   Node create_embedding, HTCondor ID 248, status STATUS_SUBMITTED
-03/18/17 16:51:54 98809 seconds since last log event
-03/18/17 16:51:54 Pending DAG nodes:
-03/18/17 16:51:54   Node create_embedding, HTCondor ID 248, status STATUS_SUBMITTED
-03/18/17 17:01:56 99411 seconds since last log event
-03/18/17 17:01:56 Pending DAG nodes:
-03/18/17 17:01:56   Node create_embedding, HTCondor ID 248, status STATUS_SUBMITTED
-03/18/17 17:11:59 100014 seconds since last log event
-03/18/17 17:11:59 Pending DAG nodes:
-03/18/17 17:11:59   Node create_embedding, HTCondor ID 248, status STATUS_SUBMITTED
-03/18/17 17:22:01 100616 seconds since last log event
-03/18/17 17:22:01 Pending DAG nodes:
-03/18/17 17:22:01   Node create_embedding, HTCondor ID 248, status STATUS_SUBMITTED
-03/18/17 17:32:03 101218 seconds since last log event
-03/18/17 17:32:03 Pending DAG nodes:
-03/18/17 17:32:03   Node create_embedding, HTCondor ID 248, status STATUS_SUBMITTED
-03/18/17 17:42:06 101821 seconds since last log event
-03/18/17 17:42:06 Pending DAG nodes:
-03/18/17 17:42:06   Node create_embedding, HTCondor ID 248, status STATUS_SUBMITTED
-03/18/17 17:52:09 102424 seconds since last log event
-03/18/17 17:52:09 Pending DAG nodes:
-03/18/17 17:52:09   Node create_embedding, HTCondor ID 248, status STATUS_SUBMITTED
-03/18/17 18:02:12 103027 seconds since last log event
-03/18/17 18:02:12 Pending DAG nodes:
-03/18/17 18:02:12   Node create_embedding, HTCondor ID 248, status STATUS_SUBMITTED
-03/18/17 18:12:15 103630 seconds since last log event
-03/18/17 18:12:15 Pending DAG nodes:
-03/18/17 18:12:15   Node create_embedding, HTCondor ID 248, status STATUS_SUBMITTED
-03/18/17 18:22:15 104230 seconds since last log event
-03/18/17 18:22:15 Pending DAG nodes:
-03/18/17 18:22:15   Node create_embedding, HTCondor ID 248, status STATUS_SUBMITTED
-03/18/17 18:32:17 104832 seconds since last log event
-03/18/17 18:32:17 Pending DAG nodes:
-03/18/17 18:32:17   Node create_embedding, HTCondor ID 248, status STATUS_SUBMITTED
-03/18/17 18:42:20 105435 seconds since last log event
-03/18/17 18:42:20 Pending DAG nodes:
-03/18/17 18:42:20   Node create_embedding, HTCondor ID 248, status STATUS_SUBMITTED
-03/18/17 18:52:22 106037 seconds since last log event
-03/18/17 18:52:22 Pending DAG nodes:
-03/18/17 18:52:22   Node create_embedding, HTCondor ID 248, status STATUS_SUBMITTED
-03/18/17 19:02:25 106640 seconds since last log event
-03/18/17 19:02:25 Pending DAG nodes:
-03/18/17 19:02:25   Node create_embedding, HTCondor ID 248, status STATUS_SUBMITTED
-03/18/17 19:12:27 107242 seconds since last log event
-03/18/17 19:12:27 Pending DAG nodes:
-03/18/17 19:12:27   Node create_embedding, HTCondor ID 248, status STATUS_SUBMITTED
-03/18/17 19:22:30 107845 seconds since last log event
-03/18/17 19:22:30 Pending DAG nodes:
-03/18/17 19:22:30   Node create_embedding, HTCondor ID 248, status STATUS_SUBMITTED
-03/18/17 19:32:33 108448 seconds since last log event
-03/18/17 19:32:33 Pending DAG nodes:
-03/18/17 19:32:33   Node create_embedding, HTCondor ID 248, status STATUS_SUBMITTED
-03/18/17 19:42:36 109051 seconds since last log event
-03/18/17 19:42:36 Pending DAG nodes:
-03/18/17 19:42:36   Node create_embedding, HTCondor ID 248, status STATUS_SUBMITTED
-03/18/17 19:52:38 109653 seconds since last log event
-03/18/17 19:52:38 Pending DAG nodes:
-03/18/17 19:52:38   Node create_embedding, HTCondor ID 248, status STATUS_SUBMITTED
-03/18/17 20:02:41 110256 seconds since last log event
-03/18/17 20:02:41 Pending DAG nodes:
-03/18/17 20:02:41   Node create_embedding, HTCondor ID 248, status STATUS_SUBMITTED
-03/18/17 20:12:43 110858 seconds since last log event
-03/18/17 20:12:43 Pending DAG nodes:
-03/18/17 20:12:43   Node create_embedding, HTCondor ID 248, status STATUS_SUBMITTED
-03/18/17 20:22:46 111461 seconds since last log event
-03/18/17 20:22:46 Pending DAG nodes:
-03/18/17 20:22:46   Node create_embedding, HTCondor ID 248, status STATUS_SUBMITTED
-03/18/17 20:32:48 112063 seconds since last log event
-03/18/17 20:32:48 Pending DAG nodes:
-03/18/17 20:32:48   Node create_embedding, HTCondor ID 248, status STATUS_SUBMITTED
-03/18/17 20:42:50 112665 seconds since last log event
-03/18/17 20:42:50 Pending DAG nodes:
-03/18/17 20:42:50   Node create_embedding, HTCondor ID 248, status STATUS_SUBMITTED
-03/18/17 20:52:52 113267 seconds since last log event
-03/18/17 20:52:52 Pending DAG nodes:
-03/18/17 20:52:52   Node create_embedding, HTCondor ID 248, status STATUS_SUBMITTED
-03/18/17 21:02:54 113869 seconds since last log event
-03/18/17 21:02:54 Pending DAG nodes:
-03/18/17 21:02:54   Node create_embedding, HTCondor ID 248, status STATUS_SUBMITTED
-03/18/17 21:12:56 114471 seconds since last log event
-03/18/17 21:12:56 Pending DAG nodes:
-03/18/17 21:12:56   Node create_embedding, HTCondor ID 248, status STATUS_SUBMITTED
-03/18/17 21:22:59 115074 seconds since last log event
-03/18/17 21:22:59 Pending DAG nodes:
-03/18/17 21:22:59   Node create_embedding, HTCondor ID 248, status STATUS_SUBMITTED
-03/18/17 21:33:01 115676 seconds since last log event
-03/18/17 21:33:01 Pending DAG nodes:
-03/18/17 21:33:01   Node create_embedding, HTCondor ID 248, status STATUS_SUBMITTED
-03/18/17 21:43:03 116278 seconds since last log event
-03/18/17 21:43:03 Pending DAG nodes:
-03/18/17 21:43:03   Node create_embedding, HTCondor ID 248, status STATUS_SUBMITTED
-03/18/17 21:53:06 116881 seconds since last log event
-03/18/17 21:53:06 Pending DAG nodes:
-03/18/17 21:53:06   Node create_embedding, HTCondor ID 248, status STATUS_SUBMITTED
-03/18/17 22:03:09 117484 seconds since last log event
-03/18/17 22:03:09 Pending DAG nodes:
-03/18/17 22:03:09   Node create_embedding, HTCondor ID 248, status STATUS_SUBMITTED
-03/18/17 22:13:11 118086 seconds since last log event
-03/18/17 22:13:11 Pending DAG nodes:
-03/18/17 22:13:11   Node create_embedding, HTCondor ID 248, status STATUS_SUBMITTED
-03/18/17 22:23:14 118689 seconds since last log event
-03/18/17 22:23:14 Pending DAG nodes:
-03/18/17 22:23:14   Node create_embedding, HTCondor ID 248, status STATUS_SUBMITTED
-03/18/17 22:33:17 119292 seconds since last log event
-03/18/17 22:33:17 Pending DAG nodes:
-03/18/17 22:33:17   Node create_embedding, HTCondor ID 248, status STATUS_SUBMITTED
-03/18/17 22:43:20 119895 seconds since last log event
-03/18/17 22:43:20 Pending DAG nodes:
-03/18/17 22:43:20   Node create_embedding, HTCondor ID 248, status STATUS_SUBMITTED
-03/18/17 22:53:23 120498 seconds since last log event
-03/18/17 22:53:23 Pending DAG nodes:
-03/18/17 22:53:23   Node create_embedding, HTCondor ID 248, status STATUS_SUBMITTED
-03/18/17 23:03:25 121100 seconds since last log event
-03/18/17 23:03:25 Pending DAG nodes:
-03/18/17 23:03:25   Node create_embedding, HTCondor ID 248, status STATUS_SUBMITTED
-03/18/17 23:13:28 121703 seconds since last log event
-03/18/17 23:13:28 Pending DAG nodes:
-03/18/17 23:13:28   Node create_embedding, HTCondor ID 248, status STATUS_SUBMITTED
-03/18/17 23:23:30 122305 seconds since last log event
-03/18/17 23:23:30 Pending DAG nodes:
-03/18/17 23:23:30   Node create_embedding, HTCondor ID 248, status STATUS_SUBMITTED
-03/18/17 23:33:33 122908 seconds since last log event
-03/18/17 23:33:33 Pending DAG nodes:
-03/18/17 23:33:33   Node create_embedding, HTCondor ID 248, status STATUS_SUBMITTED
-03/18/17 23:43:35 123510 seconds since last log event
-03/18/17 23:43:35 Pending DAG nodes:
-03/18/17 23:43:35   Node create_embedding, HTCondor ID 248, status STATUS_SUBMITTED
-03/18/17 23:53:38 124113 seconds since last log event
-03/18/17 23:53:38 Pending DAG nodes:
-03/18/17 23:53:38   Node create_embedding, HTCondor ID 248, status STATUS_SUBMITTED
-03/19/17 00:03:41 124716 seconds since last log event
-03/19/17 00:03:41 Pending DAG nodes:
-03/19/17 00:03:41   Node create_embedding, HTCondor ID 248, status STATUS_SUBMITTED
-03/19/17 00:13:42 125317 seconds since last log event
-03/19/17 00:13:42 Pending DAG nodes:
-03/19/17 00:13:42   Node create_embedding, HTCondor ID 248, status STATUS_SUBMITTED
-03/19/17 00:23:45 125920 seconds since last log event
-03/19/17 00:23:45 Pending DAG nodes:
-03/19/17 00:23:45   Node create_embedding, HTCondor ID 248, status STATUS_SUBMITTED
-03/19/17 00:33:48 126523 seconds since last log event
-03/19/17 00:33:48 Pending DAG nodes:
-03/19/17 00:33:48   Node create_embedding, HTCondor ID 248, status STATUS_SUBMITTED
-03/19/17 00:43:50 127125 seconds since last log event
-03/19/17 00:43:50 Pending DAG nodes:
-03/19/17 00:43:50   Node create_embedding, HTCondor ID 248, status STATUS_SUBMITTED
-03/19/17 00:53:52 127727 seconds since last log event
-03/19/17 00:53:52 Pending DAG nodes:
-03/19/17 00:53:52   Node create_embedding, HTCondor ID 248, status STATUS_SUBMITTED
-03/19/17 01:03:55 128330 seconds since last log event
-03/19/17 01:03:55 Pending DAG nodes:
-03/19/17 01:03:55   Node create_embedding, HTCondor ID 248, status STATUS_SUBMITTED
-03/19/17 01:13:58 128933 seconds since last log event
-03/19/17 01:13:58 Pending DAG nodes:
-03/19/17 01:13:58   Node create_embedding, HTCondor ID 248, status STATUS_SUBMITTED
-03/19/17 01:24:00 129535 seconds since last log event
-03/19/17 01:24:00 Pending DAG nodes:
-03/19/17 01:24:00   Node create_embedding, HTCondor ID 248, status STATUS_SUBMITTED
-03/19/17 01:34:02 130137 seconds since last log event
-03/19/17 01:34:02 Pending DAG nodes:
-03/19/17 01:34:02   Node create_embedding, HTCondor ID 248, status STATUS_SUBMITTED
-03/19/17 01:44:03 130738 seconds since last log event
-03/19/17 01:44:03 Pending DAG nodes:
-03/19/17 01:44:03   Node create_embedding, HTCondor ID 248, status STATUS_SUBMITTED
-03/19/17 01:54:06 131341 seconds since last log event
-03/19/17 01:54:06 Pending DAG nodes:
-03/19/17 01:54:06   Node create_embedding, HTCondor ID 248, status STATUS_SUBMITTED
-03/19/17 02:04:06 131941 seconds since last log event
-03/19/17 02:04:06 Pending DAG nodes:
-03/19/17 02:04:06   Node create_embedding, HTCondor ID 248, status STATUS_SUBMITTED
-03/19/17 02:14:09 132544 seconds since last log event
-03/19/17 02:14:09 Pending DAG nodes:
-03/19/17 02:14:09   Node create_embedding, HTCondor ID 248, status STATUS_SUBMITTED
-03/19/17 02:24:12 133147 seconds since last log event
-03/19/17 02:24:12 Pending DAG nodes:
-03/19/17 02:24:12   Node create_embedding, HTCondor ID 248, status STATUS_SUBMITTED
-03/19/17 02:34:15 133750 seconds since last log event
-03/19/17 02:34:15 Pending DAG nodes:
-03/19/17 02:34:15   Node create_embedding, HTCondor ID 248, status STATUS_SUBMITTED
-03/19/17 02:44:17 134352 seconds since last log event
-03/19/17 02:44:17 Pending DAG nodes:
-03/19/17 02:44:17   Node create_embedding, HTCondor ID 248, status STATUS_SUBMITTED
-03/19/17 02:54:20 134955 seconds since last log event
-03/19/17 02:54:20 Pending DAG nodes:
-03/19/17 02:54:20   Node create_embedding, HTCondor ID 248, status STATUS_SUBMITTED
-03/19/17 03:04:23 135558 seconds since last log event
-03/19/17 03:04:23 Pending DAG nodes:
-03/19/17 03:04:23   Node create_embedding, HTCondor ID 248, status STATUS_SUBMITTED
-03/19/17 03:14:26 136161 seconds since last log event
-03/19/17 03:14:26 Pending DAG nodes:
-03/19/17 03:14:26   Node create_embedding, HTCondor ID 248, status STATUS_SUBMITTED
-03/19/17 03:24:29 136764 seconds since last log event
-03/19/17 03:24:29 Pending DAG nodes:
-03/19/17 03:24:29   Node create_embedding, HTCondor ID 248, status STATUS_SUBMITTED
-03/19/17 03:34:32 137367 seconds since last log event
-03/19/17 03:34:32 Pending DAG nodes:
-03/19/17 03:34:32   Node create_embedding, HTCondor ID 248, status STATUS_SUBMITTED
-03/19/17 03:44:34 137969 seconds since last log event
-03/19/17 03:44:34 Pending DAG nodes:
-03/19/17 03:44:34   Node create_embedding, HTCondor ID 248, status STATUS_SUBMITTED
-03/19/17 03:54:36 138571 seconds since last log event
-03/19/17 03:54:36 Pending DAG nodes:
-03/19/17 03:54:36   Node create_embedding, HTCondor ID 248, status STATUS_SUBMITTED
-03/19/17 04:04:39 139174 seconds since last log event
-03/19/17 04:04:39 Pending DAG nodes:
-03/19/17 04:04:39   Node create_embedding, HTCondor ID 248, status STATUS_SUBMITTED
-03/19/17 04:14:42 139777 seconds since last log event
-03/19/17 04:14:42 Pending DAG nodes:
-03/19/17 04:14:42   Node create_embedding, HTCondor ID 248, status STATUS_SUBMITTED
-03/19/17 04:24:45 140380 seconds since last log event
-03/19/17 04:24:45 Pending DAG nodes:
-03/19/17 04:24:45   Node create_embedding, HTCondor ID 248, status STATUS_SUBMITTED
-03/19/17 04:34:48 140983 seconds since last log event
-03/19/17 04:34:48 Pending DAG nodes:
-03/19/17 04:34:48   Node create_embedding, HTCondor ID 248, status STATUS_SUBMITTED
-03/19/17 04:44:51 141586 seconds since last log event
-03/19/17 04:44:51 Pending DAG nodes:
-03/19/17 04:44:51   Node create_embedding, HTCondor ID 248, status STATUS_SUBMITTED
-03/19/17 04:54:54 142189 seconds since last log event
-03/19/17 04:54:54 Pending DAG nodes:
-03/19/17 04:54:54   Node create_embedding, HTCondor ID 248, status STATUS_SUBMITTED
-03/19/17 05:04:56 142791 seconds since last log event
-03/19/17 05:04:56 Pending DAG nodes:
-03/19/17 05:04:56   Node create_embedding, HTCondor ID 248, status STATUS_SUBMITTED
-03/19/17 05:15:00 143395 seconds since last log event
-03/19/17 05:15:00 Pending DAG nodes:
-03/19/17 05:15:00   Node create_embedding, HTCondor ID 248, status STATUS_SUBMITTED
-03/19/17 05:25:03 143998 seconds since last log event
-03/19/17 05:25:03 Pending DAG nodes:
-03/19/17 05:25:03   Node create_embedding, HTCondor ID 248, status STATUS_SUBMITTED
-03/19/17 05:35:06 144601 seconds since last log event
-03/19/17 05:35:06 Pending DAG nodes:
-03/19/17 05:35:06   Node create_embedding, HTCondor ID 248, status STATUS_SUBMITTED
-03/19/17 05:45:08 145203 seconds since last log event
-03/19/17 05:45:08 Pending DAG nodes:
-03/19/17 05:45:08   Node create_embedding, HTCondor ID 248, status STATUS_SUBMITTED
-03/19/17 05:55:11 145806 seconds since last log event
-03/19/17 05:55:11 Pending DAG nodes:
-03/19/17 05:55:11   Node create_embedding, HTCondor ID 248, status STATUS_SUBMITTED
-03/19/17 06:05:13 146408 seconds since last log event
-03/19/17 06:05:13 Pending DAG nodes:
-03/19/17 06:05:13   Node create_embedding, HTCondor ID 248, status STATUS_SUBMITTED
-03/19/17 06:15:15 147010 seconds since last log event
-03/19/17 06:15:15 Pending DAG nodes:
-03/19/17 06:15:15   Node create_embedding, HTCondor ID 248, status STATUS_SUBMITTED
-03/19/17 06:25:17 147612 seconds since last log event
-03/19/17 06:25:17 Pending DAG nodes:
-03/19/17 06:25:17   Node create_embedding, HTCondor ID 248, status STATUS_SUBMITTED
-03/19/17 06:35:19 148214 seconds since last log event
-03/19/17 06:35:19 Pending DAG nodes:
-03/19/17 06:35:19   Node create_embedding, HTCondor ID 248, status STATUS_SUBMITTED
-03/19/17 06:45:21 148816 seconds since last log event
-03/19/17 06:45:21 Pending DAG nodes:
-03/19/17 06:45:21   Node create_embedding, HTCondor ID 248, status STATUS_SUBMITTED
-03/19/17 06:55:24 149419 seconds since last log event
-03/19/17 06:55:24 Pending DAG nodes:
-03/19/17 06:55:24   Node create_embedding, HTCondor ID 248, status STATUS_SUBMITTED
-03/19/17 07:05:27 150022 seconds since last log event
-03/19/17 07:05:27 Pending DAG nodes:
-03/19/17 07:05:27   Node create_embedding, HTCondor ID 248, status STATUS_SUBMITTED
-03/19/17 07:15:29 150624 seconds since last log event
-03/19/17 07:15:29 Pending DAG nodes:
-03/19/17 07:15:29   Node create_embedding, HTCondor ID 248, status STATUS_SUBMITTED
-03/19/17 07:25:32 151227 seconds since last log event
-03/19/17 07:25:32 Pending DAG nodes:
-03/19/17 07:25:32   Node create_embedding, HTCondor ID 248, status STATUS_SUBMITTED
-03/19/17 07:35:34 151829 seconds since last log event
-03/19/17 07:35:34 Pending DAG nodes:
-03/19/17 07:35:34   Node create_embedding, HTCondor ID 248, status STATUS_SUBMITTED
-03/19/17 07:45:36 152431 seconds since last log event
-03/19/17 07:45:36 Pending DAG nodes:
-03/19/17 07:45:36   Node create_embedding, HTCondor ID 248, status STATUS_SUBMITTED
-03/19/17 07:55:39 153034 seconds since last log event
-03/19/17 07:55:39 Pending DAG nodes:
-03/19/17 07:55:39   Node create_embedding, HTCondor ID 248, status STATUS_SUBMITTED
-03/19/17 08:05:41 153636 seconds since last log event
-03/19/17 08:05:41 Pending DAG nodes:
-03/19/17 08:05:41   Node create_embedding, HTCondor ID 248, status STATUS_SUBMITTED
-03/19/17 08:15:43 154238 seconds since last log event
-03/19/17 08:15:43 Pending DAG nodes:
-03/19/17 08:15:43   Node create_embedding, HTCondor ID 248, status STATUS_SUBMITTED
-03/19/17 08:25:45 154840 seconds since last log event
-03/19/17 08:25:45 Pending DAG nodes:
-03/19/17 08:25:45   Node create_embedding, HTCondor ID 248, status STATUS_SUBMITTED
-03/19/17 08:35:48 155443 seconds since last log event
-03/19/17 08:35:48 Pending DAG nodes:
-03/19/17 08:35:48   Node create_embedding, HTCondor ID 248, status STATUS_SUBMITTED
-03/19/17 08:45:50 156045 seconds since last log event
-03/19/17 08:45:50 Pending DAG nodes:
-03/19/17 08:45:50   Node create_embedding, HTCondor ID 248, status STATUS_SUBMITTED
-03/19/17 08:55:52 156647 seconds since last log event
-03/19/17 08:55:52 Pending DAG nodes:
-03/19/17 08:55:52   Node create_embedding, HTCondor ID 248, status STATUS_SUBMITTED
-03/19/17 09:05:55 157250 seconds since last log event
-03/19/17 09:05:55 Pending DAG nodes:
-03/19/17 09:05:55   Node create_embedding, HTCondor ID 248, status STATUS_SUBMITTED
-03/19/17 09:15:59 157854 seconds since last log event
-03/19/17 09:15:59 Pending DAG nodes:
-03/19/17 09:15:59   Node create_embedding, HTCondor ID 248, status STATUS_SUBMITTED
-03/19/17 09:26:01 158456 seconds since last log event
-03/19/17 09:26:01 Pending DAG nodes:
-03/19/17 09:26:01   Node create_embedding, HTCondor ID 248, status STATUS_SUBMITTED
-03/19/17 09:36:03 159058 seconds since last log event
-03/19/17 09:36:03 Pending DAG nodes:
-03/19/17 09:36:03   Node create_embedding, HTCondor ID 248, status STATUS_SUBMITTED
-03/19/17 09:46:06 159661 seconds since last log event
-03/19/17 09:46:06 Pending DAG nodes:
-03/19/17 09:46:06   Node create_embedding, HTCondor ID 248, status STATUS_SUBMITTED
-03/19/17 09:56:09 160264 seconds since last log event
-03/19/17 09:56:09 Pending DAG nodes:
-03/19/17 09:56:09   Node create_embedding, HTCondor ID 248, status STATUS_SUBMITTED
-03/19/17 10:06:12 160867 seconds since last log event
-03/19/17 10:06:12 Pending DAG nodes:
-03/19/17 10:06:12   Node create_embedding, HTCondor ID 248, status STATUS_SUBMITTED
-03/19/17 10:16:15 161470 seconds since last log event
-03/19/17 10:16:15 Pending DAG nodes:
-03/19/17 10:16:15   Node create_embedding, HTCondor ID 248, status STATUS_SUBMITTED
-03/19/17 10:26:16 162071 seconds since last log event
-03/19/17 10:26:16 Pending DAG nodes:
-03/19/17 10:26:16   Node create_embedding, HTCondor ID 248, status STATUS_SUBMITTED
-03/19/17 10:36:19 162674 seconds since last log event
-03/19/17 10:36:19 Pending DAG nodes:
-03/19/17 10:36:19   Node create_embedding, HTCondor ID 248, status STATUS_SUBMITTED
-03/19/17 10:46:22 163277 seconds since last log event
-03/19/17 10:46:22 Pending DAG nodes:
-03/19/17 10:46:22   Node create_embedding, HTCondor ID 248, status STATUS_SUBMITTED
-03/19/17 10:56:25 163880 seconds since last log event
-03/19/17 10:56:25 Pending DAG nodes:
-03/19/17 10:56:25   Node create_embedding, HTCondor ID 248, status STATUS_SUBMITTED
-03/19/17 11:06:28 164483 seconds since last log event
-03/19/17 11:06:28 Pending DAG nodes:
-03/19/17 11:06:28   Node create_embedding, HTCondor ID 248, status STATUS_SUBMITTED
-03/19/17 11:16:31 165086 seconds since last log event
-03/19/17 11:16:31 Pending DAG nodes:
-03/19/17 11:16:31   Node create_embedding, HTCondor ID 248, status STATUS_SUBMITTED
-03/19/17 11:26:33 165688 seconds since last log event
-03/19/17 11:26:33 Pending DAG nodes:
-03/19/17 11:26:33   Node create_embedding, HTCondor ID 248, status STATUS_SUBMITTED
-03/19/17 11:36:36 166291 seconds since last log event
-03/19/17 11:36:36 Pending DAG nodes:
-03/19/17 11:36:36   Node create_embedding, HTCondor ID 248, status STATUS_SUBMITTED
-03/19/17 11:46:37 166892 seconds since last log event
-03/19/17 11:46:37 Pending DAG nodes:
-03/19/17 11:46:37   Node create_embedding, HTCondor ID 248, status STATUS_SUBMITTED
-03/19/17 11:56:39 167494 seconds since last log event
-03/19/17 11:56:39 Pending DAG nodes:
-03/19/17 11:56:39   Node create_embedding, HTCondor ID 248, status STATUS_SUBMITTED
-03/19/17 12:06:39 168094 seconds since last log event
-03/19/17 12:06:39 Pending DAG nodes:
-03/19/17 12:06:39   Node create_embedding, HTCondor ID 248, status STATUS_SUBMITTED
-03/19/17 12:16:42 168697 seconds since last log event
-03/19/17 12:16:42 Pending DAG nodes:
-03/19/17 12:16:42   Node create_embedding, HTCondor ID 248, status STATUS_SUBMITTED
-03/19/17 12:26:44 169299 seconds since last log event
-03/19/17 12:26:44 Pending DAG nodes:
-03/19/17 12:26:44   Node create_embedding, HTCondor ID 248, status STATUS_SUBMITTED
-03/19/17 12:36:47 169902 seconds since last log event
-03/19/17 12:36:47 Pending DAG nodes:
-03/19/17 12:36:47   Node create_embedding, HTCondor ID 248, status STATUS_SUBMITTED
-03/19/17 12:46:50 170505 seconds since last log event
-03/19/17 12:46:50 Pending DAG nodes:
-03/19/17 12:46:50   Node create_embedding, HTCondor ID 248, status STATUS_SUBMITTED
-03/19/17 12:56:53 171108 seconds since last log event
-03/19/17 12:56:53 Pending DAG nodes:
-03/19/17 12:56:53   Node create_embedding, HTCondor ID 248, status STATUS_SUBMITTED
-03/19/17 13:06:55 171710 seconds since last log event
-03/19/17 13:06:55 Pending DAG nodes:
-03/19/17 13:06:55   Node create_embedding, HTCondor ID 248, status STATUS_SUBMITTED
-03/19/17 13:16:57 172312 seconds since last log event
-03/19/17 13:16:57 Pending DAG nodes:
-03/19/17 13:16:57   Node create_embedding, HTCondor ID 248, status STATUS_SUBMITTED
-03/19/17 13:27:00 172915 seconds since last log event
-03/19/17 13:27:00 Pending DAG nodes:
-03/19/17 13:27:00   Node create_embedding, HTCondor ID 248, status STATUS_SUBMITTED
-03/19/17 13:37:03 173518 seconds since last log event
-03/19/17 13:37:03 Pending DAG nodes:
-03/19/17 13:37:03   Node create_embedding, HTCondor ID 248, status STATUS_SUBMITTED
-03/19/17 13:47:06 174121 seconds since last log event
-03/19/17 13:47:06 Pending DAG nodes:
-03/19/17 13:47:06   Node create_embedding, HTCondor ID 248, status STATUS_SUBMITTED
-03/19/17 13:57:09 174724 seconds since last log event
-03/19/17 13:57:09 Pending DAG nodes:
-03/19/17 13:57:09   Node create_embedding, HTCondor ID 248, status STATUS_SUBMITTED
-03/19/17 14:07:11 175326 seconds since last log event
-03/19/17 14:07:11 Pending DAG nodes:
-03/19/17 14:07:11   Node create_embedding, HTCondor ID 248, status STATUS_SUBMITTED
-03/19/17 14:17:14 175929 seconds since last log event
-03/19/17 14:17:14 Pending DAG nodes:
-03/19/17 14:17:14   Node create_embedding, HTCondor ID 248, status STATUS_SUBMITTED
-03/19/17 14:27:16 176531 seconds since last log event
-03/19/17 14:27:16 Pending DAG nodes:
-03/19/17 14:27:16   Node create_embedding, HTCondor ID 248, status STATUS_SUBMITTED
-03/19/17 14:37:19 177134 seconds since last log event
-03/19/17 14:37:19 Pending DAG nodes:
-03/19/17 14:37:19   Node create_embedding, HTCondor ID 248, status STATUS_SUBMITTED
-03/19/17 14:47:22 177737 seconds since last log event
-03/19/17 14:47:22 Pending DAG nodes:
-03/19/17 14:47:22   Node create_embedding, HTCondor ID 248, status STATUS_SUBMITTED
-03/19/17 14:57:25 178340 seconds since last log event
-03/19/17 14:57:25 Pending DAG nodes:
-03/19/17 14:57:25   Node create_embedding, HTCondor ID 248, status STATUS_SUBMITTED
-03/19/17 15:07:28 178943 seconds since last log event
-03/19/17 15:07:28 Pending DAG nodes:
-03/19/17 15:07:28   Node create_embedding, HTCondor ID 248, status STATUS_SUBMITTED
-03/19/17 15:17:31 179546 seconds since last log event
-03/19/17 15:17:31 Pending DAG nodes:
-03/19/17 15:17:31   Node create_embedding, HTCondor ID 248, status STATUS_SUBMITTED
-03/19/17 15:27:33 180148 seconds since last log event
-03/19/17 15:27:33 Pending DAG nodes:
-03/19/17 15:27:33   Node create_embedding, HTCondor ID 248, status STATUS_SUBMITTED
-03/19/17 15:37:35 180750 seconds since last log event
-03/19/17 15:37:35 Pending DAG nodes:
-03/19/17 15:37:35   Node create_embedding, HTCondor ID 248, status STATUS_SUBMITTED
-03/19/17 15:47:38 181353 seconds since last log event
-03/19/17 15:47:38 Pending DAG nodes:
-03/19/17 15:47:38   Node create_embedding, HTCondor ID 248, status STATUS_SUBMITTED
-03/19/17 15:57:40 181955 seconds since last log event
-03/19/17 15:57:40 Pending DAG nodes:
-03/19/17 15:57:40   Node create_embedding, HTCondor ID 248, status STATUS_SUBMITTED
-03/19/17 16:07:42 182557 seconds since last log event
-03/19/17 16:07:42 Pending DAG nodes:
-03/19/17 16:07:42   Node create_embedding, HTCondor ID 248, status STATUS_SUBMITTED
-03/19/17 16:17:45 183160 seconds since last log event
-03/19/17 16:17:45 Pending DAG nodes:
-03/19/17 16:17:45   Node create_embedding, HTCondor ID 248, status STATUS_SUBMITTED
-03/19/17 16:27:47 183762 seconds since last log event
-03/19/17 16:27:47 Pending DAG nodes:
-03/19/17 16:27:47   Node create_embedding, HTCondor ID 248, status STATUS_SUBMITTED
-03/19/17 16:37:50 184365 seconds since last log event
-03/19/17 16:37:50 Pending DAG nodes:
-03/19/17 16:37:50   Node create_embedding, HTCondor ID 248, status STATUS_SUBMITTED
-03/19/17 16:47:53 184968 seconds since last log event
-03/19/17 16:47:53 Pending DAG nodes:
-03/19/17 16:47:53   Node create_embedding, HTCondor ID 248, status STATUS_SUBMITTED
-03/19/17 16:57:56 185571 seconds since last log event
-03/19/17 16:57:56 Pending DAG nodes:
-03/19/17 16:57:56   Node create_embedding, HTCondor ID 248, status STATUS_SUBMITTED
-03/19/17 17:07:59 186174 seconds since last log event
-03/19/17 17:07:59 Pending DAG nodes:
-03/19/17 17:07:59   Node create_embedding, HTCondor ID 248, status STATUS_SUBMITTED
-03/19/17 17:18:01 186776 seconds since last log event
-03/19/17 17:18:01 Pending DAG nodes:
-03/19/17 17:18:01   Node create_embedding, HTCondor ID 248, status STATUS_SUBMITTED
-03/19/17 17:28:04 187379 seconds since last log event
-03/19/17 17:28:04 Pending DAG nodes:
-03/19/17 17:28:04   Node create_embedding, HTCondor ID 248, status STATUS_SUBMITTED
-03/19/17 17:38:06 187981 seconds since last log event
-03/19/17 17:38:06 Pending DAG nodes:
-03/19/17 17:38:06   Node create_embedding, HTCondor ID 248, status STATUS_SUBMITTED
-03/19/17 17:48:08 188583 seconds since last log event
-03/19/17 17:48:08 Pending DAG nodes:
-03/19/17 17:48:08   Node create_embedding, HTCondor ID 248, status STATUS_SUBMITTED
-03/19/17 17:58:11 189186 seconds since last log event
-03/19/17 17:58:11 Pending DAG nodes:
-03/19/17 17:58:11   Node create_embedding, HTCondor ID 248, status STATUS_SUBMITTED
-03/19/17 18:08:13 189788 seconds since last log event
-03/19/17 18:08:13 Pending DAG nodes:
-03/19/17 18:08:13   Node create_embedding, HTCondor ID 248, status STATUS_SUBMITTED
-03/19/17 18:18:15 190390 seconds since last log event
-03/19/17 18:18:15 Pending DAG nodes:
-03/19/17 18:18:15   Node create_embedding, HTCondor ID 248, status STATUS_SUBMITTED
-03/19/17 18:28:18 190993 seconds since last log event
-03/19/17 18:28:18 Pending DAG nodes:
-03/19/17 18:28:18   Node create_embedding, HTCondor ID 248, status STATUS_SUBMITTED
-03/19/17 18:38:19 191594 seconds since last log event
-03/19/17 18:38:19 Pending DAG nodes:
-03/19/17 18:38:19   Node create_embedding, HTCondor ID 248, status STATUS_SUBMITTED
-03/19/17 18:48:22 192197 seconds since last log event
-03/19/17 18:48:22 Pending DAG nodes:
-03/19/17 18:48:22   Node create_embedding, HTCondor ID 248, status STATUS_SUBMITTED
-03/19/17 18:58:24 192799 seconds since last log event
-03/19/17 18:58:24 Pending DAG nodes:
-03/19/17 18:58:24   Node create_embedding, HTCondor ID 248, status STATUS_SUBMITTED
-03/19/17 19:08:27 193402 seconds since last log event
-03/19/17 19:08:27 Pending DAG nodes:
-03/19/17 19:08:27   Node create_embedding, HTCondor ID 248, status STATUS_SUBMITTED
-03/19/17 19:18:30 194005 seconds since last log event
-03/19/17 19:18:30 Pending DAG nodes:
-03/19/17 19:18:30   Node create_embedding, HTCondor ID 248, status STATUS_SUBMITTED
-03/19/17 19:28:33 194608 seconds since last log event
-03/19/17 19:28:33 Pending DAG nodes:
-03/19/17 19:28:33   Node create_embedding, HTCondor ID 248, status STATUS_SUBMITTED
-03/19/17 19:38:36 195211 seconds since last log event
-03/19/17 19:38:36 Pending DAG nodes:
-03/19/17 19:38:36   Node create_embedding, HTCondor ID 248, status STATUS_SUBMITTED
-03/19/17 19:48:40 195815 seconds since last log event
-03/19/17 19:48:40 Pending DAG nodes:
-03/19/17 19:48:40   Node create_embedding, HTCondor ID 248, status STATUS_SUBMITTED
-03/19/17 19:58:42 196417 seconds since last log event
-03/19/17 19:58:42 Pending DAG nodes:
-03/19/17 19:58:42   Node create_embedding, HTCondor ID 248, status STATUS_SUBMITTED
-03/19/17 20:08:45 197020 seconds since last log event
-03/19/17 20:08:45 Pending DAG nodes:
-03/19/17 20:08:45   Node create_embedding, HTCondor ID 248, status STATUS_SUBMITTED
-03/19/17 20:18:48 197623 seconds since last log event
-03/19/17 20:18:48 Pending DAG nodes:
-03/19/17 20:18:48   Node create_embedding, HTCondor ID 248, status STATUS_SUBMITTED
-03/19/17 20:28:51 198226 seconds since last log event
-03/19/17 20:28:51 Pending DAG nodes:
-03/19/17 20:28:51   Node create_embedding, HTCondor ID 248, status STATUS_SUBMITTED
-03/19/17 20:38:52 198827 seconds since last log event
-03/19/17 20:38:52 Pending DAG nodes:
-03/19/17 20:38:52   Node create_embedding, HTCondor ID 248, status STATUS_SUBMITTED
-03/19/17 20:48:54 199429 seconds since last log event
-03/19/17 20:48:54 Pending DAG nodes:
-03/19/17 20:48:54   Node create_embedding, HTCondor ID 248, status STATUS_SUBMITTED
-03/19/17 20:58:58 200033 seconds since last log event
-03/19/17 20:58:59 Pending DAG nodes:
-03/19/17 20:58:59   Node create_embedding, HTCondor ID 248, status STATUS_SUBMITTED
-03/19/17 21:09:02 200637 seconds since last log event
-03/19/17 21:09:02 Pending DAG nodes:
-03/19/17 21:09:02   Node create_embedding, HTCondor ID 248, status STATUS_SUBMITTED
-03/19/17 21:19:02 201237 seconds since last log event
-03/19/17 21:19:02 Pending DAG nodes:
-03/19/17 21:19:02   Node create_embedding, HTCondor ID 248, status STATUS_SUBMITTED
-03/19/17 21:29:04 201839 seconds since last log event
-03/19/17 21:29:04 Pending DAG nodes:
-03/19/17 21:29:04   Node create_embedding, HTCondor ID 248, status STATUS_SUBMITTED
-03/19/17 21:39:08 202443 seconds since last log event
-03/19/17 21:39:08 Pending DAG nodes:
-03/19/17 21:39:08   Node create_embedding, HTCondor ID 248, status STATUS_SUBMITTED
-03/19/17 21:49:12 203047 seconds since last log event
-03/19/17 21:49:12 Pending DAG nodes:
-03/19/17 21:49:12   Node create_embedding, HTCondor ID 248, status STATUS_SUBMITTED
-03/19/17 21:59:14 203649 seconds since last log event
-03/19/17 21:59:14 Pending DAG nodes:
-03/19/17 21:59:14   Node create_embedding, HTCondor ID 248, status STATUS_SUBMITTED
-03/19/17 22:09:15 204250 seconds since last log event
-03/19/17 22:09:15 Pending DAG nodes:
-03/19/17 22:09:15   Node create_embedding, HTCondor ID 248, status STATUS_SUBMITTED
-03/19/17 22:19:17 204852 seconds since last log event
-03/19/17 22:19:17 Pending DAG nodes:
-03/19/17 22:19:17   Node create_embedding, HTCondor ID 248, status STATUS_SUBMITTED
-03/19/17 22:29:20 205455 seconds since last log event
-03/19/17 22:29:20 Pending DAG nodes:
-03/19/17 22:29:20   Node create_embedding, HTCondor ID 248, status STATUS_SUBMITTED
-03/19/17 22:39:22 206057 seconds since last log event
-03/19/17 22:39:22 Pending DAG nodes:
-03/19/17 22:39:22   Node create_embedding, HTCondor ID 248, status STATUS_SUBMITTED
-03/19/17 22:49:24 206659 seconds since last log event
-03/19/17 22:49:24 Pending DAG nodes:
-03/19/17 22:49:24   Node create_embedding, HTCondor ID 248, status STATUS_SUBMITTED
-03/19/17 22:59:28 207263 seconds since last log event
-03/19/17 22:59:28 Pending DAG nodes:
-03/19/17 22:59:28   Node create_embedding, HTCondor ID 248, status STATUS_SUBMITTED
-03/19/17 23:09:30 207865 seconds since last log event
-03/19/17 23:09:30 Pending DAG nodes:
-03/19/17 23:09:30   Node create_embedding, HTCondor ID 248, status STATUS_SUBMITTED
-03/19/17 23:19:33 208468 seconds since last log event
-03/19/17 23:19:33 Pending DAG nodes:
-03/19/17 23:19:33   Node create_embedding, HTCondor ID 248, status STATUS_SUBMITTED
-03/19/17 23:29:36 209071 seconds since last log event
-03/19/17 23:29:36 Pending DAG nodes:
-03/19/17 23:29:36   Node create_embedding, HTCondor ID 248, status STATUS_SUBMITTED
-03/19/17 23:39:39 209674 seconds since last log event
-03/19/17 23:39:39 Pending DAG nodes:
-03/19/17 23:39:39   Node create_embedding, HTCondor ID 248, status STATUS_SUBMITTED
-03/19/17 23:49:42 210277 seconds since last log event
-03/19/17 23:49:42 Pending DAG nodes:
-03/19/17 23:49:42   Node create_embedding, HTCondor ID 248, status STATUS_SUBMITTED
-03/19/17 23:59:45 210880 seconds since last log event
-03/19/17 23:59:45 Pending DAG nodes:
-03/19/17 23:59:45   Node create_embedding, HTCondor ID 248, status STATUS_SUBMITTED
-03/20/17 00:09:48 211483 seconds since last log event
-03/20/17 00:09:48 Pending DAG nodes:
-03/20/17 00:09:48   Node create_embedding, HTCondor ID 248, status STATUS_SUBMITTED
-03/20/17 00:19:49 212084 seconds since last log event
-03/20/17 00:19:49 Pending DAG nodes:
-03/20/17 00:19:49   Node create_embedding, HTCondor ID 248, status STATUS_SUBMITTED
-03/20/17 00:29:52 212687 seconds since last log event
-03/20/17 00:29:52 Pending DAG nodes:
-03/20/17 00:29:52   Node create_embedding, HTCondor ID 248, status STATUS_SUBMITTED
-03/20/17 00:39:54 213289 seconds since last log event
-03/20/17 00:39:54 Pending DAG nodes:
-03/20/17 00:39:54   Node create_embedding, HTCondor ID 248, status STATUS_SUBMITTED
-03/20/17 00:49:56 213891 seconds since last log event
-03/20/17 00:49:56 Pending DAG nodes:
-03/20/17 00:49:56   Node create_embedding, HTCondor ID 248, status STATUS_SUBMITTED
-03/20/17 00:59:59 214494 seconds since last log event
-03/20/17 00:59:59 Pending DAG nodes:
-03/20/17 00:59:59   Node create_embedding, HTCondor ID 248, status STATUS_SUBMITTED
-03/20/17 01:10:00 215095 seconds since last log event
-03/20/17 01:10:00 Pending DAG nodes:
-03/20/17 01:10:00   Node create_embedding, HTCondor ID 248, status STATUS_SUBMITTED
-03/20/17 01:20:03 215698 seconds since last log event
-03/20/17 01:20:03 Pending DAG nodes:
-03/20/17 01:20:03   Node create_embedding, HTCondor ID 248, status STATUS_SUBMITTED
-03/20/17 01:30:05 216300 seconds since last log event
-03/20/17 01:30:05 Pending DAG nodes:
-03/20/17 01:30:05   Node create_embedding, HTCondor ID 248, status STATUS_SUBMITTED
-03/20/17 01:40:06 216901 seconds since last log event
-03/20/17 01:40:06 Pending DAG nodes:
-03/20/17 01:40:06   Node create_embedding, HTCondor ID 248, status STATUS_SUBMITTED
-03/20/17 01:50:08 217503 seconds since last log event
-03/20/17 01:50:08 Pending DAG nodes:
-03/20/17 01:50:08   Node create_embedding, HTCondor ID 248, status STATUS_SUBMITTED
-03/20/17 02:00:11 218106 seconds since last log event
-03/20/17 02:00:11 Pending DAG nodes:
-03/20/17 02:00:11   Node create_embedding, HTCondor ID 248, status STATUS_SUBMITTED
-03/20/17 02:10:14 218709 seconds since last log event
-03/20/17 02:10:14 Pending DAG nodes:
-03/20/17 02:10:14   Node create_embedding, HTCondor ID 248, status STATUS_SUBMITTED
-03/20/17 02:20:17 219312 seconds since last log event
-03/20/17 02:20:17 Pending DAG nodes:
-03/20/17 02:20:17   Node create_embedding, HTCondor ID 248, status STATUS_SUBMITTED
-03/20/17 02:30:20 219915 seconds since last log event
-03/20/17 02:30:20 Pending DAG nodes:
-03/20/17 02:30:20   Node create_embedding, HTCondor ID 248, status STATUS_SUBMITTED
-03/20/17 02:40:22 220517 seconds since last log event
-03/20/17 02:40:22 Pending DAG nodes:
-03/20/17 02:40:22   Node create_embedding, HTCondor ID 248, status STATUS_SUBMITTED
-03/20/17 02:50:25 221120 seconds since last log event
-03/20/17 02:50:25 Pending DAG nodes:
-03/20/17 02:50:25   Node create_embedding, HTCondor ID 248, status STATUS_SUBMITTED
-03/20/17 03:00:28 221723 seconds since last log event
-03/20/17 03:00:28 Pending DAG nodes:
-03/20/17 03:00:28   Node create_embedding, HTCondor ID 248, status STATUS_SUBMITTED
-03/20/17 03:10:29 222324 seconds since last log event
-03/20/17 03:10:29 Pending DAG nodes:
-03/20/17 03:10:29   Node create_embedding, HTCondor ID 248, status STATUS_SUBMITTED
-03/20/17 03:20:31 222926 seconds since last log event
-03/20/17 03:20:31 Pending DAG nodes:
-03/20/17 03:20:31   Node create_embedding, HTCondor ID 248, status STATUS_SUBMITTED
-03/20/17 03:30:34 223529 seconds since last log event
-03/20/17 03:30:34 Pending DAG nodes:
-03/20/17 03:30:34   Node create_embedding, HTCondor ID 248, status STATUS_SUBMITTED
-03/20/17 03:40:37 224132 seconds since last log event
-03/20/17 03:40:37 Pending DAG nodes:
-03/20/17 03:40:37   Node create_embedding, HTCondor ID 248, status STATUS_SUBMITTED
-03/20/17 03:50:39 224734 seconds since last log event
-03/20/17 03:50:39 Pending DAG nodes:
-03/20/17 03:50:39   Node create_embedding, HTCondor ID 248, status STATUS_SUBMITTED
-03/20/17 04:00:42 225337 seconds since last log event
-03/20/17 04:00:42 Pending DAG nodes:
-03/20/17 04:00:42   Node create_embedding, HTCondor ID 248, status STATUS_SUBMITTED
-03/20/17 04:10:43 225938 seconds since last log event
-03/20/17 04:10:43 Pending DAG nodes:
-03/20/17 04:10:43   Node create_embedding, HTCondor ID 248, status STATUS_SUBMITTED
-03/20/17 04:20:46 226541 seconds since last log event
-03/20/17 04:20:46 Pending DAG nodes:
-03/20/17 04:20:46   Node create_embedding, HTCondor ID 248, status STATUS_SUBMITTED
-03/20/17 04:30:48 227143 seconds since last log event
-03/20/17 04:30:48 Pending DAG nodes:
-03/20/17 04:30:48   Node create_embedding, HTCondor ID 248, status STATUS_SUBMITTED
-03/20/17 04:40:50 227745 seconds since last log event
-03/20/17 04:40:50 Pending DAG nodes:
-03/20/17 04:40:50   Node create_embedding, HTCondor ID 248, status STATUS_SUBMITTED
-03/20/17 04:50:51 228346 seconds since last log event
-03/20/17 04:50:51 Pending DAG nodes:
-03/20/17 04:50:51   Node create_embedding, HTCondor ID 248, status STATUS_SUBMITTED
-03/20/17 05:00:54 228949 seconds since last log event
-03/20/17 05:00:54 Pending DAG nodes:
-03/20/17 05:00:54   Node create_embedding, HTCondor ID 248, status STATUS_SUBMITTED
-03/20/17 05:10:56 229551 seconds since last log event
-03/20/17 05:10:56 Pending DAG nodes:
-03/20/17 05:10:56   Node create_embedding, HTCondor ID 248, status STATUS_SUBMITTED
-03/20/17 05:20:58 230153 seconds since last log event
-03/20/17 05:20:58 Pending DAG nodes:
-03/20/17 05:20:58   Node create_embedding, HTCondor ID 248, status STATUS_SUBMITTED
-03/20/17 05:31:01 230756 seconds since last log event
-03/20/17 05:31:01 Pending DAG nodes:
-03/20/17 05:31:01   Node create_embedding, HTCondor ID 248, status STATUS_SUBMITTED
-03/20/17 05:41:03 231358 seconds since last log event
-03/20/17 05:41:03 Pending DAG nodes:
-03/20/17 05:41:03   Node create_embedding, HTCondor ID 248, status STATUS_SUBMITTED
-03/20/17 05:51:06 231961 seconds since last log event
-03/20/17 05:51:06 Pending DAG nodes:
-03/20/17 05:51:06   Node create_embedding, HTCondor ID 248, status STATUS_SUBMITTED
-03/20/17 06:01:08 232563 seconds since last log event
-03/20/17 06:01:08 Pending DAG nodes:
-03/20/17 06:01:08   Node create_embedding, HTCondor ID 248, status STATUS_SUBMITTED
-03/20/17 06:11:10 233165 seconds since last log event
-03/20/17 06:11:10 Pending DAG nodes:
-03/20/17 06:11:10   Node create_embedding, HTCondor ID 248, status STATUS_SUBMITTED
-03/20/17 06:21:12 233767 seconds since last log event
-03/20/17 06:21:12 Pending DAG nodes:
-03/20/17 06:21:12   Node create_embedding, HTCondor ID 248, status STATUS_SUBMITTED
-03/20/17 06:31:14 234369 seconds since last log event
-03/20/17 06:31:14 Pending DAG nodes:
-03/20/17 06:31:14   Node create_embedding, HTCondor ID 248, status STATUS_SUBMITTED
-03/20/17 06:41:17 234972 seconds since last log event
-03/20/17 06:41:17 Pending DAG nodes:
-03/20/17 06:41:17   Node create_embedding, HTCondor ID 248, status STATUS_SUBMITTED
-03/20/17 06:51:19 235574 seconds since last log event
-03/20/17 06:51:19 Pending DAG nodes:
-03/20/17 06:51:19   Node create_embedding, HTCondor ID 248, status STATUS_SUBMITTED
-03/20/17 07:01:22 236177 seconds since last log event
-03/20/17 07:01:22 Pending DAG nodes:
-03/20/17 07:01:22   Node create_embedding, HTCondor ID 248, status STATUS_SUBMITTED
-03/20/17 07:11:25 236780 seconds since last log event
-03/20/17 07:11:25 Pending DAG nodes:
-03/20/17 07:11:25   Node create_embedding, HTCondor ID 248, status STATUS_SUBMITTED
-03/20/17 07:21:28 237383 seconds since last log event
-03/20/17 07:21:28 Pending DAG nodes:
-03/20/17 07:21:28   Node create_embedding, HTCondor ID 248, status STATUS_SUBMITTED
-03/20/17 07:31:31 237986 seconds since last log event
-03/20/17 07:31:31 Pending DAG nodes:
-03/20/17 07:31:31   Node create_embedding, HTCondor ID 248, status STATUS_SUBMITTED
-03/20/17 07:41:34 238589 seconds since last log event
-03/20/17 07:41:34 Pending DAG nodes:
-03/20/17 07:41:34   Node create_embedding, HTCondor ID 248, status STATUS_SUBMITTED
-03/20/17 07:51:36 239191 seconds since last log event
-03/20/17 07:51:36 Pending DAG nodes:
-03/20/17 07:51:36   Node create_embedding, HTCondor ID 248, status STATUS_SUBMITTED
-03/20/17 08:01:39 239794 seconds since last log event
-03/20/17 08:01:39 Pending DAG nodes:
-03/20/17 08:01:39   Node create_embedding, HTCondor ID 248, status STATUS_SUBMITTED
-03/20/17 08:11:42 240397 seconds since last log event
-03/20/17 08:11:42 Pending DAG nodes:
-03/20/17 08:11:42   Node create_embedding, HTCondor ID 248, status STATUS_SUBMITTED
-03/20/17 08:21:45 241000 seconds since last log event
-03/20/17 08:21:45 Pending DAG nodes:
-03/20/17 08:21:45   Node create_embedding, HTCondor ID 248, status STATUS_SUBMITTED
-03/20/17 08:31:47 241602 seconds since last log event
-03/20/17 08:31:47 Pending DAG nodes:
-03/20/17 08:31:47   Node create_embedding, HTCondor ID 248, status STATUS_SUBMITTED
-03/20/17 08:41:50 242205 seconds since last log event
-03/20/17 08:41:50 Pending DAG nodes:
-03/20/17 08:41:50   Node create_embedding, HTCondor ID 248, status STATUS_SUBMITTED
-03/20/17 08:51:52 242807 seconds since last log event
-03/20/17 08:51:52 Pending DAG nodes:
-03/20/17 08:51:52   Node create_embedding, HTCondor ID 248, status STATUS_SUBMITTED
-03/20/17 09:01:53 243408 seconds since last log event
-03/20/17 09:01:53 Pending DAG nodes:
-03/20/17 09:01:53   Node create_embedding, HTCondor ID 248, status STATUS_SUBMITTED
-03/20/17 09:11:57 244012 seconds since last log event
-03/20/17 09:11:58 Pending DAG nodes:
-03/20/17 09:11:58   Node create_embedding, HTCondor ID 248, status STATUS_SUBMITTED
-03/20/17 09:22:00 244615 seconds since last log event
-03/20/17 09:22:00 Pending DAG nodes:
-03/20/17 09:22:00   Node create_embedding, HTCondor ID 248, status STATUS_SUBMITTED
-03/20/17 09:32:03 245218 seconds since last log event
-03/20/17 09:32:03 Pending DAG nodes:
-03/20/17 09:32:03   Node create_embedding, HTCondor ID 248, status STATUS_SUBMITTED
-03/20/17 09:42:06 245821 seconds since last log event
-03/20/17 09:42:06 Pending DAG nodes:
-03/20/17 09:42:06   Node create_embedding, HTCondor ID 248, status STATUS_SUBMITTED
-03/20/17 09:52:08 246423 seconds since last log event
-03/20/17 09:52:08 Pending DAG nodes:
-03/20/17 09:52:08   Node create_embedding, HTCondor ID 248, status STATUS_SUBMITTED
-03/20/17 10:02:09 247024 seconds since last log event
-03/20/17 10:02:09 Pending DAG nodes:
-03/20/17 10:02:09   Node create_embedding, HTCondor ID 248, status STATUS_SUBMITTED
-03/20/17 10:12:11 247626 seconds since last log event
-03/20/17 10:12:11 Pending DAG nodes:
-03/20/17 10:12:11   Node create_embedding, HTCondor ID 248, status STATUS_SUBMITTED
-03/20/17 10:22:15 248230 seconds since last log event
-03/20/17 10:22:15 Pending DAG nodes:
-03/20/17 10:22:15   Node create_embedding, HTCondor ID 248, status STATUS_SUBMITTED
-03/20/17 10:32:18 248833 seconds since last log event
-03/20/17 10:32:18 Pending DAG nodes:
-03/20/17 10:32:18   Node create_embedding, HTCondor ID 248, status STATUS_SUBMITTED
-03/20/17 10:42:20 249435 seconds since last log event
-03/20/17 10:42:20 Pending DAG nodes:
-03/20/17 10:42:20   Node create_embedding, HTCondor ID 248, status STATUS_SUBMITTED
-03/20/17 10:52:22 250037 seconds since last log event
-03/20/17 10:52:22 Pending DAG nodes:
-03/20/17 10:52:22   Node create_embedding, HTCondor ID 248, status STATUS_SUBMITTED
-03/20/17 11:02:25 250640 seconds since last log event
-03/20/17 11:02:25 Pending DAG nodes:
-03/20/17 11:02:25   Node create_embedding, HTCondor ID 248, status STATUS_SUBMITTED
-03/20/17 11:12:27 251242 seconds since last log event
-03/20/17 11:12:27 Pending DAG nodes:
-03/20/17 11:12:27   Node create_embedding, HTCondor ID 248, status STATUS_SUBMITTED
-03/20/17 11:22:30 251845 seconds since last log event
-03/20/17 11:22:30 Pending DAG nodes:
-03/20/17 11:22:30   Node create_embedding, HTCondor ID 248, status STATUS_SUBMITTED
-03/20/17 11:32:33 252448 seconds since last log event
-03/20/17 11:32:33 Pending DAG nodes:
-03/20/17 11:32:33   Node create_embedding, HTCondor ID 248, status STATUS_SUBMITTED
-03/20/17 11:42:35 253050 seconds since last log event
-03/20/17 11:42:35 Pending DAG nodes:
-03/20/17 11:42:35   Node create_embedding, HTCondor ID 248, status STATUS_SUBMITTED
-03/20/17 11:52:38 253653 seconds since last log event
-03/20/17 11:52:38 Pending DAG nodes:
-03/20/17 11:52:38   Node create_embedding, HTCondor ID 248, status STATUS_SUBMITTED
-03/20/17 12:02:41 254256 seconds since last log event
-03/20/17 12:02:41 Pending DAG nodes:
-03/20/17 12:02:41   Node create_embedding, HTCondor ID 248, status STATUS_SUBMITTED
-03/20/17 12:12:44 254859 seconds since last log event
-03/20/17 12:12:44 Pending DAG nodes:
-03/20/17 12:12:44   Node create_embedding, HTCondor ID 248, status STATUS_SUBMITTED
-03/20/17 12:22:47 255462 seconds since last log event
-03/20/17 12:22:47 Pending DAG nodes:
-03/20/17 12:22:47   Node create_embedding, HTCondor ID 248, status STATUS_SUBMITTED
-03/20/17 12:32:50 256065 seconds since last log event
-03/20/17 12:32:50 Pending DAG nodes:
-03/20/17 12:32:50   Node create_embedding, HTCondor ID 248, status STATUS_SUBMITTED
-03/20/17 12:42:53 256668 seconds since last log event
-03/20/17 12:42:53 Pending DAG nodes:
-03/20/17 12:42:53   Node create_embedding, HTCondor ID 248, status STATUS_SUBMITTED
-03/20/17 12:52:56 257271 seconds since last log event
-03/20/17 12:52:56 Pending DAG nodes:
-03/20/17 12:52:56   Node create_embedding, HTCondor ID 248, status STATUS_SUBMITTED
-03/20/17 13:02:59 257874 seconds since last log event
-03/20/17 13:02:59 Pending DAG nodes:
-03/20/17 13:02:59   Node create_embedding, HTCondor ID 248, status STATUS_SUBMITTED
-03/20/17 13:13:01 258476 seconds since last log event
-03/20/17 13:13:01 Pending DAG nodes:
-03/20/17 13:13:01   Node create_embedding, HTCondor ID 248, status STATUS_SUBMITTED
-03/20/17 13:23:03 259078 seconds since last log event
-03/20/17 13:23:03 Pending DAG nodes:
-03/20/17 13:23:03   Node create_embedding, HTCondor ID 248, status STATUS_SUBMITTED
-03/20/17 13:33:06 259681 seconds since last log event
-03/20/17 13:33:06 Pending DAG nodes:
-03/20/17 13:33:06   Node create_embedding, HTCondor ID 248, status STATUS_SUBMITTED
-03/20/17 13:43:09 260284 seconds since last log event
-03/20/17 13:43:09 Pending DAG nodes:
-03/20/17 13:43:09   Node create_embedding, HTCondor ID 248, status STATUS_SUBMITTED
-03/20/17 13:53:11 260886 seconds since last log event
-03/20/17 13:53:11 Pending DAG nodes:
-03/20/17 13:53:11   Node create_embedding, HTCondor ID 248, status STATUS_SUBMITTED
-03/20/17 14:03:13 261488 seconds since last log event
-03/20/17 14:03:13 Pending DAG nodes:
-03/20/17 14:03:13   Node create_embedding, HTCondor ID 248, status STATUS_SUBMITTED
-03/20/17 14:13:16 262091 seconds since last log event
-03/20/17 14:13:16 Pending DAG nodes:
-03/20/17 14:13:16   Node create_embedding, HTCondor ID 248, status STATUS_SUBMITTED
-03/20/17 14:23:19 262694 seconds since last log event
-03/20/17 14:23:19 Pending DAG nodes:
-03/20/17 14:23:19   Node create_embedding, HTCondor ID 248, status STATUS_SUBMITTED
-03/20/17 14:33:22 263297 seconds since last log event
-03/20/17 14:33:22 Pending DAG nodes:
-03/20/17 14:33:22   Node create_embedding, HTCondor ID 248, status STATUS_SUBMITTED
-03/20/17 14:43:25 263900 seconds since last log event
-03/20/17 14:43:25 Pending DAG nodes:
-03/20/17 14:43:25   Node create_embedding, HTCondor ID 248, status STATUS_SUBMITTED
-03/20/17 14:53:28 264503 seconds since last log event
-03/20/17 14:53:28 Pending DAG nodes:
-03/20/17 14:53:28   Node create_embedding, HTCondor ID 248, status STATUS_SUBMITTED
-03/20/17 15:03:31 265106 seconds since last log event
-03/20/17 15:03:31 Pending DAG nodes:
-03/20/17 15:03:31   Node create_embedding, HTCondor ID 248, status STATUS_SUBMITTED
-03/20/17 15:13:34 265709 seconds since last log event
-03/20/17 15:13:34 Pending DAG nodes:
-03/20/17 15:13:34   Node create_embedding, HTCondor ID 248, status STATUS_SUBMITTED
-03/20/17 15:23:37 266312 seconds since last log event
-03/20/17 15:23:37 Pending DAG nodes:
-03/20/17 15:23:37   Node create_embedding, HTCondor ID 248, status STATUS_SUBMITTED
-03/20/17 15:33:40 266915 seconds since last log event
-03/20/17 15:33:40 Pending DAG nodes:
-03/20/17 15:33:40   Node create_embedding, HTCondor ID 248, status STATUS_SUBMITTED
-03/20/17 15:43:43 267518 seconds since last log event
-03/20/17 15:43:43 Pending DAG nodes:
-03/20/17 15:43:43   Node create_embedding, HTCondor ID 248, status STATUS_SUBMITTED
-03/20/17 15:53:45 268120 seconds since last log event
-03/20/17 15:53:45 Pending DAG nodes:
-03/20/17 15:53:45   Node create_embedding, HTCondor ID 248, status STATUS_SUBMITTED
-03/20/17 16:03:47 268722 seconds since last log event
-03/20/17 16:03:47 Pending DAG nodes:
-03/20/17 16:03:47   Node create_embedding, HTCondor ID 248, status STATUS_SUBMITTED
-03/20/17 16:13:50 269325 seconds since last log event
-03/20/17 16:13:50 Pending DAG nodes:
-03/20/17 16:13:50   Node create_embedding, HTCondor ID 248, status STATUS_SUBMITTED
-03/20/17 16:23:52 269927 seconds since last log event
-03/20/17 16:23:52 Pending DAG nodes:
-03/20/17 16:23:52   Node create_embedding, HTCondor ID 248, status STATUS_SUBMITTED
-03/20/17 16:33:55 270530 seconds since last log event
-03/20/17 16:33:55 Pending DAG nodes:
-03/20/17 16:33:55   Node create_embedding, HTCondor ID 248, status STATUS_SUBMITTED
-03/20/17 16:43:58 271133 seconds since last log event
-03/20/17 16:43:58 Pending DAG nodes:
-03/20/17 16:43:58   Node create_embedding, HTCondor ID 248, status STATUS_SUBMITTED
-03/20/17 16:53:59 271734 seconds since last log event
-03/20/17 16:53:59 Pending DAG nodes:
-03/20/17 16:53:59   Node create_embedding, HTCondor ID 248, status STATUS_SUBMITTED
-03/20/17 17:04:01 272336 seconds since last log event
-03/20/17 17:04:01 Pending DAG nodes:
-03/20/17 17:04:01   Node create_embedding, HTCondor ID 248, status STATUS_SUBMITTED
-03/20/17 17:14:04 272939 seconds since last log event
-03/20/17 17:14:04 Pending DAG nodes:
-03/20/17 17:14:04   Node create_embedding, HTCondor ID 248, status STATUS_SUBMITTED
-03/20/17 17:24:06 273541 seconds since last log event
-03/20/17 17:24:06 Pending DAG nodes:
-03/20/17 17:24:06   Node create_embedding, HTCondor ID 248, status STATUS_SUBMITTED
-03/20/17 17:34:09 274144 seconds since last log event
-03/20/17 17:34:09 Pending DAG nodes:
-03/20/17 17:34:09   Node create_embedding, HTCondor ID 248, status STATUS_SUBMITTED
-03/20/17 17:44:11 274746 seconds since last log event
-03/20/17 17:44:11 Pending DAG nodes:
-03/20/17 17:44:11   Node create_embedding, HTCondor ID 248, status STATUS_SUBMITTED
-03/20/17 17:54:14 275349 seconds since last log event
-03/20/17 17:54:14 Pending DAG nodes:
-03/20/17 17:54:14   Node create_embedding, HTCondor ID 248, status STATUS_SUBMITTED
-03/20/17 18:04:17 275952 seconds since last log event
-03/20/17 18:04:17 Pending DAG nodes:
-03/20/17 18:04:17   Node create_embedding, HTCondor ID 248, status STATUS_SUBMITTED
-03/20/17 18:14:19 276554 seconds since last log event
-03/20/17 18:14:19 Pending DAG nodes:
-03/20/17 18:14:19   Node create_embedding, HTCondor ID 248, status STATUS_SUBMITTED
-03/20/17 18:24:22 277157 seconds since last log event
-03/20/17 18:24:22 Pending DAG nodes:
-03/20/17 18:24:22   Node create_embedding, HTCondor ID 248, status STATUS_SUBMITTED
-03/20/17 18:34:25 277760 seconds since last log event
-03/20/17 18:34:25 Pending DAG nodes:
-03/20/17 18:34:25   Node create_embedding, HTCondor ID 248, status STATUS_SUBMITTED
-03/20/17 18:44:27 278362 seconds since last log event
-03/20/17 18:44:27 Pending DAG nodes:
-03/20/17 18:44:27   Node create_embedding, HTCondor ID 248, status STATUS_SUBMITTED
-03/20/17 18:54:30 278965 seconds since last log event
-03/20/17 18:54:30 Pending DAG nodes:
-03/20/17 18:54:30   Node create_embedding, HTCondor ID 248, status STATUS_SUBMITTED
-03/20/17 19:04:33 279568 seconds since last log event
-03/20/17 19:04:33 Pending DAG nodes:
-03/20/17 19:04:33   Node create_embedding, HTCondor ID 248, status STATUS_SUBMITTED
-03/20/17 19:14:35 280170 seconds since last log event
-03/20/17 19:14:35 Pending DAG nodes:
-03/20/17 19:14:35   Node create_embedding, HTCondor ID 248, status STATUS_SUBMITTED
-03/20/17 19:24:37 280772 seconds since last log event
-03/20/17 19:24:37 Pending DAG nodes:
-03/20/17 19:24:37   Node create_embedding, HTCondor ID 248, status STATUS_SUBMITTED
-03/20/17 19:34:40 281375 seconds since last log event
-03/20/17 19:34:40 Pending DAG nodes:
-03/20/17 19:34:40   Node create_embedding, HTCondor ID 248, status STATUS_SUBMITTED
-03/20/17 19:44:43 281978 seconds since last log event
-03/20/17 19:44:43 Pending DAG nodes:
-03/20/17 19:44:43   Node create_embedding, HTCondor ID 248, status STATUS_SUBMITTED
-03/20/17 19:54:45 282580 seconds since last log event
-03/20/17 19:54:45 Pending DAG nodes:
-03/20/17 19:54:45   Node create_embedding, HTCondor ID 248, status STATUS_SUBMITTED
-03/20/17 20:04:47 283182 seconds since last log event
-03/20/17 20:04:47 Pending DAG nodes:
-03/20/17 20:04:47   Node create_embedding, HTCondor ID 248, status STATUS_SUBMITTED
-03/20/17 20:14:49 283784 seconds since last log event
-03/20/17 20:14:49 Pending DAG nodes:
-03/20/17 20:14:49   Node create_embedding, HTCondor ID 248, status STATUS_SUBMITTED
-03/20/17 20:24:51 284386 seconds since last log event
-03/20/17 20:24:51 Pending DAG nodes:
-03/20/17 20:24:51   Node create_embedding, HTCondor ID 248, status STATUS_SUBMITTED
-03/20/17 20:34:54 284989 seconds since last log event
-03/20/17 20:34:54 Pending DAG nodes:
-03/20/17 20:34:54   Node create_embedding, HTCondor ID 248, status STATUS_SUBMITTED
-03/20/17 20:44:57 285592 seconds since last log event
-03/20/17 20:44:57 Pending DAG nodes:
-03/20/17 20:44:57   Node create_embedding, HTCondor ID 248, status STATUS_SUBMITTED
-03/20/17 20:55:00 286195 seconds since last log event
-03/20/17 20:55:00 Pending DAG nodes:
-03/20/17 20:55:00   Node create_embedding, HTCondor ID 248, status STATUS_SUBMITTED
-03/20/17 21:05:03 286798 seconds since last log event
-03/20/17 21:05:03 Pending DAG nodes:
-03/20/17 21:05:03   Node create_embedding, HTCondor ID 248, status STATUS_SUBMITTED
-03/20/17 21:15:06 287401 seconds since last log event
-03/20/17 21:15:06 Pending DAG nodes:
-03/20/17 21:15:06   Node create_embedding, HTCondor ID 248, status STATUS_SUBMITTED
-03/20/17 21:25:07 288002 seconds since last log event
-03/20/17 21:25:07 Pending DAG nodes:
-03/20/17 21:25:07   Node create_embedding, HTCondor ID 248, status STATUS_SUBMITTED
-03/20/17 21:35:09 288604 seconds since last log event
-03/20/17 21:35:09 Pending DAG nodes:
-03/20/17 21:35:09   Node create_embedding, HTCondor ID 248, status STATUS_SUBMITTED
-03/20/17 21:45:11 289206 seconds since last log event
-03/20/17 21:45:11 Pending DAG nodes:
-03/20/17 21:45:11   Node create_embedding, HTCondor ID 248, status STATUS_SUBMITTED
-03/20/17 21:55:13 289808 seconds since last log event
-03/20/17 21:55:13 Pending DAG nodes:
-03/20/17 21:55:13   Node create_embedding, HTCondor ID 248, status STATUS_SUBMITTED
-03/20/17 22:05:15 290410 seconds since last log event
-03/20/17 22:05:15 Pending DAG nodes:
-03/20/17 22:05:15   Node create_embedding, HTCondor ID 248, status STATUS_SUBMITTED
-03/20/17 22:15:17 291012 seconds since last log event
-03/20/17 22:15:17 Pending DAG nodes:
-03/20/17 22:15:17   Node create_embedding, HTCondor ID 248, status STATUS_SUBMITTED
-03/20/17 22:25:18 291613 seconds since last log event
-03/20/17 22:25:18 Pending DAG nodes:
-03/20/17 22:25:18   Node create_embedding, HTCondor ID 248, status STATUS_SUBMITTED
-03/20/17 22:35:21 292216 seconds since last log event
-03/20/17 22:35:21 Pending DAG nodes:
-03/20/17 22:35:21   Node create_embedding, HTCondor ID 248, status STATUS_SUBMITTED
-03/20/17 22:45:23 292818 seconds since last log event
-03/20/17 22:45:23 Pending DAG nodes:
-03/20/17 22:45:23   Node create_embedding, HTCondor ID 248, status STATUS_SUBMITTED
-03/20/17 22:55:25 293420 seconds since last log event
-03/20/17 22:55:25 Pending DAG nodes:
-03/20/17 22:55:25   Node create_embedding, HTCondor ID 248, status STATUS_SUBMITTED
-03/20/17 23:05:27 294022 seconds since last log event
-03/20/17 23:05:27 Pending DAG nodes:
-03/20/17 23:05:27   Node create_embedding, HTCondor ID 248, status STATUS_SUBMITTED
-03/20/17 23:15:30 294625 seconds since last log event
-03/20/17 23:15:30 Pending DAG nodes:
-03/20/17 23:15:30   Node create_embedding, HTCondor ID 248, status STATUS_SUBMITTED
-03/20/17 23:25:32 295227 seconds since last log event
-03/20/17 23:25:32 Pending DAG nodes:
-03/20/17 23:25:32   Node create_embedding, HTCondor ID 248, status STATUS_SUBMITTED
-03/20/17 23:35:35 295830 seconds since last log event
-03/20/17 23:35:35 Pending DAG nodes:
-03/20/17 23:35:35   Node create_embedding, HTCondor ID 248, status STATUS_SUBMITTED
-03/20/17 23:45:38 296433 seconds since last log event
-03/20/17 23:45:38 Pending DAG nodes:
-03/20/17 23:45:38   Node create_embedding, HTCondor ID 248, status STATUS_SUBMITTED
-03/20/17 23:55:40 297035 seconds since last log event
-03/20/17 23:55:40 Pending DAG nodes:
-03/20/17 23:55:40   Node create_embedding, HTCondor ID 248, status STATUS_SUBMITTED
-03/21/17 00:05:42 297637 seconds since last log event
-03/21/17 00:05:42 Pending DAG nodes:
-03/21/17 00:05:42   Node create_embedding, HTCondor ID 248, status STATUS_SUBMITTED
-03/21/17 00:15:43 298238 seconds since last log event
-03/21/17 00:15:43 Pending DAG nodes:
-03/21/17 00:15:43   Node create_embedding, HTCondor ID 248, status STATUS_SUBMITTED
-03/21/17 00:25:45 298840 seconds since last log event
-03/21/17 00:25:45 Pending DAG nodes:
-03/21/17 00:25:45   Node create_embedding, HTCondor ID 248, status STATUS_SUBMITTED
-03/21/17 00:35:47 299442 seconds since last log event
-03/21/17 00:35:47 Pending DAG nodes:
-03/21/17 00:35:47   Node create_embedding, HTCondor ID 248, status STATUS_SUBMITTED
-03/21/17 00:45:49 300044 seconds since last log event
-03/21/17 00:45:49 Pending DAG nodes:
-03/21/17 00:45:49   Node create_embedding, HTCondor ID 248, status STATUS_SUBMITTED
-03/21/17 00:55:51 300646 seconds since last log event
-03/21/17 00:55:51 Pending DAG nodes:
-03/21/17 00:55:51   Node create_embedding, HTCondor ID 248, status STATUS_SUBMITTED
-03/21/17 01:05:53 301248 seconds since last log event
-03/21/17 01:05:53 Pending DAG nodes:
-03/21/17 01:05:53   Node create_embedding, HTCondor ID 248, status STATUS_SUBMITTED
-03/21/17 01:15:56 301851 seconds since last log event
-03/21/17 01:15:56 Pending DAG nodes:
-03/21/17 01:15:56   Node create_embedding, HTCondor ID 248, status STATUS_SUBMITTED
-03/21/17 01:25:58 302453 seconds since last log event
-03/21/17 01:25:58 Pending DAG nodes:
-03/21/17 01:25:58   Node create_embedding, HTCondor ID 248, status STATUS_SUBMITTED
-03/21/17 01:35:59 303054 seconds since last log event
-03/21/17 01:35:59 Pending DAG nodes:
-03/21/17 01:35:59   Node create_embedding, HTCondor ID 248, status STATUS_SUBMITTED
-03/21/17 01:46:01 303656 seconds since last log event
-03/21/17 01:46:01 Pending DAG nodes:
-03/21/17 01:46:01   Node create_embedding, HTCondor ID 248, status STATUS_SUBMITTED
-03/21/17 01:56:03 304258 seconds since last log event
-03/21/17 01:56:03 Pending DAG nodes:
-03/21/17 01:56:03   Node create_embedding, HTCondor ID 248, status STATUS_SUBMITTED
-03/21/17 02:06:05 304860 seconds since last log event
-03/21/17 02:06:05 Pending DAG nodes:
-03/21/17 02:06:05   Node create_embedding, HTCondor ID 248, status STATUS_SUBMITTED
-03/21/17 02:16:07 305462 seconds since last log event
-03/21/17 02:16:07 Pending DAG nodes:
-03/21/17 02:16:07   Node create_embedding, HTCondor ID 248, status STATUS_SUBMITTED
-03/21/17 02:26:09 306064 seconds since last log event
-03/21/17 02:26:09 Pending DAG nodes:
-03/21/17 02:26:09   Node create_embedding, HTCondor ID 248, status STATUS_SUBMITTED
-03/21/17 02:36:11 306666 seconds since last log event
-03/21/17 02:36:11 Pending DAG nodes:
-03/21/17 02:36:11   Node create_embedding, HTCondor ID 248, status STATUS_SUBMITTED
-03/21/17 02:46:13 307268 seconds since last log event
-03/21/17 02:46:13 Pending DAG nodes:
-03/21/17 02:46:13   Node create_embedding, HTCondor ID 248, status STATUS_SUBMITTED
-03/21/17 02:56:14 307869 seconds since last log event
-03/21/17 02:56:14 Pending DAG nodes:
-03/21/17 02:56:14   Node create_embedding, HTCondor ID 248, status STATUS_SUBMITTED
-03/21/17 03:06:16 308471 seconds since last log event
-03/21/17 03:06:16 Pending DAG nodes:
-03/21/17 03:06:16   Node create_embedding, HTCondor ID 248, status STATUS_SUBMITTED
-03/21/17 03:16:17 309072 seconds since last log event
-03/21/17 03:16:17 Pending DAG nodes:
-03/21/17 03:16:17   Node create_embedding, HTCondor ID 248, status STATUS_SUBMITTED
-03/21/17 03:26:20 309675 seconds since last log event
-03/21/17 03:26:20 Pending DAG nodes:
-03/21/17 03:26:20   Node create_embedding, HTCondor ID 248, status STATUS_SUBMITTED
-03/21/17 03:36:21 310276 seconds since last log event
-03/21/17 03:36:21 Pending DAG nodes:
-03/21/17 03:36:21   Node create_embedding, HTCondor ID 248, status STATUS_SUBMITTED
-03/21/17 03:46:23 310878 seconds since last log event
-03/21/17 03:46:23 Pending DAG nodes:
-03/21/17 03:46:23   Node create_embedding, HTCondor ID 248, status STATUS_SUBMITTED
-03/21/17 03:56:26 311481 seconds since last log event
-03/21/17 03:56:26 Pending DAG nodes:
-03/21/17 03:56:26   Node create_embedding, HTCondor ID 248, status STATUS_SUBMITTED
-03/21/17 04:06:28 312083 seconds since last log event
-03/21/17 04:06:28 Pending DAG nodes:
-03/21/17 04:06:28   Node create_embedding, HTCondor ID 248, status STATUS_SUBMITTED
-03/21/17 04:16:31 312686 seconds since last log event
-03/21/17 04:16:31 Pending DAG nodes:
-03/21/17 04:16:31   Node create_embedding, HTCondor ID 248, status STATUS_SUBMITTED
-03/21/17 04:26:33 313288 seconds since last log event
-03/21/17 04:26:33 Pending DAG nodes:
-03/21/17 04:26:33   Node create_embedding, HTCondor ID 248, status STATUS_SUBMITTED
-03/21/17 04:36:35 313890 seconds since last log event
-03/21/17 04:36:35 Pending DAG nodes:
-03/21/17 04:36:35   Node create_embedding, HTCondor ID 248, status STATUS_SUBMITTED
-03/21/17 04:46:37 314492 seconds since last log event
-03/21/17 04:46:37 Pending DAG nodes:
-03/21/17 04:46:37   Node create_embedding, HTCondor ID 248, status STATUS_SUBMITTED
-03/21/17 04:56:40 315095 seconds since last log event
-03/21/17 04:56:40 Pending DAG nodes:
-03/21/17 04:56:40   Node create_embedding, HTCondor ID 248, status STATUS_SUBMITTED
-03/21/17 05:06:42 315697 seconds since last log event
-03/21/17 05:06:42 Pending DAG nodes:
-03/21/17 05:06:42   Node create_embedding, HTCondor ID 248, status STATUS_SUBMITTED
-03/21/17 05:16:45 316300 seconds since last log event
-03/21/17 05:16:45 Pending DAG nodes:
-03/21/17 05:16:45   Node create_embedding, HTCondor ID 248, status STATUS_SUBMITTED
-03/21/17 05:26:47 316902 seconds since last log event
-03/21/17 05:26:47 Pending DAG nodes:
-03/21/17 05:26:47   Node create_embedding, HTCondor ID 248, status STATUS_SUBMITTED
-03/21/17 05:36:50 317505 seconds since last log event
-03/21/17 05:36:50 Pending DAG nodes:
-03/21/17 05:36:50   Node create_embedding, HTCondor ID 248, status STATUS_SUBMITTED
-03/21/17 05:46:52 318107 seconds since last log event
-03/21/17 05:46:52 Pending DAG nodes:
-03/21/17 05:46:52   Node create_embedding, HTCondor ID 248, status STATUS_SUBMITTED
-03/21/17 05:56:55 318710 seconds since last log event
-03/21/17 05:56:55 Pending DAG nodes:
-03/21/17 05:56:55   Node create_embedding, HTCondor ID 248, status STATUS_SUBMITTED
-03/21/17 06:06:57 319312 seconds since last log event
-03/21/17 06:06:57 Pending DAG nodes:
-03/21/17 06:06:57   Node create_embedding, HTCondor ID 248, status STATUS_SUBMITTED
-03/21/17 06:16:58 319913 seconds since last log event
-03/21/17 06:16:58 Pending DAG nodes:
-03/21/17 06:16:58   Node create_embedding, HTCondor ID 248, status STATUS_SUBMITTED
-03/21/17 06:27:00 320515 seconds since last log event
-03/21/17 06:27:00 Pending DAG nodes:
-03/21/17 06:27:00   Node create_embedding, HTCondor ID 248, status STATUS_SUBMITTED
-03/21/17 06:37:02 321117 seconds since last log event
-03/21/17 06:37:02 Pending DAG nodes:
-03/21/17 06:37:02   Node create_embedding, HTCondor ID 248, status STATUS_SUBMITTED
-03/21/17 06:47:04 321719 seconds since last log event
-03/21/17 06:47:04 Pending DAG nodes:
-03/21/17 06:47:04   Node create_embedding, HTCondor ID 248, status STATUS_SUBMITTED
-03/21/17 06:57:07 322322 seconds since last log event
-03/21/17 06:57:07 Pending DAG nodes:
-03/21/17 06:57:07   Node create_embedding, HTCondor ID 248, status STATUS_SUBMITTED
-03/21/17 07:07:08 322923 seconds since last log event
-03/21/17 07:07:08 Pending DAG nodes:
-03/21/17 07:07:08   Node create_embedding, HTCondor ID 248, status STATUS_SUBMITTED
-03/21/17 07:17:11 323526 seconds since last log event
-03/21/17 07:17:11 Pending DAG nodes:
-03/21/17 07:17:11   Node create_embedding, HTCondor ID 248, status STATUS_SUBMITTED
-03/21/17 07:27:13 324128 seconds since last log event
-03/21/17 07:27:13 Pending DAG nodes:
-03/21/17 07:27:13   Node create_embedding, HTCondor ID 248, status STATUS_SUBMITTED
-03/21/17 07:37:14 324729 seconds since last log event
-03/21/17 07:37:14 Pending DAG nodes:
-03/21/17 07:37:14   Node create_embedding, HTCondor ID 248, status STATUS_SUBMITTED
-03/21/17 07:47:17 325332 seconds since last log event
-03/21/17 07:47:17 Pending DAG nodes:
-03/21/17 07:47:17   Node create_embedding, HTCondor ID 248, status STATUS_SUBMITTED
-03/21/17 07:57:19 325934 seconds since last log event
-03/21/17 07:57:19 Pending DAG nodes:
-03/21/17 07:57:19   Node create_embedding, HTCondor ID 248, status STATUS_SUBMITTED
-03/21/17 08:07:21 326536 seconds since last log event
-03/21/17 08:07:21 Pending DAG nodes:
-03/21/17 08:07:21   Node create_embedding, HTCondor ID 248, status STATUS_SUBMITTED
-03/21/17 08:17:24 327139 seconds since last log event
-03/21/17 08:17:24 Pending DAG nodes:
-03/21/17 08:17:24   Node create_embedding, HTCondor ID 248, status STATUS_SUBMITTED
-03/21/17 08:27:26 327741 seconds since last log event
-03/21/17 08:27:26 Pending DAG nodes:
-03/21/17 08:27:26   Node create_embedding, HTCondor ID 248, status STATUS_SUBMITTED
-03/21/17 08:37:28 328343 seconds since last log event
-03/21/17 08:37:28 Pending DAG nodes:
-03/21/17 08:37:28   Node create_embedding, HTCondor ID 248, status STATUS_SUBMITTED
-03/21/17 08:47:31 328946 seconds since last log event
-03/21/17 08:47:31 Pending DAG nodes:
-03/21/17 08:47:31   Node create_embedding, HTCondor ID 248, status STATUS_SUBMITTED
-03/21/17 08:57:33 329548 seconds since last log event
-03/21/17 08:57:33 Pending DAG nodes:
-03/21/17 08:57:33   Node create_embedding, HTCondor ID 248, status STATUS_SUBMITTED
-03/21/17 09:07:35 330150 seconds since last log event
-03/21/17 09:07:35 Pending DAG nodes:
-03/21/17 09:07:35   Node create_embedding, HTCondor ID 248, status STATUS_SUBMITTED
-03/21/17 09:17:37 330752 seconds since last log event
-03/21/17 09:17:37 Pending DAG nodes:
-03/21/17 09:17:37   Node create_embedding, HTCondor ID 248, status STATUS_SUBMITTED
-03/21/17 09:27:40 331355 seconds since last log event
-03/21/17 09:27:40 Pending DAG nodes:
-03/21/17 09:27:40   Node create_embedding, HTCondor ID 248, status STATUS_SUBMITTED
-03/21/17 09:37:42 331957 seconds since last log event
-03/21/17 09:37:42 Pending DAG nodes:
-03/21/17 09:37:42   Node create_embedding, HTCondor ID 248, status STATUS_SUBMITTED
-03/21/17 09:47:44 332559 seconds since last log event
-03/21/17 09:47:44 Pending DAG nodes:
-03/21/17 09:47:44   Node create_embedding, HTCondor ID 248, status STATUS_SUBMITTED
-03/21/17 09:57:46 333161 seconds since last log event
-03/21/17 09:57:46 Pending DAG nodes:
-03/21/17 09:57:46   Node create_embedding, HTCondor ID 248, status STATUS_SUBMITTED
-03/21/17 10:07:49 333764 seconds since last log event
-03/21/17 10:07:49 Pending DAG nodes:
-03/21/17 10:07:49   Node create_embedding, HTCondor ID 248, status STATUS_SUBMITTED
-03/21/17 10:17:51 334366 seconds since last log event
-03/21/17 10:17:51 Pending DAG nodes:
-03/21/17 10:17:51   Node create_embedding, HTCondor ID 248, status STATUS_SUBMITTED
-03/21/17 10:27:52 334967 seconds since last log event
-03/21/17 10:27:52 Pending DAG nodes:
-03/21/17 10:27:52   Node create_embedding, HTCondor ID 248, status STATUS_SUBMITTED
-03/21/17 10:37:55 335570 seconds since last log event
-03/21/17 10:37:55 Pending DAG nodes:
-03/21/17 10:37:55   Node create_embedding, HTCondor ID 248, status STATUS_SUBMITTED
-03/21/17 10:47:57 336172 seconds since last log event
-03/21/17 10:47:57 Pending DAG nodes:
-03/21/17 10:47:57   Node create_embedding, HTCondor ID 248, status STATUS_SUBMITTED
-03/21/17 10:58:00 336775 seconds since last log event
-03/21/17 10:58:00 Pending DAG nodes:
-03/21/17 10:58:00   Node create_embedding, HTCondor ID 248, status STATUS_SUBMITTED
-03/21/17 11:08:02 337377 seconds since last log event
-03/21/17 11:08:02 Pending DAG nodes:
-03/21/17 11:08:02   Node create_embedding, HTCondor ID 248, status STATUS_SUBMITTED
-03/21/17 11:18:05 337980 seconds since last log event
-03/21/17 11:18:05 Pending DAG nodes:
-03/21/17 11:18:05   Node create_embedding, HTCondor ID 248, status STATUS_SUBMITTED
-03/21/17 11:28:08 338583 seconds since last log event
-03/21/17 11:28:08 Pending DAG nodes:
-03/21/17 11:28:08   Node create_embedding, HTCondor ID 248, status STATUS_SUBMITTED
-03/21/17 11:38:11 339186 seconds since last log event
-03/21/17 11:38:11 Pending DAG nodes:
-03/21/17 11:38:11   Node create_embedding, HTCondor ID 248, status STATUS_SUBMITTED
-03/21/17 11:48:12 339787 seconds since last log event
-03/21/17 11:48:12 Pending DAG nodes:
-03/21/17 11:48:12   Node create_embedding, HTCondor ID 248, status STATUS_SUBMITTED
-03/21/17 11:58:14 340389 seconds since last log event
-03/21/17 11:58:14 Pending DAG nodes:
-03/21/17 11:58:14   Node create_embedding, HTCondor ID 248, status STATUS_SUBMITTED
-03/21/17 12:08:16 340991 seconds since last log event
-03/21/17 12:08:16 Pending DAG nodes:
-03/21/17 12:08:16   Node create_embedding, HTCondor ID 248, status STATUS_SUBMITTED
-03/21/17 12:18:18 341593 seconds since last log event
-03/21/17 12:18:18 Pending DAG nodes:
-03/21/17 12:18:18   Node create_embedding, HTCondor ID 248, status STATUS_SUBMITTED
-03/21/17 12:28:21 342196 seconds since last log event
-03/21/17 12:28:21 Pending DAG nodes:
-03/21/17 12:28:21   Node create_embedding, HTCondor ID 248, status STATUS_SUBMITTED
-03/21/17 12:38:23 342798 seconds since last log event
-03/21/17 12:38:23 Pending DAG nodes:
-03/21/17 12:38:23   Node create_embedding, HTCondor ID 248, status STATUS_SUBMITTED
-03/21/17 12:48:26 343401 seconds since last log event
-03/21/17 12:48:26 Pending DAG nodes:
-03/21/17 12:48:26   Node create_embedding, HTCondor ID 248, status STATUS_SUBMITTED
-03/21/17 12:58:29 344004 seconds since last log event
-03/21/17 12:58:29 Pending DAG nodes:
-03/21/17 12:58:29   Node create_embedding, HTCondor ID 248, status STATUS_SUBMITTED
-03/21/17 13:08:31 344606 seconds since last log event
-03/21/17 13:08:31 Pending DAG nodes:
-03/21/17 13:08:31   Node create_embedding, HTCondor ID 248, status STATUS_SUBMITTED
-03/21/17 13:18:33 345208 seconds since last log event
-03/21/17 13:18:33 Pending DAG nodes:
-03/21/17 13:18:33   Node create_embedding, HTCondor ID 248, status STATUS_SUBMITTED
-03/21/17 13:28:36 345811 seconds since last log event
-03/21/17 13:28:36 Pending DAG nodes:
-03/21/17 13:28:36   Node create_embedding, HTCondor ID 248, status STATUS_SUBMITTED
-03/21/17 13:38:38 346413 seconds since last log event
-03/21/17 13:38:38 Pending DAG nodes:
-03/21/17 13:38:38   Node create_embedding, HTCondor ID 248, status STATUS_SUBMITTED
-03/21/17 13:48:40 347015 seconds since last log event
-03/21/17 13:48:40 Pending DAG nodes:
-03/21/17 13:48:40   Node create_embedding, HTCondor ID 248, status STATUS_SUBMITTED
-03/21/17 13:58:43 347618 seconds since last log event
-03/21/17 13:58:43 Pending DAG nodes:
-03/21/17 13:58:43   Node create_embedding, HTCondor ID 248, status STATUS_SUBMITTED
-03/21/17 14:08:46 348221 seconds since last log event
-03/21/17 14:08:46 Pending DAG nodes:
-03/21/17 14:08:46   Node create_embedding, HTCondor ID 248, status STATUS_SUBMITTED
-03/21/17 14:18:49 348824 seconds since last log event
-03/21/17 14:18:49 Pending DAG nodes:
-03/21/17 14:18:49   Node create_embedding, HTCondor ID 248, status STATUS_SUBMITTED
-03/21/17 14:28:52 349427 seconds since last log event
-03/21/17 14:28:52 Pending DAG nodes:
-03/21/17 14:28:52   Node create_embedding, HTCondor ID 248, status STATUS_SUBMITTED
-03/21/17 14:38:55 350030 seconds since last log event
-03/21/17 14:38:55 Pending DAG nodes:
-03/21/17 14:38:55   Node create_embedding, HTCondor ID 248, status STATUS_SUBMITTED
-03/21/17 14:48:58 350633 seconds since last log event
-03/21/17 14:48:58 Pending DAG nodes:
-03/21/17 14:48:58   Node create_embedding, HTCondor ID 248, status STATUS_SUBMITTED
-03/21/17 14:59:01 351236 seconds since last log event
-03/21/17 14:59:01 Pending DAG nodes:
-03/21/17 14:59:01   Node create_embedding, HTCondor ID 248, status STATUS_SUBMITTED
-03/21/17 15:09:04 351839 seconds since last log event
-03/21/17 15:09:04 Pending DAG nodes:
-03/21/17 15:09:04   Node create_embedding, HTCondor ID 248, status STATUS_SUBMITTED
-03/21/17 15:19:07 352442 seconds since last log event
-03/21/17 15:19:07 Pending DAG nodes:
-03/21/17 15:19:07   Node create_embedding, HTCondor ID 248, status STATUS_SUBMITTED
-03/21/17 15:29:10 353045 seconds since last log event
-03/21/17 15:29:10 Pending DAG nodes:
-03/21/17 15:29:10   Node create_embedding, HTCondor ID 248, status STATUS_SUBMITTED
-03/21/17 15:39:13 353648 seconds since last log event
-03/21/17 15:39:13 Pending DAG nodes:
-03/21/17 15:39:13   Node create_embedding, HTCondor ID 248, status STATUS_SUBMITTED
-03/21/17 15:49:16 354251 seconds since last log event
-03/21/17 15:49:16 Pending DAG nodes:
-03/21/17 15:49:16   Node create_embedding, HTCondor ID 248, status STATUS_SUBMITTED
-03/21/17 15:59:19 354854 seconds since last log event
-03/21/17 15:59:19 Pending DAG nodes:
-03/21/17 15:59:19   Node create_embedding, HTCondor ID 248, status STATUS_SUBMITTED
-03/21/17 16:09:22 355457 seconds since last log event
-03/21/17 16:09:22 Pending DAG nodes:
-03/21/17 16:09:22   Node create_embedding, HTCondor ID 248, status STATUS_SUBMITTED
-03/21/17 16:19:25 356060 seconds since last log event
-03/21/17 16:19:25 Pending DAG nodes:
-03/21/17 16:19:25   Node create_embedding, HTCondor ID 248, status STATUS_SUBMITTED
-03/21/17 16:29:27 356662 seconds since last log event
-03/21/17 16:29:27 Pending DAG nodes:
-03/21/17 16:29:27   Node create_embedding, HTCondor ID 248, status STATUS_SUBMITTED
-03/21/17 16:39:29 357264 seconds since last log event
-03/21/17 16:39:29 Pending DAG nodes:
-03/21/17 16:39:29   Node create_embedding, HTCondor ID 248, status STATUS_SUBMITTED
-03/21/17 16:49:31 357866 seconds since last log event
-03/21/17 16:49:31 Pending DAG nodes:
-03/21/17 16:49:31   Node create_embedding, HTCondor ID 248, status STATUS_SUBMITTED
-03/21/17 16:59:33 358468 seconds since last log event
-03/21/17 16:59:33 Pending DAG nodes:
-03/21/17 16:59:33   Node create_embedding, HTCondor ID 248, status STATUS_SUBMITTED
-03/21/17 17:09:34 359069 seconds since last log event
-03/21/17 17:09:34 Pending DAG nodes:
-03/21/17 17:09:34   Node create_embedding, HTCondor ID 248, status STATUS_SUBMITTED
-03/21/17 17:19:37 359672 seconds since last log event
-03/21/17 17:19:37 Pending DAG nodes:
-03/21/17 17:19:37   Node create_embedding, HTCondor ID 248, status STATUS_SUBMITTED
-03/21/17 17:29:39 360274 seconds since last log event
-03/21/17 17:29:39 Pending DAG nodes:
-03/21/17 17:29:39   Node create_embedding, HTCondor ID 248, status STATUS_SUBMITTED
-03/21/17 17:39:41 360876 seconds since last log event
-03/21/17 17:39:41 Pending DAG nodes:
-03/21/17 17:39:41   Node create_embedding, HTCondor ID 248, status STATUS_SUBMITTED
-03/21/17 17:49:43 361478 seconds since last log event
-03/21/17 17:49:43 Pending DAG nodes:
-03/21/17 17:49:43   Node create_embedding, HTCondor ID 248, status STATUS_SUBMITTED
-03/21/17 17:59:44 362079 seconds since last log event
-03/21/17 17:59:44 Pending DAG nodes:
-03/21/17 17:59:44   Node create_embedding, HTCondor ID 248, status STATUS_SUBMITTED
-03/21/17 18:09:46 362681 seconds since last log event
-03/21/17 18:09:46 Pending DAG nodes:
-03/21/17 18:09:46   Node create_embedding, HTCondor ID 248, status STATUS_SUBMITTED
-03/21/17 18:19:48 363283 seconds since last log event
-03/21/17 18:19:48 Pending DAG nodes:
-03/21/17 18:19:48   Node create_embedding, HTCondor ID 248, status STATUS_SUBMITTED
-03/21/17 18:29:50 363885 seconds since last log event
-03/21/17 18:29:50 Pending DAG nodes:
-03/21/17 18:29:50   Node create_embedding, HTCondor ID 248, status STATUS_SUBMITTED
-03/21/17 18:39:53 364488 seconds since last log event
-03/21/17 18:39:53 Pending DAG nodes:
-03/21/17 18:39:53   Node create_embedding, HTCondor ID 248, status STATUS_SUBMITTED
-03/21/17 18:49:55 365090 seconds since last log event
-03/21/17 18:49:55 Pending DAG nodes:
-03/21/17 18:49:55   Node create_embedding, HTCondor ID 248, status STATUS_SUBMITTED
-03/21/17 18:59:57 365692 seconds since last log event
-03/21/17 18:59:57 Pending DAG nodes:
-03/21/17 18:59:57   Node create_embedding, HTCondor ID 248, status STATUS_SUBMITTED
-03/21/17 19:10:00 366295 seconds since last log event
-03/21/17 19:10:00 Pending DAG nodes:
-03/21/17 19:10:00   Node create_embedding, HTCondor ID 248, status STATUS_SUBMITTED
-03/21/17 19:20:01 366896 seconds since last log event
-03/21/17 19:20:01 Pending DAG nodes:
-03/21/17 19:20:01   Node create_embedding, HTCondor ID 248, status STATUS_SUBMITTED
-03/21/17 19:30:04 367499 seconds since last log event
-03/21/17 19:30:04 Pending DAG nodes:
-03/21/17 19:30:04   Node create_embedding, HTCondor ID 248, status STATUS_SUBMITTED
-03/21/17 19:40:07 368102 seconds since last log event
-03/21/17 19:40:07 Pending DAG nodes:
-03/21/17 19:40:07   Node create_embedding, HTCondor ID 248, status STATUS_SUBMITTED
-03/21/17 19:50:10 368705 seconds since last log event
-03/21/17 19:50:10 Pending DAG nodes:
-03/21/17 19:50:10   Node create_embedding, HTCondor ID 248, status STATUS_SUBMITTED
-03/21/17 20:00:13 369308 seconds since last log event
-03/21/17 20:00:13 Pending DAG nodes:
-03/21/17 20:00:13   Node create_embedding, HTCondor ID 248, status STATUS_SUBMITTED
-03/21/17 20:10:16 369911 seconds since last log event
-03/21/17 20:10:16 Pending DAG nodes:
-03/21/17 20:10:16   Node create_embedding, HTCondor ID 248, status STATUS_SUBMITTED
-03/21/17 20:20:19 370514 seconds since last log event
-03/21/17 20:20:19 Pending DAG nodes:
-03/21/17 20:20:19   Node create_embedding, HTCondor ID 248, status STATUS_SUBMITTED
-03/21/17 20:30:22 371117 seconds since last log event
-03/21/17 20:30:22 Pending DAG nodes:
-03/21/17 20:30:22   Node create_embedding, HTCondor ID 248, status STATUS_SUBMITTED
-03/21/17 20:40:25 371720 seconds since last log event
-03/21/17 20:40:25 Pending DAG nodes:
-03/21/17 20:40:25   Node create_embedding, HTCondor ID 248, status STATUS_SUBMITTED
-03/21/17 20:49:02 Currently monitoring 1 HTCondor log file(s)
-03/21/17 20:49:02 Event: ULOG_JOB_TERMINATED for HTCondor Node create_embedding (248.0.0) {03/21/17 20:49:02}
-03/21/17 20:49:02 Number of idle job procs: 0
-03/21/17 20:49:02 Node create_embedding job proc (248.0.0) completed successfully.
-03/21/17 20:49:02 Node create_embedding job completed
-03/21/17 20:49:02 DAG status: 0 (DAG_STATUS_OK)
-03/21/17 20:49:02 Of 3 nodes total:
-03/21/17 20:49:02  Done     Pre   Queued    Post   Ready   Un-Ready   Failed
-03/21/17 20:49:02   ===     ===      ===     ===     ===        ===      ===
-03/21/17 20:49:02     1       0        0       0       2          0        0
-03/21/17 20:49:02 0 job proc(s) currently held
-03/21/17 20:49:07 Submitting HTCondor Node nn_embedding job(s)...
-03/21/17 20:49:07 Adding a DAGMan workflow log /esat/spchtemp/scratch/robbe/SpeechHub/embedding_experiments/python/jobdag/./embedding.dag.nodes.log
-03/21/17 20:49:07 Masking the events recorded in the DAGMAN workflow log
-03/21/17 20:49:07 Mask for workflow log is 0,1,2,4,5,7,9,10,11,12,13,16,17,24,27
-03/21/17 20:49:07 submitting: /usr/bin/condor_submit -a dag_node_name' '=' 'nn_embedding -a +DAGManJobId' '=' '247 -a DAGManJobId' '=' '247 -batch-name embedding.dag+247 -a submit_event_notes' '=' 'DAG' 'Node:' 'nn_embedding -a dagman_log' '=' '/esat/spchtemp/scratch/robbe/SpeechHub/embedding_experiments/python/jobdag/./embedding.dag.nodes.log -a +DAGManNodesMask' '=' '"0,1,2,4,5,7,9,10,11,12,13,16,17,24,27" -a DAG_STATUS' '=' '0 -a FAILED_COUNT' '=' '0 -a notification' '=' 'never -a +DAGParentNodeNames' '=' '"create_embedding" jobdag/nn_embedding.job
-03/21/17 20:49:07 From submit: Submitting job(s).
-03/21/17 20:49:07 From submit: 1 job(s) submitted to cluster 284.
-03/21/17 20:49:07 	assigned HTCondor ID (284.0.0)
-03/21/17 20:49:07 Submitting HTCondor Node relations_embedding job(s)...
-03/21/17 20:49:07 Adding a DAGMan workflow log /esat/spchtemp/scratch/robbe/SpeechHub/embedding_experiments/python/jobdag/./embedding.dag.nodes.log
-03/21/17 20:49:07 Masking the events recorded in the DAGMAN workflow log
-03/21/17 20:49:07 Mask for workflow log is 0,1,2,4,5,7,9,10,11,12,13,16,17,24,27
-03/21/17 20:49:07 submitting: /usr/bin/condor_submit -a dag_node_name' '=' 'relations_embedding -a +DAGManJobId' '=' '247 -a DAGManJobId' '=' '247 -batch-name embedding.dag+247 -a submit_event_notes' '=' 'DAG' 'Node:' 'relations_embedding -a dagman_log' '=' '/esat/spchtemp/scratch/robbe/SpeechHub/embedding_experiments/python/jobdag/./embedding.dag.nodes.log -a +DAGManNodesMask' '=' '"0,1,2,4,5,7,9,10,11,12,13,16,17,24,27" -a DAG_STATUS' '=' '0 -a FAILED_COUNT' '=' '0 -a notification' '=' 'never -a +DAGParentNodeNames' '=' '"create_embedding" jobdag/relations_embedding.job
-03/21/17 20:49:08 From submit: Submitting job(s).
-03/21/17 20:49:08 From submit: 1 job(s) submitted to cluster 285.
-03/21/17 20:49:08 	assigned HTCondor ID (285.0.0)
-03/21/17 20:49:08 Just submitted 2 jobs this cycle...
-03/21/17 20:49:08 Currently monitoring 1 HTCondor log file(s)
-03/21/17 20:49:08 Reassigning the id of job nn_embedding from (284.0.0) to (284.0.0)
-03/21/17 20:49:08 Event: ULOG_SUBMIT for HTCondor Node nn_embedding (284.0.0) {03/21/17 20:49:07}
-03/21/17 20:49:08 Number of idle job procs: 1
-03/21/17 20:49:08 Reassigning the id of job relations_embedding from (285.0.0) to (285.0.0)
-03/21/17 20:49:08 Event: ULOG_SUBMIT for HTCondor Node relations_embedding (285.0.0) {03/21/17 20:49:08}
-03/21/17 20:49:08 Number of idle job procs: 2
-03/21/17 20:49:08 DAG status: 0 (DAG_STATUS_OK)
-03/21/17 20:49:08 Of 3 nodes total:
-03/21/17 20:49:08  Done     Pre   Queued    Post   Ready   Un-Ready   Failed
-03/21/17 20:49:08   ===     ===      ===     ===     ===        ===      ===
-03/21/17 20:49:08     1       0        2       0       0          0        0
-03/21/17 20:49:08 0 job proc(s) currently held
-03/21/17 20:49:18 Currently monitoring 1 HTCondor log file(s)
-03/21/17 20:49:18 Event: ULOG_EXECUTE for HTCondor Node nn_embedding (284.0.0) {03/21/17 20:49:16}
-03/21/17 20:49:18 Number of idle job procs: 1
-03/21/17 20:49:23 Currently monitoring 1 HTCondor log file(s)
-03/21/17 20:49:23 Event: ULOG_EXECUTE for HTCondor Node relations_embedding (285.0.0) {03/21/17 20:49:18}
-03/21/17 20:49:23 Number of idle job procs: 0
-03/21/17 20:49:38 Currently monitoring 1 HTCondor log file(s)
-03/21/17 20:49:38 Event: ULOG_JOB_TERMINATED for HTCondor Node nn_embedding (284.0.0) {03/21/17 20:49:34}
-03/21/17 20:49:38 Number of idle job procs: 0
-03/21/17 20:49:38 Node nn_embedding job proc (284.0.0) completed successfully.
-03/21/17 20:49:38 Node nn_embedding job completed
-03/21/17 20:49:38 DAG status: 0 (DAG_STATUS_OK)
-03/21/17 20:49:38 Of 3 nodes total:
-03/21/17 20:49:38  Done     Pre   Queued    Post   Ready   Un-Ready   Failed
-03/21/17 20:49:38   ===     ===      ===     ===     ===        ===      ===
-03/21/17 20:49:38     2       0        1       0       0          0        0
-03/21/17 20:49:38 0 job proc(s) currently held
-03/21/17 20:52:03 Currently monitoring 1 HTCondor log file(s)
-03/21/17 20:52:03 Event: ULOG_JOB_TERMINATED for HTCondor Node relations_embedding (285.0.0) {03/21/17 20:52:00}
-03/21/17 20:52:03 Number of idle job procs: 0
-03/21/17 20:52:03 Node relations_embedding job proc (285.0.0) completed successfully.
-03/21/17 20:52:03 Node relations_embedding job completed
-03/21/17 20:52:03 DAG status: 0 (DAG_STATUS_OK)
-03/21/17 20:52:03 Of 3 nodes total:
-03/21/17 20:52:03  Done     Pre   Queued    Post   Ready   Un-Ready   Failed
-03/21/17 20:52:03   ===     ===      ===     ===     ===        ===      ===
-03/21/17 20:52:03     3       0        0       0       0          0        0
-03/21/17 20:52:03 0 job proc(s) currently held
-03/21/17 20:52:04 All jobs Completed!
-03/21/17 20:52:04 Note: 0 total job deferrals because of -MaxJobs limit (0)
-03/21/17 20:52:04 Note: 0 total job deferrals because of -MaxIdle limit (1000)
-03/21/17 20:52:04 Note: 0 total job deferrals because of node category throttles
-03/21/17 20:52:04 Note: 0 total PRE script deferrals because of -MaxPre limit (20) or DEFER
-03/21/17 20:52:04 Note: 0 total POST script deferrals because of -MaxPost limit (20) or DEFER
-03/21/17 20:52:04 DAG status: 0 (DAG_STATUS_OK)
-03/21/17 20:52:04 Of 3 nodes total:
-03/21/17 20:52:04  Done     Pre   Queued    Post   Ready   Un-Ready   Failed
-03/21/17 20:52:04   ===     ===      ===     ===     ===        ===      ===
-03/21/17 20:52:04     3       0        0       0       0          0        0
-03/21/17 20:52:04 0 job proc(s) currently held
-03/21/17 20:52:04 Wrote metrics file embedding.dag.metrics.
-03/21/17 20:52:04 Metrics not sent because of PEGASUS_METRICS or CONDOR_DEVELOPERS setting.
-03/21/17 20:52:04 **** condor_scheduniv_exec.247.0 (condor_DAGMAN) pid 12121 EXITING WITH STATUS 0
+03/22/17 16:18:46 ******************************************************
+03/22/17 16:18:46 ** condor_scheduniv_exec.288.0 (CONDOR_DAGMAN) STARTING UP
+03/22/17 16:18:46 ** /usr/bin/condor_dagman
+03/22/17 16:18:46 ** SubsystemInfo: name=DAGMAN type=DAGMAN(10) class=DAEMON(1)
+03/22/17 16:18:46 ** Configuration: subsystem:DAGMAN local:<NONE> class:DAEMON
+03/22/17 16:18:46 ** $CondorVersion: 8.6.1 Mar 01 2017 BuildID: 398585 $
+03/22/17 16:18:46 ** $CondorPlatform: x86_64_RedHat7 $
+03/22/17 16:18:46 ** PID = 21176
+03/22/17 16:18:46 ** Log last touched time unavailable (No such file or directory)
+03/22/17 16:18:46 ******************************************************
+03/22/17 16:18:46 Using config source: /etc/condor/condor_config
+03/22/17 16:18:46 Using local config sources: 
+03/22/17 16:18:46    /etc/condor/config.d/00esat.config
+03/22/17 16:18:46    /etc/condor/config.d/01java.config
+03/22/17 16:18:46    /etc/condor/config.d/80optout_users.config
+03/22/17 16:18:46    /etc/condor/condor_config.local
+03/22/17 16:18:46 config Macros = 166, Sorted = 166, StringBytes = 6024, TablesBytes = 6048
+03/22/17 16:18:46 CLASSAD_CACHING is ENABLED
+03/22/17 16:18:46 Daemon Log is logging: D_ALWAYS D_ERROR
+03/22/17 16:18:46 DaemonCore: No command port requested.
+03/22/17 16:18:46 DAGMAN_USE_STRICT setting: 1
+03/22/17 16:18:46 DAGMAN_VERBOSITY setting: 3
+03/22/17 16:18:46 DAGMAN_DEBUG_CACHE_SIZE setting: 5242880
+03/22/17 16:18:46 DAGMAN_DEBUG_CACHE_ENABLE setting: False
+03/22/17 16:18:46 DAGMAN_SUBMIT_DELAY setting: 0
+03/22/17 16:18:46 DAGMAN_MAX_SUBMIT_ATTEMPTS setting: 6
+03/22/17 16:18:46 DAGMAN_STARTUP_CYCLE_DETECT setting: False
+03/22/17 16:18:46 DAGMAN_MAX_SUBMITS_PER_INTERVAL setting: 5
+03/22/17 16:18:46 DAGMAN_USER_LOG_SCAN_INTERVAL setting: 5
+03/22/17 16:18:46 DAGMAN_DEFAULT_PRIORITY setting: 0
+03/22/17 16:18:46 DAGMAN_SUPPRESS_NOTIFICATION setting: True
+03/22/17 16:18:46 allow_events (DAGMAN_ALLOW_EVENTS) setting: 114
+03/22/17 16:18:46 DAGMAN_RETRY_SUBMIT_FIRST setting: True
+03/22/17 16:18:46 DAGMAN_RETRY_NODE_FIRST setting: False
+03/22/17 16:18:46 DAGMAN_MAX_JOBS_IDLE setting: 1000
+03/22/17 16:18:46 DAGMAN_MAX_JOBS_SUBMITTED setting: 0
+03/22/17 16:18:46 DAGMAN_MAX_PRE_SCRIPTS setting: 20
+03/22/17 16:18:46 DAGMAN_MAX_POST_SCRIPTS setting: 20
+03/22/17 16:18:46 DAGMAN_MUNGE_NODE_NAMES setting: True
+03/22/17 16:18:46 DAGMAN_PROHIBIT_MULTI_JOBS setting: False
+03/22/17 16:18:46 DAGMAN_SUBMIT_DEPTH_FIRST setting: False
+03/22/17 16:18:46 DAGMAN_ALWAYS_RUN_POST setting: False
+03/22/17 16:18:46 DAGMAN_ABORT_DUPLICATES setting: True
+03/22/17 16:18:46 DAGMAN_ABORT_ON_SCARY_SUBMIT setting: True
+03/22/17 16:18:46 DAGMAN_PENDING_REPORT_INTERVAL setting: 600
+03/22/17 16:18:46 DAGMAN_AUTO_RESCUE setting: True
+03/22/17 16:18:46 DAGMAN_MAX_RESCUE_NUM setting: 100
+03/22/17 16:18:46 DAGMAN_WRITE_PARTIAL_RESCUE setting: True
+03/22/17 16:18:46 DAGMAN_DEFAULT_NODE_LOG setting: @(DAG_DIR)/@(DAG_FILE).nodes.log
+03/22/17 16:18:46 DAGMAN_GENERATE_SUBDAG_SUBMITS setting: True
+03/22/17 16:18:46 DAGMAN_MAX_JOB_HOLDS setting: 100
+03/22/17 16:18:46 DAGMAN_HOLD_CLAIM_TIME setting: 20
+03/22/17 16:18:46 ALL_DEBUG setting: 
+03/22/17 16:18:46 DAGMAN_DEBUG setting: 
+03/22/17 16:18:46 DAGMAN_SUPPRESS_JOB_LOGS setting: False
+03/22/17 16:18:46 DAGMAN_REMOVE_NODE_JOBS setting: True
+03/22/17 16:18:46 argv[0] == "condor_scheduniv_exec.288.0"
+03/22/17 16:18:46 argv[1] == "-Lockfile"
+03/22/17 16:18:46 argv[2] == "embedding.dag.lock"
+03/22/17 16:18:46 argv[3] == "-AutoRescue"
+03/22/17 16:18:46 argv[4] == "1"
+03/22/17 16:18:46 argv[5] == "-DoRescueFrom"
+03/22/17 16:18:46 argv[6] == "0"
+03/22/17 16:18:46 argv[7] == "-Dag"
+03/22/17 16:18:46 argv[8] == "embedding.dag"
+03/22/17 16:18:46 argv[9] == "-Suppress_notification"
+03/22/17 16:18:46 argv[10] == "-CsdVersion"
+03/22/17 16:18:46 argv[11] == "$CondorVersion: 8.6.1 Mar 01 2017 BuildID: 398585 $"
+03/22/17 16:18:46 argv[12] == "-Dagman"
+03/22/17 16:18:46 argv[13] == "/usr/bin/condor_dagman"
+03/22/17 16:18:46 Workflow batch-name: <embedding.dag+288>
+03/22/17 16:18:46 Workflow accounting_group: <>
+03/22/17 16:18:46 Workflow accounting_group_user: <>
+03/22/17 16:18:46 Warning: failed to get attribute DAGNodeName
+03/22/17 16:18:46 DAGMAN_LOG_ON_NFS_IS_ERROR setting: False
+03/22/17 16:18:46 Default node log file is: </esat/spchtemp/scratch/robbe/SpeechHub/embedding_experiments/python/jobdag/./embedding.dag.nodes.log>
+03/22/17 16:18:46 DAG Lockfile will be written to embedding.dag.lock
+03/22/17 16:18:46 DAG Input file is embedding.dag
+03/22/17 16:18:46 Parsing 1 dagfiles
+03/22/17 16:18:46 Parsing embedding.dag ...
+03/22/17 16:18:46 Dag contains 3 total jobs
+03/22/17 16:18:46 Sleeping for 3 seconds to ensure ProcessId uniqueness
+03/22/17 16:18:49 Bootstrapping...
+03/22/17 16:18:49 Number of pre-completed nodes: 0
+03/22/17 16:18:49 MultiLogFiles: truncating log file /esat/spchtemp/scratch/robbe/SpeechHub/embedding_experiments/python/jobdag/./embedding.dag.nodes.log
+03/22/17 16:18:49 DAG status: 0 (DAG_STATUS_OK)
+03/22/17 16:18:49 Of 3 nodes total:
+03/22/17 16:18:49  Done     Pre   Queued    Post   Ready   Un-Ready   Failed
+03/22/17 16:18:49   ===     ===      ===     ===     ===        ===      ===
+03/22/17 16:18:49     0       0        0       0       1          2        0
+03/22/17 16:18:49 0 job proc(s) currently held
+03/22/17 16:18:49 Registering condor_event_timer...
+03/22/17 16:18:50 Submitting HTCondor Node create_embedding job(s)...
+03/22/17 16:18:50 Adding a DAGMan workflow log /esat/spchtemp/scratch/robbe/SpeechHub/embedding_experiments/python/jobdag/./embedding.dag.nodes.log
+03/22/17 16:18:50 Masking the events recorded in the DAGMAN workflow log
+03/22/17 16:18:50 Mask for workflow log is 0,1,2,4,5,7,9,10,11,12,13,16,17,24,27
+03/22/17 16:18:50 submitting: /usr/bin/condor_submit -a dag_node_name' '=' 'create_embedding -a +DAGManJobId' '=' '288 -a DAGManJobId' '=' '288 -batch-name embedding.dag+288 -a submit_event_notes' '=' 'DAG' 'Node:' 'create_embedding -a dagman_log' '=' '/esat/spchtemp/scratch/robbe/SpeechHub/embedding_experiments/python/jobdag/./embedding.dag.nodes.log -a +DAGManNodesMask' '=' '"0,1,2,4,5,7,9,10,11,12,13,16,17,24,27" -a data_set' '=' 'ds -a test_name' '=' 'embedding -a num_run' '=' '0 -a DAG_STATUS' '=' '0 -a FAILED_COUNT' '=' '0 -a +KeepClaimIdle' '=' '20 -a notification' '=' 'never -a +DAGParentNodeNames' '=' '"" jobdag/create_embedding.job
+03/22/17 16:18:50 From submit: Submitting job(s).
+03/22/17 16:18:50 From submit: 1 job(s) submitted to cluster 289.
+03/22/17 16:18:50 	assigned HTCondor ID (289.0.0)
+03/22/17 16:18:50 Just submitted 1 job this cycle...
+03/22/17 16:18:50 Currently monitoring 1 HTCondor log file(s)
+03/22/17 16:18:50 Reassigning the id of job create_embedding from (289.0.0) to (289.0.0)
+03/22/17 16:18:50 Event: ULOG_SUBMIT for HTCondor Node create_embedding (289.0.0) {03/22/17 16:18:50}
+03/22/17 16:18:50 Number of idle job procs: 1
+03/22/17 16:18:50 DAG status: 0 (DAG_STATUS_OK)
+03/22/17 16:18:50 Of 3 nodes total:
+03/22/17 16:18:50  Done     Pre   Queued    Post   Ready   Un-Ready   Failed
+03/22/17 16:18:50   ===     ===      ===     ===     ===        ===      ===
+03/22/17 16:18:50     0       0        1       0       0          2        0
+03/22/17 16:18:50 0 job proc(s) currently held
+03/22/17 16:28:53 603 seconds since last log event
+03/22/17 16:28:53 Pending DAG nodes:
+03/22/17 16:28:53   Node create_embedding, HTCondor ID 289, status STATUS_SUBMITTED
+03/22/17 16:38:56 1206 seconds since last log event
+03/22/17 16:38:56 Pending DAG nodes:
+03/22/17 16:38:56   Node create_embedding, HTCondor ID 289, status STATUS_SUBMITTED
+03/22/17 16:48:59 1809 seconds since last log event
+03/22/17 16:48:59 Pending DAG nodes:
+03/22/17 16:48:59   Node create_embedding, HTCondor ID 289, status STATUS_SUBMITTED
+03/22/17 16:59:02 2412 seconds since last log event
+03/22/17 16:59:02 Pending DAG nodes:
+03/22/17 16:59:02   Node create_embedding, HTCondor ID 289, status STATUS_SUBMITTED
+03/22/17 17:09:04 3014 seconds since last log event
+03/22/17 17:09:04 Pending DAG nodes:
+03/22/17 17:09:04   Node create_embedding, HTCondor ID 289, status STATUS_SUBMITTED
+03/22/17 17:19:07 3617 seconds since last log event
+03/22/17 17:19:07 Pending DAG nodes:
+03/22/17 17:19:07   Node create_embedding, HTCondor ID 289, status STATUS_SUBMITTED
+03/22/17 17:29:09 4219 seconds since last log event
+03/22/17 17:29:09 Pending DAG nodes:
+03/22/17 17:29:09   Node create_embedding, HTCondor ID 289, status STATUS_SUBMITTED
+03/22/17 17:39:11 4821 seconds since last log event
+03/22/17 17:39:11 Pending DAG nodes:
+03/22/17 17:39:11   Node create_embedding, HTCondor ID 289, status STATUS_SUBMITTED
+03/22/17 17:49:13 5423 seconds since last log event
+03/22/17 17:49:13 Pending DAG nodes:
+03/22/17 17:49:13   Node create_embedding, HTCondor ID 289, status STATUS_SUBMITTED
+03/22/17 17:59:15 6025 seconds since last log event
+03/22/17 17:59:15 Pending DAG nodes:
+03/22/17 17:59:15   Node create_embedding, HTCondor ID 289, status STATUS_SUBMITTED
+03/22/17 18:09:18 6628 seconds since last log event
+03/22/17 18:09:18 Pending DAG nodes:
+03/22/17 18:09:18   Node create_embedding, HTCondor ID 289, status STATUS_SUBMITTED
+03/22/17 18:19:21 7231 seconds since last log event
+03/22/17 18:19:21 Pending DAG nodes:
+03/22/17 18:19:21   Node create_embedding, HTCondor ID 289, status STATUS_SUBMITTED
+03/22/17 18:29:23 7833 seconds since last log event
+03/22/17 18:29:23 Pending DAG nodes:
+03/22/17 18:29:23   Node create_embedding, HTCondor ID 289, status STATUS_SUBMITTED
+03/22/17 18:39:25 8435 seconds since last log event
+03/22/17 18:39:25 Pending DAG nodes:
+03/22/17 18:39:25   Node create_embedding, HTCondor ID 289, status STATUS_SUBMITTED
+03/22/17 18:49:28 9038 seconds since last log event
+03/22/17 18:49:28 Pending DAG nodes:
+03/22/17 18:49:28   Node create_embedding, HTCondor ID 289, status STATUS_SUBMITTED
+03/22/17 18:59:30 9640 seconds since last log event
+03/22/17 18:59:30 Pending DAG nodes:
+03/22/17 18:59:30   Node create_embedding, HTCondor ID 289, status STATUS_SUBMITTED
+03/22/17 19:09:33 10243 seconds since last log event
+03/22/17 19:09:33 Pending DAG nodes:
+03/22/17 19:09:33   Node create_embedding, HTCondor ID 289, status STATUS_SUBMITTED
+03/22/17 19:19:36 10846 seconds since last log event
+03/22/17 19:19:36 Pending DAG nodes:
+03/22/17 19:19:36   Node create_embedding, HTCondor ID 289, status STATUS_SUBMITTED
+03/22/17 19:29:38 11448 seconds since last log event
+03/22/17 19:29:38 Pending DAG nodes:
+03/22/17 19:29:38   Node create_embedding, HTCondor ID 289, status STATUS_SUBMITTED
+03/22/17 19:39:41 12051 seconds since last log event
+03/22/17 19:39:41 Pending DAG nodes:
+03/22/17 19:39:41   Node create_embedding, HTCondor ID 289, status STATUS_SUBMITTED
+03/22/17 19:49:44 12654 seconds since last log event
+03/22/17 19:49:44 Pending DAG nodes:
+03/22/17 19:49:44   Node create_embedding, HTCondor ID 289, status STATUS_SUBMITTED
+03/22/17 19:57:46 Currently monitoring 1 HTCondor log file(s)
+03/22/17 19:57:46 Event: ULOG_EXECUTE for HTCondor Node create_embedding (289.0.0) {03/22/17 19:57:45}
+03/22/17 19:57:46 Number of idle job procs: 0
+03/22/17 20:07:49 603 seconds since last log event
+03/22/17 20:07:49 Pending DAG nodes:
+03/22/17 20:07:49   Node create_embedding, HTCondor ID 289, status STATUS_SUBMITTED
+03/22/17 20:17:51 1205 seconds since last log event
+03/22/17 20:17:51 Pending DAG nodes:
+03/22/17 20:17:51   Node create_embedding, HTCondor ID 289, status STATUS_SUBMITTED
+03/22/17 20:27:54 1808 seconds since last log event
+03/22/17 20:27:54 Pending DAG nodes:
+03/22/17 20:27:54   Node create_embedding, HTCondor ID 289, status STATUS_SUBMITTED
+03/22/17 20:37:55 2409 seconds since last log event
+03/22/17 20:37:55 Pending DAG nodes:
+03/22/17 20:37:55   Node create_embedding, HTCondor ID 289, status STATUS_SUBMITTED
+03/22/17 20:47:58 3012 seconds since last log event
+03/22/17 20:47:58 Pending DAG nodes:
+03/22/17 20:47:58   Node create_embedding, HTCondor ID 289, status STATUS_SUBMITTED
+03/22/17 20:58:00 3614 seconds since last log event
+03/22/17 20:58:00 Pending DAG nodes:
+03/22/17 20:58:00   Node create_embedding, HTCondor ID 289, status STATUS_SUBMITTED
+03/22/17 21:08:02 4216 seconds since last log event
+03/22/17 21:08:02 Pending DAG nodes:
+03/22/17 21:08:02   Node create_embedding, HTCondor ID 289, status STATUS_SUBMITTED
+03/22/17 21:18:04 4818 seconds since last log event
+03/22/17 21:18:04 Pending DAG nodes:
+03/22/17 21:18:04   Node create_embedding, HTCondor ID 289, status STATUS_SUBMITTED
+03/22/17 21:28:07 5421 seconds since last log event
+03/22/17 21:28:07 Pending DAG nodes:
+03/22/17 21:28:07   Node create_embedding, HTCondor ID 289, status STATUS_SUBMITTED
+03/22/17 21:38:09 6023 seconds since last log event
+03/22/17 21:38:09 Pending DAG nodes:
+03/22/17 21:38:09   Node create_embedding, HTCondor ID 289, status STATUS_SUBMITTED
+03/22/17 21:48:12 6626 seconds since last log event
+03/22/17 21:48:12 Pending DAG nodes:
+03/22/17 21:48:12   Node create_embedding, HTCondor ID 289, status STATUS_SUBMITTED
+03/22/17 21:58:14 7228 seconds since last log event
+03/22/17 21:58:14 Pending DAG nodes:
+03/22/17 21:58:14   Node create_embedding, HTCondor ID 289, status STATUS_SUBMITTED
+03/22/17 22:08:16 7830 seconds since last log event
+03/22/17 22:08:16 Pending DAG nodes:
+03/22/17 22:08:16   Node create_embedding, HTCondor ID 289, status STATUS_SUBMITTED
+03/22/17 22:18:19 8433 seconds since last log event
+03/22/17 22:18:19 Pending DAG nodes:
+03/22/17 22:18:19   Node create_embedding, HTCondor ID 289, status STATUS_SUBMITTED
+03/22/17 22:28:22 9036 seconds since last log event
+03/22/17 22:28:22 Pending DAG nodes:
+03/22/17 22:28:22   Node create_embedding, HTCondor ID 289, status STATUS_SUBMITTED
+03/22/17 22:38:24 9638 seconds since last log event
+03/22/17 22:38:24 Pending DAG nodes:
+03/22/17 22:38:24   Node create_embedding, HTCondor ID 289, status STATUS_SUBMITTED
+03/22/17 22:48:26 10240 seconds since last log event
+03/22/17 22:48:26 Pending DAG nodes:
+03/22/17 22:48:26   Node create_embedding, HTCondor ID 289, status STATUS_SUBMITTED
+03/22/17 22:58:28 10842 seconds since last log event
+03/22/17 22:58:28 Pending DAG nodes:
+03/22/17 22:58:28   Node create_embedding, HTCondor ID 289, status STATUS_SUBMITTED
+03/22/17 23:08:31 11445 seconds since last log event
+03/22/17 23:08:31 Pending DAG nodes:
+03/22/17 23:08:31   Node create_embedding, HTCondor ID 289, status STATUS_SUBMITTED
+03/22/17 23:18:33 12047 seconds since last log event
+03/22/17 23:18:33 Pending DAG nodes:
+03/22/17 23:18:33   Node create_embedding, HTCondor ID 289, status STATUS_SUBMITTED
+03/22/17 23:28:36 12650 seconds since last log event
+03/22/17 23:28:36 Pending DAG nodes:
+03/22/17 23:28:36   Node create_embedding, HTCondor ID 289, status STATUS_SUBMITTED
+03/22/17 23:38:38 13252 seconds since last log event
+03/22/17 23:38:38 Pending DAG nodes:
+03/22/17 23:38:38   Node create_embedding, HTCondor ID 289, status STATUS_SUBMITTED
+03/22/17 23:48:41 13855 seconds since last log event
+03/22/17 23:48:41 Pending DAG nodes:
+03/22/17 23:48:41   Node create_embedding, HTCondor ID 289, status STATUS_SUBMITTED
+03/22/17 23:58:43 14457 seconds since last log event
+03/22/17 23:58:43 Pending DAG nodes:
+03/22/17 23:58:43   Node create_embedding, HTCondor ID 289, status STATUS_SUBMITTED
+03/23/17 00:08:47 15061 seconds since last log event
+03/23/17 00:08:47 Pending DAG nodes:
+03/23/17 00:08:47   Node create_embedding, HTCondor ID 289, status STATUS_SUBMITTED
+03/23/17 00:18:50 15664 seconds since last log event
+03/23/17 00:18:50 Pending DAG nodes:
+03/23/17 00:18:50   Node create_embedding, HTCondor ID 289, status STATUS_SUBMITTED
+03/23/17 00:28:52 16266 seconds since last log event
+03/23/17 00:28:52 Pending DAG nodes:
+03/23/17 00:28:52   Node create_embedding, HTCondor ID 289, status STATUS_SUBMITTED
+03/23/17 00:38:55 16869 seconds since last log event
+03/23/17 00:38:55 Pending DAG nodes:
+03/23/17 00:38:55   Node create_embedding, HTCondor ID 289, status STATUS_SUBMITTED
+03/23/17 00:48:57 17471 seconds since last log event
+03/23/17 00:48:57 Pending DAG nodes:
+03/23/17 00:48:57   Node create_embedding, HTCondor ID 289, status STATUS_SUBMITTED
+03/23/17 00:59:00 18074 seconds since last log event
+03/23/17 00:59:00 Pending DAG nodes:
+03/23/17 00:59:00   Node create_embedding, HTCondor ID 289, status STATUS_SUBMITTED
+03/23/17 01:09:03 18677 seconds since last log event
+03/23/17 01:09:03 Pending DAG nodes:
+03/23/17 01:09:03   Node create_embedding, HTCondor ID 289, status STATUS_SUBMITTED
+03/23/17 01:19:05 19279 seconds since last log event
+03/23/17 01:19:05 Pending DAG nodes:
+03/23/17 01:19:05   Node create_embedding, HTCondor ID 289, status STATUS_SUBMITTED
+03/23/17 01:29:07 19881 seconds since last log event
+03/23/17 01:29:07 Pending DAG nodes:
+03/23/17 01:29:07   Node create_embedding, HTCondor ID 289, status STATUS_SUBMITTED
+03/23/17 01:39:10 20484 seconds since last log event
+03/23/17 01:39:10 Pending DAG nodes:
+03/23/17 01:39:10   Node create_embedding, HTCondor ID 289, status STATUS_SUBMITTED
+03/23/17 01:49:13 21087 seconds since last log event
+03/23/17 01:49:13 Pending DAG nodes:
+03/23/17 01:49:13   Node create_embedding, HTCondor ID 289, status STATUS_SUBMITTED
+03/23/17 01:59:15 21689 seconds since last log event
+03/23/17 01:59:15 Pending DAG nodes:
+03/23/17 01:59:15   Node create_embedding, HTCondor ID 289, status STATUS_SUBMITTED
+03/23/17 02:09:18 22292 seconds since last log event
+03/23/17 02:09:18 Pending DAG nodes:
+03/23/17 02:09:18   Node create_embedding, HTCondor ID 289, status STATUS_SUBMITTED
+03/23/17 02:19:20 22894 seconds since last log event
+03/23/17 02:19:20 Pending DAG nodes:
+03/23/17 02:19:20   Node create_embedding, HTCondor ID 289, status STATUS_SUBMITTED
+03/23/17 02:29:23 23497 seconds since last log event
+03/23/17 02:29:23 Pending DAG nodes:
+03/23/17 02:29:23   Node create_embedding, HTCondor ID 289, status STATUS_SUBMITTED
+03/23/17 02:39:24 24098 seconds since last log event
+03/23/17 02:39:24 Pending DAG nodes:
+03/23/17 02:39:24   Node create_embedding, HTCondor ID 289, status STATUS_SUBMITTED
+03/23/17 02:49:26 24700 seconds since last log event
+03/23/17 02:49:26 Pending DAG nodes:
+03/23/17 02:49:26   Node create_embedding, HTCondor ID 289, status STATUS_SUBMITTED
+03/23/17 02:59:29 25303 seconds since last log event
+03/23/17 02:59:29 Pending DAG nodes:
+03/23/17 02:59:29   Node create_embedding, HTCondor ID 289, status STATUS_SUBMITTED
+03/23/17 03:09:32 25906 seconds since last log event
+03/23/17 03:09:32 Pending DAG nodes:
+03/23/17 03:09:32   Node create_embedding, HTCondor ID 289, status STATUS_SUBMITTED
+03/23/17 03:19:35 26509 seconds since last log event
+03/23/17 03:19:35 Pending DAG nodes:
+03/23/17 03:19:35   Node create_embedding, HTCondor ID 289, status STATUS_SUBMITTED
+03/23/17 03:29:38 27112 seconds since last log event
+03/23/17 03:29:38 Pending DAG nodes:
+03/23/17 03:29:38   Node create_embedding, HTCondor ID 289, status STATUS_SUBMITTED
+03/23/17 03:39:40 27714 seconds since last log event
+03/23/17 03:39:40 Pending DAG nodes:
+03/23/17 03:39:40   Node create_embedding, HTCondor ID 289, status STATUS_SUBMITTED
+03/23/17 03:49:43 28317 seconds since last log event
+03/23/17 03:49:43 Pending DAG nodes:
+03/23/17 03:49:43   Node create_embedding, HTCondor ID 289, status STATUS_SUBMITTED
+03/23/17 03:59:44 28918 seconds since last log event
+03/23/17 03:59:44 Pending DAG nodes:
+03/23/17 03:59:44   Node create_embedding, HTCondor ID 289, status STATUS_SUBMITTED
+03/23/17 04:09:45 29519 seconds since last log event
+03/23/17 04:09:45 Pending DAG nodes:
+03/23/17 04:09:45   Node create_embedding, HTCondor ID 289, status STATUS_SUBMITTED
+03/23/17 04:19:47 30121 seconds since last log event
+03/23/17 04:19:47 Pending DAG nodes:
+03/23/17 04:19:47   Node create_embedding, HTCondor ID 289, status STATUS_SUBMITTED
+03/23/17 04:29:49 30723 seconds since last log event
+03/23/17 04:29:49 Pending DAG nodes:
+03/23/17 04:29:49   Node create_embedding, HTCondor ID 289, status STATUS_SUBMITTED
+03/23/17 04:39:52 31326 seconds since last log event
+03/23/17 04:39:52 Pending DAG nodes:
+03/23/17 04:39:52   Node create_embedding, HTCondor ID 289, status STATUS_SUBMITTED
+03/23/17 04:49:54 31928 seconds since last log event
+03/23/17 04:49:54 Pending DAG nodes:
+03/23/17 04:49:54   Node create_embedding, HTCondor ID 289, status STATUS_SUBMITTED
+03/23/17 04:59:55 32529 seconds since last log event
+03/23/17 04:59:55 Pending DAG nodes:
+03/23/17 04:59:55   Node create_embedding, HTCondor ID 289, status STATUS_SUBMITTED
+03/23/17 05:09:57 33131 seconds since last log event
+03/23/17 05:09:57 Pending DAG nodes:
+03/23/17 05:09:57   Node create_embedding, HTCondor ID 289, status STATUS_SUBMITTED
+03/23/17 05:19:58 33732 seconds since last log event
+03/23/17 05:19:58 Pending DAG nodes:
+03/23/17 05:19:58   Node create_embedding, HTCondor ID 289, status STATUS_SUBMITTED
+03/23/17 05:30:00 34334 seconds since last log event
+03/23/17 05:30:00 Pending DAG nodes:
+03/23/17 05:30:00   Node create_embedding, HTCondor ID 289, status STATUS_SUBMITTED
+03/23/17 05:40:02 34936 seconds since last log event
+03/23/17 05:40:02 Pending DAG nodes:
+03/23/17 05:40:02   Node create_embedding, HTCondor ID 289, status STATUS_SUBMITTED
+03/23/17 05:50:05 35539 seconds since last log event
+03/23/17 05:50:05 Pending DAG nodes:
+03/23/17 05:50:05   Node create_embedding, HTCondor ID 289, status STATUS_SUBMITTED
+03/23/17 06:00:07 36141 seconds since last log event
+03/23/17 06:00:07 Pending DAG nodes:
+03/23/17 06:00:07   Node create_embedding, HTCondor ID 289, status STATUS_SUBMITTED
+03/23/17 06:10:10 36744 seconds since last log event
+03/23/17 06:10:10 Pending DAG nodes:
+03/23/17 06:10:10   Node create_embedding, HTCondor ID 289, status STATUS_SUBMITTED
+03/23/17 06:20:12 37346 seconds since last log event
+03/23/17 06:20:12 Pending DAG nodes:
+03/23/17 06:20:12   Node create_embedding, HTCondor ID 289, status STATUS_SUBMITTED
+03/23/17 06:30:14 37948 seconds since last log event
+03/23/17 06:30:14 Pending DAG nodes:
+03/23/17 06:30:14   Node create_embedding, HTCondor ID 289, status STATUS_SUBMITTED
+03/23/17 06:40:16 38550 seconds since last log event
+03/23/17 06:40:16 Pending DAG nodes:
+03/23/17 06:40:16   Node create_embedding, HTCondor ID 289, status STATUS_SUBMITTED
+03/23/17 06:50:19 39153 seconds since last log event
+03/23/17 06:50:19 Pending DAG nodes:
+03/23/17 06:50:19   Node create_embedding, HTCondor ID 289, status STATUS_SUBMITTED
+03/23/17 07:00:21 39755 seconds since last log event
+03/23/17 07:00:21 Pending DAG nodes:
+03/23/17 07:00:21   Node create_embedding, HTCondor ID 289, status STATUS_SUBMITTED
+03/23/17 07:10:24 40358 seconds since last log event
+03/23/17 07:10:24 Pending DAG nodes:
+03/23/17 07:10:24   Node create_embedding, HTCondor ID 289, status STATUS_SUBMITTED
+03/23/17 07:20:26 40960 seconds since last log event
+03/23/17 07:20:26 Pending DAG nodes:
+03/23/17 07:20:26   Node create_embedding, HTCondor ID 289, status STATUS_SUBMITTED
+03/23/17 07:30:29 41563 seconds since last log event
+03/23/17 07:30:29 Pending DAG nodes:
+03/23/17 07:30:29   Node create_embedding, HTCondor ID 289, status STATUS_SUBMITTED
+03/23/17 07:40:32 42166 seconds since last log event
+03/23/17 07:40:32 Pending DAG nodes:
+03/23/17 07:40:32   Node create_embedding, HTCondor ID 289, status STATUS_SUBMITTED
+03/23/17 07:50:35 42769 seconds since last log event
+03/23/17 07:50:35 Pending DAG nodes:
+03/23/17 07:50:35   Node create_embedding, HTCondor ID 289, status STATUS_SUBMITTED
+03/23/17 08:00:37 43371 seconds since last log event
+03/23/17 08:00:37 Pending DAG nodes:
+03/23/17 08:00:37   Node create_embedding, HTCondor ID 289, status STATUS_SUBMITTED
+03/23/17 08:10:39 43973 seconds since last log event
+03/23/17 08:10:39 Pending DAG nodes:
+03/23/17 08:10:39   Node create_embedding, HTCondor ID 289, status STATUS_SUBMITTED
+03/23/17 08:20:41 44575 seconds since last log event
+03/23/17 08:20:41 Pending DAG nodes:
+03/23/17 08:20:41   Node create_embedding, HTCondor ID 289, status STATUS_SUBMITTED
+03/23/17 08:30:42 45176 seconds since last log event
+03/23/17 08:30:42 Pending DAG nodes:
+03/23/17 08:30:42   Node create_embedding, HTCondor ID 289, status STATUS_SUBMITTED
+03/23/17 08:40:45 45779 seconds since last log event
+03/23/17 08:40:45 Pending DAG nodes:
+03/23/17 08:40:45   Node create_embedding, HTCondor ID 289, status STATUS_SUBMITTED
+03/23/17 08:50:48 46382 seconds since last log event
+03/23/17 08:50:48 Pending DAG nodes:
+03/23/17 08:50:48   Node create_embedding, HTCondor ID 289, status STATUS_SUBMITTED
+03/23/17 09:00:51 46985 seconds since last log event
+03/23/17 09:00:51 Pending DAG nodes:
+03/23/17 09:00:51   Node create_embedding, HTCondor ID 289, status STATUS_SUBMITTED
+03/23/17 09:10:53 47587 seconds since last log event
+03/23/17 09:10:53 Pending DAG nodes:
+03/23/17 09:10:53   Node create_embedding, HTCondor ID 289, status STATUS_SUBMITTED
+03/23/17 09:20:56 48190 seconds since last log event
+03/23/17 09:20:56 Pending DAG nodes:
+03/23/17 09:20:56   Node create_embedding, HTCondor ID 289, status STATUS_SUBMITTED
+03/23/17 09:30:58 48792 seconds since last log event
+03/23/17 09:30:58 Pending DAG nodes:
+03/23/17 09:30:58   Node create_embedding, HTCondor ID 289, status STATUS_SUBMITTED
+03/23/17 09:40:59 49393 seconds since last log event
+03/23/17 09:40:59 Pending DAG nodes:
+03/23/17 09:40:59   Node create_embedding, HTCondor ID 289, status STATUS_SUBMITTED
+03/23/17 09:51:02 49996 seconds since last log event
+03/23/17 09:51:02 Pending DAG nodes:
+03/23/17 09:51:02   Node create_embedding, HTCondor ID 289, status STATUS_SUBMITTED
+03/23/17 10:01:03 50597 seconds since last log event
+03/23/17 10:01:03 Pending DAG nodes:
+03/23/17 10:01:03   Node create_embedding, HTCondor ID 289, status STATUS_SUBMITTED
+03/23/17 10:11:05 51199 seconds since last log event
+03/23/17 10:11:05 Pending DAG nodes:
+03/23/17 10:11:05   Node create_embedding, HTCondor ID 289, status STATUS_SUBMITTED
+03/23/17 10:21:06 51800 seconds since last log event
+03/23/17 10:21:06 Pending DAG nodes:
+03/23/17 10:21:06   Node create_embedding, HTCondor ID 289, status STATUS_SUBMITTED
+03/23/17 10:31:08 52402 seconds since last log event
+03/23/17 10:31:08 Pending DAG nodes:
+03/23/17 10:31:08   Node create_embedding, HTCondor ID 289, status STATUS_SUBMITTED
+03/23/17 10:41:09 53003 seconds since last log event
+03/23/17 10:41:09 Pending DAG nodes:
+03/23/17 10:41:09   Node create_embedding, HTCondor ID 289, status STATUS_SUBMITTED
+03/23/17 10:51:12 53606 seconds since last log event
+03/23/17 10:51:12 Pending DAG nodes:
+03/23/17 10:51:12   Node create_embedding, HTCondor ID 289, status STATUS_SUBMITTED
+03/23/17 11:01:14 54208 seconds since last log event
+03/23/17 11:01:14 Pending DAG nodes:
+03/23/17 11:01:14   Node create_embedding, HTCondor ID 289, status STATUS_SUBMITTED
+03/23/17 11:11:17 54811 seconds since last log event
+03/23/17 11:11:17 Pending DAG nodes:
+03/23/17 11:11:17   Node create_embedding, HTCondor ID 289, status STATUS_SUBMITTED
+03/23/17 11:21:20 55414 seconds since last log event
+03/23/17 11:21:20 Pending DAG nodes:
+03/23/17 11:21:20   Node create_embedding, HTCondor ID 289, status STATUS_SUBMITTED
+03/23/17 11:31:23 56017 seconds since last log event
+03/23/17 11:31:23 Pending DAG nodes:
+03/23/17 11:31:23   Node create_embedding, HTCondor ID 289, status STATUS_SUBMITTED
+03/23/17 11:41:25 56619 seconds since last log event
+03/23/17 11:41:25 Pending DAG nodes:
+03/23/17 11:41:25   Node create_embedding, HTCondor ID 289, status STATUS_SUBMITTED
+03/23/17 11:51:28 57222 seconds since last log event
+03/23/17 11:51:28 Pending DAG nodes:
+03/23/17 11:51:28   Node create_embedding, HTCondor ID 289, status STATUS_SUBMITTED
+03/23/17 12:01:29 57823 seconds since last log event
+03/23/17 12:01:29 Pending DAG nodes:
+03/23/17 12:01:29   Node create_embedding, HTCondor ID 289, status STATUS_SUBMITTED
+03/23/17 12:11:32 58426 seconds since last log event
+03/23/17 12:11:32 Pending DAG nodes:
+03/23/17 12:11:32   Node create_embedding, HTCondor ID 289, status STATUS_SUBMITTED
+03/23/17 12:21:35 59029 seconds since last log event
+03/23/17 12:21:35 Pending DAG nodes:
+03/23/17 12:21:35   Node create_embedding, HTCondor ID 289, status STATUS_SUBMITTED
+03/23/17 12:31:38 59632 seconds since last log event
+03/23/17 12:31:38 Pending DAG nodes:
+03/23/17 12:31:38   Node create_embedding, HTCondor ID 289, status STATUS_SUBMITTED
+03/23/17 12:41:40 60234 seconds since last log event
+03/23/17 12:41:40 Pending DAG nodes:
+03/23/17 12:41:40   Node create_embedding, HTCondor ID 289, status STATUS_SUBMITTED
+03/23/17 12:51:43 60837 seconds since last log event
+03/23/17 12:51:43 Pending DAG nodes:
+03/23/17 12:51:43   Node create_embedding, HTCondor ID 289, status STATUS_SUBMITTED
+03/23/17 13:01:46 61440 seconds since last log event
+03/23/17 13:01:46 Pending DAG nodes:
+03/23/17 13:01:46   Node create_embedding, HTCondor ID 289, status STATUS_SUBMITTED
+03/23/17 13:06:27 Currently monitoring 1 HTCondor log file(s)
+03/23/17 13:06:27 Event: ULOG_JOB_SUSPENDED for HTCondor Node create_embedding (289.0.0) {03/23/17 13:06:26}
+03/23/17 13:06:27 Number of idle job procs: 1
+03/23/17 13:11:30 Currently monitoring 1 HTCondor log file(s)
+03/23/17 13:11:30 Event: ULOG_JOB_UNSUSPENDED for HTCondor Node create_embedding (289.0.0) {03/23/17 13:11:25}
+03/23/17 13:11:30 Number of idle job procs: 0
+03/23/17 13:21:32 602 seconds since last log event
+03/23/17 13:21:32 Pending DAG nodes:
+03/23/17 13:21:32   Node create_embedding, HTCondor ID 289, status STATUS_SUBMITTED
+03/23/17 13:31:35 1205 seconds since last log event
+03/23/17 13:31:35 Pending DAG nodes:
+03/23/17 13:31:35   Node create_embedding, HTCondor ID 289, status STATUS_SUBMITTED
+03/23/17 13:41:37 1807 seconds since last log event
+03/23/17 13:41:37 Pending DAG nodes:
+03/23/17 13:41:37   Node create_embedding, HTCondor ID 289, status STATUS_SUBMITTED
+03/23/17 13:51:40 2410 seconds since last log event
+03/23/17 13:51:40 Pending DAG nodes:
+03/23/17 13:51:40   Node create_embedding, HTCondor ID 289, status STATUS_SUBMITTED
+03/23/17 14:01:42 3012 seconds since last log event
+03/23/17 14:01:42 Pending DAG nodes:
+03/23/17 14:01:42   Node create_embedding, HTCondor ID 289, status STATUS_SUBMITTED
+03/23/17 14:11:45 3615 seconds since last log event
+03/23/17 14:11:45 Pending DAG nodes:
+03/23/17 14:11:45   Node create_embedding, HTCondor ID 289, status STATUS_SUBMITTED
+03/23/17 14:21:47 4217 seconds since last log event
+03/23/17 14:21:47 Pending DAG nodes:
+03/23/17 14:21:47   Node create_embedding, HTCondor ID 289, status STATUS_SUBMITTED
+03/23/17 14:31:51 4821 seconds since last log event
+03/23/17 14:31:51 Pending DAG nodes:
+03/23/17 14:31:51   Node create_embedding, HTCondor ID 289, status STATUS_SUBMITTED
+03/23/17 14:41:53 5423 seconds since last log event
+03/23/17 14:41:53 Pending DAG nodes:
+03/23/17 14:41:53   Node create_embedding, HTCondor ID 289, status STATUS_SUBMITTED
+03/23/17 14:51:56 6026 seconds since last log event
+03/23/17 14:51:56 Pending DAG nodes:
+03/23/17 14:51:56   Node create_embedding, HTCondor ID 289, status STATUS_SUBMITTED
+03/23/17 15:01:59 6629 seconds since last log event
+03/23/17 15:01:59 Pending DAG nodes:
+03/23/17 15:01:59   Node create_embedding, HTCondor ID 289, status STATUS_SUBMITTED
+03/23/17 15:12:02 7232 seconds since last log event
+03/23/17 15:12:02 Pending DAG nodes:
+03/23/17 15:12:02   Node create_embedding, HTCondor ID 289, status STATUS_SUBMITTED
+03/23/17 15:22:04 7834 seconds since last log event
+03/23/17 15:22:04 Pending DAG nodes:
+03/23/17 15:22:04   Node create_embedding, HTCondor ID 289, status STATUS_SUBMITTED
+03/23/17 15:32:06 8436 seconds since last log event
+03/23/17 15:32:06 Pending DAG nodes:
+03/23/17 15:32:06   Node create_embedding, HTCondor ID 289, status STATUS_SUBMITTED
+03/23/17 15:42:08 9038 seconds since last log event
+03/23/17 15:42:08 Pending DAG nodes:
+03/23/17 15:42:08   Node create_embedding, HTCondor ID 289, status STATUS_SUBMITTED
+03/23/17 15:52:11 9641 seconds since last log event
+03/23/17 15:52:11 Pending DAG nodes:
+03/23/17 15:52:11   Node create_embedding, HTCondor ID 289, status STATUS_SUBMITTED
+03/23/17 16:02:13 10243 seconds since last log event
+03/23/17 16:02:13 Pending DAG nodes:
+03/23/17 16:02:13   Node create_embedding, HTCondor ID 289, status STATUS_SUBMITTED
+03/23/17 16:12:20 10850 seconds since last log event
+03/23/17 16:12:23 Pending DAG nodes:
+03/23/17 16:12:23   Node create_embedding, HTCondor ID 289, status STATUS_SUBMITTED
+03/23/17 16:22:20 11450 seconds since last log event
+03/23/17 16:22:20 Pending DAG nodes:
+03/23/17 16:22:20   Node create_embedding, HTCondor ID 289, status STATUS_SUBMITTED
+03/23/17 16:32:22 12052 seconds since last log event
+03/23/17 16:32:22 Pending DAG nodes:
+03/23/17 16:32:22   Node create_embedding, HTCondor ID 289, status STATUS_SUBMITTED
+03/23/17 16:42:25 12655 seconds since last log event
+03/23/17 16:42:25 Pending DAG nodes:
+03/23/17 16:42:25   Node create_embedding, HTCondor ID 289, status STATUS_SUBMITTED
+03/23/17 16:52:28 13258 seconds since last log event
+03/23/17 16:52:28 Pending DAG nodes:
+03/23/17 16:52:28   Node create_embedding, HTCondor ID 289, status STATUS_SUBMITTED
+03/23/17 17:02:30 13860 seconds since last log event
+03/23/17 17:02:30 Pending DAG nodes:
+03/23/17 17:02:30   Node create_embedding, HTCondor ID 289, status STATUS_SUBMITTED
+03/23/17 17:12:34 14464 seconds since last log event
+03/23/17 17:12:34 Pending DAG nodes:
+03/23/17 17:12:34   Node create_embedding, HTCondor ID 289, status STATUS_SUBMITTED
+03/23/17 17:22:38 15068 seconds since last log event
+03/23/17 17:22:38 Pending DAG nodes:
+03/23/17 17:22:38   Node create_embedding, HTCondor ID 289, status STATUS_SUBMITTED

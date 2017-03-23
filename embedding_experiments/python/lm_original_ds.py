@@ -251,7 +251,7 @@ def run_epoch(session, model, eval_op=None, verbose=False, epoch_nb = 0, pos_epo
 						 processed_words / (time.time() - start_time)))
             save_np = np.append(save_np, [[epoch_nb, step * 1.0 / model.input.epoch_size, np.exp(costs / iters),
 						 processed_words / (time.time() - start_time)]],axis=0)
-            model.saver.save(session,FLAGS.save_path + '/' + FLAGS.test_name + '_' + str(FLAGS.num_run)+ '/embeddings_' + str(50000+1) + '_' + str(64)  +'.ckpt')            
+            model.saver.save(session,FLAGS.save_path + '/' + FLAGS.test_name + '_' + str(FLAGS.num_run)+ '/embeddings_' + str(train_data.pad_id +1) + '_' + str(config.embedded_size)  +'.ckpt')            
     if not verbose:
         print("with(perplexity: %.3f) speed: %.0f wps" % (np.exp(costs / iters),
 						 processed_words / (time.time() - start_time)))

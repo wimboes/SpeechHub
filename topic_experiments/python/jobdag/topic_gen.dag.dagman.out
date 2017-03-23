@@ -1,1137 +1,963 @@
-03/15/17 11:35:57 ******************************************************
-03/15/17 11:35:57 ** condor_scheduniv_exec.195.0 (CONDOR_DAGMAN) STARTING UP
-03/15/17 11:35:57 ** /usr/bin/condor_dagman
-03/15/17 11:35:57 ** SubsystemInfo: name=DAGMAN type=DAGMAN(10) class=DAEMON(1)
-03/15/17 11:35:57 ** Configuration: subsystem:DAGMAN local:<NONE> class:DAEMON
-03/15/17 11:35:57 ** $CondorVersion: 8.6.1 Mar 01 2017 BuildID: 398585 $
-03/15/17 11:35:57 ** $CondorPlatform: x86_64_RedHat7 $
-03/15/17 11:35:57 ** PID = 14594
-03/15/17 11:35:57 ** Log last touched time unavailable (No such file or directory)
-03/15/17 11:35:57 ******************************************************
-03/15/17 11:35:57 Using config source: /etc/condor/condor_config
-03/15/17 11:35:57 Using local config sources: 
-03/15/17 11:35:57    /etc/condor/config.d/00esat.config
-03/15/17 11:35:57    /etc/condor/config.d/01java.config
-03/15/17 11:35:57    /etc/condor/config.d/80optout_users.config
-03/15/17 11:35:57    /etc/condor/condor_config.local
-03/15/17 11:35:57 config Macros = 166, Sorted = 166, StringBytes = 6020, TablesBytes = 6048
-03/15/17 11:35:57 CLASSAD_CACHING is ENABLED
-03/15/17 11:35:57 Daemon Log is logging: D_ALWAYS D_ERROR
-03/15/17 11:35:57 DaemonCore: No command port requested.
-03/15/17 11:35:57 DAGMAN_USE_STRICT setting: 1
-03/15/17 11:35:57 DAGMAN_VERBOSITY setting: 3
-03/15/17 11:35:57 DAGMAN_DEBUG_CACHE_SIZE setting: 5242880
-03/15/17 11:35:57 DAGMAN_DEBUG_CACHE_ENABLE setting: False
-03/15/17 11:35:57 DAGMAN_SUBMIT_DELAY setting: 0
-03/15/17 11:35:57 DAGMAN_MAX_SUBMIT_ATTEMPTS setting: 6
-03/15/17 11:35:57 DAGMAN_STARTUP_CYCLE_DETECT setting: False
-03/15/17 11:35:57 DAGMAN_MAX_SUBMITS_PER_INTERVAL setting: 5
-03/15/17 11:35:57 DAGMAN_USER_LOG_SCAN_INTERVAL setting: 5
-03/15/17 11:35:57 DAGMAN_DEFAULT_PRIORITY setting: 0
-03/15/17 11:35:57 DAGMAN_SUPPRESS_NOTIFICATION setting: True
-03/15/17 11:35:57 allow_events (DAGMAN_ALLOW_EVENTS) setting: 114
-03/15/17 11:35:57 DAGMAN_RETRY_SUBMIT_FIRST setting: True
-03/15/17 11:35:57 DAGMAN_RETRY_NODE_FIRST setting: False
-03/15/17 11:35:57 DAGMAN_MAX_JOBS_IDLE setting: 1000
-03/15/17 11:35:57 DAGMAN_MAX_JOBS_SUBMITTED setting: 0
-03/15/17 11:35:57 DAGMAN_MAX_PRE_SCRIPTS setting: 20
-03/15/17 11:35:57 DAGMAN_MAX_POST_SCRIPTS setting: 20
-03/15/17 11:35:57 DAGMAN_MUNGE_NODE_NAMES setting: True
-03/15/17 11:35:57 DAGMAN_PROHIBIT_MULTI_JOBS setting: False
-03/15/17 11:35:57 DAGMAN_SUBMIT_DEPTH_FIRST setting: False
-03/15/17 11:35:57 DAGMAN_ALWAYS_RUN_POST setting: False
-03/15/17 11:35:57 DAGMAN_ABORT_DUPLICATES setting: True
-03/15/17 11:35:57 DAGMAN_ABORT_ON_SCARY_SUBMIT setting: True
-03/15/17 11:35:57 DAGMAN_PENDING_REPORT_INTERVAL setting: 600
-03/15/17 11:35:57 DAGMAN_AUTO_RESCUE setting: True
-03/15/17 11:35:57 DAGMAN_MAX_RESCUE_NUM setting: 100
-03/15/17 11:35:57 DAGMAN_WRITE_PARTIAL_RESCUE setting: True
-03/15/17 11:35:57 DAGMAN_DEFAULT_NODE_LOG setting: @(DAG_DIR)/@(DAG_FILE).nodes.log
-03/15/17 11:35:57 DAGMAN_GENERATE_SUBDAG_SUBMITS setting: True
-03/15/17 11:35:57 DAGMAN_MAX_JOB_HOLDS setting: 100
-03/15/17 11:35:57 DAGMAN_HOLD_CLAIM_TIME setting: 20
-03/15/17 11:35:57 ALL_DEBUG setting: 
-03/15/17 11:35:57 DAGMAN_DEBUG setting: 
-03/15/17 11:35:57 DAGMAN_SUPPRESS_JOB_LOGS setting: False
-03/15/17 11:35:57 DAGMAN_REMOVE_NODE_JOBS setting: True
-03/15/17 11:35:57 argv[0] == "condor_scheduniv_exec.195.0"
-03/15/17 11:35:57 argv[1] == "-Lockfile"
-03/15/17 11:35:57 argv[2] == "topic_gen.dag.lock"
-03/15/17 11:35:57 argv[3] == "-AutoRescue"
-03/15/17 11:35:57 argv[4] == "1"
-03/15/17 11:35:57 argv[5] == "-DoRescueFrom"
-03/15/17 11:35:57 argv[6] == "0"
-03/15/17 11:35:57 argv[7] == "-Dag"
-03/15/17 11:35:57 argv[8] == "topic_gen.dag"
-03/15/17 11:35:57 argv[9] == "-Suppress_notification"
-03/15/17 11:35:57 argv[10] == "-CsdVersion"
-03/15/17 11:35:57 argv[11] == "$CondorVersion: 8.6.1 Mar 01 2017 BuildID: 398585 $"
-03/15/17 11:35:57 argv[12] == "-Dagman"
-03/15/17 11:35:57 argv[13] == "/usr/bin/condor_dagman"
-03/15/17 11:35:57 Workflow batch-name: <topic_gen.dag+195>
-03/15/17 11:35:57 Workflow accounting_group: <>
-03/15/17 11:35:57 Workflow accounting_group_user: <>
-03/15/17 11:35:57 Warning: failed to get attribute DAGNodeName
-03/15/17 11:35:57 DAGMAN_LOG_ON_NFS_IS_ERROR setting: False
-03/15/17 11:35:57 Default node log file is: </esat/spchtemp/scratch/robbe/SpeechHub/topic_experiments/python/jobdag/./topic_gen.dag.nodes.log>
-03/15/17 11:35:57 DAG Lockfile will be written to topic_gen.dag.lock
-03/15/17 11:35:57 DAG Input file is topic_gen.dag
-03/15/17 11:35:57 Parsing 1 dagfiles
-03/15/17 11:35:57 Parsing topic_gen.dag ...
-03/15/17 11:35:57 Dag contains 15 total jobs
-03/15/17 11:35:57 Sleeping for 3 seconds to ensure ProcessId uniqueness
-03/15/17 11:36:00 Bootstrapping...
-03/15/17 11:36:00 Number of pre-completed nodes: 0
-03/15/17 11:36:00 MultiLogFiles: truncating log file /esat/spchtemp/scratch/robbe/SpeechHub/topic_experiments/python/jobdag/./topic_gen.dag.nodes.log
-03/15/17 11:36:00 DAG status: 0 (DAG_STATUS_OK)
-03/15/17 11:36:00 Of 15 nodes total:
-03/15/17 11:36:00  Done     Pre   Queued    Post   Ready   Un-Ready   Failed
-03/15/17 11:36:00   ===     ===      ===     ===     ===        ===      ===
-03/15/17 11:36:00     0       0        0       0      15          0        0
-03/15/17 11:36:00 0 job proc(s) currently held
-03/15/17 11:36:00 Registering condor_event_timer...
-03/15/17 11:36:01 Submitting HTCondor Node topic_generation0 job(s)...
-03/15/17 11:36:01 Adding a DAGMan workflow log /esat/spchtemp/scratch/robbe/SpeechHub/topic_experiments/python/jobdag/./topic_gen.dag.nodes.log
-03/15/17 11:36:01 Masking the events recorded in the DAGMAN workflow log
-03/15/17 11:36:01 Mask for workflow log is 0,1,2,4,5,7,9,10,11,12,13,16,17,24,27
-03/15/17 11:36:01 submitting: /usr/bin/condor_submit -a dag_node_name' '=' 'topic_generation0 -a +DAGManJobId' '=' '195 -a DAGManJobId' '=' '195 -batch-name topic_gen.dag+195 -a submit_event_notes' '=' 'DAG' 'Node:' 'topic_generation0 -a dagman_log' '=' '/esat/spchtemp/scratch/robbe/SpeechHub/topic_experiments/python/jobdag/./topic_gen.dag.nodes.log -a +DAGManNodesMask' '=' '"0,1,2,4,5,7,9,10,11,12,13,16,17,24,27" -a data_set' '=' 'ds -a nb_topics' '=' '10 -a sentences_per_document' '=' '33 -a DAG_STATUS' '=' '0 -a FAILED_COUNT' '=' '0 -a notification' '=' 'never -a +DAGParentNodeNames' '=' '"" jobdag/topic_generation.job
-03/15/17 11:36:01 From submit: Submitting job(s).
-03/15/17 11:36:01 From submit: 1 job(s) submitted to cluster 196.
-03/15/17 11:36:01 	assigned HTCondor ID (196.0.0)
-03/15/17 11:36:01 Submitting HTCondor Node topic_generation1 job(s)...
-03/15/17 11:36:01 Adding a DAGMan workflow log /esat/spchtemp/scratch/robbe/SpeechHub/topic_experiments/python/jobdag/./topic_gen.dag.nodes.log
-03/15/17 11:36:01 Masking the events recorded in the DAGMAN workflow log
-03/15/17 11:36:01 Mask for workflow log is 0,1,2,4,5,7,9,10,11,12,13,16,17,24,27
-03/15/17 11:36:01 submitting: /usr/bin/condor_submit -a dag_node_name' '=' 'topic_generation1 -a +DAGManJobId' '=' '195 -a DAGManJobId' '=' '195 -batch-name topic_gen.dag+195 -a submit_event_notes' '=' 'DAG' 'Node:' 'topic_generation1 -a dagman_log' '=' '/esat/spchtemp/scratch/robbe/SpeechHub/topic_experiments/python/jobdag/./topic_gen.dag.nodes.log -a +DAGManNodesMask' '=' '"0,1,2,4,5,7,9,10,11,12,13,16,17,24,27" -a data_set' '=' 'ds -a nb_topics' '=' '10 -a sentences_per_document' '=' '66 -a DAG_STATUS' '=' '0 -a FAILED_COUNT' '=' '0 -a notification' '=' 'never -a +DAGParentNodeNames' '=' '"" jobdag/topic_generation.job
-03/15/17 11:36:01 From submit: Submitting job(s).
-03/15/17 11:36:01 From submit: 1 job(s) submitted to cluster 197.
-03/15/17 11:36:01 	assigned HTCondor ID (197.0.0)
-03/15/17 11:36:01 Submitting HTCondor Node topic_generation2 job(s)...
-03/15/17 11:36:01 Adding a DAGMan workflow log /esat/spchtemp/scratch/robbe/SpeechHub/topic_experiments/python/jobdag/./topic_gen.dag.nodes.log
-03/15/17 11:36:01 Masking the events recorded in the DAGMAN workflow log
-03/15/17 11:36:01 Mask for workflow log is 0,1,2,4,5,7,9,10,11,12,13,16,17,24,27
-03/15/17 11:36:01 submitting: /usr/bin/condor_submit -a dag_node_name' '=' 'topic_generation2 -a +DAGManJobId' '=' '195 -a DAGManJobId' '=' '195 -batch-name topic_gen.dag+195 -a submit_event_notes' '=' 'DAG' 'Node:' 'topic_generation2 -a dagman_log' '=' '/esat/spchtemp/scratch/robbe/SpeechHub/topic_experiments/python/jobdag/./topic_gen.dag.nodes.log -a +DAGManNodesMask' '=' '"0,1,2,4,5,7,9,10,11,12,13,16,17,24,27" -a data_set' '=' 'ds -a nb_topics' '=' '10 -a sentences_per_document' '=' '100 -a DAG_STATUS' '=' '0 -a FAILED_COUNT' '=' '0 -a notification' '=' 'never -a +DAGParentNodeNames' '=' '"" jobdag/topic_generation.job
-03/15/17 11:36:01 From submit: Submitting job(s).
-03/15/17 11:36:01 From submit: 1 job(s) submitted to cluster 198.
-03/15/17 11:36:01 	assigned HTCondor ID (198.0.0)
-03/15/17 11:36:01 Submitting HTCondor Node topic_generation3 job(s)...
-03/15/17 11:36:01 Adding a DAGMan workflow log /esat/spchtemp/scratch/robbe/SpeechHub/topic_experiments/python/jobdag/./topic_gen.dag.nodes.log
-03/15/17 11:36:01 Masking the events recorded in the DAGMAN workflow log
-03/15/17 11:36:01 Mask for workflow log is 0,1,2,4,5,7,9,10,11,12,13,16,17,24,27
-03/15/17 11:36:01 submitting: /usr/bin/condor_submit -a dag_node_name' '=' 'topic_generation3 -a +DAGManJobId' '=' '195 -a DAGManJobId' '=' '195 -batch-name topic_gen.dag+195 -a submit_event_notes' '=' 'DAG' 'Node:' 'topic_generation3 -a dagman_log' '=' '/esat/spchtemp/scratch/robbe/SpeechHub/topic_experiments/python/jobdag/./topic_gen.dag.nodes.log -a +DAGManNodesMask' '=' '"0,1,2,4,5,7,9,10,11,12,13,16,17,24,27" -a data_set' '=' 'ds -a nb_topics' '=' '100 -a sentences_per_document' '=' '33 -a DAG_STATUS' '=' '0 -a FAILED_COUNT' '=' '0 -a notification' '=' 'never -a +DAGParentNodeNames' '=' '"" jobdag/topic_generation.job
-03/15/17 11:36:01 From submit: Submitting job(s).
-03/15/17 11:36:01 From submit: 1 job(s) submitted to cluster 199.
-03/15/17 11:36:01 	assigned HTCondor ID (199.0.0)
-03/15/17 11:36:01 Submitting HTCondor Node topic_generation4 job(s)...
-03/15/17 11:36:01 Adding a DAGMan workflow log /esat/spchtemp/scratch/robbe/SpeechHub/topic_experiments/python/jobdag/./topic_gen.dag.nodes.log
-03/15/17 11:36:01 Masking the events recorded in the DAGMAN workflow log
-03/15/17 11:36:01 Mask for workflow log is 0,1,2,4,5,7,9,10,11,12,13,16,17,24,27
-03/15/17 11:36:01 submitting: /usr/bin/condor_submit -a dag_node_name' '=' 'topic_generation4 -a +DAGManJobId' '=' '195 -a DAGManJobId' '=' '195 -batch-name topic_gen.dag+195 -a submit_event_notes' '=' 'DAG' 'Node:' 'topic_generation4 -a dagman_log' '=' '/esat/spchtemp/scratch/robbe/SpeechHub/topic_experiments/python/jobdag/./topic_gen.dag.nodes.log -a +DAGManNodesMask' '=' '"0,1,2,4,5,7,9,10,11,12,13,16,17,24,27" -a data_set' '=' 'ds -a nb_topics' '=' '100 -a sentences_per_document' '=' '66 -a DAG_STATUS' '=' '0 -a FAILED_COUNT' '=' '0 -a notification' '=' 'never -a +DAGParentNodeNames' '=' '"" jobdag/topic_generation.job
-03/15/17 11:36:01 From submit: Submitting job(s).
-03/15/17 11:36:01 From submit: 1 job(s) submitted to cluster 200.
-03/15/17 11:36:01 	assigned HTCondor ID (200.0.0)
-03/15/17 11:36:01 Just submitted 5 jobs this cycle...
-03/15/17 11:36:01 Currently monitoring 1 HTCondor log file(s)
-03/15/17 11:36:01 Reassigning the id of job topic_generation0 from (196.0.0) to (196.0.0)
-03/15/17 11:36:01 Event: ULOG_SUBMIT for HTCondor Node topic_generation0 (196.0.0) {03/15/17 11:36:01}
-03/15/17 11:36:01 Number of idle job procs: 1
-03/15/17 11:36:01 Reassigning the id of job topic_generation1 from (197.0.0) to (197.0.0)
-03/15/17 11:36:01 Event: ULOG_SUBMIT for HTCondor Node topic_generation1 (197.0.0) {03/15/17 11:36:01}
-03/15/17 11:36:01 Number of idle job procs: 2
-03/15/17 11:36:01 Reassigning the id of job topic_generation2 from (198.0.0) to (198.0.0)
-03/15/17 11:36:01 Event: ULOG_SUBMIT for HTCondor Node topic_generation2 (198.0.0) {03/15/17 11:36:01}
-03/15/17 11:36:01 Number of idle job procs: 3
-03/15/17 11:36:01 Reassigning the id of job topic_generation3 from (199.0.0) to (199.0.0)
-03/15/17 11:36:01 Event: ULOG_SUBMIT for HTCondor Node topic_generation3 (199.0.0) {03/15/17 11:36:01}
-03/15/17 11:36:01 Number of idle job procs: 4
-03/15/17 11:36:01 Reassigning the id of job topic_generation4 from (200.0.0) to (200.0.0)
-03/15/17 11:36:01 Event: ULOG_SUBMIT for HTCondor Node topic_generation4 (200.0.0) {03/15/17 11:36:01}
-03/15/17 11:36:01 Number of idle job procs: 5
-03/15/17 11:36:01 DAG status: 0 (DAG_STATUS_OK)
-03/15/17 11:36:01 Of 15 nodes total:
-03/15/17 11:36:01  Done     Pre   Queued    Post   Ready   Un-Ready   Failed
-03/15/17 11:36:01   ===     ===      ===     ===     ===        ===      ===
-03/15/17 11:36:01     0       0        5       0      10          0        0
-03/15/17 11:36:01 0 job proc(s) currently held
-03/15/17 11:36:06 Submitting HTCondor Node topic_generation5 job(s)...
-03/15/17 11:36:06 Adding a DAGMan workflow log /esat/spchtemp/scratch/robbe/SpeechHub/topic_experiments/python/jobdag/./topic_gen.dag.nodes.log
-03/15/17 11:36:06 Masking the events recorded in the DAGMAN workflow log
-03/15/17 11:36:06 Mask for workflow log is 0,1,2,4,5,7,9,10,11,12,13,16,17,24,27
-03/15/17 11:36:06 submitting: /usr/bin/condor_submit -a dag_node_name' '=' 'topic_generation5 -a +DAGManJobId' '=' '195 -a DAGManJobId' '=' '195 -batch-name topic_gen.dag+195 -a submit_event_notes' '=' 'DAG' 'Node:' 'topic_generation5 -a dagman_log' '=' '/esat/spchtemp/scratch/robbe/SpeechHub/topic_experiments/python/jobdag/./topic_gen.dag.nodes.log -a +DAGManNodesMask' '=' '"0,1,2,4,5,7,9,10,11,12,13,16,17,24,27" -a data_set' '=' 'ds -a nb_topics' '=' '100 -a sentences_per_document' '=' '100 -a DAG_STATUS' '=' '0 -a FAILED_COUNT' '=' '0 -a notification' '=' 'never -a +DAGParentNodeNames' '=' '"" jobdag/topic_generation.job
-03/15/17 11:36:06 From submit: Submitting job(s).
-03/15/17 11:36:06 From submit: 1 job(s) submitted to cluster 201.
-03/15/17 11:36:06 	assigned HTCondor ID (201.0.0)
-03/15/17 11:36:06 Submitting HTCondor Node topic_generation6 job(s)...
-03/15/17 11:36:06 Adding a DAGMan workflow log /esat/spchtemp/scratch/robbe/SpeechHub/topic_experiments/python/jobdag/./topic_gen.dag.nodes.log
-03/15/17 11:36:06 Masking the events recorded in the DAGMAN workflow log
-03/15/17 11:36:06 Mask for workflow log is 0,1,2,4,5,7,9,10,11,12,13,16,17,24,27
-03/15/17 11:36:06 submitting: /usr/bin/condor_submit -a dag_node_name' '=' 'topic_generation6 -a +DAGManJobId' '=' '195 -a DAGManJobId' '=' '195 -batch-name topic_gen.dag+195 -a submit_event_notes' '=' 'DAG' 'Node:' 'topic_generation6 -a dagman_log' '=' '/esat/spchtemp/scratch/robbe/SpeechHub/topic_experiments/python/jobdag/./topic_gen.dag.nodes.log -a +DAGManNodesMask' '=' '"0,1,2,4,5,7,9,10,11,12,13,16,17,24,27" -a data_set' '=' 'ds -a nb_topics' '=' '500 -a sentences_per_document' '=' '33 -a DAG_STATUS' '=' '0 -a FAILED_COUNT' '=' '0 -a notification' '=' 'never -a +DAGParentNodeNames' '=' '"" jobdag/topic_generation.job
-03/15/17 11:36:06 From submit: Submitting job(s).
-03/15/17 11:36:06 From submit: 1 job(s) submitted to cluster 202.
-03/15/17 11:36:06 	assigned HTCondor ID (202.0.0)
-03/15/17 11:36:06 Submitting HTCondor Node topic_generation7 job(s)...
-03/15/17 11:36:06 Adding a DAGMan workflow log /esat/spchtemp/scratch/robbe/SpeechHub/topic_experiments/python/jobdag/./topic_gen.dag.nodes.log
-03/15/17 11:36:06 Masking the events recorded in the DAGMAN workflow log
-03/15/17 11:36:06 Mask for workflow log is 0,1,2,4,5,7,9,10,11,12,13,16,17,24,27
-03/15/17 11:36:06 submitting: /usr/bin/condor_submit -a dag_node_name' '=' 'topic_generation7 -a +DAGManJobId' '=' '195 -a DAGManJobId' '=' '195 -batch-name topic_gen.dag+195 -a submit_event_notes' '=' 'DAG' 'Node:' 'topic_generation7 -a dagman_log' '=' '/esat/spchtemp/scratch/robbe/SpeechHub/topic_experiments/python/jobdag/./topic_gen.dag.nodes.log -a +DAGManNodesMask' '=' '"0,1,2,4,5,7,9,10,11,12,13,16,17,24,27" -a data_set' '=' 'ds -a nb_topics' '=' '500 -a sentences_per_document' '=' '66 -a DAG_STATUS' '=' '0 -a FAILED_COUNT' '=' '0 -a notification' '=' 'never -a +DAGParentNodeNames' '=' '"" jobdag/topic_generation.job
-03/15/17 11:36:06 From submit: Submitting job(s).
-03/15/17 11:36:06 From submit: 1 job(s) submitted to cluster 203.
-03/15/17 11:36:06 	assigned HTCondor ID (203.0.0)
-03/15/17 11:36:06 Submitting HTCondor Node topic_generation8 job(s)...
-03/15/17 11:36:06 Adding a DAGMan workflow log /esat/spchtemp/scratch/robbe/SpeechHub/topic_experiments/python/jobdag/./topic_gen.dag.nodes.log
-03/15/17 11:36:06 Masking the events recorded in the DAGMAN workflow log
-03/15/17 11:36:06 Mask for workflow log is 0,1,2,4,5,7,9,10,11,12,13,16,17,24,27
-03/15/17 11:36:06 submitting: /usr/bin/condor_submit -a dag_node_name' '=' 'topic_generation8 -a +DAGManJobId' '=' '195 -a DAGManJobId' '=' '195 -batch-name topic_gen.dag+195 -a submit_event_notes' '=' 'DAG' 'Node:' 'topic_generation8 -a dagman_log' '=' '/esat/spchtemp/scratch/robbe/SpeechHub/topic_experiments/python/jobdag/./topic_gen.dag.nodes.log -a +DAGManNodesMask' '=' '"0,1,2,4,5,7,9,10,11,12,13,16,17,24,27" -a data_set' '=' 'ds -a nb_topics' '=' '500 -a sentences_per_document' '=' '100 -a DAG_STATUS' '=' '0 -a FAILED_COUNT' '=' '0 -a notification' '=' 'never -a +DAGParentNodeNames' '=' '"" jobdag/topic_generation.job
-03/15/17 11:36:07 From submit: Submitting job(s).
-03/15/17 11:36:07 From submit: 1 job(s) submitted to cluster 204.
-03/15/17 11:36:07 	assigned HTCondor ID (204.0.0)
-03/15/17 11:36:07 Submitting HTCondor Node topic_generation9 job(s)...
-03/15/17 11:36:07 Adding a DAGMan workflow log /esat/spchtemp/scratch/robbe/SpeechHub/topic_experiments/python/jobdag/./topic_gen.dag.nodes.log
-03/15/17 11:36:07 Masking the events recorded in the DAGMAN workflow log
-03/15/17 11:36:07 Mask for workflow log is 0,1,2,4,5,7,9,10,11,12,13,16,17,24,27
-03/15/17 11:36:07 submitting: /usr/bin/condor_submit -a dag_node_name' '=' 'topic_generation9 -a +DAGManJobId' '=' '195 -a DAGManJobId' '=' '195 -batch-name topic_gen.dag+195 -a submit_event_notes' '=' 'DAG' 'Node:' 'topic_generation9 -a dagman_log' '=' '/esat/spchtemp/scratch/robbe/SpeechHub/topic_experiments/python/jobdag/./topic_gen.dag.nodes.log -a +DAGManNodesMask' '=' '"0,1,2,4,5,7,9,10,11,12,13,16,17,24,27" -a data_set' '=' 'ds -a nb_topics' '=' '1000 -a sentences_per_document' '=' '33 -a DAG_STATUS' '=' '0 -a FAILED_COUNT' '=' '0 -a notification' '=' 'never -a +DAGParentNodeNames' '=' '"" jobdag/topic_generation.job
-03/15/17 11:36:07 From submit: Submitting job(s).
-03/15/17 11:36:07 From submit: 1 job(s) submitted to cluster 205.
-03/15/17 11:36:07 	assigned HTCondor ID (205.0.0)
-03/15/17 11:36:07 Just submitted 5 jobs this cycle...
-03/15/17 11:36:07 Currently monitoring 1 HTCondor log file(s)
-03/15/17 11:36:07 Reassigning the id of job topic_generation5 from (201.0.0) to (201.0.0)
-03/15/17 11:36:07 Event: ULOG_SUBMIT for HTCondor Node topic_generation5 (201.0.0) {03/15/17 11:36:06}
-03/15/17 11:36:07 Number of idle job procs: 6
-03/15/17 11:36:07 Reassigning the id of job topic_generation6 from (202.0.0) to (202.0.0)
-03/15/17 11:36:07 Event: ULOG_SUBMIT for HTCondor Node topic_generation6 (202.0.0) {03/15/17 11:36:06}
-03/15/17 11:36:07 Number of idle job procs: 7
-03/15/17 11:36:07 Reassigning the id of job topic_generation7 from (203.0.0) to (203.0.0)
-03/15/17 11:36:07 Event: ULOG_SUBMIT for HTCondor Node topic_generation7 (203.0.0) {03/15/17 11:36:06}
-03/15/17 11:36:07 Number of idle job procs: 8
-03/15/17 11:36:07 Reassigning the id of job topic_generation8 from (204.0.0) to (204.0.0)
-03/15/17 11:36:07 Event: ULOG_SUBMIT for HTCondor Node topic_generation8 (204.0.0) {03/15/17 11:36:07}
-03/15/17 11:36:07 Number of idle job procs: 9
-03/15/17 11:36:07 Reassigning the id of job topic_generation9 from (205.0.0) to (205.0.0)
-03/15/17 11:36:07 Event: ULOG_SUBMIT for HTCondor Node topic_generation9 (205.0.0) {03/15/17 11:36:07}
-03/15/17 11:36:07 Number of idle job procs: 10
-03/15/17 11:36:07 DAG status: 0 (DAG_STATUS_OK)
-03/15/17 11:36:07 Of 15 nodes total:
-03/15/17 11:36:07  Done     Pre   Queued    Post   Ready   Un-Ready   Failed
-03/15/17 11:36:07   ===     ===      ===     ===     ===        ===      ===
-03/15/17 11:36:07     0       0       10       0       5          0        0
-03/15/17 11:36:07 0 job proc(s) currently held
-03/15/17 11:36:12 Submitting HTCondor Node topic_generation10 job(s)...
-03/15/17 11:36:12 Adding a DAGMan workflow log /esat/spchtemp/scratch/robbe/SpeechHub/topic_experiments/python/jobdag/./topic_gen.dag.nodes.log
-03/15/17 11:36:12 Masking the events recorded in the DAGMAN workflow log
-03/15/17 11:36:12 Mask for workflow log is 0,1,2,4,5,7,9,10,11,12,13,16,17,24,27
-03/15/17 11:36:12 submitting: /usr/bin/condor_submit -a dag_node_name' '=' 'topic_generation10 -a +DAGManJobId' '=' '195 -a DAGManJobId' '=' '195 -batch-name topic_gen.dag+195 -a submit_event_notes' '=' 'DAG' 'Node:' 'topic_generation10 -a dagman_log' '=' '/esat/spchtemp/scratch/robbe/SpeechHub/topic_experiments/python/jobdag/./topic_gen.dag.nodes.log -a +DAGManNodesMask' '=' '"0,1,2,4,5,7,9,10,11,12,13,16,17,24,27" -a data_set' '=' 'ds -a nb_topics' '=' '1000 -a sentences_per_document' '=' '66 -a DAG_STATUS' '=' '0 -a FAILED_COUNT' '=' '0 -a notification' '=' 'never -a +DAGParentNodeNames' '=' '"" jobdag/topic_generation.job
-03/15/17 11:36:12 From submit: Submitting job(s).
-03/15/17 11:36:12 From submit: 1 job(s) submitted to cluster 206.
-03/15/17 11:36:12 	assigned HTCondor ID (206.0.0)
-03/15/17 11:36:12 Submitting HTCondor Node topic_generation11 job(s)...
-03/15/17 11:36:12 Adding a DAGMan workflow log /esat/spchtemp/scratch/robbe/SpeechHub/topic_experiments/python/jobdag/./topic_gen.dag.nodes.log
-03/15/17 11:36:12 Masking the events recorded in the DAGMAN workflow log
-03/15/17 11:36:12 Mask for workflow log is 0,1,2,4,5,7,9,10,11,12,13,16,17,24,27
-03/15/17 11:36:12 submitting: /usr/bin/condor_submit -a dag_node_name' '=' 'topic_generation11 -a +DAGManJobId' '=' '195 -a DAGManJobId' '=' '195 -batch-name topic_gen.dag+195 -a submit_event_notes' '=' 'DAG' 'Node:' 'topic_generation11 -a dagman_log' '=' '/esat/spchtemp/scratch/robbe/SpeechHub/topic_experiments/python/jobdag/./topic_gen.dag.nodes.log -a +DAGManNodesMask' '=' '"0,1,2,4,5,7,9,10,11,12,13,16,17,24,27" -a data_set' '=' 'ds -a nb_topics' '=' '1000 -a sentences_per_document' '=' '100 -a DAG_STATUS' '=' '0 -a FAILED_COUNT' '=' '0 -a notification' '=' 'never -a +DAGParentNodeNames' '=' '"" jobdag/topic_generation.job
-03/15/17 11:36:12 From submit: Submitting job(s).
-03/15/17 11:36:12 From submit: 1 job(s) submitted to cluster 207.
-03/15/17 11:36:12 	assigned HTCondor ID (207.0.0)
-03/15/17 11:36:12 Submitting HTCondor Node topic_generation12 job(s)...
-03/15/17 11:36:12 Adding a DAGMan workflow log /esat/spchtemp/scratch/robbe/SpeechHub/topic_experiments/python/jobdag/./topic_gen.dag.nodes.log
-03/15/17 11:36:12 Masking the events recorded in the DAGMAN workflow log
-03/15/17 11:36:12 Mask for workflow log is 0,1,2,4,5,7,9,10,11,12,13,16,17,24,27
-03/15/17 11:36:12 submitting: /usr/bin/condor_submit -a dag_node_name' '=' 'topic_generation12 -a +DAGManJobId' '=' '195 -a DAGManJobId' '=' '195 -batch-name topic_gen.dag+195 -a submit_event_notes' '=' 'DAG' 'Node:' 'topic_generation12 -a dagman_log' '=' '/esat/spchtemp/scratch/robbe/SpeechHub/topic_experiments/python/jobdag/./topic_gen.dag.nodes.log -a +DAGManNodesMask' '=' '"0,1,2,4,5,7,9,10,11,12,13,16,17,24,27" -a data_set' '=' 'ds -a nb_topics' '=' '250 -a sentences_per_document' '=' '33 -a DAG_STATUS' '=' '0 -a FAILED_COUNT' '=' '0 -a notification' '=' 'never -a +DAGParentNodeNames' '=' '"" jobdag/topic_generation.job
-03/15/17 11:36:12 From submit: Submitting job(s).
-03/15/17 11:36:12 From submit: 1 job(s) submitted to cluster 208.
-03/15/17 11:36:12 	assigned HTCondor ID (208.0.0)
-03/15/17 11:36:12 Submitting HTCondor Node topic_generation13 job(s)...
-03/15/17 11:36:12 Adding a DAGMan workflow log /esat/spchtemp/scratch/robbe/SpeechHub/topic_experiments/python/jobdag/./topic_gen.dag.nodes.log
-03/15/17 11:36:12 Masking the events recorded in the DAGMAN workflow log
-03/15/17 11:36:12 Mask for workflow log is 0,1,2,4,5,7,9,10,11,12,13,16,17,24,27
-03/15/17 11:36:12 submitting: /usr/bin/condor_submit -a dag_node_name' '=' 'topic_generation13 -a +DAGManJobId' '=' '195 -a DAGManJobId' '=' '195 -batch-name topic_gen.dag+195 -a submit_event_notes' '=' 'DAG' 'Node:' 'topic_generation13 -a dagman_log' '=' '/esat/spchtemp/scratch/robbe/SpeechHub/topic_experiments/python/jobdag/./topic_gen.dag.nodes.log -a +DAGManNodesMask' '=' '"0,1,2,4,5,7,9,10,11,12,13,16,17,24,27" -a data_set' '=' 'ds -a nb_topics' '=' '250 -a sentences_per_document' '=' '66 -a DAG_STATUS' '=' '0 -a FAILED_COUNT' '=' '0 -a notification' '=' 'never -a +DAGParentNodeNames' '=' '"" jobdag/topic_generation.job
-03/15/17 11:36:12 From submit: Submitting job(s).
-03/15/17 11:36:12 From submit: 1 job(s) submitted to cluster 209.
-03/15/17 11:36:12 	assigned HTCondor ID (209.0.0)
-03/15/17 11:36:12 Submitting HTCondor Node topic_generation14 job(s)...
-03/15/17 11:36:12 Adding a DAGMan workflow log /esat/spchtemp/scratch/robbe/SpeechHub/topic_experiments/python/jobdag/./topic_gen.dag.nodes.log
-03/15/17 11:36:12 Masking the events recorded in the DAGMAN workflow log
-03/15/17 11:36:12 Mask for workflow log is 0,1,2,4,5,7,9,10,11,12,13,16,17,24,27
-03/15/17 11:36:12 submitting: /usr/bin/condor_submit -a dag_node_name' '=' 'topic_generation14 -a +DAGManJobId' '=' '195 -a DAGManJobId' '=' '195 -batch-name topic_gen.dag+195 -a submit_event_notes' '=' 'DAG' 'Node:' 'topic_generation14 -a dagman_log' '=' '/esat/spchtemp/scratch/robbe/SpeechHub/topic_experiments/python/jobdag/./topic_gen.dag.nodes.log -a +DAGManNodesMask' '=' '"0,1,2,4,5,7,9,10,11,12,13,16,17,24,27" -a data_set' '=' 'ds -a nb_topics' '=' '250 -a sentences_per_document' '=' '100 -a DAG_STATUS' '=' '0 -a FAILED_COUNT' '=' '0 -a notification' '=' 'never -a +DAGParentNodeNames' '=' '"" jobdag/topic_generation.job
-03/15/17 11:36:12 From submit: Submitting job(s).
-03/15/17 11:36:12 From submit: 1 job(s) submitted to cluster 210.
-03/15/17 11:36:12 	assigned HTCondor ID (210.0.0)
-03/15/17 11:36:12 Just submitted 5 jobs this cycle...
-03/15/17 11:36:12 Currently monitoring 1 HTCondor log file(s)
-03/15/17 11:36:12 Reassigning the id of job topic_generation10 from (206.0.0) to (206.0.0)
-03/15/17 11:36:12 Event: ULOG_SUBMIT for HTCondor Node topic_generation10 (206.0.0) {03/15/17 11:36:12}
-03/15/17 11:36:12 Number of idle job procs: 11
-03/15/17 11:36:12 Reassigning the id of job topic_generation11 from (207.0.0) to (207.0.0)
-03/15/17 11:36:12 Event: ULOG_SUBMIT for HTCondor Node topic_generation11 (207.0.0) {03/15/17 11:36:12}
-03/15/17 11:36:12 Number of idle job procs: 12
-03/15/17 11:36:12 Reassigning the id of job topic_generation12 from (208.0.0) to (208.0.0)
-03/15/17 11:36:12 Event: ULOG_SUBMIT for HTCondor Node topic_generation12 (208.0.0) {03/15/17 11:36:12}
-03/15/17 11:36:12 Number of idle job procs: 13
-03/15/17 11:36:12 Reassigning the id of job topic_generation13 from (209.0.0) to (209.0.0)
-03/15/17 11:36:12 Event: ULOG_SUBMIT for HTCondor Node topic_generation13 (209.0.0) {03/15/17 11:36:12}
-03/15/17 11:36:12 Number of idle job procs: 14
-03/15/17 11:36:12 Reassigning the id of job topic_generation14 from (210.0.0) to (210.0.0)
-03/15/17 11:36:12 Event: ULOG_SUBMIT for HTCondor Node topic_generation14 (210.0.0) {03/15/17 11:36:12}
-03/15/17 11:36:12 Number of idle job procs: 15
-03/15/17 11:36:12 DAG status: 0 (DAG_STATUS_OK)
-03/15/17 11:36:12 Of 15 nodes total:
-03/15/17 11:36:12  Done     Pre   Queued    Post   Ready   Un-Ready   Failed
-03/15/17 11:36:12   ===     ===      ===     ===     ===        ===      ===
-03/15/17 11:36:12     0       0       15       0       0          0        0
-03/15/17 11:36:12 0 job proc(s) currently held
-03/15/17 11:36:22 Currently monitoring 1 HTCondor log file(s)
-03/15/17 11:36:22 Event: ULOG_EXECUTE for HTCondor Node topic_generation4 (200.0.0) {03/15/17 11:36:20}
-03/15/17 11:36:22 Number of idle job procs: 14
-03/15/17 11:36:22 Event: ULOG_EXECUTE for HTCondor Node topic_generation0 (196.0.0) {03/15/17 11:36:22}
-03/15/17 11:36:22 Number of idle job procs: 13
-03/15/17 11:36:27 Currently monitoring 1 HTCondor log file(s)
-03/15/17 11:36:27 Event: ULOG_EXECUTE for HTCondor Node topic_generation7 (203.0.0) {03/15/17 11:36:24}
-03/15/17 11:36:27 Number of idle job procs: 12
-03/15/17 11:36:27 Event: ULOG_EXECUTE for HTCondor Node topic_generation3 (199.0.0) {03/15/17 11:36:26}
-03/15/17 11:36:27 Number of idle job procs: 11
-03/15/17 11:36:32 Currently monitoring 1 HTCondor log file(s)
-03/15/17 11:36:32 Event: ULOG_EXECUTE for HTCondor Node topic_generation5 (201.0.0) {03/15/17 11:36:29}
-03/15/17 11:36:32 Number of idle job procs: 10
-03/15/17 11:36:32 Event: ULOG_EXECUTE for HTCondor Node topic_generation9 (205.0.0) {03/15/17 11:36:31}
-03/15/17 11:36:32 Number of idle job procs: 9
-03/15/17 11:36:38 Currently monitoring 1 HTCondor log file(s)
-03/15/17 11:36:38 Event: ULOG_EXECUTE for HTCondor Node topic_generation1 (197.0.0) {03/15/17 11:36:33}
-03/15/17 11:36:38 Number of idle job procs: 8
-03/15/17 11:36:38 Event: ULOG_EXECUTE for HTCondor Node topic_generation6 (202.0.0) {03/15/17 11:36:35}
-03/15/17 11:36:38 Number of idle job procs: 7
-03/15/17 11:36:38 Event: ULOG_EXECUTE for HTCondor Node topic_generation8 (204.0.0) {03/15/17 11:36:37}
-03/15/17 11:36:38 Number of idle job procs: 6
-03/15/17 11:36:43 Currently monitoring 1 HTCondor log file(s)
-03/15/17 11:36:43 Event: ULOG_EXECUTE for HTCondor Node topic_generation10 (206.0.0) {03/15/17 11:36:39}
-03/15/17 11:36:43 Number of idle job procs: 5
-03/15/17 11:36:43 Event: ULOG_EXECUTE for HTCondor Node topic_generation2 (198.0.0) {03/15/17 11:36:41}
-03/15/17 11:36:43 Number of idle job procs: 4
-03/15/17 11:36:48 Currently monitoring 1 HTCondor log file(s)
-03/15/17 11:36:48 Event: ULOG_EXECUTE for HTCondor Node topic_generation11 (207.0.0) {03/15/17 11:36:43}
-03/15/17 11:36:48 Number of idle job procs: 3
-03/15/17 11:36:48 Event: ULOG_EXECUTE for HTCondor Node topic_generation13 (209.0.0) {03/15/17 11:36:45}
-03/15/17 11:36:48 Number of idle job procs: 2
-03/15/17 11:36:48 Event: ULOG_EXECUTE for HTCondor Node topic_generation12 (208.0.0) {03/15/17 11:36:47}
-03/15/17 11:36:48 Number of idle job procs: 1
-03/15/17 11:36:53 Currently monitoring 1 HTCondor log file(s)
-03/15/17 11:36:53 Event: ULOG_EXECUTE for HTCondor Node topic_generation14 (210.0.0) {03/15/17 11:36:50}
-03/15/17 11:36:53 Number of idle job procs: 0
-03/15/17 11:38:39 Currently monitoring 1 HTCondor log file(s)
-03/15/17 11:38:39 Event: ULOG_JOB_SUSPENDED for HTCondor Node topic_generation4 (200.0.0) {03/15/17 11:38:37}
-03/15/17 11:38:39 Number of idle job procs: 1
-03/15/17 11:40:04 Currently monitoring 1 HTCondor log file(s)
-03/15/17 11:40:04 Event: ULOG_SHADOW_EXCEPTION for HTCondor Node topic_generation6 (202.0.0) {03/15/17 11:40:02}
-03/15/17 11:40:04 Number of idle job procs: 2
-03/15/17 11:40:04 Event: ULOG_JOB_HELD for HTCondor Node topic_generation6 (202.0.0) {03/15/17 11:40:02}
-03/15/17 11:40:04   Hold reason: Error from slot1@integra.esat.kuleuven.be: Job has gone over memory limit of 14336 megabytes. Peak usage: 13238 megabytes.
-03/15/17 11:40:04 Number of idle job procs: 2
-03/15/17 11:40:04 DAG status: 0 (DAG_STATUS_OK)
-03/15/17 11:40:04 Of 15 nodes total:
-03/15/17 11:40:04  Done     Pre   Queued    Post   Ready   Un-Ready   Failed
-03/15/17 11:40:04   ===     ===      ===     ===     ===        ===      ===
-03/15/17 11:40:04     0       0       15       0       0          0        0
-03/15/17 11:40:04 1 job proc(s) currently held
-03/15/17 11:40:59 Currently monitoring 1 HTCondor log file(s)
-03/15/17 11:40:59 Event: ULOG_JOB_SUSPENDED for HTCondor Node topic_generation5 (201.0.0) {03/15/17 11:40:59}
-03/15/17 11:40:59 Number of idle job procs: 3
-03/15/17 11:43:25 Currently monitoring 1 HTCondor log file(s)
-03/15/17 11:43:25 Event: ULOG_JOB_UNSUSPENDED for HTCondor Node topic_generation4 (200.0.0) {03/15/17 11:43:22}
-03/15/17 11:43:25 Number of idle job procs: 2
-03/15/17 11:43:30 Currently monitoring 1 HTCondor log file(s)
-03/15/17 11:43:30 Event: ULOG_JOB_UNSUSPENDED for HTCondor Node topic_generation5 (201.0.0) {03/15/17 11:43:29}
-03/15/17 11:43:30 Number of idle job procs: 1
-03/15/17 11:43:35 Currently monitoring 1 HTCondor log file(s)
-03/15/17 11:43:35 Event: ULOG_JOB_SUSPENDED for HTCondor Node topic_generation5 (201.0.0) {03/15/17 11:43:35}
-03/15/17 11:43:35 Number of idle job procs: 2
-03/15/17 11:45:00 Currently monitoring 1 HTCondor log file(s)
-03/15/17 11:45:00 Event: ULOG_JOB_SUSPENDED for HTCondor Node topic_generation4 (200.0.0) {03/15/17 11:44:57}
-03/15/17 11:45:00 Number of idle job procs: 3
-03/15/17 11:49:25 Currently monitoring 1 HTCondor log file(s)
-03/15/17 11:49:25 Event: ULOG_JOB_UNSUSPENDED for HTCondor Node topic_generation5 (201.0.0) {03/15/17 11:49:24}
-03/15/17 11:49:25 Number of idle job procs: 2
-03/15/17 11:50:50 Currently monitoring 1 HTCondor log file(s)
-03/15/17 11:50:50 Event: ULOG_JOB_UNSUSPENDED for HTCondor Node topic_generation4 (200.0.0) {03/15/17 11:50:47}
-03/15/17 11:50:50 Number of idle job procs: 1
-03/15/17 11:51:51 Currently monitoring 1 HTCondor log file(s)
-03/15/17 11:51:51 Event: ULOG_JOB_SUSPENDED for HTCondor Node topic_generation5 (201.0.0) {03/15/17 11:51:49}
-03/15/17 11:51:51 Number of idle job procs: 2
-03/15/17 11:54:57 Currently monitoring 1 HTCondor log file(s)
-03/15/17 11:54:57 Event: ULOG_JOB_SUSPENDED for HTCondor Node topic_generation4 (200.0.0) {03/15/17 11:54:54}
-03/15/17 11:54:57 Number of idle job procs: 3
-03/15/17 12:05:00 603 seconds since last log event
-03/15/17 12:05:00 Pending DAG nodes:
-03/15/17 12:05:00   Node topic_generation0, HTCondor ID 196, status STATUS_SUBMITTED
-03/15/17 12:05:00   Node topic_generation1, HTCondor ID 197, status STATUS_SUBMITTED
-03/15/17 12:05:00   Node topic_generation2, HTCondor ID 198, status STATUS_SUBMITTED
-03/15/17 12:05:00   Node topic_generation3, HTCondor ID 199, status STATUS_SUBMITTED
-03/15/17 12:05:00   Node topic_generation4, HTCondor ID 200, status STATUS_SUBMITTED
-03/15/17 12:05:00   Node topic_generation5, HTCondor ID 201, status STATUS_SUBMITTED
-03/15/17 12:05:00   Node topic_generation6, HTCondor ID 202, status STATUS_SUBMITTED
-03/15/17 12:05:00   Node topic_generation7, HTCondor ID 203, status STATUS_SUBMITTED
-03/15/17 12:05:00   Node topic_generation8, HTCondor ID 204, status STATUS_SUBMITTED
-03/15/17 12:05:00   Node topic_generation9, HTCondor ID 205, status STATUS_SUBMITTED
-03/15/17 12:05:00   Node topic_generation10, HTCondor ID 206, status STATUS_SUBMITTED
-03/15/17 12:05:00   Node topic_generation11, HTCondor ID 207, status STATUS_SUBMITTED
-03/15/17 12:05:00   Node topic_generation12, HTCondor ID 208, status STATUS_SUBMITTED
-03/15/17 12:05:00   Node topic_generation13, HTCondor ID 209, status STATUS_SUBMITTED
-03/15/17 12:05:00   Node topic_generation14, HTCondor ID 210, status STATUS_SUBMITTED
-03/15/17 12:07:25 Currently monitoring 1 HTCondor log file(s)
-03/15/17 12:07:25 Event: ULOG_JOB_UNSUSPENDED for HTCondor Node topic_generation4 (200.0.0) {03/15/17 12:07:25}
-03/15/17 12:07:25 Number of idle job procs: 2
-03/15/17 12:10:01 Currently monitoring 1 HTCondor log file(s)
-03/15/17 12:10:01 Event: ULOG_JOB_TERMINATED for HTCondor Node topic_generation8 (204.0.0) {03/15/17 12:10:01}
-03/15/17 12:10:01 Number of idle job procs: 2
-03/15/17 12:10:01 Node topic_generation8 job proc (204.0.0) completed successfully.
-03/15/17 12:10:01 Node topic_generation8 job completed
-03/15/17 12:10:01 DAG status: 0 (DAG_STATUS_OK)
-03/15/17 12:10:01 Of 15 nodes total:
-03/15/17 12:10:01  Done     Pre   Queued    Post   Ready   Un-Ready   Failed
-03/15/17 12:10:01   ===     ===      ===     ===     ===        ===      ===
-03/15/17 12:10:01     1       0       14       0       0          0        0
-03/15/17 12:10:01 1 job proc(s) currently held
-03/15/17 12:14:17 Currently monitoring 1 HTCondor log file(s)
-03/15/17 12:14:17 Event: ULOG_JOB_TERMINATED for HTCondor Node topic_generation7 (203.0.0) {03/15/17 12:14:13}
-03/15/17 12:14:17 Number of idle job procs: 2
-03/15/17 12:14:17 Node topic_generation7 job proc (203.0.0) completed successfully.
-03/15/17 12:14:17 Node topic_generation7 job completed
-03/15/17 12:14:17 DAG status: 0 (DAG_STATUS_OK)
-03/15/17 12:14:17 Of 15 nodes total:
-03/15/17 12:14:17  Done     Pre   Queued    Post   Ready   Un-Ready   Failed
-03/15/17 12:14:17   ===     ===      ===     ===     ===        ===      ===
-03/15/17 12:14:17     2       0       13       0       0          0        0
-03/15/17 12:14:17 1 job proc(s) currently held
-03/15/17 12:24:20 603 seconds since last log event
-03/15/17 12:24:20 Pending DAG nodes:
-03/15/17 12:24:20   Node topic_generation0, HTCondor ID 196, status STATUS_SUBMITTED
-03/15/17 12:24:20   Node topic_generation1, HTCondor ID 197, status STATUS_SUBMITTED
-03/15/17 12:24:20   Node topic_generation2, HTCondor ID 198, status STATUS_SUBMITTED
-03/15/17 12:24:20   Node topic_generation3, HTCondor ID 199, status STATUS_SUBMITTED
-03/15/17 12:24:20   Node topic_generation4, HTCondor ID 200, status STATUS_SUBMITTED
-03/15/17 12:24:20   Node topic_generation5, HTCondor ID 201, status STATUS_SUBMITTED
-03/15/17 12:24:20   Node topic_generation6, HTCondor ID 202, status STATUS_SUBMITTED
-03/15/17 12:24:20   Node topic_generation9, HTCondor ID 205, status STATUS_SUBMITTED
-03/15/17 12:24:20   Node topic_generation10, HTCondor ID 206, status STATUS_SUBMITTED
-03/15/17 12:24:20   Node topic_generation11, HTCondor ID 207, status STATUS_SUBMITTED
-03/15/17 12:24:20   Node topic_generation12, HTCondor ID 208, status STATUS_SUBMITTED
-03/15/17 12:24:20   Node topic_generation13, HTCondor ID 209, status STATUS_SUBMITTED
-03/15/17 12:24:20   Node topic_generation14, HTCondor ID 210, status STATUS_SUBMITTED
-03/15/17 12:25:35 Currently monitoring 1 HTCondor log file(s)
-03/15/17 12:25:35 Event: ULOG_JOB_UNSUSPENDED for HTCondor Node topic_generation5 (201.0.0) {03/15/17 12:25:34}
-03/15/17 12:25:35 Number of idle job procs: 1
-03/15/17 12:29:16 Currently monitoring 1 HTCondor log file(s)
-03/15/17 12:29:16 Event: ULOG_JOB_TERMINATED for HTCondor Node topic_generation4 (200.0.0) {03/15/17 12:29:12}
-03/15/17 12:29:16 Number of idle job procs: 1
-03/15/17 12:29:16 Node topic_generation4 job proc (200.0.0) completed successfully.
-03/15/17 12:29:16 Node topic_generation4 job completed
-03/15/17 12:29:16 DAG status: 0 (DAG_STATUS_OK)
-03/15/17 12:29:16 Of 15 nodes total:
-03/15/17 12:29:16  Done     Pre   Queued    Post   Ready   Un-Ready   Failed
-03/15/17 12:29:16   ===     ===      ===     ===     ===        ===      ===
-03/15/17 12:29:16     3       0       12       0       0          0        0
-03/15/17 12:29:16 1 job proc(s) currently held
-03/15/17 12:32:12 Currently monitoring 1 HTCondor log file(s)
-03/15/17 12:32:12 Event: ULOG_JOB_TERMINATED for HTCondor Node topic_generation10 (206.0.0) {03/15/17 12:32:11}
-03/15/17 12:32:12 Number of idle job procs: 1
-03/15/17 12:32:12 Node topic_generation10 job proc (206.0.0) completed successfully.
-03/15/17 12:32:12 Node topic_generation10 job completed
-03/15/17 12:32:12 DAG status: 0 (DAG_STATUS_OK)
-03/15/17 12:32:12 Of 15 nodes total:
-03/15/17 12:32:12  Done     Pre   Queued    Post   Ready   Un-Ready   Failed
-03/15/17 12:32:12   ===     ===      ===     ===     ===        ===      ===
-03/15/17 12:32:12     4       0       11       0       0          0        0
-03/15/17 12:32:12 1 job proc(s) currently held
-03/15/17 12:39:49 Currently monitoring 1 HTCondor log file(s)
-03/15/17 12:39:49 Event: ULOG_JOB_TERMINATED for HTCondor Node topic_generation2 (198.0.0) {03/15/17 12:39:46}
-03/15/17 12:39:49 Number of idle job procs: 1
-03/15/17 12:39:49 Node topic_generation2 job proc (198.0.0) completed successfully.
-03/15/17 12:39:49 Node topic_generation2 job completed
-03/15/17 12:39:49 DAG status: 0 (DAG_STATUS_OK)
-03/15/17 12:39:49 Of 15 nodes total:
-03/15/17 12:39:49  Done     Pre   Queued    Post   Ready   Un-Ready   Failed
-03/15/17 12:39:49   ===     ===      ===     ===     ===        ===      ===
-03/15/17 12:39:49     5       0       10       0       0          0        0
-03/15/17 12:39:49 1 job proc(s) currently held
-03/15/17 12:44:45 Currently monitoring 1 HTCondor log file(s)
-03/15/17 12:44:45 Event: ULOG_JOB_TERMINATED for HTCondor Node topic_generation9 (205.0.0) {03/15/17 12:44:42}
-03/15/17 12:44:45 Number of idle job procs: 1
-03/15/17 12:44:45 Node topic_generation9 job proc (205.0.0) completed successfully.
-03/15/17 12:44:45 Node topic_generation9 job completed
-03/15/17 12:44:45 DAG status: 0 (DAG_STATUS_OK)
-03/15/17 12:44:45 Of 15 nodes total:
-03/15/17 12:44:45  Done     Pre   Queued    Post   Ready   Un-Ready   Failed
-03/15/17 12:44:45   ===     ===      ===     ===     ===        ===      ===
-03/15/17 12:44:45     6       0        9       0       0          0        0
-03/15/17 12:44:45 1 job proc(s) currently held
-03/15/17 12:48:16 Currently monitoring 1 HTCondor log file(s)
-03/15/17 12:48:16 Event: ULOG_JOB_TERMINATED for HTCondor Node topic_generation5 (201.0.0) {03/15/17 12:48:11}
-03/15/17 12:48:16 Number of idle job procs: 1
-03/15/17 12:48:16 Node topic_generation5 job proc (201.0.0) completed successfully.
-03/15/17 12:48:16 Node topic_generation5 job completed
-03/15/17 12:48:16 Event: ULOG_JOB_TERMINATED for HTCondor Node topic_generation1 (197.0.0) {03/15/17 12:48:14}
-03/15/17 12:48:16 Number of idle job procs: 1
-03/15/17 12:48:16 Node topic_generation1 job proc (197.0.0) completed successfully.
-03/15/17 12:48:16 Node topic_generation1 job completed
-03/15/17 12:48:16 DAG status: 0 (DAG_STATUS_OK)
-03/15/17 12:48:16 Of 15 nodes total:
-03/15/17 12:48:16  Done     Pre   Queued    Post   Ready   Un-Ready   Failed
-03/15/17 12:48:16   ===     ===      ===     ===     ===        ===      ===
-03/15/17 12:48:16     8       0        7       0       0          0        0
-03/15/17 12:48:16 1 job proc(s) currently held
-03/15/17 12:58:19 603 seconds since last log event
-03/15/17 12:58:19 Pending DAG nodes:
-03/15/17 12:58:19   Node topic_generation0, HTCondor ID 196, status STATUS_SUBMITTED
-03/15/17 12:58:19   Node topic_generation3, HTCondor ID 199, status STATUS_SUBMITTED
-03/15/17 12:58:19   Node topic_generation6, HTCondor ID 202, status STATUS_SUBMITTED
-03/15/17 12:58:19   Node topic_generation11, HTCondor ID 207, status STATUS_SUBMITTED
-03/15/17 12:58:19   Node topic_generation12, HTCondor ID 208, status STATUS_SUBMITTED
-03/15/17 12:58:19   Node topic_generation13, HTCondor ID 209, status STATUS_SUBMITTED
-03/15/17 12:58:19   Node topic_generation14, HTCondor ID 210, status STATUS_SUBMITTED
-03/15/17 13:01:04 Currently monitoring 1 HTCondor log file(s)
-03/15/17 13:01:04 Event: ULOG_JOB_TERMINATED for HTCondor Node topic_generation0 (196.0.0) {03/15/17 13:01:02}
-03/15/17 13:01:04 Number of idle job procs: 1
-03/15/17 13:01:04 Node topic_generation0 job proc (196.0.0) completed successfully.
-03/15/17 13:01:04 Node topic_generation0 job completed
-03/15/17 13:01:04 DAG status: 0 (DAG_STATUS_OK)
-03/15/17 13:01:04 Of 15 nodes total:
-03/15/17 13:01:04  Done     Pre   Queued    Post   Ready   Un-Ready   Failed
-03/15/17 13:01:04   ===     ===      ===     ===     ===        ===      ===
-03/15/17 13:01:04     9       0        6       0       0          0        0
-03/15/17 13:01:04 1 job proc(s) currently held
-03/15/17 13:11:06 602 seconds since last log event
-03/15/17 13:11:06 Pending DAG nodes:
-03/15/17 13:11:06   Node topic_generation3, HTCondor ID 199, status STATUS_SUBMITTED
-03/15/17 13:11:06   Node topic_generation6, HTCondor ID 202, status STATUS_SUBMITTED
-03/15/17 13:11:06   Node topic_generation11, HTCondor ID 207, status STATUS_SUBMITTED
-03/15/17 13:11:06   Node topic_generation12, HTCondor ID 208, status STATUS_SUBMITTED
-03/15/17 13:11:06   Node topic_generation13, HTCondor ID 209, status STATUS_SUBMITTED
-03/15/17 13:11:06   Node topic_generation14, HTCondor ID 210, status STATUS_SUBMITTED
-03/15/17 13:19:03 Currently monitoring 1 HTCondor log file(s)
-03/15/17 13:19:03 Event: ULOG_JOB_TERMINATED for HTCondor Node topic_generation14 (210.0.0) {03/15/17 13:18:59}
-03/15/17 13:19:03 Number of idle job procs: 1
-03/15/17 13:19:03 Node topic_generation14 job proc (210.0.0) completed successfully.
-03/15/17 13:19:03 Node topic_generation14 job completed
-03/15/17 13:19:03 DAG status: 0 (DAG_STATUS_OK)
-03/15/17 13:19:03 Of 15 nodes total:
-03/15/17 13:19:03  Done     Pre   Queued    Post   Ready   Un-Ready   Failed
-03/15/17 13:19:03   ===     ===      ===     ===     ===        ===      ===
-03/15/17 13:19:03    10       0        5       0       0          0        0
-03/15/17 13:19:03 1 job proc(s) currently held
-03/15/17 13:26:45 Currently monitoring 1 HTCondor log file(s)
-03/15/17 13:26:45 Event: ULOG_JOB_TERMINATED for HTCondor Node topic_generation13 (209.0.0) {03/15/17 13:26:42}
-03/15/17 13:26:45 Number of idle job procs: 1
-03/15/17 13:26:45 Node topic_generation13 job proc (209.0.0) completed successfully.
-03/15/17 13:26:45 Node topic_generation13 job completed
-03/15/17 13:26:45 DAG status: 0 (DAG_STATUS_OK)
-03/15/17 13:26:45 Of 15 nodes total:
-03/15/17 13:26:45  Done     Pre   Queued    Post   Ready   Un-Ready   Failed
-03/15/17 13:26:45   ===     ===      ===     ===     ===        ===      ===
-03/15/17 13:26:45    11       0        4       0       0          0        0
-03/15/17 13:26:45 1 job proc(s) currently held
-03/15/17 13:33:52 Currently monitoring 1 HTCondor log file(s)
-03/15/17 13:33:52 Event: ULOG_JOB_TERMINATED for HTCondor Node topic_generation3 (199.0.0) {03/15/17 13:33:47}
-03/15/17 13:33:52 Number of idle job procs: 1
-03/15/17 13:33:52 Node topic_generation3 job proc (199.0.0) completed successfully.
-03/15/17 13:33:52 Node topic_generation3 job completed
-03/15/17 13:33:52 DAG status: 0 (DAG_STATUS_OK)
-03/15/17 13:33:52 Of 15 nodes total:
-03/15/17 13:33:52  Done     Pre   Queued    Post   Ready   Un-Ready   Failed
-03/15/17 13:33:52   ===     ===      ===     ===     ===        ===      ===
-03/15/17 13:33:52    12       0        3       0       0          0        0
-03/15/17 13:33:52 1 job proc(s) currently held
-03/15/17 13:43:54 602 seconds since last log event
-03/15/17 13:43:54 Pending DAG nodes:
-03/15/17 13:43:54   Node topic_generation6, HTCondor ID 202, status STATUS_SUBMITTED
-03/15/17 13:43:54   Node topic_generation11, HTCondor ID 207, status STATUS_SUBMITTED
-03/15/17 13:43:54   Node topic_generation12, HTCondor ID 208, status STATUS_SUBMITTED
-03/15/17 13:53:57 1205 seconds since last log event
-03/15/17 13:53:57 Pending DAG nodes:
-03/15/17 13:53:57   Node topic_generation6, HTCondor ID 202, status STATUS_SUBMITTED
-03/15/17 13:53:57   Node topic_generation11, HTCondor ID 207, status STATUS_SUBMITTED
-03/15/17 13:53:57   Node topic_generation12, HTCondor ID 208, status STATUS_SUBMITTED
-03/15/17 13:57:33 Currently monitoring 1 HTCondor log file(s)
-03/15/17 13:57:33 Event: ULOG_JOB_TERMINATED for HTCondor Node topic_generation12 (208.0.0) {03/15/17 13:57:28}
-03/15/17 13:57:33 Number of idle job procs: 1
-03/15/17 13:57:33 Node topic_generation12 job proc (208.0.0) completed successfully.
-03/15/17 13:57:33 Node topic_generation12 job completed
-03/15/17 13:57:33 DAG status: 0 (DAG_STATUS_OK)
-03/15/17 13:57:33 Of 15 nodes total:
-03/15/17 13:57:33  Done     Pre   Queued    Post   Ready   Un-Ready   Failed
-03/15/17 13:57:33   ===     ===      ===     ===     ===        ===      ===
-03/15/17 13:57:33    13       0        2       0       0          0        0
-03/15/17 13:57:33 1 job proc(s) currently held
-03/15/17 14:07:35 602 seconds since last log event
-03/15/17 14:07:35 Pending DAG nodes:
-03/15/17 14:07:35   Node topic_generation6, HTCondor ID 202, status STATUS_SUBMITTED
-03/15/17 14:07:35   Node topic_generation11, HTCondor ID 207, status STATUS_SUBMITTED
-03/15/17 14:17:38 1205 seconds since last log event
-03/15/17 14:17:38 Pending DAG nodes:
-03/15/17 14:17:38   Node topic_generation6, HTCondor ID 202, status STATUS_SUBMITTED
-03/15/17 14:17:38   Node topic_generation11, HTCondor ID 207, status STATUS_SUBMITTED
-03/15/17 14:27:40 1807 seconds since last log event
-03/15/17 14:27:40 Pending DAG nodes:
-03/15/17 14:27:40   Node topic_generation6, HTCondor ID 202, status STATUS_SUBMITTED
-03/15/17 14:27:40   Node topic_generation11, HTCondor ID 207, status STATUS_SUBMITTED
-03/15/17 14:37:41 2408 seconds since last log event
-03/15/17 14:37:41 Pending DAG nodes:
-03/15/17 14:37:41   Node topic_generation6, HTCondor ID 202, status STATUS_SUBMITTED
-03/15/17 14:37:41   Node topic_generation11, HTCondor ID 207, status STATUS_SUBMITTED
-03/15/17 14:47:44 3011 seconds since last log event
-03/15/17 14:47:44 Pending DAG nodes:
-03/15/17 14:47:44   Node topic_generation6, HTCondor ID 202, status STATUS_SUBMITTED
-03/15/17 14:47:44   Node topic_generation11, HTCondor ID 207, status STATUS_SUBMITTED
-03/15/17 14:57:46 3613 seconds since last log event
-03/15/17 14:57:46 Pending DAG nodes:
-03/15/17 14:57:46   Node topic_generation6, HTCondor ID 202, status STATUS_SUBMITTED
-03/15/17 14:57:46   Node topic_generation11, HTCondor ID 207, status STATUS_SUBMITTED
-03/15/17 15:04:18 Currently monitoring 1 HTCondor log file(s)
-03/15/17 15:04:18 Event: ULOG_JOB_TERMINATED for HTCondor Node topic_generation11 (207.0.0) {03/15/17 15:04:15}
-03/15/17 15:04:18 Number of idle job procs: 1
-03/15/17 15:04:18 Node topic_generation11 job proc (207.0.0) completed successfully.
-03/15/17 15:04:18 Node topic_generation11 job completed
-03/15/17 15:04:18 DAG status: 0 (DAG_STATUS_OK)
-03/15/17 15:04:18 Of 15 nodes total:
-03/15/17 15:04:18  Done     Pre   Queued    Post   Ready   Un-Ready   Failed
-03/15/17 15:04:18   ===     ===      ===     ===     ===        ===      ===
-03/15/17 15:04:18    14       0        1       0       0          0        0
-03/15/17 15:04:18 1 job proc(s) currently held
-03/15/17 15:14:21 603 seconds since last log event
-03/15/17 15:14:21 Pending DAG nodes:
-03/15/17 15:14:21   Node topic_generation6, HTCondor ID 202, status STATUS_SUBMITTED
-03/15/17 15:24:23 1205 seconds since last log event
-03/15/17 15:24:23 Pending DAG nodes:
-03/15/17 15:24:23   Node topic_generation6, HTCondor ID 202, status STATUS_SUBMITTED
-03/15/17 15:34:26 1808 seconds since last log event
-03/15/17 15:34:26 Pending DAG nodes:
-03/15/17 15:34:26   Node topic_generation6, HTCondor ID 202, status STATUS_SUBMITTED
-03/15/17 15:44:28 2410 seconds since last log event
-03/15/17 15:44:28 Pending DAG nodes:
-03/15/17 15:44:28   Node topic_generation6, HTCondor ID 202, status STATUS_SUBMITTED
-03/15/17 15:54:30 3012 seconds since last log event
-03/15/17 15:54:30 Pending DAG nodes:
-03/15/17 15:54:30   Node topic_generation6, HTCondor ID 202, status STATUS_SUBMITTED
-03/15/17 16:04:33 3615 seconds since last log event
-03/15/17 16:04:33 Pending DAG nodes:
-03/15/17 16:04:33   Node topic_generation6, HTCondor ID 202, status STATUS_SUBMITTED
-03/15/17 16:14:35 4217 seconds since last log event
-03/15/17 16:14:35 Pending DAG nodes:
-03/15/17 16:14:35   Node topic_generation6, HTCondor ID 202, status STATUS_SUBMITTED
-03/15/17 16:24:37 4819 seconds since last log event
-03/15/17 16:24:37 Pending DAG nodes:
-03/15/17 16:24:37   Node topic_generation6, HTCondor ID 202, status STATUS_SUBMITTED
-03/15/17 16:34:39 5421 seconds since last log event
-03/15/17 16:34:39 Pending DAG nodes:
-03/15/17 16:34:39   Node topic_generation6, HTCondor ID 202, status STATUS_SUBMITTED
-03/15/17 16:44:42 6024 seconds since last log event
-03/15/17 16:44:42 Pending DAG nodes:
-03/15/17 16:44:42   Node topic_generation6, HTCondor ID 202, status STATUS_SUBMITTED
-03/15/17 16:54:44 6626 seconds since last log event
-03/15/17 16:54:44 Pending DAG nodes:
-03/15/17 16:54:44   Node topic_generation6, HTCondor ID 202, status STATUS_SUBMITTED
-03/15/17 17:04:47 7229 seconds since last log event
-03/15/17 17:04:47 Pending DAG nodes:
-03/15/17 17:04:47   Node topic_generation6, HTCondor ID 202, status STATUS_SUBMITTED
-03/15/17 17:14:50 7832 seconds since last log event
-03/15/17 17:14:50 Pending DAG nodes:
-03/15/17 17:14:50   Node topic_generation6, HTCondor ID 202, status STATUS_SUBMITTED
-03/15/17 17:24:52 8434 seconds since last log event
-03/15/17 17:24:52 Pending DAG nodes:
-03/15/17 17:24:52   Node topic_generation6, HTCondor ID 202, status STATUS_SUBMITTED
-03/15/17 17:34:55 9037 seconds since last log event
-03/15/17 17:34:55 Pending DAG nodes:
-03/15/17 17:34:55   Node topic_generation6, HTCondor ID 202, status STATUS_SUBMITTED
-03/15/17 17:44:58 9640 seconds since last log event
-03/15/17 17:44:58 Pending DAG nodes:
-03/15/17 17:44:58   Node topic_generation6, HTCondor ID 202, status STATUS_SUBMITTED
-03/15/17 17:55:01 10243 seconds since last log event
-03/15/17 17:55:01 Pending DAG nodes:
-03/15/17 17:55:01   Node topic_generation6, HTCondor ID 202, status STATUS_SUBMITTED
-03/15/17 18:05:04 10846 seconds since last log event
-03/15/17 18:05:04 Pending DAG nodes:
-03/15/17 18:05:04   Node topic_generation6, HTCondor ID 202, status STATUS_SUBMITTED
-03/15/17 18:15:07 11449 seconds since last log event
-03/15/17 18:15:07 Pending DAG nodes:
-03/15/17 18:15:07   Node topic_generation6, HTCondor ID 202, status STATUS_SUBMITTED
-03/15/17 18:25:10 12052 seconds since last log event
-03/15/17 18:25:10 Pending DAG nodes:
-03/15/17 18:25:10   Node topic_generation6, HTCondor ID 202, status STATUS_SUBMITTED
-03/15/17 18:35:12 12654 seconds since last log event
-03/15/17 18:35:12 Pending DAG nodes:
-03/15/17 18:35:12   Node topic_generation6, HTCondor ID 202, status STATUS_SUBMITTED
-03/15/17 18:45:15 13257 seconds since last log event
-03/15/17 18:45:15 Pending DAG nodes:
-03/15/17 18:45:15   Node topic_generation6, HTCondor ID 202, status STATUS_SUBMITTED
-03/15/17 18:55:18 13860 seconds since last log event
-03/15/17 18:55:18 Pending DAG nodes:
-03/15/17 18:55:18   Node topic_generation6, HTCondor ID 202, status STATUS_SUBMITTED
-03/15/17 19:05:21 14463 seconds since last log event
-03/15/17 19:05:21 Pending DAG nodes:
-03/15/17 19:05:21   Node topic_generation6, HTCondor ID 202, status STATUS_SUBMITTED
-03/15/17 19:15:24 15066 seconds since last log event
-03/15/17 19:15:24 Pending DAG nodes:
-03/15/17 19:15:24   Node topic_generation6, HTCondor ID 202, status STATUS_SUBMITTED
-03/15/17 19:25:27 15669 seconds since last log event
-03/15/17 19:25:27 Pending DAG nodes:
-03/15/17 19:25:27   Node topic_generation6, HTCondor ID 202, status STATUS_SUBMITTED
-03/15/17 19:35:29 16271 seconds since last log event
-03/15/17 19:35:29 Pending DAG nodes:
-03/15/17 19:35:29   Node topic_generation6, HTCondor ID 202, status STATUS_SUBMITTED
-03/15/17 19:45:32 16874 seconds since last log event
-03/15/17 19:45:32 Pending DAG nodes:
-03/15/17 19:45:32   Node topic_generation6, HTCondor ID 202, status STATUS_SUBMITTED
-03/15/17 19:55:35 17477 seconds since last log event
-03/15/17 19:55:35 Pending DAG nodes:
-03/15/17 19:55:35   Node topic_generation6, HTCondor ID 202, status STATUS_SUBMITTED
-03/15/17 20:05:37 18079 seconds since last log event
-03/15/17 20:05:37 Pending DAG nodes:
-03/15/17 20:05:37   Node topic_generation6, HTCondor ID 202, status STATUS_SUBMITTED
-03/15/17 20:15:40 18682 seconds since last log event
-03/15/17 20:15:40 Pending DAG nodes:
-03/15/17 20:15:40   Node topic_generation6, HTCondor ID 202, status STATUS_SUBMITTED
-03/15/17 20:25:44 19286 seconds since last log event
-03/15/17 20:25:44 Pending DAG nodes:
-03/15/17 20:25:44   Node topic_generation6, HTCondor ID 202, status STATUS_SUBMITTED
-03/15/17 20:35:47 19889 seconds since last log event
-03/15/17 20:35:47 Pending DAG nodes:
-03/15/17 20:35:47   Node topic_generation6, HTCondor ID 202, status STATUS_SUBMITTED
-03/15/17 20:45:49 20491 seconds since last log event
-03/15/17 20:45:49 Pending DAG nodes:
-03/15/17 20:45:49   Node topic_generation6, HTCondor ID 202, status STATUS_SUBMITTED
-03/15/17 20:55:51 21093 seconds since last log event
-03/15/17 20:55:51 Pending DAG nodes:
-03/15/17 20:55:51   Node topic_generation6, HTCondor ID 202, status STATUS_SUBMITTED
-03/15/17 21:05:54 21696 seconds since last log event
-03/15/17 21:05:54 Pending DAG nodes:
-03/15/17 21:05:54   Node topic_generation6, HTCondor ID 202, status STATUS_SUBMITTED
-03/15/17 21:15:57 22299 seconds since last log event
-03/15/17 21:15:57 Pending DAG nodes:
-03/15/17 21:15:57   Node topic_generation6, HTCondor ID 202, status STATUS_SUBMITTED
-03/15/17 21:26:00 22902 seconds since last log event
-03/15/17 21:26:00 Pending DAG nodes:
-03/15/17 21:26:00   Node topic_generation6, HTCondor ID 202, status STATUS_SUBMITTED
-03/15/17 21:36:02 23504 seconds since last log event
-03/15/17 21:36:02 Pending DAG nodes:
-03/15/17 21:36:02   Node topic_generation6, HTCondor ID 202, status STATUS_SUBMITTED
-03/15/17 21:46:05 24107 seconds since last log event
-03/15/17 21:46:05 Pending DAG nodes:
-03/15/17 21:46:05   Node topic_generation6, HTCondor ID 202, status STATUS_SUBMITTED
-03/15/17 21:56:08 24710 seconds since last log event
-03/15/17 21:56:08 Pending DAG nodes:
-03/15/17 21:56:08   Node topic_generation6, HTCondor ID 202, status STATUS_SUBMITTED
-03/15/17 22:06:10 25312 seconds since last log event
-03/15/17 22:06:11 Pending DAG nodes:
-03/15/17 22:06:11   Node topic_generation6, HTCondor ID 202, status STATUS_SUBMITTED
-03/15/17 22:16:14 25916 seconds since last log event
-03/15/17 22:16:14 Pending DAG nodes:
-03/15/17 22:16:14   Node topic_generation6, HTCondor ID 202, status STATUS_SUBMITTED
-03/15/17 22:26:15 26517 seconds since last log event
-03/15/17 22:26:15 Pending DAG nodes:
-03/15/17 22:26:15   Node topic_generation6, HTCondor ID 202, status STATUS_SUBMITTED
-03/15/17 22:36:18 27120 seconds since last log event
-03/15/17 22:36:18 Pending DAG nodes:
-03/15/17 22:36:18   Node topic_generation6, HTCondor ID 202, status STATUS_SUBMITTED
-03/15/17 22:46:20 27722 seconds since last log event
-03/15/17 22:46:20 Pending DAG nodes:
-03/15/17 22:46:20   Node topic_generation6, HTCondor ID 202, status STATUS_SUBMITTED
-03/15/17 22:56:22 28324 seconds since last log event
-03/15/17 22:56:22 Pending DAG nodes:
-03/15/17 22:56:22   Node topic_generation6, HTCondor ID 202, status STATUS_SUBMITTED
-03/15/17 23:06:25 28927 seconds since last log event
-03/15/17 23:06:25 Pending DAG nodes:
-03/15/17 23:06:25   Node topic_generation6, HTCondor ID 202, status STATUS_SUBMITTED
-03/15/17 23:16:27 29529 seconds since last log event
-03/15/17 23:16:27 Pending DAG nodes:
-03/15/17 23:16:27   Node topic_generation6, HTCondor ID 202, status STATUS_SUBMITTED
-03/15/17 23:26:30 30132 seconds since last log event
-03/15/17 23:26:30 Pending DAG nodes:
-03/15/17 23:26:30   Node topic_generation6, HTCondor ID 202, status STATUS_SUBMITTED
-03/15/17 23:36:33 30735 seconds since last log event
-03/15/17 23:36:33 Pending DAG nodes:
-03/15/17 23:36:33   Node topic_generation6, HTCondor ID 202, status STATUS_SUBMITTED
-03/15/17 23:46:35 31337 seconds since last log event
-03/15/17 23:46:35 Pending DAG nodes:
-03/15/17 23:46:35   Node topic_generation6, HTCondor ID 202, status STATUS_SUBMITTED
-03/15/17 23:56:38 31940 seconds since last log event
-03/15/17 23:56:38 Pending DAG nodes:
-03/15/17 23:56:38   Node topic_generation6, HTCondor ID 202, status STATUS_SUBMITTED
-03/16/17 00:06:40 32542 seconds since last log event
-03/16/17 00:06:40 Pending DAG nodes:
-03/16/17 00:06:40   Node topic_generation6, HTCondor ID 202, status STATUS_SUBMITTED
-03/16/17 00:16:42 33144 seconds since last log event
-03/16/17 00:16:42 Pending DAG nodes:
-03/16/17 00:16:42   Node topic_generation6, HTCondor ID 202, status STATUS_SUBMITTED
-03/16/17 00:26:45 33747 seconds since last log event
-03/16/17 00:26:45 Pending DAG nodes:
-03/16/17 00:26:45   Node topic_generation6, HTCondor ID 202, status STATUS_SUBMITTED
-03/16/17 00:36:48 34350 seconds since last log event
-03/16/17 00:36:48 Pending DAG nodes:
-03/16/17 00:36:48   Node topic_generation6, HTCondor ID 202, status STATUS_SUBMITTED
-03/16/17 00:46:51 34953 seconds since last log event
-03/16/17 00:46:51 Pending DAG nodes:
-03/16/17 00:46:51   Node topic_generation6, HTCondor ID 202, status STATUS_SUBMITTED
-03/16/17 00:56:53 35555 seconds since last log event
-03/16/17 00:56:53 Pending DAG nodes:
-03/16/17 00:56:53   Node topic_generation6, HTCondor ID 202, status STATUS_SUBMITTED
-03/16/17 01:06:55 36157 seconds since last log event
-03/16/17 01:06:55 Pending DAG nodes:
-03/16/17 01:06:55   Node topic_generation6, HTCondor ID 202, status STATUS_SUBMITTED
-03/16/17 01:16:58 36760 seconds since last log event
-03/16/17 01:16:58 Pending DAG nodes:
-03/16/17 01:16:58   Node topic_generation6, HTCondor ID 202, status STATUS_SUBMITTED
-03/16/17 01:27:00 37362 seconds since last log event
-03/16/17 01:27:00 Pending DAG nodes:
-03/16/17 01:27:00   Node topic_generation6, HTCondor ID 202, status STATUS_SUBMITTED
-03/16/17 01:37:02 37964 seconds since last log event
-03/16/17 01:37:02 Pending DAG nodes:
-03/16/17 01:37:02   Node topic_generation6, HTCondor ID 202, status STATUS_SUBMITTED
-03/16/17 01:47:05 38567 seconds since last log event
-03/16/17 01:47:05 Pending DAG nodes:
-03/16/17 01:47:05   Node topic_generation6, HTCondor ID 202, status STATUS_SUBMITTED
-03/16/17 01:57:08 39170 seconds since last log event
-03/16/17 01:57:08 Pending DAG nodes:
-03/16/17 01:57:08   Node topic_generation6, HTCondor ID 202, status STATUS_SUBMITTED
-03/16/17 02:07:11 39773 seconds since last log event
-03/16/17 02:07:11 Pending DAG nodes:
-03/16/17 02:07:11   Node topic_generation6, HTCondor ID 202, status STATUS_SUBMITTED
-03/16/17 02:17:14 40376 seconds since last log event
-03/16/17 02:17:14 Pending DAG nodes:
-03/16/17 02:17:14   Node topic_generation6, HTCondor ID 202, status STATUS_SUBMITTED
-03/16/17 02:27:16 40978 seconds since last log event
-03/16/17 02:27:16 Pending DAG nodes:
-03/16/17 02:27:16   Node topic_generation6, HTCondor ID 202, status STATUS_SUBMITTED
-03/16/17 02:37:19 41581 seconds since last log event
-03/16/17 02:37:19 Pending DAG nodes:
-03/16/17 02:37:19   Node topic_generation6, HTCondor ID 202, status STATUS_SUBMITTED
-03/16/17 02:47:23 42185 seconds since last log event
-03/16/17 02:47:23 Pending DAG nodes:
-03/16/17 02:47:23   Node topic_generation6, HTCondor ID 202, status STATUS_SUBMITTED
-03/16/17 02:57:25 42787 seconds since last log event
-03/16/17 02:57:25 Pending DAG nodes:
-03/16/17 02:57:25   Node topic_generation6, HTCondor ID 202, status STATUS_SUBMITTED
-03/16/17 03:07:28 43390 seconds since last log event
-03/16/17 03:07:28 Pending DAG nodes:
-03/16/17 03:07:28   Node topic_generation6, HTCondor ID 202, status STATUS_SUBMITTED
-03/16/17 03:17:31 43993 seconds since last log event
-03/16/17 03:17:31 Pending DAG nodes:
-03/16/17 03:17:31   Node topic_generation6, HTCondor ID 202, status STATUS_SUBMITTED
-03/16/17 03:27:33 44595 seconds since last log event
-03/16/17 03:27:33 Pending DAG nodes:
-03/16/17 03:27:33   Node topic_generation6, HTCondor ID 202, status STATUS_SUBMITTED
-03/16/17 03:37:35 45197 seconds since last log event
-03/16/17 03:37:35 Pending DAG nodes:
-03/16/17 03:37:35   Node topic_generation6, HTCondor ID 202, status STATUS_SUBMITTED
-03/16/17 03:47:38 45800 seconds since last log event
-03/16/17 03:47:38 Pending DAG nodes:
-03/16/17 03:47:38   Node topic_generation6, HTCondor ID 202, status STATUS_SUBMITTED
-03/16/17 03:57:41 46403 seconds since last log event
-03/16/17 03:57:41 Pending DAG nodes:
-03/16/17 03:57:41   Node topic_generation6, HTCondor ID 202, status STATUS_SUBMITTED
-03/16/17 04:07:43 47005 seconds since last log event
-03/16/17 04:07:43 Pending DAG nodes:
-03/16/17 04:07:43   Node topic_generation6, HTCondor ID 202, status STATUS_SUBMITTED
-03/16/17 04:17:44 47606 seconds since last log event
-03/16/17 04:17:44 Pending DAG nodes:
-03/16/17 04:17:44   Node topic_generation6, HTCondor ID 202, status STATUS_SUBMITTED
-03/16/17 04:27:46 48208 seconds since last log event
-03/16/17 04:27:46 Pending DAG nodes:
-03/16/17 04:27:46   Node topic_generation6, HTCondor ID 202, status STATUS_SUBMITTED
-03/16/17 04:37:48 48810 seconds since last log event
-03/16/17 04:37:48 Pending DAG nodes:
-03/16/17 04:37:48   Node topic_generation6, HTCondor ID 202, status STATUS_SUBMITTED
-03/16/17 04:47:51 49413 seconds since last log event
-03/16/17 04:47:51 Pending DAG nodes:
-03/16/17 04:47:51   Node topic_generation6, HTCondor ID 202, status STATUS_SUBMITTED
-03/16/17 04:57:53 50015 seconds since last log event
-03/16/17 04:57:53 Pending DAG nodes:
-03/16/17 04:57:53   Node topic_generation6, HTCondor ID 202, status STATUS_SUBMITTED
-03/16/17 05:07:56 50618 seconds since last log event
-03/16/17 05:07:56 Pending DAG nodes:
-03/16/17 05:07:56   Node topic_generation6, HTCondor ID 202, status STATUS_SUBMITTED
-03/16/17 05:17:59 51221 seconds since last log event
-03/16/17 05:17:59 Pending DAG nodes:
-03/16/17 05:17:59   Node topic_generation6, HTCondor ID 202, status STATUS_SUBMITTED
-03/16/17 05:28:01 51823 seconds since last log event
-03/16/17 05:28:01 Pending DAG nodes:
-03/16/17 05:28:01   Node topic_generation6, HTCondor ID 202, status STATUS_SUBMITTED
-03/16/17 05:38:04 52426 seconds since last log event
-03/16/17 05:38:04 Pending DAG nodes:
-03/16/17 05:38:04   Node topic_generation6, HTCondor ID 202, status STATUS_SUBMITTED
-03/16/17 05:48:06 53028 seconds since last log event
-03/16/17 05:48:06 Pending DAG nodes:
-03/16/17 05:48:06   Node topic_generation6, HTCondor ID 202, status STATUS_SUBMITTED
-03/16/17 05:58:09 53631 seconds since last log event
-03/16/17 05:58:09 Pending DAG nodes:
-03/16/17 05:58:09   Node topic_generation6, HTCondor ID 202, status STATUS_SUBMITTED
-03/16/17 06:08:11 54233 seconds since last log event
-03/16/17 06:08:11 Pending DAG nodes:
-03/16/17 06:08:11   Node topic_generation6, HTCondor ID 202, status STATUS_SUBMITTED
-03/16/17 06:18:13 54835 seconds since last log event
-03/16/17 06:18:13 Pending DAG nodes:
-03/16/17 06:18:13   Node topic_generation6, HTCondor ID 202, status STATUS_SUBMITTED
-03/16/17 06:28:15 55437 seconds since last log event
-03/16/17 06:28:15 Pending DAG nodes:
-03/16/17 06:28:15   Node topic_generation6, HTCondor ID 202, status STATUS_SUBMITTED
-03/16/17 06:38:17 56039 seconds since last log event
-03/16/17 06:38:17 Pending DAG nodes:
-03/16/17 06:38:17   Node topic_generation6, HTCondor ID 202, status STATUS_SUBMITTED
-03/16/17 06:48:20 56642 seconds since last log event
-03/16/17 06:48:20 Pending DAG nodes:
-03/16/17 06:48:20   Node topic_generation6, HTCondor ID 202, status STATUS_SUBMITTED
-03/16/17 06:58:23 57245 seconds since last log event
-03/16/17 06:58:23 Pending DAG nodes:
-03/16/17 06:58:23   Node topic_generation6, HTCondor ID 202, status STATUS_SUBMITTED
-03/16/17 07:08:25 57847 seconds since last log event
-03/16/17 07:08:25 Pending DAG nodes:
-03/16/17 07:08:25   Node topic_generation6, HTCondor ID 202, status STATUS_SUBMITTED
-03/16/17 07:18:28 58450 seconds since last log event
-03/16/17 07:18:28 Pending DAG nodes:
-03/16/17 07:18:28   Node topic_generation6, HTCondor ID 202, status STATUS_SUBMITTED
-03/16/17 07:28:30 59052 seconds since last log event
-03/16/17 07:28:30 Pending DAG nodes:
-03/16/17 07:28:30   Node topic_generation6, HTCondor ID 202, status STATUS_SUBMITTED
-03/16/17 07:38:33 59655 seconds since last log event
-03/16/17 07:38:33 Pending DAG nodes:
-03/16/17 07:38:33   Node topic_generation6, HTCondor ID 202, status STATUS_SUBMITTED
-03/16/17 07:48:34 60256 seconds since last log event
-03/16/17 07:48:34 Pending DAG nodes:
-03/16/17 07:48:34   Node topic_generation6, HTCondor ID 202, status STATUS_SUBMITTED
-03/16/17 07:58:37 60859 seconds since last log event
-03/16/17 07:58:37 Pending DAG nodes:
-03/16/17 07:58:37   Node topic_generation6, HTCondor ID 202, status STATUS_SUBMITTED
-03/16/17 08:08:40 61462 seconds since last log event
-03/16/17 08:08:40 Pending DAG nodes:
-03/16/17 08:08:40   Node topic_generation6, HTCondor ID 202, status STATUS_SUBMITTED
-03/16/17 08:18:42 62064 seconds since last log event
-03/16/17 08:18:42 Pending DAG nodes:
-03/16/17 08:18:42   Node topic_generation6, HTCondor ID 202, status STATUS_SUBMITTED
-03/16/17 08:28:45 62667 seconds since last log event
-03/16/17 08:28:45 Pending DAG nodes:
-03/16/17 08:28:45   Node topic_generation6, HTCondor ID 202, status STATUS_SUBMITTED
-03/16/17 08:38:48 63270 seconds since last log event
-03/16/17 08:38:48 Pending DAG nodes:
-03/16/17 08:38:48   Node topic_generation6, HTCondor ID 202, status STATUS_SUBMITTED
-03/16/17 08:48:51 63873 seconds since last log event
-03/16/17 08:48:51 Pending DAG nodes:
-03/16/17 08:48:51   Node topic_generation6, HTCondor ID 202, status STATUS_SUBMITTED
-03/16/17 08:58:53 64475 seconds since last log event
-03/16/17 08:58:53 Pending DAG nodes:
-03/16/17 08:58:53   Node topic_generation6, HTCondor ID 202, status STATUS_SUBMITTED
-03/16/17 09:08:56 65078 seconds since last log event
-03/16/17 09:08:56 Pending DAG nodes:
-03/16/17 09:08:56   Node topic_generation6, HTCondor ID 202, status STATUS_SUBMITTED
-03/16/17 09:18:58 65680 seconds since last log event
-03/16/17 09:18:58 Pending DAG nodes:
-03/16/17 09:18:58   Node topic_generation6, HTCondor ID 202, status STATUS_SUBMITTED
-03/16/17 09:29:01 66283 seconds since last log event
-03/16/17 09:29:01 Pending DAG nodes:
-03/16/17 09:29:01   Node topic_generation6, HTCondor ID 202, status STATUS_SUBMITTED
-03/16/17 09:39:03 66885 seconds since last log event
-03/16/17 09:39:03 Pending DAG nodes:
-03/16/17 09:39:03   Node topic_generation6, HTCondor ID 202, status STATUS_SUBMITTED
-03/16/17 09:49:06 67488 seconds since last log event
-03/16/17 09:49:06 Pending DAG nodes:
-03/16/17 09:49:06   Node topic_generation6, HTCondor ID 202, status STATUS_SUBMITTED
-03/16/17 09:59:08 68090 seconds since last log event
-03/16/17 09:59:08 Pending DAG nodes:
-03/16/17 09:59:08   Node topic_generation6, HTCondor ID 202, status STATUS_SUBMITTED
-03/16/17 10:09:11 68693 seconds since last log event
-03/16/17 10:09:11 Pending DAG nodes:
-03/16/17 10:09:11   Node topic_generation6, HTCondor ID 202, status STATUS_SUBMITTED
-03/16/17 10:19:13 69295 seconds since last log event
-03/16/17 10:19:13 Pending DAG nodes:
-03/16/17 10:19:13   Node topic_generation6, HTCondor ID 202, status STATUS_SUBMITTED
-03/16/17 10:29:16 69898 seconds since last log event
-03/16/17 10:29:16 Pending DAG nodes:
-03/16/17 10:29:16   Node topic_generation6, HTCondor ID 202, status STATUS_SUBMITTED
-03/16/17 10:39:18 70500 seconds since last log event
-03/16/17 10:39:18 Pending DAG nodes:
-03/16/17 10:39:18   Node topic_generation6, HTCondor ID 202, status STATUS_SUBMITTED
-03/16/17 10:49:21 71103 seconds since last log event
-03/16/17 10:49:21 Pending DAG nodes:
-03/16/17 10:49:21   Node topic_generation6, HTCondor ID 202, status STATUS_SUBMITTED
-03/16/17 10:59:24 71706 seconds since last log event
-03/16/17 10:59:24 Pending DAG nodes:
-03/16/17 10:59:24   Node topic_generation6, HTCondor ID 202, status STATUS_SUBMITTED
-03/16/17 11:09:26 72308 seconds since last log event
-03/16/17 11:09:26 Pending DAG nodes:
-03/16/17 11:09:26   Node topic_generation6, HTCondor ID 202, status STATUS_SUBMITTED
-03/16/17 11:19:28 72910 seconds since last log event
-03/16/17 11:19:28 Pending DAG nodes:
-03/16/17 11:19:28   Node topic_generation6, HTCondor ID 202, status STATUS_SUBMITTED
-03/16/17 11:29:31 73513 seconds since last log event
-03/16/17 11:29:31 Pending DAG nodes:
-03/16/17 11:29:31   Node topic_generation6, HTCondor ID 202, status STATUS_SUBMITTED
-03/16/17 11:39:33 74115 seconds since last log event
-03/16/17 11:39:33 Pending DAG nodes:
-03/16/17 11:39:33   Node topic_generation6, HTCondor ID 202, status STATUS_SUBMITTED
-03/16/17 11:49:36 74718 seconds since last log event
-03/16/17 11:49:36 Pending DAG nodes:
-03/16/17 11:49:36   Node topic_generation6, HTCondor ID 202, status STATUS_SUBMITTED
-03/16/17 11:59:39 75321 seconds since last log event
-03/16/17 11:59:39 Pending DAG nodes:
-03/16/17 11:59:39   Node topic_generation6, HTCondor ID 202, status STATUS_SUBMITTED
-03/16/17 12:09:41 75923 seconds since last log event
-03/16/17 12:09:41 Pending DAG nodes:
-03/16/17 12:09:41   Node topic_generation6, HTCondor ID 202, status STATUS_SUBMITTED
-03/16/17 12:19:42 76524 seconds since last log event
-03/16/17 12:19:43 Pending DAG nodes:
-03/16/17 12:19:43   Node topic_generation6, HTCondor ID 202, status STATUS_SUBMITTED
-03/16/17 12:29:45 77127 seconds since last log event
-03/16/17 12:29:45 Pending DAG nodes:
-03/16/17 12:29:45   Node topic_generation6, HTCondor ID 202, status STATUS_SUBMITTED
-03/16/17 12:39:48 77730 seconds since last log event
-03/16/17 12:39:48 Pending DAG nodes:
-03/16/17 12:39:48   Node topic_generation6, HTCondor ID 202, status STATUS_SUBMITTED
-03/16/17 12:49:50 78332 seconds since last log event
-03/16/17 12:49:50 Pending DAG nodes:
-03/16/17 12:49:50   Node topic_generation6, HTCondor ID 202, status STATUS_SUBMITTED
-03/16/17 12:59:52 78934 seconds since last log event
-03/16/17 12:59:52 Pending DAG nodes:
-03/16/17 12:59:52   Node topic_generation6, HTCondor ID 202, status STATUS_SUBMITTED
-03/16/17 13:09:55 79537 seconds since last log event
-03/16/17 13:09:55 Pending DAG nodes:
-03/16/17 13:09:55   Node topic_generation6, HTCondor ID 202, status STATUS_SUBMITTED
-03/16/17 13:19:58 80140 seconds since last log event
-03/16/17 13:19:58 Pending DAG nodes:
-03/16/17 13:19:58   Node topic_generation6, HTCondor ID 202, status STATUS_SUBMITTED
-03/16/17 13:30:00 80742 seconds since last log event
-03/16/17 13:30:00 Pending DAG nodes:
-03/16/17 13:30:00   Node topic_generation6, HTCondor ID 202, status STATUS_SUBMITTED
-03/16/17 13:40:03 81345 seconds since last log event
-03/16/17 13:40:03 Pending DAG nodes:
-03/16/17 13:40:03   Node topic_generation6, HTCondor ID 202, status STATUS_SUBMITTED
-03/16/17 13:50:06 81948 seconds since last log event
-03/16/17 13:50:06 Pending DAG nodes:
-03/16/17 13:50:06   Node topic_generation6, HTCondor ID 202, status STATUS_SUBMITTED
-03/16/17 14:00:08 82550 seconds since last log event
-03/16/17 14:00:08 Pending DAG nodes:
-03/16/17 14:00:08   Node topic_generation6, HTCondor ID 202, status STATUS_SUBMITTED
-03/16/17 14:10:11 83153 seconds since last log event
-03/16/17 14:10:11 Pending DAG nodes:
-03/16/17 14:10:11   Node topic_generation6, HTCondor ID 202, status STATUS_SUBMITTED
-03/16/17 14:20:14 83756 seconds since last log event
-03/16/17 14:20:14 Pending DAG nodes:
-03/16/17 14:20:14   Node topic_generation6, HTCondor ID 202, status STATUS_SUBMITTED
-03/16/17 14:30:17 84359 seconds since last log event
-03/16/17 14:30:17 Pending DAG nodes:
-03/16/17 14:30:17   Node topic_generation6, HTCondor ID 202, status STATUS_SUBMITTED
-03/16/17 14:33:18 Currently monitoring 1 HTCondor log file(s)
-03/16/17 14:33:18 Event: ULOG_JOB_RELEASED for HTCondor Node topic_generation6 (202.0.0) {03/16/17 14:33:15}
-03/16/17 14:33:18 DAG status: 0 (DAG_STATUS_OK)
-03/16/17 14:33:18 Of 15 nodes total:
-03/16/17 14:33:18  Done     Pre   Queued    Post   Ready   Un-Ready   Failed
-03/16/17 14:33:18   ===     ===      ===     ===     ===        ===      ===
-03/16/17 14:33:18    14       0        1       0       0          0        0
-03/16/17 14:33:18 0 job proc(s) currently held
-03/16/17 14:33:28 Currently monitoring 1 HTCondor log file(s)
-03/16/17 14:33:28 Event: ULOG_EXECUTE for HTCondor Node topic_generation6 (202.0.0) {03/16/17 14:33:23}
-03/16/17 14:33:28 Number of idle job procs: 0
-03/16/17 14:43:30 602 seconds since last log event
-03/16/17 14:43:30 Pending DAG nodes:
-03/16/17 14:43:30   Node topic_generation6, HTCondor ID 202, status STATUS_SUBMITTED
-03/16/17 14:53:33 1205 seconds since last log event
-03/16/17 14:53:33 Pending DAG nodes:
-03/16/17 14:53:33   Node topic_generation6, HTCondor ID 202, status STATUS_SUBMITTED
-03/16/17 15:03:35 1807 seconds since last log event
-03/16/17 15:03:35 Pending DAG nodes:
-03/16/17 15:03:35   Node topic_generation6, HTCondor ID 202, status STATUS_SUBMITTED
-03/16/17 15:13:37 2409 seconds since last log event
-03/16/17 15:13:37 Pending DAG nodes:
-03/16/17 15:13:37   Node topic_generation6, HTCondor ID 202, status STATUS_SUBMITTED
-03/16/17 15:23:40 3012 seconds since last log event
-03/16/17 15:23:40 Pending DAG nodes:
-03/16/17 15:23:40   Node topic_generation6, HTCondor ID 202, status STATUS_SUBMITTED
-03/16/17 15:33:42 3614 seconds since last log event
-03/16/17 15:33:42 Pending DAG nodes:
-03/16/17 15:33:42   Node topic_generation6, HTCondor ID 202, status STATUS_SUBMITTED
-03/16/17 15:43:45 4217 seconds since last log event
-03/16/17 15:43:45 Pending DAG nodes:
-03/16/17 15:43:45   Node topic_generation6, HTCondor ID 202, status STATUS_SUBMITTED
-03/16/17 15:53:48 4820 seconds since last log event
-03/16/17 15:53:48 Pending DAG nodes:
-03/16/17 15:53:48   Node topic_generation6, HTCondor ID 202, status STATUS_SUBMITTED
-03/16/17 16:03:50 5422 seconds since last log event
-03/16/17 16:03:50 Pending DAG nodes:
-03/16/17 16:03:50   Node topic_generation6, HTCondor ID 202, status STATUS_SUBMITTED
-03/16/17 16:13:52 6024 seconds since last log event
-03/16/17 16:13:52 Pending DAG nodes:
-03/16/17 16:13:52   Node topic_generation6, HTCondor ID 202, status STATUS_SUBMITTED
-03/16/17 16:23:55 6627 seconds since last log event
-03/16/17 16:23:55 Pending DAG nodes:
-03/16/17 16:23:55   Node topic_generation6, HTCondor ID 202, status STATUS_SUBMITTED
-03/16/17 16:33:58 7230 seconds since last log event
-03/16/17 16:33:58 Pending DAG nodes:
-03/16/17 16:33:58   Node topic_generation6, HTCondor ID 202, status STATUS_SUBMITTED
-03/16/17 16:44:00 7832 seconds since last log event
-03/16/17 16:44:00 Pending DAG nodes:
-03/16/17 16:44:00   Node topic_generation6, HTCondor ID 202, status STATUS_SUBMITTED
-03/16/17 16:54:04 8436 seconds since last log event
-03/16/17 16:54:04 Pending DAG nodes:
-03/16/17 16:54:04   Node topic_generation6, HTCondor ID 202, status STATUS_SUBMITTED
-03/16/17 17:04:07 9039 seconds since last log event
-03/16/17 17:04:07 Pending DAG nodes:
-03/16/17 17:04:07   Node topic_generation6, HTCondor ID 202, status STATUS_SUBMITTED
-03/16/17 17:14:10 9642 seconds since last log event
-03/16/17 17:14:10 Pending DAG nodes:
-03/16/17 17:14:10   Node topic_generation6, HTCondor ID 202, status STATUS_SUBMITTED
-03/16/17 17:24:12 10244 seconds since last log event
-03/16/17 17:24:12 Pending DAG nodes:
-03/16/17 17:24:12   Node topic_generation6, HTCondor ID 202, status STATUS_SUBMITTED
-03/16/17 17:34:15 10847 seconds since last log event
-03/16/17 17:34:15 Pending DAG nodes:
-03/16/17 17:34:15   Node topic_generation6, HTCondor ID 202, status STATUS_SUBMITTED
-03/16/17 17:44:18 11450 seconds since last log event
-03/16/17 17:44:18 Pending DAG nodes:
-03/16/17 17:44:18   Node topic_generation6, HTCondor ID 202, status STATUS_SUBMITTED
-03/16/17 17:54:21 12053 seconds since last log event
-03/16/17 17:54:21 Pending DAG nodes:
-03/16/17 17:54:21   Node topic_generation6, HTCondor ID 202, status STATUS_SUBMITTED
-03/16/17 18:04:23 12655 seconds since last log event
-03/16/17 18:04:23 Pending DAG nodes:
-03/16/17 18:04:23   Node topic_generation6, HTCondor ID 202, status STATUS_SUBMITTED
-03/16/17 18:14:25 13257 seconds since last log event
-03/16/17 18:14:25 Pending DAG nodes:
-03/16/17 18:14:25   Node topic_generation6, HTCondor ID 202, status STATUS_SUBMITTED
-03/16/17 18:24:28 13860 seconds since last log event
-03/16/17 18:24:28 Pending DAG nodes:
-03/16/17 18:24:28   Node topic_generation6, HTCondor ID 202, status STATUS_SUBMITTED
-03/16/17 18:34:31 14463 seconds since last log event
-03/16/17 18:34:31 Pending DAG nodes:
-03/16/17 18:34:31   Node topic_generation6, HTCondor ID 202, status STATUS_SUBMITTED
-03/16/17 18:44:34 15066 seconds since last log event
-03/16/17 18:44:34 Pending DAG nodes:
-03/16/17 18:44:34   Node topic_generation6, HTCondor ID 202, status STATUS_SUBMITTED
-03/16/17 18:54:36 15668 seconds since last log event
-03/16/17 18:54:36 Pending DAG nodes:
-03/16/17 18:54:36   Node topic_generation6, HTCondor ID 202, status STATUS_SUBMITTED
-03/16/17 19:04:39 16271 seconds since last log event
-03/16/17 19:04:39 Pending DAG nodes:
-03/16/17 19:04:39   Node topic_generation6, HTCondor ID 202, status STATUS_SUBMITTED
-03/16/17 19:14:42 16874 seconds since last log event
-03/16/17 19:14:42 Pending DAG nodes:
-03/16/17 19:14:42   Node topic_generation6, HTCondor ID 202, status STATUS_SUBMITTED
-03/16/17 19:23:24 Currently monitoring 1 HTCondor log file(s)
-03/16/17 19:23:24 Event: ULOG_JOB_TERMINATED for HTCondor Node topic_generation6 (202.0.0) {03/16/17 19:23:24}
-03/16/17 19:23:24 Number of idle job procs: 0
-03/16/17 19:23:24 Node topic_generation6 job proc (202.0.0) completed successfully.
-03/16/17 19:23:24 Node topic_generation6 job completed
-03/16/17 19:23:24 DAG status: 0 (DAG_STATUS_OK)
-03/16/17 19:23:24 Of 15 nodes total:
-03/16/17 19:23:24  Done     Pre   Queued    Post   Ready   Un-Ready   Failed
-03/16/17 19:23:24   ===     ===      ===     ===     ===        ===      ===
-03/16/17 19:23:24    15       0        0       0       0          0        0
-03/16/17 19:23:24 0 job proc(s) currently held
-03/16/17 19:23:24 All jobs Completed!
-03/16/17 19:23:24 Note: 0 total job deferrals because of -MaxJobs limit (0)
-03/16/17 19:23:24 Note: 0 total job deferrals because of -MaxIdle limit (1000)
-03/16/17 19:23:24 Note: 0 total job deferrals because of node category throttles
-03/16/17 19:23:24 Note: 0 total PRE script deferrals because of -MaxPre limit (20) or DEFER
-03/16/17 19:23:24 Note: 0 total POST script deferrals because of -MaxPost limit (20) or DEFER
-03/16/17 19:23:24 DAG status: 0 (DAG_STATUS_OK)
-03/16/17 19:23:24 Of 15 nodes total:
-03/16/17 19:23:24  Done     Pre   Queued    Post   Ready   Un-Ready   Failed
-03/16/17 19:23:24   ===     ===      ===     ===     ===        ===      ===
-03/16/17 19:23:24    15       0        0       0       0          0        0
-03/16/17 19:23:24 0 job proc(s) currently held
-03/16/17 19:23:24 Wrote metrics file topic_gen.dag.metrics.
-03/16/17 19:23:24 Metrics not sent because of PEGASUS_METRICS or CONDOR_DEVELOPERS setting.
-03/16/17 19:23:24 **** condor_scheduniv_exec.195.0 (condor_DAGMAN) pid 14594 EXITING WITH STATUS 0
+03/23/17 14:48:24 ******************************************************
+03/23/17 14:48:24 ** condor_scheduniv_exec.300.0 (CONDOR_DAGMAN) STARTING UP
+03/23/17 14:48:24 ** /usr/bin/condor_dagman
+03/23/17 14:48:24 ** SubsystemInfo: name=DAGMAN type=DAGMAN(10) class=DAEMON(1)
+03/23/17 14:48:24 ** Configuration: subsystem:DAGMAN local:<NONE> class:DAEMON
+03/23/17 14:48:24 ** $CondorVersion: 8.6.1 Mar 01 2017 BuildID: 398585 $
+03/23/17 14:48:24 ** $CondorPlatform: x86_64_RedHat7 $
+03/23/17 14:48:24 ** PID = 27636
+03/23/17 14:48:24 ** Log last touched time unavailable (No such file or directory)
+03/23/17 14:48:24 ******************************************************
+03/23/17 14:48:24 Using config source: /etc/condor/condor_config
+03/23/17 14:48:24 Using local config sources: 
+03/23/17 14:48:24    /etc/condor/config.d/00esat.config
+03/23/17 14:48:24    /etc/condor/config.d/01java.config
+03/23/17 14:48:24    /etc/condor/config.d/80optout_users.config
+03/23/17 14:48:24    /etc/condor/condor_config.local
+03/23/17 14:48:24 config Macros = 166, Sorted = 166, StringBytes = 6020, TablesBytes = 6048
+03/23/17 14:48:24 CLASSAD_CACHING is ENABLED
+03/23/17 14:48:24 Daemon Log is logging: D_ALWAYS D_ERROR
+03/23/17 14:48:24 DaemonCore: No command port requested.
+03/23/17 14:48:24 DAGMAN_USE_STRICT setting: 1
+03/23/17 14:48:24 DAGMAN_VERBOSITY setting: 3
+03/23/17 14:48:24 DAGMAN_DEBUG_CACHE_SIZE setting: 5242880
+03/23/17 14:48:24 DAGMAN_DEBUG_CACHE_ENABLE setting: False
+03/23/17 14:48:24 DAGMAN_SUBMIT_DELAY setting: 0
+03/23/17 14:48:24 DAGMAN_MAX_SUBMIT_ATTEMPTS setting: 6
+03/23/17 14:48:24 DAGMAN_STARTUP_CYCLE_DETECT setting: False
+03/23/17 14:48:24 DAGMAN_MAX_SUBMITS_PER_INTERVAL setting: 5
+03/23/17 14:48:24 DAGMAN_USER_LOG_SCAN_INTERVAL setting: 5
+03/23/17 14:48:24 DAGMAN_DEFAULT_PRIORITY setting: 0
+03/23/17 14:48:24 DAGMAN_SUPPRESS_NOTIFICATION setting: True
+03/23/17 14:48:24 allow_events (DAGMAN_ALLOW_EVENTS) setting: 114
+03/23/17 14:48:24 DAGMAN_RETRY_SUBMIT_FIRST setting: True
+03/23/17 14:48:24 DAGMAN_RETRY_NODE_FIRST setting: False
+03/23/17 14:48:24 DAGMAN_MAX_JOBS_IDLE setting: 1000
+03/23/17 14:48:24 DAGMAN_MAX_JOBS_SUBMITTED setting: 0
+03/23/17 14:48:24 DAGMAN_MAX_PRE_SCRIPTS setting: 20
+03/23/17 14:48:24 DAGMAN_MAX_POST_SCRIPTS setting: 20
+03/23/17 14:48:24 DAGMAN_MUNGE_NODE_NAMES setting: True
+03/23/17 14:48:24 DAGMAN_PROHIBIT_MULTI_JOBS setting: False
+03/23/17 14:48:24 DAGMAN_SUBMIT_DEPTH_FIRST setting: False
+03/23/17 14:48:24 DAGMAN_ALWAYS_RUN_POST setting: False
+03/23/17 14:48:24 DAGMAN_ABORT_DUPLICATES setting: True
+03/23/17 14:48:24 DAGMAN_ABORT_ON_SCARY_SUBMIT setting: True
+03/23/17 14:48:24 DAGMAN_PENDING_REPORT_INTERVAL setting: 600
+03/23/17 14:48:24 DAGMAN_AUTO_RESCUE setting: True
+03/23/17 14:48:24 DAGMAN_MAX_RESCUE_NUM setting: 100
+03/23/17 14:48:24 DAGMAN_WRITE_PARTIAL_RESCUE setting: True
+03/23/17 14:48:24 DAGMAN_DEFAULT_NODE_LOG setting: @(DAG_DIR)/@(DAG_FILE).nodes.log
+03/23/17 14:48:24 DAGMAN_GENERATE_SUBDAG_SUBMITS setting: True
+03/23/17 14:48:24 DAGMAN_MAX_JOB_HOLDS setting: 100
+03/23/17 14:48:24 DAGMAN_HOLD_CLAIM_TIME setting: 20
+03/23/17 14:48:24 ALL_DEBUG setting: 
+03/23/17 14:48:24 DAGMAN_DEBUG setting: 
+03/23/17 14:48:24 DAGMAN_SUPPRESS_JOB_LOGS setting: False
+03/23/17 14:48:24 DAGMAN_REMOVE_NODE_JOBS setting: True
+03/23/17 14:48:24 argv[0] == "condor_scheduniv_exec.300.0"
+03/23/17 14:48:24 argv[1] == "-Lockfile"
+03/23/17 14:48:24 argv[2] == "topic_gen.dag.lock"
+03/23/17 14:48:24 argv[3] == "-AutoRescue"
+03/23/17 14:48:24 argv[4] == "1"
+03/23/17 14:48:24 argv[5] == "-DoRescueFrom"
+03/23/17 14:48:24 argv[6] == "0"
+03/23/17 14:48:24 argv[7] == "-Dag"
+03/23/17 14:48:24 argv[8] == "topic_gen.dag"
+03/23/17 14:48:24 argv[9] == "-Suppress_notification"
+03/23/17 14:48:24 argv[10] == "-CsdVersion"
+03/23/17 14:48:24 argv[11] == "$CondorVersion: 8.6.1 Mar 01 2017 BuildID: 398585 $"
+03/23/17 14:48:24 argv[12] == "-Dagman"
+03/23/17 14:48:24 argv[13] == "/usr/bin/condor_dagman"
+03/23/17 14:48:25 Workflow batch-name: <topic_gen.dag+300>
+03/23/17 14:48:25 Workflow accounting_group: <>
+03/23/17 14:48:25 Workflow accounting_group_user: <>
+03/23/17 14:48:25 Warning: failed to get attribute DAGNodeName
+03/23/17 14:48:25 DAGMAN_LOG_ON_NFS_IS_ERROR setting: False
+03/23/17 14:48:25 Default node log file is: </esat/spchtemp/scratch/robbe/SpeechHub/topic_experiments/python/jobdag/./topic_gen.dag.nodes.log>
+03/23/17 14:48:25 DAG Lockfile will be written to topic_gen.dag.lock
+03/23/17 14:48:25 DAG Input file is topic_gen.dag
+03/23/17 14:48:25 Parsing 1 dagfiles
+03/23/17 14:48:25 Parsing topic_gen.dag ...
+03/23/17 14:48:25 Dag contains 35 total jobs
+03/23/17 14:48:25 Sleeping for 3 seconds to ensure ProcessId uniqueness
+03/23/17 14:48:28 Bootstrapping...
+03/23/17 14:48:28 Number of pre-completed nodes: 0
+03/23/17 14:48:28 MultiLogFiles: truncating log file /esat/spchtemp/scratch/robbe/SpeechHub/topic_experiments/python/jobdag/./topic_gen.dag.nodes.log
+03/23/17 14:48:28 DAG status: 0 (DAG_STATUS_OK)
+03/23/17 14:48:28 Of 35 nodes total:
+03/23/17 14:48:28  Done     Pre   Queued    Post   Ready   Un-Ready   Failed
+03/23/17 14:48:28   ===     ===      ===     ===     ===        ===      ===
+03/23/17 14:48:28     0       0        0       0      35          0        0
+03/23/17 14:48:28 0 job proc(s) currently held
+03/23/17 14:48:28 Registering condor_event_timer...
+03/23/17 14:48:29 Submitting HTCondor Node topic_generation0 job(s)...
+03/23/17 14:48:29 Adding a DAGMan workflow log /esat/spchtemp/scratch/robbe/SpeechHub/topic_experiments/python/jobdag/./topic_gen.dag.nodes.log
+03/23/17 14:48:29 Masking the events recorded in the DAGMAN workflow log
+03/23/17 14:48:29 Mask for workflow log is 0,1,2,4,5,7,9,10,11,12,13,16,17,24,27
+03/23/17 14:48:29 submitting: /usr/bin/condor_submit -a dag_node_name' '=' 'topic_generation0 -a +DAGManJobId' '=' '300 -a DAGManJobId' '=' '300 -batch-name topic_gen.dag+300 -a submit_event_notes' '=' 'DAG' 'Node:' 'topic_generation0 -a dagman_log' '=' '/esat/spchtemp/scratch/robbe/SpeechHub/topic_experiments/python/jobdag/./topic_gen.dag.nodes.log -a +DAGManNodesMask' '=' '"0,1,2,4,5,7,9,10,11,12,13,16,17,24,27" -a data_set' '=' 'ds -a nb_topics' '=' '64 -a sentences_per_document' '=' '5 -a DAG_STATUS' '=' '0 -a FAILED_COUNT' '=' '0 -a notification' '=' 'never -a +DAGParentNodeNames' '=' '"" jobdag/topic_generation.job
+03/23/17 14:48:29 From submit: Submitting job(s).
+03/23/17 14:48:29 From submit: 1 job(s) submitted to cluster 301.
+03/23/17 14:48:29 	assigned HTCondor ID (301.0.0)
+03/23/17 14:48:29 Submitting HTCondor Node topic_generation1 job(s)...
+03/23/17 14:48:29 Adding a DAGMan workflow log /esat/spchtemp/scratch/robbe/SpeechHub/topic_experiments/python/jobdag/./topic_gen.dag.nodes.log
+03/23/17 14:48:29 Masking the events recorded in the DAGMAN workflow log
+03/23/17 14:48:29 Mask for workflow log is 0,1,2,4,5,7,9,10,11,12,13,16,17,24,27
+03/23/17 14:48:29 submitting: /usr/bin/condor_submit -a dag_node_name' '=' 'topic_generation1 -a +DAGManJobId' '=' '300 -a DAGManJobId' '=' '300 -batch-name topic_gen.dag+300 -a submit_event_notes' '=' 'DAG' 'Node:' 'topic_generation1 -a dagman_log' '=' '/esat/spchtemp/scratch/robbe/SpeechHub/topic_experiments/python/jobdag/./topic_gen.dag.nodes.log -a +DAGManNodesMask' '=' '"0,1,2,4,5,7,9,10,11,12,13,16,17,24,27" -a data_set' '=' 'ds -a nb_topics' '=' '64 -a sentences_per_document' '=' '10 -a DAG_STATUS' '=' '0 -a FAILED_COUNT' '=' '0 -a notification' '=' 'never -a +DAGParentNodeNames' '=' '"" jobdag/topic_generation.job
+03/23/17 14:48:29 From submit: Submitting job(s).
+03/23/17 14:48:29 From submit: 1 job(s) submitted to cluster 302.
+03/23/17 14:48:29 	assigned HTCondor ID (302.0.0)
+03/23/17 14:48:29 Submitting HTCondor Node topic_generation2 job(s)...
+03/23/17 14:48:29 Adding a DAGMan workflow log /esat/spchtemp/scratch/robbe/SpeechHub/topic_experiments/python/jobdag/./topic_gen.dag.nodes.log
+03/23/17 14:48:29 Masking the events recorded in the DAGMAN workflow log
+03/23/17 14:48:29 Mask for workflow log is 0,1,2,4,5,7,9,10,11,12,13,16,17,24,27
+03/23/17 14:48:29 submitting: /usr/bin/condor_submit -a dag_node_name' '=' 'topic_generation2 -a +DAGManJobId' '=' '300 -a DAGManJobId' '=' '300 -batch-name topic_gen.dag+300 -a submit_event_notes' '=' 'DAG' 'Node:' 'topic_generation2 -a dagman_log' '=' '/esat/spchtemp/scratch/robbe/SpeechHub/topic_experiments/python/jobdag/./topic_gen.dag.nodes.log -a +DAGManNodesMask' '=' '"0,1,2,4,5,7,9,10,11,12,13,16,17,24,27" -a data_set' '=' 'ds -a nb_topics' '=' '64 -a sentences_per_document' '=' '25 -a DAG_STATUS' '=' '0 -a FAILED_COUNT' '=' '0 -a notification' '=' 'never -a +DAGParentNodeNames' '=' '"" jobdag/topic_generation.job
+03/23/17 14:48:29 From submit: Submitting job(s).
+03/23/17 14:48:29 From submit: 1 job(s) submitted to cluster 303.
+03/23/17 14:48:29 	assigned HTCondor ID (303.0.0)
+03/23/17 14:48:29 Submitting HTCondor Node topic_generation3 job(s)...
+03/23/17 14:48:29 Adding a DAGMan workflow log /esat/spchtemp/scratch/robbe/SpeechHub/topic_experiments/python/jobdag/./topic_gen.dag.nodes.log
+03/23/17 14:48:29 Masking the events recorded in the DAGMAN workflow log
+03/23/17 14:48:29 Mask for workflow log is 0,1,2,4,5,7,9,10,11,12,13,16,17,24,27
+03/23/17 14:48:29 submitting: /usr/bin/condor_submit -a dag_node_name' '=' 'topic_generation3 -a +DAGManJobId' '=' '300 -a DAGManJobId' '=' '300 -batch-name topic_gen.dag+300 -a submit_event_notes' '=' 'DAG' 'Node:' 'topic_generation3 -a dagman_log' '=' '/esat/spchtemp/scratch/robbe/SpeechHub/topic_experiments/python/jobdag/./topic_gen.dag.nodes.log -a +DAGManNodesMask' '=' '"0,1,2,4,5,7,9,10,11,12,13,16,17,24,27" -a data_set' '=' 'ds -a nb_topics' '=' '64 -a sentences_per_document' '=' '50 -a DAG_STATUS' '=' '0 -a FAILED_COUNT' '=' '0 -a notification' '=' 'never -a +DAGParentNodeNames' '=' '"" jobdag/topic_generation.job
+03/23/17 14:48:29 From submit: Submitting job(s).
+03/23/17 14:48:29 From submit: 1 job(s) submitted to cluster 304.
+03/23/17 14:48:29 	assigned HTCondor ID (304.0.0)
+03/23/17 14:48:29 Submitting HTCondor Node topic_generation4 job(s)...
+03/23/17 14:48:29 Adding a DAGMan workflow log /esat/spchtemp/scratch/robbe/SpeechHub/topic_experiments/python/jobdag/./topic_gen.dag.nodes.log
+03/23/17 14:48:29 Masking the events recorded in the DAGMAN workflow log
+03/23/17 14:48:29 Mask for workflow log is 0,1,2,4,5,7,9,10,11,12,13,16,17,24,27
+03/23/17 14:48:29 submitting: /usr/bin/condor_submit -a dag_node_name' '=' 'topic_generation4 -a +DAGManJobId' '=' '300 -a DAGManJobId' '=' '300 -batch-name topic_gen.dag+300 -a submit_event_notes' '=' 'DAG' 'Node:' 'topic_generation4 -a dagman_log' '=' '/esat/spchtemp/scratch/robbe/SpeechHub/topic_experiments/python/jobdag/./topic_gen.dag.nodes.log -a +DAGManNodesMask' '=' '"0,1,2,4,5,7,9,10,11,12,13,16,17,24,27" -a data_set' '=' 'ds -a nb_topics' '=' '64 -a sentences_per_document' '=' '75 -a DAG_STATUS' '=' '0 -a FAILED_COUNT' '=' '0 -a notification' '=' 'never -a +DAGParentNodeNames' '=' '"" jobdag/topic_generation.job
+03/23/17 14:48:29 From submit: Submitting job(s).
+03/23/17 14:48:29 From submit: 1 job(s) submitted to cluster 305.
+03/23/17 14:48:29 	assigned HTCondor ID (305.0.0)
+03/23/17 14:48:29 Just submitted 5 jobs this cycle...
+03/23/17 14:48:29 Currently monitoring 1 HTCondor log file(s)
+03/23/17 14:48:29 Reassigning the id of job topic_generation0 from (301.0.0) to (301.0.0)
+03/23/17 14:48:29 Event: ULOG_SUBMIT for HTCondor Node topic_generation0 (301.0.0) {03/23/17 14:48:29}
+03/23/17 14:48:29 Number of idle job procs: 1
+03/23/17 14:48:29 Reassigning the id of job topic_generation1 from (302.0.0) to (302.0.0)
+03/23/17 14:48:29 Event: ULOG_SUBMIT for HTCondor Node topic_generation1 (302.0.0) {03/23/17 14:48:29}
+03/23/17 14:48:29 Number of idle job procs: 2
+03/23/17 14:48:29 Reassigning the id of job topic_generation2 from (303.0.0) to (303.0.0)
+03/23/17 14:48:29 Event: ULOG_SUBMIT for HTCondor Node topic_generation2 (303.0.0) {03/23/17 14:48:29}
+03/23/17 14:48:29 Number of idle job procs: 3
+03/23/17 14:48:29 Reassigning the id of job topic_generation3 from (304.0.0) to (304.0.0)
+03/23/17 14:48:29 Event: ULOG_SUBMIT for HTCondor Node topic_generation3 (304.0.0) {03/23/17 14:48:29}
+03/23/17 14:48:29 Number of idle job procs: 4
+03/23/17 14:48:29 Reassigning the id of job topic_generation4 from (305.0.0) to (305.0.0)
+03/23/17 14:48:29 Event: ULOG_SUBMIT for HTCondor Node topic_generation4 (305.0.0) {03/23/17 14:48:29}
+03/23/17 14:48:29 Number of idle job procs: 5
+03/23/17 14:48:29 DAG status: 0 (DAG_STATUS_OK)
+03/23/17 14:48:29 Of 35 nodes total:
+03/23/17 14:48:29  Done     Pre   Queued    Post   Ready   Un-Ready   Failed
+03/23/17 14:48:29   ===     ===      ===     ===     ===        ===      ===
+03/23/17 14:48:29     0       0        5       0      30          0        0
+03/23/17 14:48:29 0 job proc(s) currently held
+03/23/17 14:48:34 Submitting HTCondor Node topic_generation5 job(s)...
+03/23/17 14:48:34 Adding a DAGMan workflow log /esat/spchtemp/scratch/robbe/SpeechHub/topic_experiments/python/jobdag/./topic_gen.dag.nodes.log
+03/23/17 14:48:34 Masking the events recorded in the DAGMAN workflow log
+03/23/17 14:48:34 Mask for workflow log is 0,1,2,4,5,7,9,10,11,12,13,16,17,24,27
+03/23/17 14:48:34 submitting: /usr/bin/condor_submit -a dag_node_name' '=' 'topic_generation5 -a +DAGManJobId' '=' '300 -a DAGManJobId' '=' '300 -batch-name topic_gen.dag+300 -a submit_event_notes' '=' 'DAG' 'Node:' 'topic_generation5 -a dagman_log' '=' '/esat/spchtemp/scratch/robbe/SpeechHub/topic_experiments/python/jobdag/./topic_gen.dag.nodes.log -a +DAGManNodesMask' '=' '"0,1,2,4,5,7,9,10,11,12,13,16,17,24,27" -a data_set' '=' 'ds -a nb_topics' '=' '64 -a sentences_per_document' '=' '100 -a DAG_STATUS' '=' '0 -a FAILED_COUNT' '=' '0 -a notification' '=' 'never -a +DAGParentNodeNames' '=' '"" jobdag/topic_generation.job
+03/23/17 14:48:34 From submit: Submitting job(s).
+03/23/17 14:48:34 From submit: 1 job(s) submitted to cluster 306.
+03/23/17 14:48:34 	assigned HTCondor ID (306.0.0)
+03/23/17 14:48:34 Submitting HTCondor Node topic_generation6 job(s)...
+03/23/17 14:48:34 Adding a DAGMan workflow log /esat/spchtemp/scratch/robbe/SpeechHub/topic_experiments/python/jobdag/./topic_gen.dag.nodes.log
+03/23/17 14:48:34 Masking the events recorded in the DAGMAN workflow log
+03/23/17 14:48:34 Mask for workflow log is 0,1,2,4,5,7,9,10,11,12,13,16,17,24,27
+03/23/17 14:48:34 submitting: /usr/bin/condor_submit -a dag_node_name' '=' 'topic_generation6 -a +DAGManJobId' '=' '300 -a DAGManJobId' '=' '300 -batch-name topic_gen.dag+300 -a submit_event_notes' '=' 'DAG' 'Node:' 'topic_generation6 -a dagman_log' '=' '/esat/spchtemp/scratch/robbe/SpeechHub/topic_experiments/python/jobdag/./topic_gen.dag.nodes.log -a +DAGManNodesMask' '=' '"0,1,2,4,5,7,9,10,11,12,13,16,17,24,27" -a data_set' '=' 'ds -a nb_topics' '=' '64 -a sentences_per_document' '=' '500 -a DAG_STATUS' '=' '0 -a FAILED_COUNT' '=' '0 -a notification' '=' 'never -a +DAGParentNodeNames' '=' '"" jobdag/topic_generation.job
+03/23/17 14:48:34 From submit: Submitting job(s).
+03/23/17 14:48:34 From submit: 1 job(s) submitted to cluster 307.
+03/23/17 14:48:34 	assigned HTCondor ID (307.0.0)
+03/23/17 14:48:34 Submitting HTCondor Node topic_generation7 job(s)...
+03/23/17 14:48:34 Adding a DAGMan workflow log /esat/spchtemp/scratch/robbe/SpeechHub/topic_experiments/python/jobdag/./topic_gen.dag.nodes.log
+03/23/17 14:48:34 Masking the events recorded in the DAGMAN workflow log
+03/23/17 14:48:34 Mask for workflow log is 0,1,2,4,5,7,9,10,11,12,13,16,17,24,27
+03/23/17 14:48:34 submitting: /usr/bin/condor_submit -a dag_node_name' '=' 'topic_generation7 -a +DAGManJobId' '=' '300 -a DAGManJobId' '=' '300 -batch-name topic_gen.dag+300 -a submit_event_notes' '=' 'DAG' 'Node:' 'topic_generation7 -a dagman_log' '=' '/esat/spchtemp/scratch/robbe/SpeechHub/topic_experiments/python/jobdag/./topic_gen.dag.nodes.log -a +DAGManNodesMask' '=' '"0,1,2,4,5,7,9,10,11,12,13,16,17,24,27" -a data_set' '=' 'ds -a nb_topics' '=' '128 -a sentences_per_document' '=' '5 -a DAG_STATUS' '=' '0 -a FAILED_COUNT' '=' '0 -a notification' '=' 'never -a +DAGParentNodeNames' '=' '"" jobdag/topic_generation.job
+03/23/17 14:48:34 From submit: Submitting job(s).
+03/23/17 14:48:34 From submit: 1 job(s) submitted to cluster 308.
+03/23/17 14:48:34 	assigned HTCondor ID (308.0.0)
+03/23/17 14:48:34 Submitting HTCondor Node topic_generation8 job(s)...
+03/23/17 14:48:34 Adding a DAGMan workflow log /esat/spchtemp/scratch/robbe/SpeechHub/topic_experiments/python/jobdag/./topic_gen.dag.nodes.log
+03/23/17 14:48:34 Masking the events recorded in the DAGMAN workflow log
+03/23/17 14:48:34 Mask for workflow log is 0,1,2,4,5,7,9,10,11,12,13,16,17,24,27
+03/23/17 14:48:34 submitting: /usr/bin/condor_submit -a dag_node_name' '=' 'topic_generation8 -a +DAGManJobId' '=' '300 -a DAGManJobId' '=' '300 -batch-name topic_gen.dag+300 -a submit_event_notes' '=' 'DAG' 'Node:' 'topic_generation8 -a dagman_log' '=' '/esat/spchtemp/scratch/robbe/SpeechHub/topic_experiments/python/jobdag/./topic_gen.dag.nodes.log -a +DAGManNodesMask' '=' '"0,1,2,4,5,7,9,10,11,12,13,16,17,24,27" -a data_set' '=' 'ds -a nb_topics' '=' '128 -a sentences_per_document' '=' '10 -a DAG_STATUS' '=' '0 -a FAILED_COUNT' '=' '0 -a notification' '=' 'never -a +DAGParentNodeNames' '=' '"" jobdag/topic_generation.job
+03/23/17 14:48:34 From submit: Submitting job(s).
+03/23/17 14:48:34 From submit: 1 job(s) submitted to cluster 309.
+03/23/17 14:48:34 	assigned HTCondor ID (309.0.0)
+03/23/17 14:48:34 Submitting HTCondor Node topic_generation9 job(s)...
+03/23/17 14:48:34 Adding a DAGMan workflow log /esat/spchtemp/scratch/robbe/SpeechHub/topic_experiments/python/jobdag/./topic_gen.dag.nodes.log
+03/23/17 14:48:34 Masking the events recorded in the DAGMAN workflow log
+03/23/17 14:48:34 Mask for workflow log is 0,1,2,4,5,7,9,10,11,12,13,16,17,24,27
+03/23/17 14:48:34 submitting: /usr/bin/condor_submit -a dag_node_name' '=' 'topic_generation9 -a +DAGManJobId' '=' '300 -a DAGManJobId' '=' '300 -batch-name topic_gen.dag+300 -a submit_event_notes' '=' 'DAG' 'Node:' 'topic_generation9 -a dagman_log' '=' '/esat/spchtemp/scratch/robbe/SpeechHub/topic_experiments/python/jobdag/./topic_gen.dag.nodes.log -a +DAGManNodesMask' '=' '"0,1,2,4,5,7,9,10,11,12,13,16,17,24,27" -a data_set' '=' 'ds -a nb_topics' '=' '128 -a sentences_per_document' '=' '25 -a DAG_STATUS' '=' '0 -a FAILED_COUNT' '=' '0 -a notification' '=' 'never -a +DAGParentNodeNames' '=' '"" jobdag/topic_generation.job
+03/23/17 14:48:35 From submit: Submitting job(s).
+03/23/17 14:48:35 From submit: 1 job(s) submitted to cluster 310.
+03/23/17 14:48:35 	assigned HTCondor ID (310.0.0)
+03/23/17 14:48:35 Just submitted 5 jobs this cycle...
+03/23/17 14:48:35 Currently monitoring 1 HTCondor log file(s)
+03/23/17 14:48:35 Reassigning the id of job topic_generation5 from (306.0.0) to (306.0.0)
+03/23/17 14:48:35 Event: ULOG_SUBMIT for HTCondor Node topic_generation5 (306.0.0) {03/23/17 14:48:34}
+03/23/17 14:48:35 Number of idle job procs: 6
+03/23/17 14:48:35 Reassigning the id of job topic_generation6 from (307.0.0) to (307.0.0)
+03/23/17 14:48:35 Event: ULOG_SUBMIT for HTCondor Node topic_generation6 (307.0.0) {03/23/17 14:48:34}
+03/23/17 14:48:35 Number of idle job procs: 7
+03/23/17 14:48:35 Reassigning the id of job topic_generation7 from (308.0.0) to (308.0.0)
+03/23/17 14:48:35 Event: ULOG_SUBMIT for HTCondor Node topic_generation7 (308.0.0) {03/23/17 14:48:34}
+03/23/17 14:48:35 Number of idle job procs: 8
+03/23/17 14:48:35 Reassigning the id of job topic_generation8 from (309.0.0) to (309.0.0)
+03/23/17 14:48:35 Event: ULOG_SUBMIT for HTCondor Node topic_generation8 (309.0.0) {03/23/17 14:48:34}
+03/23/17 14:48:35 Number of idle job procs: 9
+03/23/17 14:48:35 Reassigning the id of job topic_generation9 from (310.0.0) to (310.0.0)
+03/23/17 14:48:35 Event: ULOG_SUBMIT for HTCondor Node topic_generation9 (310.0.0) {03/23/17 14:48:35}
+03/23/17 14:48:35 Number of idle job procs: 10
+03/23/17 14:48:35 DAG status: 0 (DAG_STATUS_OK)
+03/23/17 14:48:35 Of 35 nodes total:
+03/23/17 14:48:35  Done     Pre   Queued    Post   Ready   Un-Ready   Failed
+03/23/17 14:48:35   ===     ===      ===     ===     ===        ===      ===
+03/23/17 14:48:35     0       0       10       0      25          0        0
+03/23/17 14:48:35 0 job proc(s) currently held
+03/23/17 14:48:40 Submitting HTCondor Node topic_generation10 job(s)...
+03/23/17 14:48:40 Adding a DAGMan workflow log /esat/spchtemp/scratch/robbe/SpeechHub/topic_experiments/python/jobdag/./topic_gen.dag.nodes.log
+03/23/17 14:48:40 Masking the events recorded in the DAGMAN workflow log
+03/23/17 14:48:40 Mask for workflow log is 0,1,2,4,5,7,9,10,11,12,13,16,17,24,27
+03/23/17 14:48:40 submitting: /usr/bin/condor_submit -a dag_node_name' '=' 'topic_generation10 -a +DAGManJobId' '=' '300 -a DAGManJobId' '=' '300 -batch-name topic_gen.dag+300 -a submit_event_notes' '=' 'DAG' 'Node:' 'topic_generation10 -a dagman_log' '=' '/esat/spchtemp/scratch/robbe/SpeechHub/topic_experiments/python/jobdag/./topic_gen.dag.nodes.log -a +DAGManNodesMask' '=' '"0,1,2,4,5,7,9,10,11,12,13,16,17,24,27" -a data_set' '=' 'ds -a nb_topics' '=' '128 -a sentences_per_document' '=' '50 -a DAG_STATUS' '=' '0 -a FAILED_COUNT' '=' '0 -a notification' '=' 'never -a +DAGParentNodeNames' '=' '"" jobdag/topic_generation.job
+03/23/17 14:48:40 From submit: Submitting job(s).
+03/23/17 14:48:40 From submit: 1 job(s) submitted to cluster 311.
+03/23/17 14:48:40 	assigned HTCondor ID (311.0.0)
+03/23/17 14:48:40 Submitting HTCondor Node topic_generation11 job(s)...
+03/23/17 14:48:40 Adding a DAGMan workflow log /esat/spchtemp/scratch/robbe/SpeechHub/topic_experiments/python/jobdag/./topic_gen.dag.nodes.log
+03/23/17 14:48:40 Masking the events recorded in the DAGMAN workflow log
+03/23/17 14:48:40 Mask for workflow log is 0,1,2,4,5,7,9,10,11,12,13,16,17,24,27
+03/23/17 14:48:40 submitting: /usr/bin/condor_submit -a dag_node_name' '=' 'topic_generation11 -a +DAGManJobId' '=' '300 -a DAGManJobId' '=' '300 -batch-name topic_gen.dag+300 -a submit_event_notes' '=' 'DAG' 'Node:' 'topic_generation11 -a dagman_log' '=' '/esat/spchtemp/scratch/robbe/SpeechHub/topic_experiments/python/jobdag/./topic_gen.dag.nodes.log -a +DAGManNodesMask' '=' '"0,1,2,4,5,7,9,10,11,12,13,16,17,24,27" -a data_set' '=' 'ds -a nb_topics' '=' '128 -a sentences_per_document' '=' '75 -a DAG_STATUS' '=' '0 -a FAILED_COUNT' '=' '0 -a notification' '=' 'never -a +DAGParentNodeNames' '=' '"" jobdag/topic_generation.job
+03/23/17 14:48:40 From submit: Submitting job(s).
+03/23/17 14:48:40 From submit: 1 job(s) submitted to cluster 312.
+03/23/17 14:48:40 	assigned HTCondor ID (312.0.0)
+03/23/17 14:48:40 Submitting HTCondor Node topic_generation12 job(s)...
+03/23/17 14:48:40 Adding a DAGMan workflow log /esat/spchtemp/scratch/robbe/SpeechHub/topic_experiments/python/jobdag/./topic_gen.dag.nodes.log
+03/23/17 14:48:40 Masking the events recorded in the DAGMAN workflow log
+03/23/17 14:48:40 Mask for workflow log is 0,1,2,4,5,7,9,10,11,12,13,16,17,24,27
+03/23/17 14:48:40 submitting: /usr/bin/condor_submit -a dag_node_name' '=' 'topic_generation12 -a +DAGManJobId' '=' '300 -a DAGManJobId' '=' '300 -batch-name topic_gen.dag+300 -a submit_event_notes' '=' 'DAG' 'Node:' 'topic_generation12 -a dagman_log' '=' '/esat/spchtemp/scratch/robbe/SpeechHub/topic_experiments/python/jobdag/./topic_gen.dag.nodes.log -a +DAGManNodesMask' '=' '"0,1,2,4,5,7,9,10,11,12,13,16,17,24,27" -a data_set' '=' 'ds -a nb_topics' '=' '128 -a sentences_per_document' '=' '100 -a DAG_STATUS' '=' '0 -a FAILED_COUNT' '=' '0 -a notification' '=' 'never -a +DAGParentNodeNames' '=' '"" jobdag/topic_generation.job
+03/23/17 14:48:40 From submit: Submitting job(s).
+03/23/17 14:48:40 From submit: 1 job(s) submitted to cluster 313.
+03/23/17 14:48:40 	assigned HTCondor ID (313.0.0)
+03/23/17 14:48:40 Submitting HTCondor Node topic_generation13 job(s)...
+03/23/17 14:48:40 Adding a DAGMan workflow log /esat/spchtemp/scratch/robbe/SpeechHub/topic_experiments/python/jobdag/./topic_gen.dag.nodes.log
+03/23/17 14:48:40 Masking the events recorded in the DAGMAN workflow log
+03/23/17 14:48:40 Mask for workflow log is 0,1,2,4,5,7,9,10,11,12,13,16,17,24,27
+03/23/17 14:48:40 submitting: /usr/bin/condor_submit -a dag_node_name' '=' 'topic_generation13 -a +DAGManJobId' '=' '300 -a DAGManJobId' '=' '300 -batch-name topic_gen.dag+300 -a submit_event_notes' '=' 'DAG' 'Node:' 'topic_generation13 -a dagman_log' '=' '/esat/spchtemp/scratch/robbe/SpeechHub/topic_experiments/python/jobdag/./topic_gen.dag.nodes.log -a +DAGManNodesMask' '=' '"0,1,2,4,5,7,9,10,11,12,13,16,17,24,27" -a data_set' '=' 'ds -a nb_topics' '=' '128 -a sentences_per_document' '=' '500 -a DAG_STATUS' '=' '0 -a FAILED_COUNT' '=' '0 -a notification' '=' 'never -a +DAGParentNodeNames' '=' '"" jobdag/topic_generation.job
+03/23/17 14:48:40 From submit: Submitting job(s).
+03/23/17 14:48:40 From submit: 1 job(s) submitted to cluster 314.
+03/23/17 14:48:40 	assigned HTCondor ID (314.0.0)
+03/23/17 14:48:40 Submitting HTCondor Node topic_generation14 job(s)...
+03/23/17 14:48:40 Adding a DAGMan workflow log /esat/spchtemp/scratch/robbe/SpeechHub/topic_experiments/python/jobdag/./topic_gen.dag.nodes.log
+03/23/17 14:48:40 Masking the events recorded in the DAGMAN workflow log
+03/23/17 14:48:40 Mask for workflow log is 0,1,2,4,5,7,9,10,11,12,13,16,17,24,27
+03/23/17 14:48:40 submitting: /usr/bin/condor_submit -a dag_node_name' '=' 'topic_generation14 -a +DAGManJobId' '=' '300 -a DAGManJobId' '=' '300 -batch-name topic_gen.dag+300 -a submit_event_notes' '=' 'DAG' 'Node:' 'topic_generation14 -a dagman_log' '=' '/esat/spchtemp/scratch/robbe/SpeechHub/topic_experiments/python/jobdag/./topic_gen.dag.nodes.log -a +DAGManNodesMask' '=' '"0,1,2,4,5,7,9,10,11,12,13,16,17,24,27" -a data_set' '=' 'ds -a nb_topics' '=' '256 -a sentences_per_document' '=' '5 -a DAG_STATUS' '=' '0 -a FAILED_COUNT' '=' '0 -a notification' '=' 'never -a +DAGParentNodeNames' '=' '"" jobdag/topic_generation.job
+03/23/17 14:48:40 From submit: Submitting job(s).
+03/23/17 14:48:40 From submit: 1 job(s) submitted to cluster 315.
+03/23/17 14:48:40 	assigned HTCondor ID (315.0.0)
+03/23/17 14:48:40 Just submitted 5 jobs this cycle...
+03/23/17 14:48:40 Currently monitoring 1 HTCondor log file(s)
+03/23/17 14:48:40 Reassigning the id of job topic_generation10 from (311.0.0) to (311.0.0)
+03/23/17 14:48:40 Event: ULOG_SUBMIT for HTCondor Node topic_generation10 (311.0.0) {03/23/17 14:48:40}
+03/23/17 14:48:40 Number of idle job procs: 11
+03/23/17 14:48:40 Reassigning the id of job topic_generation11 from (312.0.0) to (312.0.0)
+03/23/17 14:48:40 Event: ULOG_SUBMIT for HTCondor Node topic_generation11 (312.0.0) {03/23/17 14:48:40}
+03/23/17 14:48:40 Number of idle job procs: 12
+03/23/17 14:48:40 Reassigning the id of job topic_generation12 from (313.0.0) to (313.0.0)
+03/23/17 14:48:40 Event: ULOG_SUBMIT for HTCondor Node topic_generation12 (313.0.0) {03/23/17 14:48:40}
+03/23/17 14:48:40 Number of idle job procs: 13
+03/23/17 14:48:40 Reassigning the id of job topic_generation13 from (314.0.0) to (314.0.0)
+03/23/17 14:48:40 Event: ULOG_SUBMIT for HTCondor Node topic_generation13 (314.0.0) {03/23/17 14:48:40}
+03/23/17 14:48:40 Number of idle job procs: 14
+03/23/17 14:48:40 Reassigning the id of job topic_generation14 from (315.0.0) to (315.0.0)
+03/23/17 14:48:40 Event: ULOG_SUBMIT for HTCondor Node topic_generation14 (315.0.0) {03/23/17 14:48:40}
+03/23/17 14:48:40 Number of idle job procs: 15
+03/23/17 14:48:40 DAG status: 0 (DAG_STATUS_OK)
+03/23/17 14:48:40 Of 35 nodes total:
+03/23/17 14:48:40  Done     Pre   Queued    Post   Ready   Un-Ready   Failed
+03/23/17 14:48:40   ===     ===      ===     ===     ===        ===      ===
+03/23/17 14:48:40     0       0       15       0      20          0        0
+03/23/17 14:48:40 0 job proc(s) currently held
+03/23/17 14:48:45 Submitting HTCondor Node topic_generation15 job(s)...
+03/23/17 14:48:45 Adding a DAGMan workflow log /esat/spchtemp/scratch/robbe/SpeechHub/topic_experiments/python/jobdag/./topic_gen.dag.nodes.log
+03/23/17 14:48:45 Masking the events recorded in the DAGMAN workflow log
+03/23/17 14:48:45 Mask for workflow log is 0,1,2,4,5,7,9,10,11,12,13,16,17,24,27
+03/23/17 14:48:45 submitting: /usr/bin/condor_submit -a dag_node_name' '=' 'topic_generation15 -a +DAGManJobId' '=' '300 -a DAGManJobId' '=' '300 -batch-name topic_gen.dag+300 -a submit_event_notes' '=' 'DAG' 'Node:' 'topic_generation15 -a dagman_log' '=' '/esat/spchtemp/scratch/robbe/SpeechHub/topic_experiments/python/jobdag/./topic_gen.dag.nodes.log -a +DAGManNodesMask' '=' '"0,1,2,4,5,7,9,10,11,12,13,16,17,24,27" -a data_set' '=' 'ds -a nb_topics' '=' '256 -a sentences_per_document' '=' '10 -a DAG_STATUS' '=' '0 -a FAILED_COUNT' '=' '0 -a notification' '=' 'never -a +DAGParentNodeNames' '=' '"" jobdag/topic_generation.job
+03/23/17 14:48:45 From submit: Submitting job(s).
+03/23/17 14:48:45 From submit: 1 job(s) submitted to cluster 316.
+03/23/17 14:48:45 	assigned HTCondor ID (316.0.0)
+03/23/17 14:48:45 Submitting HTCondor Node topic_generation16 job(s)...
+03/23/17 14:48:45 Adding a DAGMan workflow log /esat/spchtemp/scratch/robbe/SpeechHub/topic_experiments/python/jobdag/./topic_gen.dag.nodes.log
+03/23/17 14:48:45 Masking the events recorded in the DAGMAN workflow log
+03/23/17 14:48:45 Mask for workflow log is 0,1,2,4,5,7,9,10,11,12,13,16,17,24,27
+03/23/17 14:48:45 submitting: /usr/bin/condor_submit -a dag_node_name' '=' 'topic_generation16 -a +DAGManJobId' '=' '300 -a DAGManJobId' '=' '300 -batch-name topic_gen.dag+300 -a submit_event_notes' '=' 'DAG' 'Node:' 'topic_generation16 -a dagman_log' '=' '/esat/spchtemp/scratch/robbe/SpeechHub/topic_experiments/python/jobdag/./topic_gen.dag.nodes.log -a +DAGManNodesMask' '=' '"0,1,2,4,5,7,9,10,11,12,13,16,17,24,27" -a data_set' '=' 'ds -a nb_topics' '=' '256 -a sentences_per_document' '=' '25 -a DAG_STATUS' '=' '0 -a FAILED_COUNT' '=' '0 -a notification' '=' 'never -a +DAGParentNodeNames' '=' '"" jobdag/topic_generation.job
+03/23/17 14:48:45 From submit: Submitting job(s).
+03/23/17 14:48:45 From submit: 1 job(s) submitted to cluster 317.
+03/23/17 14:48:45 	assigned HTCondor ID (317.0.0)
+03/23/17 14:48:45 Submitting HTCondor Node topic_generation17 job(s)...
+03/23/17 14:48:45 Adding a DAGMan workflow log /esat/spchtemp/scratch/robbe/SpeechHub/topic_experiments/python/jobdag/./topic_gen.dag.nodes.log
+03/23/17 14:48:45 Masking the events recorded in the DAGMAN workflow log
+03/23/17 14:48:45 Mask for workflow log is 0,1,2,4,5,7,9,10,11,12,13,16,17,24,27
+03/23/17 14:48:45 submitting: /usr/bin/condor_submit -a dag_node_name' '=' 'topic_generation17 -a +DAGManJobId' '=' '300 -a DAGManJobId' '=' '300 -batch-name topic_gen.dag+300 -a submit_event_notes' '=' 'DAG' 'Node:' 'topic_generation17 -a dagman_log' '=' '/esat/spchtemp/scratch/robbe/SpeechHub/topic_experiments/python/jobdag/./topic_gen.dag.nodes.log -a +DAGManNodesMask' '=' '"0,1,2,4,5,7,9,10,11,12,13,16,17,24,27" -a data_set' '=' 'ds -a nb_topics' '=' '256 -a sentences_per_document' '=' '50 -a DAG_STATUS' '=' '0 -a FAILED_COUNT' '=' '0 -a notification' '=' 'never -a +DAGParentNodeNames' '=' '"" jobdag/topic_generation.job
+03/23/17 14:48:45 From submit: Submitting job(s).
+03/23/17 14:48:45 From submit: 1 job(s) submitted to cluster 318.
+03/23/17 14:48:45 	assigned HTCondor ID (318.0.0)
+03/23/17 14:48:45 Submitting HTCondor Node topic_generation18 job(s)...
+03/23/17 14:48:45 Adding a DAGMan workflow log /esat/spchtemp/scratch/robbe/SpeechHub/topic_experiments/python/jobdag/./topic_gen.dag.nodes.log
+03/23/17 14:48:45 Masking the events recorded in the DAGMAN workflow log
+03/23/17 14:48:45 Mask for workflow log is 0,1,2,4,5,7,9,10,11,12,13,16,17,24,27
+03/23/17 14:48:45 submitting: /usr/bin/condor_submit -a dag_node_name' '=' 'topic_generation18 -a +DAGManJobId' '=' '300 -a DAGManJobId' '=' '300 -batch-name topic_gen.dag+300 -a submit_event_notes' '=' 'DAG' 'Node:' 'topic_generation18 -a dagman_log' '=' '/esat/spchtemp/scratch/robbe/SpeechHub/topic_experiments/python/jobdag/./topic_gen.dag.nodes.log -a +DAGManNodesMask' '=' '"0,1,2,4,5,7,9,10,11,12,13,16,17,24,27" -a data_set' '=' 'ds -a nb_topics' '=' '256 -a sentences_per_document' '=' '75 -a DAG_STATUS' '=' '0 -a FAILED_COUNT' '=' '0 -a notification' '=' 'never -a +DAGParentNodeNames' '=' '"" jobdag/topic_generation.job
+03/23/17 14:48:46 From submit: Submitting job(s).
+03/23/17 14:48:46 From submit: 1 job(s) submitted to cluster 319.
+03/23/17 14:48:46 	assigned HTCondor ID (319.0.0)
+03/23/17 14:48:46 Submitting HTCondor Node topic_generation19 job(s)...
+03/23/17 14:48:46 Adding a DAGMan workflow log /esat/spchtemp/scratch/robbe/SpeechHub/topic_experiments/python/jobdag/./topic_gen.dag.nodes.log
+03/23/17 14:48:46 Masking the events recorded in the DAGMAN workflow log
+03/23/17 14:48:46 Mask for workflow log is 0,1,2,4,5,7,9,10,11,12,13,16,17,24,27
+03/23/17 14:48:46 submitting: /usr/bin/condor_submit -a dag_node_name' '=' 'topic_generation19 -a +DAGManJobId' '=' '300 -a DAGManJobId' '=' '300 -batch-name topic_gen.dag+300 -a submit_event_notes' '=' 'DAG' 'Node:' 'topic_generation19 -a dagman_log' '=' '/esat/spchtemp/scratch/robbe/SpeechHub/topic_experiments/python/jobdag/./topic_gen.dag.nodes.log -a +DAGManNodesMask' '=' '"0,1,2,4,5,7,9,10,11,12,13,16,17,24,27" -a data_set' '=' 'ds -a nb_topics' '=' '256 -a sentences_per_document' '=' '100 -a DAG_STATUS' '=' '0 -a FAILED_COUNT' '=' '0 -a notification' '=' 'never -a +DAGParentNodeNames' '=' '"" jobdag/topic_generation.job
+03/23/17 14:48:46 From submit: Submitting job(s).
+03/23/17 14:48:46 From submit: 1 job(s) submitted to cluster 320.
+03/23/17 14:48:46 	assigned HTCondor ID (320.0.0)
+03/23/17 14:48:46 Just submitted 5 jobs this cycle...
+03/23/17 14:48:46 Currently monitoring 1 HTCondor log file(s)
+03/23/17 14:48:46 Reassigning the id of job topic_generation15 from (316.0.0) to (316.0.0)
+03/23/17 14:48:46 Event: ULOG_SUBMIT for HTCondor Node topic_generation15 (316.0.0) {03/23/17 14:48:45}
+03/23/17 14:48:46 Number of idle job procs: 16
+03/23/17 14:48:46 Reassigning the id of job topic_generation16 from (317.0.0) to (317.0.0)
+03/23/17 14:48:46 Event: ULOG_SUBMIT for HTCondor Node topic_generation16 (317.0.0) {03/23/17 14:48:45}
+03/23/17 14:48:46 Number of idle job procs: 17
+03/23/17 14:48:46 Reassigning the id of job topic_generation17 from (318.0.0) to (318.0.0)
+03/23/17 14:48:46 Event: ULOG_SUBMIT for HTCondor Node topic_generation17 (318.0.0) {03/23/17 14:48:45}
+03/23/17 14:48:46 Number of idle job procs: 18
+03/23/17 14:48:46 Reassigning the id of job topic_generation18 from (319.0.0) to (319.0.0)
+03/23/17 14:48:46 Event: ULOG_SUBMIT for HTCondor Node topic_generation18 (319.0.0) {03/23/17 14:48:46}
+03/23/17 14:48:46 Number of idle job procs: 19
+03/23/17 14:48:46 Reassigning the id of job topic_generation19 from (320.0.0) to (320.0.0)
+03/23/17 14:48:46 Event: ULOG_SUBMIT for HTCondor Node topic_generation19 (320.0.0) {03/23/17 14:48:46}
+03/23/17 14:48:46 Number of idle job procs: 20
+03/23/17 14:48:46 DAG status: 0 (DAG_STATUS_OK)
+03/23/17 14:48:46 Of 35 nodes total:
+03/23/17 14:48:46  Done     Pre   Queued    Post   Ready   Un-Ready   Failed
+03/23/17 14:48:46   ===     ===      ===     ===     ===        ===      ===
+03/23/17 14:48:46     0       0       20       0      15          0        0
+03/23/17 14:48:46 0 job proc(s) currently held
+03/23/17 14:48:51 Submitting HTCondor Node topic_generation20 job(s)...
+03/23/17 14:48:51 Adding a DAGMan workflow log /esat/spchtemp/scratch/robbe/SpeechHub/topic_experiments/python/jobdag/./topic_gen.dag.nodes.log
+03/23/17 14:48:51 Masking the events recorded in the DAGMAN workflow log
+03/23/17 14:48:51 Mask for workflow log is 0,1,2,4,5,7,9,10,11,12,13,16,17,24,27
+03/23/17 14:48:51 submitting: /usr/bin/condor_submit -a dag_node_name' '=' 'topic_generation20 -a +DAGManJobId' '=' '300 -a DAGManJobId' '=' '300 -batch-name topic_gen.dag+300 -a submit_event_notes' '=' 'DAG' 'Node:' 'topic_generation20 -a dagman_log' '=' '/esat/spchtemp/scratch/robbe/SpeechHub/topic_experiments/python/jobdag/./topic_gen.dag.nodes.log -a +DAGManNodesMask' '=' '"0,1,2,4,5,7,9,10,11,12,13,16,17,24,27" -a data_set' '=' 'ds -a nb_topics' '=' '256 -a sentences_per_document' '=' '500 -a DAG_STATUS' '=' '0 -a FAILED_COUNT' '=' '0 -a notification' '=' 'never -a +DAGParentNodeNames' '=' '"" jobdag/topic_generation.job
+03/23/17 14:48:51 From submit: Submitting job(s).
+03/23/17 14:48:51 From submit: 1 job(s) submitted to cluster 321.
+03/23/17 14:48:51 	assigned HTCondor ID (321.0.0)
+03/23/17 14:48:51 Submitting HTCondor Node topic_generation21 job(s)...
+03/23/17 14:48:51 Adding a DAGMan workflow log /esat/spchtemp/scratch/robbe/SpeechHub/topic_experiments/python/jobdag/./topic_gen.dag.nodes.log
+03/23/17 14:48:51 Masking the events recorded in the DAGMAN workflow log
+03/23/17 14:48:51 Mask for workflow log is 0,1,2,4,5,7,9,10,11,12,13,16,17,24,27
+03/23/17 14:48:51 submitting: /usr/bin/condor_submit -a dag_node_name' '=' 'topic_generation21 -a +DAGManJobId' '=' '300 -a DAGManJobId' '=' '300 -batch-name topic_gen.dag+300 -a submit_event_notes' '=' 'DAG' 'Node:' 'topic_generation21 -a dagman_log' '=' '/esat/spchtemp/scratch/robbe/SpeechHub/topic_experiments/python/jobdag/./topic_gen.dag.nodes.log -a +DAGManNodesMask' '=' '"0,1,2,4,5,7,9,10,11,12,13,16,17,24,27" -a data_set' '=' 'ds -a nb_topics' '=' '512 -a sentences_per_document' '=' '5 -a DAG_STATUS' '=' '0 -a FAILED_COUNT' '=' '0 -a notification' '=' 'never -a +DAGParentNodeNames' '=' '"" jobdag/topic_generation.job
+03/23/17 14:48:51 From submit: Submitting job(s).
+03/23/17 14:48:51 From submit: 1 job(s) submitted to cluster 322.
+03/23/17 14:48:51 	assigned HTCondor ID (322.0.0)
+03/23/17 14:48:51 Submitting HTCondor Node topic_generation22 job(s)...
+03/23/17 14:48:51 Adding a DAGMan workflow log /esat/spchtemp/scratch/robbe/SpeechHub/topic_experiments/python/jobdag/./topic_gen.dag.nodes.log
+03/23/17 14:48:51 Masking the events recorded in the DAGMAN workflow log
+03/23/17 14:48:51 Mask for workflow log is 0,1,2,4,5,7,9,10,11,12,13,16,17,24,27
+03/23/17 14:48:51 submitting: /usr/bin/condor_submit -a dag_node_name' '=' 'topic_generation22 -a +DAGManJobId' '=' '300 -a DAGManJobId' '=' '300 -batch-name topic_gen.dag+300 -a submit_event_notes' '=' 'DAG' 'Node:' 'topic_generation22 -a dagman_log' '=' '/esat/spchtemp/scratch/robbe/SpeechHub/topic_experiments/python/jobdag/./topic_gen.dag.nodes.log -a +DAGManNodesMask' '=' '"0,1,2,4,5,7,9,10,11,12,13,16,17,24,27" -a data_set' '=' 'ds -a nb_topics' '=' '512 -a sentences_per_document' '=' '10 -a DAG_STATUS' '=' '0 -a FAILED_COUNT' '=' '0 -a notification' '=' 'never -a +DAGParentNodeNames' '=' '"" jobdag/topic_generation.job
+03/23/17 14:48:51 From submit: Submitting job(s).
+03/23/17 14:48:51 From submit: 1 job(s) submitted to cluster 323.
+03/23/17 14:48:51 	assigned HTCondor ID (323.0.0)
+03/23/17 14:48:51 Submitting HTCondor Node topic_generation23 job(s)...
+03/23/17 14:48:51 Adding a DAGMan workflow log /esat/spchtemp/scratch/robbe/SpeechHub/topic_experiments/python/jobdag/./topic_gen.dag.nodes.log
+03/23/17 14:48:51 Masking the events recorded in the DAGMAN workflow log
+03/23/17 14:48:51 Mask for workflow log is 0,1,2,4,5,7,9,10,11,12,13,16,17,24,27
+03/23/17 14:48:51 submitting: /usr/bin/condor_submit -a dag_node_name' '=' 'topic_generation23 -a +DAGManJobId' '=' '300 -a DAGManJobId' '=' '300 -batch-name topic_gen.dag+300 -a submit_event_notes' '=' 'DAG' 'Node:' 'topic_generation23 -a dagman_log' '=' '/esat/spchtemp/scratch/robbe/SpeechHub/topic_experiments/python/jobdag/./topic_gen.dag.nodes.log -a +DAGManNodesMask' '=' '"0,1,2,4,5,7,9,10,11,12,13,16,17,24,27" -a data_set' '=' 'ds -a nb_topics' '=' '512 -a sentences_per_document' '=' '25 -a DAG_STATUS' '=' '0 -a FAILED_COUNT' '=' '0 -a notification' '=' 'never -a +DAGParentNodeNames' '=' '"" jobdag/topic_generation.job
+03/23/17 14:48:51 From submit: Submitting job(s).
+03/23/17 14:48:51 From submit: 1 job(s) submitted to cluster 324.
+03/23/17 14:48:51 	assigned HTCondor ID (324.0.0)
+03/23/17 14:48:51 Submitting HTCondor Node topic_generation24 job(s)...
+03/23/17 14:48:51 Adding a DAGMan workflow log /esat/spchtemp/scratch/robbe/SpeechHub/topic_experiments/python/jobdag/./topic_gen.dag.nodes.log
+03/23/17 14:48:51 Masking the events recorded in the DAGMAN workflow log
+03/23/17 14:48:51 Mask for workflow log is 0,1,2,4,5,7,9,10,11,12,13,16,17,24,27
+03/23/17 14:48:51 submitting: /usr/bin/condor_submit -a dag_node_name' '=' 'topic_generation24 -a +DAGManJobId' '=' '300 -a DAGManJobId' '=' '300 -batch-name topic_gen.dag+300 -a submit_event_notes' '=' 'DAG' 'Node:' 'topic_generation24 -a dagman_log' '=' '/esat/spchtemp/scratch/robbe/SpeechHub/topic_experiments/python/jobdag/./topic_gen.dag.nodes.log -a +DAGManNodesMask' '=' '"0,1,2,4,5,7,9,10,11,12,13,16,17,24,27" -a data_set' '=' 'ds -a nb_topics' '=' '512 -a sentences_per_document' '=' '50 -a DAG_STATUS' '=' '0 -a FAILED_COUNT' '=' '0 -a notification' '=' 'never -a +DAGParentNodeNames' '=' '"" jobdag/topic_generation.job
+03/23/17 14:48:51 From submit: Submitting job(s).
+03/23/17 14:48:51 From submit: 1 job(s) submitted to cluster 325.
+03/23/17 14:48:51 	assigned HTCondor ID (325.0.0)
+03/23/17 14:48:51 Just submitted 5 jobs this cycle...
+03/23/17 14:48:51 Currently monitoring 1 HTCondor log file(s)
+03/23/17 14:48:51 Event: ULOG_EXECUTE for HTCondor Node topic_generation0 (301.0.0) {03/23/17 14:48:49}
+03/23/17 14:48:51 Number of idle job procs: 19
+03/23/17 14:48:51 Reassigning the id of job topic_generation20 from (321.0.0) to (321.0.0)
+03/23/17 14:48:51 Event: ULOG_SUBMIT for HTCondor Node topic_generation20 (321.0.0) {03/23/17 14:48:51}
+03/23/17 14:48:51 Number of idle job procs: 20
+03/23/17 14:48:51 Event: ULOG_EXECUTE for HTCondor Node topic_generation2 (303.0.0) {03/23/17 14:48:51}
+03/23/17 14:48:51 Number of idle job procs: 19
+03/23/17 14:48:51 Reassigning the id of job topic_generation21 from (322.0.0) to (322.0.0)
+03/23/17 14:48:51 Event: ULOG_SUBMIT for HTCondor Node topic_generation21 (322.0.0) {03/23/17 14:48:51}
+03/23/17 14:48:51 Number of idle job procs: 20
+03/23/17 14:48:51 Reassigning the id of job topic_generation22 from (323.0.0) to (323.0.0)
+03/23/17 14:48:51 Event: ULOG_SUBMIT for HTCondor Node topic_generation22 (323.0.0) {03/23/17 14:48:51}
+03/23/17 14:48:51 Number of idle job procs: 21
+03/23/17 14:48:51 Reassigning the id of job topic_generation23 from (324.0.0) to (324.0.0)
+03/23/17 14:48:51 Event: ULOG_SUBMIT for HTCondor Node topic_generation23 (324.0.0) {03/23/17 14:48:51}
+03/23/17 14:48:51 Number of idle job procs: 22
+03/23/17 14:48:51 Reassigning the id of job topic_generation24 from (325.0.0) to (325.0.0)
+03/23/17 14:48:51 Event: ULOG_SUBMIT for HTCondor Node topic_generation24 (325.0.0) {03/23/17 14:48:51}
+03/23/17 14:48:51 Number of idle job procs: 23
+03/23/17 14:48:51 DAG status: 0 (DAG_STATUS_OK)
+03/23/17 14:48:51 Of 35 nodes total:
+03/23/17 14:48:51  Done     Pre   Queued    Post   Ready   Un-Ready   Failed
+03/23/17 14:48:51   ===     ===      ===     ===     ===        ===      ===
+03/23/17 14:48:51     0       0       25       0      10          0        0
+03/23/17 14:48:51 0 job proc(s) currently held
+03/23/17 14:48:56 Submitting HTCondor Node topic_generation25 job(s)...
+03/23/17 14:48:56 Adding a DAGMan workflow log /esat/spchtemp/scratch/robbe/SpeechHub/topic_experiments/python/jobdag/./topic_gen.dag.nodes.log
+03/23/17 14:48:56 Masking the events recorded in the DAGMAN workflow log
+03/23/17 14:48:56 Mask for workflow log is 0,1,2,4,5,7,9,10,11,12,13,16,17,24,27
+03/23/17 14:48:56 submitting: /usr/bin/condor_submit -a dag_node_name' '=' 'topic_generation25 -a +DAGManJobId' '=' '300 -a DAGManJobId' '=' '300 -batch-name topic_gen.dag+300 -a submit_event_notes' '=' 'DAG' 'Node:' 'topic_generation25 -a dagman_log' '=' '/esat/spchtemp/scratch/robbe/SpeechHub/topic_experiments/python/jobdag/./topic_gen.dag.nodes.log -a +DAGManNodesMask' '=' '"0,1,2,4,5,7,9,10,11,12,13,16,17,24,27" -a data_set' '=' 'ds -a nb_topics' '=' '512 -a sentences_per_document' '=' '75 -a DAG_STATUS' '=' '0 -a FAILED_COUNT' '=' '0 -a notification' '=' 'never -a +DAGParentNodeNames' '=' '"" jobdag/topic_generation.job
+03/23/17 14:48:56 From submit: Submitting job(s).
+03/23/17 14:48:56 From submit: 1 job(s) submitted to cluster 326.
+03/23/17 14:48:56 	assigned HTCondor ID (326.0.0)
+03/23/17 14:48:56 Submitting HTCondor Node topic_generation26 job(s)...
+03/23/17 14:48:56 Adding a DAGMan workflow log /esat/spchtemp/scratch/robbe/SpeechHub/topic_experiments/python/jobdag/./topic_gen.dag.nodes.log
+03/23/17 14:48:56 Masking the events recorded in the DAGMAN workflow log
+03/23/17 14:48:56 Mask for workflow log is 0,1,2,4,5,7,9,10,11,12,13,16,17,24,27
+03/23/17 14:48:56 submitting: /usr/bin/condor_submit -a dag_node_name' '=' 'topic_generation26 -a +DAGManJobId' '=' '300 -a DAGManJobId' '=' '300 -batch-name topic_gen.dag+300 -a submit_event_notes' '=' 'DAG' 'Node:' 'topic_generation26 -a dagman_log' '=' '/esat/spchtemp/scratch/robbe/SpeechHub/topic_experiments/python/jobdag/./topic_gen.dag.nodes.log -a +DAGManNodesMask' '=' '"0,1,2,4,5,7,9,10,11,12,13,16,17,24,27" -a data_set' '=' 'ds -a nb_topics' '=' '512 -a sentences_per_document' '=' '100 -a DAG_STATUS' '=' '0 -a FAILED_COUNT' '=' '0 -a notification' '=' 'never -a +DAGParentNodeNames' '=' '"" jobdag/topic_generation.job
+03/23/17 14:48:56 From submit: Submitting job(s).
+03/23/17 14:48:56 From submit: 1 job(s) submitted to cluster 327.
+03/23/17 14:48:56 	assigned HTCondor ID (327.0.0)
+03/23/17 14:48:57 Submitting HTCondor Node topic_generation27 job(s)...
+03/23/17 14:48:57 Adding a DAGMan workflow log /esat/spchtemp/scratch/robbe/SpeechHub/topic_experiments/python/jobdag/./topic_gen.dag.nodes.log
+03/23/17 14:48:57 Masking the events recorded in the DAGMAN workflow log
+03/23/17 14:48:57 Mask for workflow log is 0,1,2,4,5,7,9,10,11,12,13,16,17,24,27
+03/23/17 14:48:57 submitting: /usr/bin/condor_submit -a dag_node_name' '=' 'topic_generation27 -a +DAGManJobId' '=' '300 -a DAGManJobId' '=' '300 -batch-name topic_gen.dag+300 -a submit_event_notes' '=' 'DAG' 'Node:' 'topic_generation27 -a dagman_log' '=' '/esat/spchtemp/scratch/robbe/SpeechHub/topic_experiments/python/jobdag/./topic_gen.dag.nodes.log -a +DAGManNodesMask' '=' '"0,1,2,4,5,7,9,10,11,12,13,16,17,24,27" -a data_set' '=' 'ds -a nb_topics' '=' '512 -a sentences_per_document' '=' '500 -a DAG_STATUS' '=' '0 -a FAILED_COUNT' '=' '0 -a notification' '=' 'never -a +DAGParentNodeNames' '=' '"" jobdag/topic_generation.job
+03/23/17 14:48:57 From submit: Submitting job(s).
+03/23/17 14:48:57 From submit: 1 job(s) submitted to cluster 328.
+03/23/17 14:48:57 	assigned HTCondor ID (328.0.0)
+03/23/17 14:48:57 Submitting HTCondor Node topic_generation28 job(s)...
+03/23/17 14:48:57 Adding a DAGMan workflow log /esat/spchtemp/scratch/robbe/SpeechHub/topic_experiments/python/jobdag/./topic_gen.dag.nodes.log
+03/23/17 14:48:57 Masking the events recorded in the DAGMAN workflow log
+03/23/17 14:48:57 Mask for workflow log is 0,1,2,4,5,7,9,10,11,12,13,16,17,24,27
+03/23/17 14:48:57 submitting: /usr/bin/condor_submit -a dag_node_name' '=' 'topic_generation28 -a +DAGManJobId' '=' '300 -a DAGManJobId' '=' '300 -batch-name topic_gen.dag+300 -a submit_event_notes' '=' 'DAG' 'Node:' 'topic_generation28 -a dagman_log' '=' '/esat/spchtemp/scratch/robbe/SpeechHub/topic_experiments/python/jobdag/./topic_gen.dag.nodes.log -a +DAGManNodesMask' '=' '"0,1,2,4,5,7,9,10,11,12,13,16,17,24,27" -a data_set' '=' 'ds -a nb_topics' '=' '1024 -a sentences_per_document' '=' '5 -a DAG_STATUS' '=' '0 -a FAILED_COUNT' '=' '0 -a notification' '=' 'never -a +DAGParentNodeNames' '=' '"" jobdag/topic_generation.job
+03/23/17 14:48:57 From submit: Submitting job(s).
+03/23/17 14:48:57 From submit: 1 job(s) submitted to cluster 329.
+03/23/17 14:48:57 	assigned HTCondor ID (329.0.0)
+03/23/17 14:48:57 Submitting HTCondor Node topic_generation29 job(s)...
+03/23/17 14:48:57 Adding a DAGMan workflow log /esat/spchtemp/scratch/robbe/SpeechHub/topic_experiments/python/jobdag/./topic_gen.dag.nodes.log
+03/23/17 14:48:57 Masking the events recorded in the DAGMAN workflow log
+03/23/17 14:48:57 Mask for workflow log is 0,1,2,4,5,7,9,10,11,12,13,16,17,24,27
+03/23/17 14:48:57 submitting: /usr/bin/condor_submit -a dag_node_name' '=' 'topic_generation29 -a +DAGManJobId' '=' '300 -a DAGManJobId' '=' '300 -batch-name topic_gen.dag+300 -a submit_event_notes' '=' 'DAG' 'Node:' 'topic_generation29 -a dagman_log' '=' '/esat/spchtemp/scratch/robbe/SpeechHub/topic_experiments/python/jobdag/./topic_gen.dag.nodes.log -a +DAGManNodesMask' '=' '"0,1,2,4,5,7,9,10,11,12,13,16,17,24,27" -a data_set' '=' 'ds -a nb_topics' '=' '1024 -a sentences_per_document' '=' '10 -a DAG_STATUS' '=' '0 -a FAILED_COUNT' '=' '0 -a notification' '=' 'never -a +DAGParentNodeNames' '=' '"" jobdag/topic_generation.job
+03/23/17 14:48:57 From submit: Submitting job(s).
+03/23/17 14:48:57 From submit: 1 job(s) submitted to cluster 330.
+03/23/17 14:48:57 	assigned HTCondor ID (330.0.0)
+03/23/17 14:48:57 Just submitted 5 jobs this cycle...
+03/23/17 14:48:57 Currently monitoring 1 HTCondor log file(s)
+03/23/17 14:48:57 Event: ULOG_EXECUTE for HTCondor Node topic_generation1 (302.0.0) {03/23/17 14:48:52}
+03/23/17 14:48:57 Number of idle job procs: 22
+03/23/17 14:48:57 Event: ULOG_EXECUTE for HTCondor Node topic_generation4 (305.0.0) {03/23/17 14:48:54}
+03/23/17 14:48:57 Number of idle job procs: 21
+03/23/17 14:48:57 Reassigning the id of job topic_generation25 from (326.0.0) to (326.0.0)
+03/23/17 14:48:57 Event: ULOG_SUBMIT for HTCondor Node topic_generation25 (326.0.0) {03/23/17 14:48:56}
+03/23/17 14:48:57 Number of idle job procs: 22
+03/23/17 14:48:57 Event: ULOG_EXECUTE for HTCondor Node topic_generation6 (307.0.0) {03/23/17 14:48:56}
+03/23/17 14:48:57 Number of idle job procs: 21
+03/23/17 14:48:57 Reassigning the id of job topic_generation26 from (327.0.0) to (327.0.0)
+03/23/17 14:48:57 Event: ULOG_SUBMIT for HTCondor Node topic_generation26 (327.0.0) {03/23/17 14:48:56}
+03/23/17 14:48:57 Number of idle job procs: 22
+03/23/17 14:48:57 Reassigning the id of job topic_generation27 from (328.0.0) to (328.0.0)
+03/23/17 14:48:57 Event: ULOG_SUBMIT for HTCondor Node topic_generation27 (328.0.0) {03/23/17 14:48:57}
+03/23/17 14:48:57 Number of idle job procs: 23
+03/23/17 14:48:57 Reassigning the id of job topic_generation28 from (329.0.0) to (329.0.0)
+03/23/17 14:48:57 Event: ULOG_SUBMIT for HTCondor Node topic_generation28 (329.0.0) {03/23/17 14:48:57}
+03/23/17 14:48:57 Number of idle job procs: 24
+03/23/17 14:48:57 Reassigning the id of job topic_generation29 from (330.0.0) to (330.0.0)
+03/23/17 14:48:57 Event: ULOG_SUBMIT for HTCondor Node topic_generation29 (330.0.0) {03/23/17 14:48:57}
+03/23/17 14:48:57 Number of idle job procs: 25
+03/23/17 14:48:57 DAG status: 0 (DAG_STATUS_OK)
+03/23/17 14:48:57 Of 35 nodes total:
+03/23/17 14:48:57  Done     Pre   Queued    Post   Ready   Un-Ready   Failed
+03/23/17 14:48:57   ===     ===      ===     ===     ===        ===      ===
+03/23/17 14:48:57     0       0       30       0       5          0        0
+03/23/17 14:48:57 0 job proc(s) currently held
+03/23/17 14:49:02 Submitting HTCondor Node topic_generation30 job(s)...
+03/23/17 14:49:02 Adding a DAGMan workflow log /esat/spchtemp/scratch/robbe/SpeechHub/topic_experiments/python/jobdag/./topic_gen.dag.nodes.log
+03/23/17 14:49:02 Masking the events recorded in the DAGMAN workflow log
+03/23/17 14:49:02 Mask for workflow log is 0,1,2,4,5,7,9,10,11,12,13,16,17,24,27
+03/23/17 14:49:02 submitting: /usr/bin/condor_submit -a dag_node_name' '=' 'topic_generation30 -a +DAGManJobId' '=' '300 -a DAGManJobId' '=' '300 -batch-name topic_gen.dag+300 -a submit_event_notes' '=' 'DAG' 'Node:' 'topic_generation30 -a dagman_log' '=' '/esat/spchtemp/scratch/robbe/SpeechHub/topic_experiments/python/jobdag/./topic_gen.dag.nodes.log -a +DAGManNodesMask' '=' '"0,1,2,4,5,7,9,10,11,12,13,16,17,24,27" -a data_set' '=' 'ds -a nb_topics' '=' '1024 -a sentences_per_document' '=' '25 -a DAG_STATUS' '=' '0 -a FAILED_COUNT' '=' '0 -a notification' '=' 'never -a +DAGParentNodeNames' '=' '"" jobdag/topic_generation.job
+03/23/17 14:49:02 From submit: Submitting job(s).
+03/23/17 14:49:02 From submit: 1 job(s) submitted to cluster 331.
+03/23/17 14:49:02 	assigned HTCondor ID (331.0.0)
+03/23/17 14:49:02 Submitting HTCondor Node topic_generation31 job(s)...
+03/23/17 14:49:02 Adding a DAGMan workflow log /esat/spchtemp/scratch/robbe/SpeechHub/topic_experiments/python/jobdag/./topic_gen.dag.nodes.log
+03/23/17 14:49:02 Masking the events recorded in the DAGMAN workflow log
+03/23/17 14:49:02 Mask for workflow log is 0,1,2,4,5,7,9,10,11,12,13,16,17,24,27
+03/23/17 14:49:02 submitting: /usr/bin/condor_submit -a dag_node_name' '=' 'topic_generation31 -a +DAGManJobId' '=' '300 -a DAGManJobId' '=' '300 -batch-name topic_gen.dag+300 -a submit_event_notes' '=' 'DAG' 'Node:' 'topic_generation31 -a dagman_log' '=' '/esat/spchtemp/scratch/robbe/SpeechHub/topic_experiments/python/jobdag/./topic_gen.dag.nodes.log -a +DAGManNodesMask' '=' '"0,1,2,4,5,7,9,10,11,12,13,16,17,24,27" -a data_set' '=' 'ds -a nb_topics' '=' '1024 -a sentences_per_document' '=' '50 -a DAG_STATUS' '=' '0 -a FAILED_COUNT' '=' '0 -a notification' '=' 'never -a +DAGParentNodeNames' '=' '"" jobdag/topic_generation.job
+03/23/17 14:49:02 From submit: Submitting job(s).
+03/23/17 14:49:02 From submit: 1 job(s) submitted to cluster 332.
+03/23/17 14:49:02 	assigned HTCondor ID (332.0.0)
+03/23/17 14:49:02 Submitting HTCondor Node topic_generation32 job(s)...
+03/23/17 14:49:02 Adding a DAGMan workflow log /esat/spchtemp/scratch/robbe/SpeechHub/topic_experiments/python/jobdag/./topic_gen.dag.nodes.log
+03/23/17 14:49:02 Masking the events recorded in the DAGMAN workflow log
+03/23/17 14:49:02 Mask for workflow log is 0,1,2,4,5,7,9,10,11,12,13,16,17,24,27
+03/23/17 14:49:02 submitting: /usr/bin/condor_submit -a dag_node_name' '=' 'topic_generation32 -a +DAGManJobId' '=' '300 -a DAGManJobId' '=' '300 -batch-name topic_gen.dag+300 -a submit_event_notes' '=' 'DAG' 'Node:' 'topic_generation32 -a dagman_log' '=' '/esat/spchtemp/scratch/robbe/SpeechHub/topic_experiments/python/jobdag/./topic_gen.dag.nodes.log -a +DAGManNodesMask' '=' '"0,1,2,4,5,7,9,10,11,12,13,16,17,24,27" -a data_set' '=' 'ds -a nb_topics' '=' '1024 -a sentences_per_document' '=' '75 -a DAG_STATUS' '=' '0 -a FAILED_COUNT' '=' '0 -a notification' '=' 'never -a +DAGParentNodeNames' '=' '"" jobdag/topic_generation.job
+03/23/17 14:49:02 From submit: Submitting job(s).
+03/23/17 14:49:02 From submit: 1 job(s) submitted to cluster 333.
+03/23/17 14:49:02 	assigned HTCondor ID (333.0.0)
+03/23/17 14:49:02 Submitting HTCondor Node topic_generation33 job(s)...
+03/23/17 14:49:02 Adding a DAGMan workflow log /esat/spchtemp/scratch/robbe/SpeechHub/topic_experiments/python/jobdag/./topic_gen.dag.nodes.log
+03/23/17 14:49:02 Masking the events recorded in the DAGMAN workflow log
+03/23/17 14:49:02 Mask for workflow log is 0,1,2,4,5,7,9,10,11,12,13,16,17,24,27
+03/23/17 14:49:02 submitting: /usr/bin/condor_submit -a dag_node_name' '=' 'topic_generation33 -a +DAGManJobId' '=' '300 -a DAGManJobId' '=' '300 -batch-name topic_gen.dag+300 -a submit_event_notes' '=' 'DAG' 'Node:' 'topic_generation33 -a dagman_log' '=' '/esat/spchtemp/scratch/robbe/SpeechHub/topic_experiments/python/jobdag/./topic_gen.dag.nodes.log -a +DAGManNodesMask' '=' '"0,1,2,4,5,7,9,10,11,12,13,16,17,24,27" -a data_set' '=' 'ds -a nb_topics' '=' '1024 -a sentences_per_document' '=' '100 -a DAG_STATUS' '=' '0 -a FAILED_COUNT' '=' '0 -a notification' '=' 'never -a +DAGParentNodeNames' '=' '"" jobdag/topic_generation.job
+03/23/17 14:49:02 From submit: Submitting job(s).
+03/23/17 14:49:02 From submit: 1 job(s) submitted to cluster 334.
+03/23/17 14:49:02 	assigned HTCondor ID (334.0.0)
+03/23/17 14:49:02 Submitting HTCondor Node topic_generation34 job(s)...
+03/23/17 14:49:02 Adding a DAGMan workflow log /esat/spchtemp/scratch/robbe/SpeechHub/topic_experiments/python/jobdag/./topic_gen.dag.nodes.log
+03/23/17 14:49:02 Masking the events recorded in the DAGMAN workflow log
+03/23/17 14:49:02 Mask for workflow log is 0,1,2,4,5,7,9,10,11,12,13,16,17,24,27
+03/23/17 14:49:02 submitting: /usr/bin/condor_submit -a dag_node_name' '=' 'topic_generation34 -a +DAGManJobId' '=' '300 -a DAGManJobId' '=' '300 -batch-name topic_gen.dag+300 -a submit_event_notes' '=' 'DAG' 'Node:' 'topic_generation34 -a dagman_log' '=' '/esat/spchtemp/scratch/robbe/SpeechHub/topic_experiments/python/jobdag/./topic_gen.dag.nodes.log -a +DAGManNodesMask' '=' '"0,1,2,4,5,7,9,10,11,12,13,16,17,24,27" -a data_set' '=' 'ds -a nb_topics' '=' '1024 -a sentences_per_document' '=' '500 -a DAG_STATUS' '=' '0 -a FAILED_COUNT' '=' '0 -a notification' '=' 'never -a +DAGParentNodeNames' '=' '"" jobdag/topic_generation.job
+03/23/17 14:49:02 From submit: Submitting job(s).
+03/23/17 14:49:02 From submit: 1 job(s) submitted to cluster 335.
+03/23/17 14:49:02 	assigned HTCondor ID (335.0.0)
+03/23/17 14:49:02 Just submitted 5 jobs this cycle...
+03/23/17 14:49:02 Currently monitoring 1 HTCondor log file(s)
+03/23/17 14:49:02 Event: ULOG_EXECUTE for HTCondor Node topic_generation7 (308.0.0) {03/23/17 14:48:58}
+03/23/17 14:49:02 Number of idle job procs: 24
+03/23/17 14:49:02 Event: ULOG_EXECUTE for HTCondor Node topic_generation9 (310.0.0) {03/23/17 14:49:00}
+03/23/17 14:49:02 Number of idle job procs: 23
+03/23/17 14:49:02 Reassigning the id of job topic_generation30 from (331.0.0) to (331.0.0)
+03/23/17 14:49:02 Event: ULOG_SUBMIT for HTCondor Node topic_generation30 (331.0.0) {03/23/17 14:49:02}
+03/23/17 14:49:02 Number of idle job procs: 24
+03/23/17 14:49:02 Reassigning the id of job topic_generation31 from (332.0.0) to (332.0.0)
+03/23/17 14:49:02 Event: ULOG_SUBMIT for HTCondor Node topic_generation31 (332.0.0) {03/23/17 14:49:02}
+03/23/17 14:49:02 Number of idle job procs: 25
+03/23/17 14:49:02 Reassigning the id of job topic_generation32 from (333.0.0) to (333.0.0)
+03/23/17 14:49:02 Event: ULOG_SUBMIT for HTCondor Node topic_generation32 (333.0.0) {03/23/17 14:49:02}
+03/23/17 14:49:02 Number of idle job procs: 26
+03/23/17 14:49:02 Reassigning the id of job topic_generation33 from (334.0.0) to (334.0.0)
+03/23/17 14:49:02 Event: ULOG_SUBMIT for HTCondor Node topic_generation33 (334.0.0) {03/23/17 14:49:02}
+03/23/17 14:49:02 Number of idle job procs: 27
+03/23/17 14:49:02 Event: ULOG_EXECUTE for HTCondor Node topic_generation5 (306.0.0) {03/23/17 14:49:02}
+03/23/17 14:49:02 Number of idle job procs: 26
+03/23/17 14:49:02 Reassigning the id of job topic_generation34 from (335.0.0) to (335.0.0)
+03/23/17 14:49:02 Event: ULOG_SUBMIT for HTCondor Node topic_generation34 (335.0.0) {03/23/17 14:49:02}
+03/23/17 14:49:02 Number of idle job procs: 27
+03/23/17 14:49:02 DAG status: 0 (DAG_STATUS_OK)
+03/23/17 14:49:02 Of 35 nodes total:
+03/23/17 14:49:02  Done     Pre   Queued    Post   Ready   Un-Ready   Failed
+03/23/17 14:49:02   ===     ===      ===     ===     ===        ===      ===
+03/23/17 14:49:02     0       0       35       0       0          0        0
+03/23/17 14:49:02 0 job proc(s) currently held
+03/23/17 14:49:07 Currently monitoring 1 HTCondor log file(s)
+03/23/17 14:49:07 Event: ULOG_EXECUTE for HTCondor Node topic_generation11 (312.0.0) {03/23/17 14:49:05}
+03/23/17 14:49:07 Number of idle job procs: 26
+03/23/17 14:49:07 Event: ULOG_EXECUTE for HTCondor Node topic_generation13 (314.0.0) {03/23/17 14:49:07}
+03/23/17 14:49:07 Number of idle job procs: 25
+03/23/17 14:49:12 Currently monitoring 1 HTCondor log file(s)
+03/23/17 14:49:12 Event: ULOG_EXECUTE for HTCondor Node topic_generation8 (309.0.0) {03/23/17 14:49:10}
+03/23/17 14:49:12 Number of idle job procs: 24
+03/23/17 14:49:12 Event: ULOG_EXECUTE for HTCondor Node topic_generation16 (317.0.0) {03/23/17 14:49:11}
+03/23/17 14:49:12 Number of idle job procs: 23
+03/23/17 14:49:17 Currently monitoring 1 HTCondor log file(s)
+03/23/17 14:49:17 Event: ULOG_EXECUTE for HTCondor Node topic_generation10 (311.0.0) {03/23/17 14:49:14}
+03/23/17 14:49:17 Number of idle job procs: 22
+03/23/17 14:49:17 Event: ULOG_EXECUTE for HTCondor Node topic_generation18 (319.0.0) {03/23/17 14:49:15}
+03/23/17 14:49:17 Number of idle job procs: 21
+03/23/17 14:49:17 Event: ULOG_EXECUTE for HTCondor Node topic_generation19 (320.0.0) {03/23/17 14:49:17}
+03/23/17 14:49:17 Number of idle job procs: 20
+03/23/17 14:49:22 Currently monitoring 1 HTCondor log file(s)
+03/23/17 14:49:22 Event: ULOG_EXECUTE for HTCondor Node topic_generation12 (313.0.0) {03/23/17 14:49:20}
+03/23/17 14:49:22 Number of idle job procs: 19
+03/23/17 14:49:22 Event: ULOG_EXECUTE for HTCondor Node topic_generation14 (315.0.0) {03/23/17 14:49:22}
+03/23/17 14:49:22 Number of idle job procs: 18
+03/23/17 14:49:27 Currently monitoring 1 HTCondor log file(s)
+03/23/17 14:49:27 Event: ULOG_EXECUTE for HTCondor Node topic_generation15 (316.0.0) {03/23/17 14:49:25}
+03/23/17 14:49:27 Number of idle job procs: 17
+03/23/17 14:49:27 Event: ULOG_EXECUTE for HTCondor Node topic_generation17 (318.0.0) {03/23/17 14:49:27}
+03/23/17 14:49:27 Number of idle job procs: 16
+03/23/17 14:49:27 Event: ULOG_EXECUTE for HTCondor Node topic_generation3 (304.0.0) {03/23/17 14:49:27}
+03/23/17 14:49:27 Number of idle job procs: 15
+03/23/17 14:49:32 Currently monitoring 1 HTCondor log file(s)
+03/23/17 14:49:32 Event: ULOG_EXECUTE for HTCondor Node topic_generation20 (321.0.0) {03/23/17 14:49:30}
+03/23/17 14:49:32 Number of idle job procs: 14
+03/23/17 14:49:37 Currently monitoring 1 HTCondor log file(s)
+03/23/17 14:49:37 Event: ULOG_EXECUTE for HTCondor Node topic_generation21 (322.0.0) {03/23/17 14:49:32}
+03/23/17 14:49:37 Number of idle job procs: 13
+03/23/17 14:49:37 Event: ULOG_EXECUTE for HTCondor Node topic_generation23 (324.0.0) {03/23/17 14:49:34}
+03/23/17 14:49:37 Number of idle job procs: 12
+03/23/17 14:49:37 Event: ULOG_EXECUTE for HTCondor Node topic_generation29 (330.0.0) {03/23/17 14:49:36}
+03/23/17 14:49:37 Number of idle job procs: 11
+03/23/17 14:49:42 Currently monitoring 1 HTCondor log file(s)
+03/23/17 14:49:42 Event: ULOG_EXECUTE for HTCondor Node topic_generation30 (331.0.0) {03/23/17 14:49:38}
+03/23/17 14:49:42 Number of idle job procs: 10
+03/23/17 14:49:42 Event: ULOG_EXECUTE for HTCondor Node topic_generation22 (323.0.0) {03/23/17 14:49:41}
+03/23/17 14:49:42 Number of idle job procs: 9
+03/23/17 14:49:47 Currently monitoring 1 HTCondor log file(s)
+03/23/17 14:49:47 Event: ULOG_EXECUTE for HTCondor Node topic_generation31 (332.0.0) {03/23/17 14:49:43}
+03/23/17 14:49:47 Number of idle job procs: 8
+03/23/17 14:49:47 Event: ULOG_EXECUTE for HTCondor Node topic_generation32 (333.0.0) {03/23/17 14:49:44}
+03/23/17 14:49:47 Number of idle job procs: 7
+03/23/17 14:49:52 Currently monitoring 1 HTCondor log file(s)
+03/23/17 14:49:52 Event: ULOG_EXECUTE for HTCondor Node topic_generation25 (326.0.0) {03/23/17 14:49:47}
+03/23/17 14:49:52 Number of idle job procs: 6
+03/23/17 14:49:52 Event: ULOG_EXECUTE for HTCondor Node topic_generation24 (325.0.0) {03/23/17 14:49:49}
+03/23/17 14:49:52 Number of idle job procs: 5
+03/23/17 14:49:52 Event: ULOG_EXECUTE for HTCondor Node topic_generation26 (327.0.0) {03/23/17 14:49:51}
+03/23/17 14:49:52 Number of idle job procs: 4
+03/23/17 14:49:57 Currently monitoring 1 HTCondor log file(s)
+03/23/17 14:49:57 Event: ULOG_EXECUTE for HTCondor Node topic_generation27 (328.0.0) {03/23/17 14:49:53}
+03/23/17 14:49:57 Number of idle job procs: 3
+03/23/17 14:49:57 Event: ULOG_EXECUTE for HTCondor Node topic_generation28 (329.0.0) {03/23/17 14:49:55}
+03/23/17 14:49:57 Number of idle job procs: 2
+03/23/17 14:50:02 Currently monitoring 1 HTCondor log file(s)
+03/23/17 14:50:02 Event: ULOG_EXECUTE for HTCondor Node topic_generation33 (334.0.0) {03/23/17 14:49:57}
+03/23/17 14:50:02 Number of idle job procs: 1
+03/23/17 14:50:02 Event: ULOG_EXECUTE for HTCondor Node topic_generation34 (335.0.0) {03/23/17 14:49:59}
+03/23/17 14:50:02 Number of idle job procs: 0
+03/23/17 14:50:57 Currently monitoring 1 HTCondor log file(s)
+03/23/17 14:50:57 Event: ULOG_JOB_SUSPENDED for HTCondor Node topic_generation4 (305.0.0) {03/23/17 14:50:54}
+03/23/17 14:50:57 Number of idle job procs: 1
+03/23/17 14:51:27 Currently monitoring 1 HTCondor log file(s)
+03/23/17 14:51:27 Event: ULOG_JOB_SUSPENDED for HTCondor Node topic_generation2 (303.0.0) {03/23/17 14:51:24}
+03/23/17 14:51:27 Number of idle job procs: 2
+03/23/17 14:53:43 Currently monitoring 1 HTCondor log file(s)
+03/23/17 14:53:43 Event: ULOG_JOB_SUSPENDED for HTCondor Node topic_generation3 (304.0.0) {03/23/17 14:53:40}
+03/23/17 14:53:43 Number of idle job procs: 3
+03/23/17 14:53:43 Event: ULOG_JOB_SUSPENDED for HTCondor Node topic_generation5 (306.0.0) {03/23/17 14:53:43}
+03/23/17 14:53:43 Number of idle job procs: 4
+03/23/17 15:01:45 Currently monitoring 1 HTCondor log file(s)
+03/23/17 15:01:45 Event: ULOG_JOB_UNSUSPENDED for HTCondor Node topic_generation4 (305.0.0) {03/23/17 15:01:45}
+03/23/17 15:01:45 Number of idle job procs: 3
+03/23/17 15:01:55 Currently monitoring 1 HTCondor log file(s)
+03/23/17 15:01:55 Event: ULOG_JOB_UNSUSPENDED for HTCondor Node topic_generation5 (306.0.0) {03/23/17 15:01:53}
+03/23/17 15:01:55 Number of idle job procs: 2
+03/23/17 15:03:56 Currently monitoring 1 HTCondor log file(s)
+03/23/17 15:03:56 Event: ULOG_JOB_SUSPENDED for HTCondor Node topic_generation4 (305.0.0) {03/23/17 15:03:55}
+03/23/17 15:03:56 Number of idle job procs: 3
+03/23/17 15:04:46 Currently monitoring 1 HTCondor log file(s)
+03/23/17 15:04:46 Event: ULOG_JOB_SUSPENDED for HTCondor Node topic_generation1 (302.0.0) {03/23/17 15:04:44}
+03/23/17 15:04:46 Number of idle job procs: 4
+03/23/17 15:07:07 Currently monitoring 1 HTCondor log file(s)
+03/23/17 15:07:07 Event: ULOG_JOB_TERMINATED for HTCondor Node topic_generation30 (331.0.0) {03/23/17 15:07:06}
+03/23/17 15:07:07 Number of idle job procs: 4
+03/23/17 15:07:07 Node topic_generation30 job proc (331.0.0) failed with status 1.
+03/23/17 15:07:07 DAG status: 2 (DAG_STATUS_NODE_FAILED)
+03/23/17 15:07:07 Of 35 nodes total:
+03/23/17 15:07:07  Done     Pre   Queued    Post   Ready   Un-Ready   Failed
+03/23/17 15:07:07   ===     ===      ===     ===     ===        ===      ===
+03/23/17 15:07:07     0       0       34       0       0          0        1
+03/23/17 15:07:07 0 job proc(s) currently held
+03/23/17 15:11:42 Currently monitoring 1 HTCondor log file(s)
+03/23/17 15:11:42 Event: ULOG_JOB_UNSUSPENDED for HTCondor Node topic_generation4 (305.0.0) {03/23/17 15:11:38}
+03/23/17 15:11:42 Number of idle job procs: 3
+03/23/17 15:17:19 Currently monitoring 1 HTCondor log file(s)
+03/23/17 15:17:19 Event: ULOG_JOB_UNSUSPENDED for HTCondor Node topic_generation1 (302.0.0) {03/23/17 15:17:14}
+03/23/17 15:17:19 Number of idle job procs: 2
+03/23/17 15:17:39 Currently monitoring 1 HTCondor log file(s)
+03/23/17 15:17:39 Event: ULOG_JOB_SUSPENDED for HTCondor Node topic_generation1 (302.0.0) {03/23/17 15:17:35}
+03/23/17 15:17:39 Number of idle job procs: 3
+03/23/17 15:18:09 Currently monitoring 1 HTCondor log file(s)
+03/23/17 15:18:09 Event: ULOG_JOB_UNSUSPENDED for HTCondor Node topic_generation3 (304.0.0) {03/23/17 15:18:07}
+03/23/17 15:18:09 Number of idle job procs: 2
+03/23/17 15:18:24 Currently monitoring 1 HTCondor log file(s)
+03/23/17 15:18:24 Event: ULOG_JOB_TERMINATED for HTCondor Node topic_generation29 (330.0.0) {03/23/17 15:18:21}
+03/23/17 15:18:24 Number of idle job procs: 2
+03/23/17 15:18:24 Node topic_generation29 job proc (330.0.0) failed with status 1.
+03/23/17 15:18:24 DAG status: 2 (DAG_STATUS_NODE_FAILED)
+03/23/17 15:18:24 Of 35 nodes total:
+03/23/17 15:18:24  Done     Pre   Queued    Post   Ready   Un-Ready   Failed
+03/23/17 15:18:24   ===     ===      ===     ===     ===        ===      ===
+03/23/17 15:18:24     0       0       33       0       0          0        2
+03/23/17 15:18:24 0 job proc(s) currently held
+03/23/17 15:19:20 Currently monitoring 1 HTCondor log file(s)
+03/23/17 15:19:20 Event: ULOG_JOB_SUSPENDED for HTCondor Node topic_generation3 (304.0.0) {03/23/17 15:19:15}
+03/23/17 15:19:20 Number of idle job procs: 3
+03/23/17 15:21:00 Currently monitoring 1 HTCondor log file(s)
+03/23/17 15:21:00 Event: ULOG_JOB_TERMINATED for HTCondor Node topic_generation5 (306.0.0) {03/23/17 15:20:59}
+03/23/17 15:21:00 Number of idle job procs: 3
+03/23/17 15:21:00 Node topic_generation5 job proc (306.0.0) completed successfully.
+03/23/17 15:21:00 Node topic_generation5 job completed
+03/23/17 15:21:00 DAG status: 2 (DAG_STATUS_NODE_FAILED)
+03/23/17 15:21:00 Of 35 nodes total:
+03/23/17 15:21:00  Done     Pre   Queued    Post   Ready   Un-Ready   Failed
+03/23/17 15:21:00   ===     ===      ===     ===     ===        ===      ===
+03/23/17 15:21:00     1       0       32       0       0          0        2
+03/23/17 15:21:00 0 job proc(s) currently held
+03/23/17 15:25:01 Currently monitoring 1 HTCondor log file(s)
+03/23/17 15:25:01 Event: ULOG_JOB_UNSUSPENDED for HTCondor Node topic_generation2 (303.0.0) {03/23/17 15:24:57}
+03/23/17 15:25:01 Number of idle job procs: 2
+03/23/17 15:30:33 Currently monitoring 1 HTCondor log file(s)
+03/23/17 15:30:33 Event: ULOG_JOB_UNSUSPENDED for HTCondor Node topic_generation1 (302.0.0) {03/23/17 15:30:30}
+03/23/17 15:30:33 Number of idle job procs: 1
+03/23/17 15:30:38 Currently monitoring 1 HTCondor log file(s)
+03/23/17 15:30:38 Event: ULOG_JOB_TERMINATED for HTCondor Node topic_generation34 (335.0.0) {03/23/17 15:30:34}
+03/23/17 15:30:38 Number of idle job procs: 1
+03/23/17 15:30:38 Node topic_generation34 job proc (335.0.0) completed successfully.
+03/23/17 15:30:38 Node topic_generation34 job completed
+03/23/17 15:30:38 DAG status: 2 (DAG_STATUS_NODE_FAILED)
+03/23/17 15:30:38 Of 35 nodes total:
+03/23/17 15:30:38  Done     Pre   Queued    Post   Ready   Un-Ready   Failed
+03/23/17 15:30:38   ===     ===      ===     ===     ===        ===      ===
+03/23/17 15:30:38     2       0       31       0       0          0        2
+03/23/17 15:30:38 0 job proc(s) currently held
+03/23/17 15:32:08 Currently monitoring 1 HTCondor log file(s)
+03/23/17 15:32:08 Event: ULOG_JOB_SUSPENDED for HTCondor Node topic_generation1 (302.0.0) {03/23/17 15:32:05}
+03/23/17 15:32:08 Number of idle job procs: 2
+03/23/17 15:38:40 Currently monitoring 1 HTCondor log file(s)
+03/23/17 15:38:40 Event: ULOG_JOB_SUSPENDED for HTCondor Node topic_generation2 (303.0.0) {03/23/17 15:38:38}
+03/23/17 15:38:40 Number of idle job procs: 3
+03/23/17 15:42:01 Currently monitoring 1 HTCondor log file(s)
+03/23/17 15:42:01 Event: ULOG_JOB_UNSUSPENDED for HTCondor Node topic_generation1 (302.0.0) {03/23/17 15:41:56}
+03/23/17 15:42:01 Number of idle job procs: 2
+03/23/17 15:43:21 Currently monitoring 1 HTCondor log file(s)
+03/23/17 15:43:21 Event: ULOG_JOB_TERMINATED for HTCondor Node topic_generation33 (334.0.0) {03/23/17 15:43:19}
+03/23/17 15:43:21 Number of idle job procs: 2
+03/23/17 15:43:21 Node topic_generation33 job proc (334.0.0) completed successfully.
+03/23/17 15:43:21 Node topic_generation33 job completed
+03/23/17 15:43:21 DAG status: 2 (DAG_STATUS_NODE_FAILED)
+03/23/17 15:43:21 Of 35 nodes total:
+03/23/17 15:43:21  Done     Pre   Queued    Post   Ready   Un-Ready   Failed
+03/23/17 15:43:21   ===     ===      ===     ===     ===        ===      ===
+03/23/17 15:43:21     3       0       30       0       0          0        2
+03/23/17 15:43:21 0 job proc(s) currently held
+03/23/17 15:45:42 Currently monitoring 1 HTCondor log file(s)
+03/23/17 15:45:42 Event: ULOG_JOB_SUSPENDED for HTCondor Node topic_generation4 (305.0.0) {03/23/17 15:45:42}
+03/23/17 15:45:42 Number of idle job procs: 3
+03/23/17 15:45:57 Currently monitoring 1 HTCondor log file(s)
+03/23/17 15:45:57 Event: ULOG_JOB_TERMINATED for HTCondor Node topic_generation32 (333.0.0) {03/23/17 15:45:57}
+03/23/17 15:45:57 Number of idle job procs: 3
+03/23/17 15:45:57 Node topic_generation32 job proc (333.0.0) completed successfully.
+03/23/17 15:45:57 Node topic_generation32 job completed
+03/23/17 15:45:57 DAG status: 2 (DAG_STATUS_NODE_FAILED)
+03/23/17 15:45:57 Of 35 nodes total:
+03/23/17 15:45:57  Done     Pre   Queued    Post   Ready   Un-Ready   Failed
+03/23/17 15:45:57   ===     ===      ===     ===     ===        ===      ===
+03/23/17 15:45:57     4       0       29       0       0          0        2
+03/23/17 15:45:57 0 job proc(s) currently held
+03/23/17 15:49:43 Currently monitoring 1 HTCondor log file(s)
+03/23/17 15:49:43 Event: ULOG_JOB_TERMINATED for HTCondor Node topic_generation6 (307.0.0) {03/23/17 15:49:41}
+03/23/17 15:49:43 Number of idle job procs: 3
+03/23/17 15:49:43 Node topic_generation6 job proc (307.0.0) completed successfully.
+03/23/17 15:49:43 Node topic_generation6 job completed
+03/23/17 15:49:43 DAG status: 2 (DAG_STATUS_NODE_FAILED)
+03/23/17 15:49:43 Of 35 nodes total:
+03/23/17 15:49:43  Done     Pre   Queued    Post   Ready   Un-Ready   Failed
+03/23/17 15:49:43   ===     ===      ===     ===     ===        ===      ===
+03/23/17 15:49:43     5       0       28       0       0          0        2
+03/23/17 15:49:43 0 job proc(s) currently held
+03/23/17 15:53:14 Currently monitoring 1 HTCondor log file(s)
+03/23/17 15:53:14 Event: ULOG_JOB_TERMINATED for HTCondor Node topic_generation31 (332.0.0) {03/23/17 15:53:11}
+03/23/17 15:53:14 Number of idle job procs: 3
+03/23/17 15:53:14 Node topic_generation31 job proc (332.0.0) completed successfully.
+03/23/17 15:53:14 Node topic_generation31 job completed
+03/23/17 15:53:14 DAG status: 2 (DAG_STATUS_NODE_FAILED)
+03/23/17 15:53:14 Of 35 nodes total:
+03/23/17 15:53:14  Done     Pre   Queued    Post   Ready   Un-Ready   Failed
+03/23/17 15:53:14   ===     ===      ===     ===     ===        ===      ===
+03/23/17 15:53:14     6       0       27       0       0          0        2
+03/23/17 15:53:14 0 job proc(s) currently held
+03/23/17 15:57:35 Currently monitoring 1 HTCondor log file(s)
+03/23/17 15:57:35 Event: ULOG_JOB_TERMINATED for HTCondor Node topic_generation13 (314.0.0) {03/23/17 15:57:34}
+03/23/17 15:57:35 Number of idle job procs: 3
+03/23/17 15:57:35 Node topic_generation13 job proc (314.0.0) completed successfully.
+03/23/17 15:57:35 Node topic_generation13 job completed
+03/23/17 15:57:35 DAG status: 2 (DAG_STATUS_NODE_FAILED)
+03/23/17 15:57:35 Of 35 nodes total:
+03/23/17 15:57:35  Done     Pre   Queued    Post   Ready   Un-Ready   Failed
+03/23/17 15:57:35   ===     ===      ===     ===     ===        ===      ===
+03/23/17 15:57:35     7       0       26       0       0          0        2
+03/23/17 15:57:35 0 job proc(s) currently held
+03/23/17 16:00:21 Currently monitoring 1 HTCondor log file(s)
+03/23/17 16:00:21 Event: ULOG_JOB_UNSUSPENDED for HTCondor Node topic_generation2 (303.0.0) {03/23/17 16:00:20}
+03/23/17 16:00:21 Number of idle job procs: 2
+03/23/17 16:00:46 Currently monitoring 1 HTCondor log file(s)
+03/23/17 16:00:46 Event: ULOG_JOB_SUSPENDED for HTCondor Node topic_generation2 (303.0.0) {03/23/17 16:00:45}
+03/23/17 16:00:46 Number of idle job procs: 3
+03/23/17 16:02:37 Currently monitoring 1 HTCondor log file(s)
+03/23/17 16:02:37 Event: ULOG_JOB_TERMINATED for HTCondor Node topic_generation1 (302.0.0) {03/23/17 16:02:33}
+03/23/17 16:02:37 Number of idle job procs: 3
+03/23/17 16:02:37 Node topic_generation1 job proc (302.0.0) completed successfully.
+03/23/17 16:02:37 Node topic_generation1 job completed
+03/23/17 16:02:37 DAG status: 2 (DAG_STATUS_NODE_FAILED)
+03/23/17 16:02:37 Of 35 nodes total:
+03/23/17 16:02:37  Done     Pre   Queued    Post   Ready   Un-Ready   Failed
+03/23/17 16:02:37   ===     ===      ===     ===     ===        ===      ===
+03/23/17 16:02:37     8       0       25       0       0          0        2
+03/23/17 16:02:37 0 job proc(s) currently held
+03/23/17 16:09:24 Currently monitoring 1 HTCondor log file(s)
+03/23/17 16:09:24 Event: ULOG_JOB_UNSUSPENDED for HTCondor Node topic_generation4 (305.0.0) {03/23/17 16:09:20}
+03/23/17 16:09:24 Number of idle job procs: 2
+03/23/17 16:12:04 Currently monitoring 1 HTCondor log file(s)
+03/23/17 16:12:07 Event: ULOG_JOB_UNSUSPENDED for HTCondor Node topic_generation3 (304.0.0) {03/23/17 16:11:50}
+03/23/17 16:12:07 Number of idle job procs: 1
+03/23/17 16:14:45 Currently monitoring 1 HTCondor log file(s)
+03/23/17 16:14:45 Event: ULOG_JOB_TERMINATED for HTCondor Node topic_generation4 (305.0.0) {03/23/17 16:14:40}
+03/23/17 16:14:45 Number of idle job procs: 1
+03/23/17 16:14:45 Node topic_generation4 job proc (305.0.0) completed successfully.
+03/23/17 16:14:45 Node topic_generation4 job completed
+03/23/17 16:14:45 DAG status: 2 (DAG_STATUS_NODE_FAILED)
+03/23/17 16:14:45 Of 35 nodes total:
+03/23/17 16:14:45  Done     Pre   Queued    Post   Ready   Un-Ready   Failed
+03/23/17 16:14:45   ===     ===      ===     ===     ===        ===      ===
+03/23/17 16:14:45     9       0       24       0       0          0        2
+03/23/17 16:14:45 0 job proc(s) currently held
+03/23/17 16:16:51 Currently monitoring 1 HTCondor log file(s)
+03/23/17 16:16:51 Event: ULOG_JOB_TERMINATED for HTCondor Node topic_generation20 (321.0.0) {03/23/17 16:16:48}
+03/23/17 16:16:51 Number of idle job procs: 1
+03/23/17 16:16:51 Node topic_generation20 job proc (321.0.0) completed successfully.
+03/23/17 16:16:51 Node topic_generation20 job completed
+03/23/17 16:16:51 DAG status: 2 (DAG_STATUS_NODE_FAILED)
+03/23/17 16:16:51 Of 35 nodes total:
+03/23/17 16:16:51  Done     Pre   Queued    Post   Ready   Un-Ready   Failed
+03/23/17 16:16:51   ===     ===      ===     ===     ===        ===      ===
+03/23/17 16:16:51    10       0       23       0       0          0        2
+03/23/17 16:16:51 0 job proc(s) currently held
+03/23/17 16:17:59 Currently monitoring 1 HTCondor log file(s)
+03/23/17 16:17:59 Event: ULOG_JOB_TERMINATED for HTCondor Node topic_generation12 (313.0.0) {03/23/17 16:17:56}
+03/23/17 16:17:59 Number of idle job procs: 1
+03/23/17 16:17:59 Node topic_generation12 job proc (313.0.0) completed successfully.
+03/23/17 16:17:59 Node topic_generation12 job completed
+03/23/17 16:17:59 DAG status: 2 (DAG_STATUS_NODE_FAILED)
+03/23/17 16:17:59 Of 35 nodes total:
+03/23/17 16:17:59  Done     Pre   Queued    Post   Ready   Un-Ready   Failed
+03/23/17 16:17:59   ===     ===      ===     ===     ===        ===      ===
+03/23/17 16:17:59    11       0       22       0       0          0        2
+03/23/17 16:17:59 0 job proc(s) currently held
+03/23/17 16:18:45 Currently monitoring 1 HTCondor log file(s)
+03/23/17 16:18:45 Event: ULOG_JOB_EVICTED for HTCondor Node topic_generation7 (308.0.0) {03/23/17 16:18:45}
+03/23/17 16:18:45 Number of idle job procs: 2
+03/23/17 16:19:45 Currently monitoring 1 HTCondor log file(s)
+03/23/17 16:19:45 Event: ULOG_JOB_EVICTED for HTCondor Node topic_generation9 (310.0.0) {03/23/17 16:19:45}
+03/23/17 16:19:45 Number of idle job procs: 3
+03/23/17 16:20:45 Currently monitoring 1 HTCondor log file(s)
+03/23/17 16:20:45 Event: ULOG_JOB_EVICTED for HTCondor Node topic_generation16 (317.0.0) {03/23/17 16:20:44}
+03/23/17 16:20:45 Number of idle job procs: 4
+03/23/17 16:21:05 Currently monitoring 1 HTCondor log file(s)
+03/23/17 16:21:05 Event: ULOG_JOB_EVICTED for HTCondor Node topic_generation18 (319.0.0) {03/23/17 16:21:05}
+03/23/17 16:21:05 Number of idle job procs: 5
+03/23/17 16:21:10 Currently monitoring 1 HTCondor log file(s)
+03/23/17 16:21:10 Event: ULOG_EXECUTE for HTCondor Node topic_generation7 (308.0.0) {03/23/17 16:21:06}
+03/23/17 16:21:10 Number of idle job procs: 4
+03/23/17 16:21:10 Event: ULOG_EXECUTE for HTCondor Node topic_generation16 (317.0.0) {03/23/17 16:21:08}
+03/23/17 16:21:10 Number of idle job procs: 3
+03/23/17 16:21:10 Event: ULOG_EXECUTE for HTCondor Node topic_generation9 (310.0.0) {03/23/17 16:21:10}
+03/23/17 16:21:10 Number of idle job procs: 2
+03/23/17 16:21:36 Currently monitoring 1 HTCondor log file(s)
+03/23/17 16:21:36 Event: ULOG_EXECUTE for HTCondor Node topic_generation18 (319.0.0) {03/23/17 16:21:31}
+03/23/17 16:21:36 Number of idle job procs: 1
+03/23/17 16:24:56 Currently monitoring 1 HTCondor log file(s)
+03/23/17 16:24:56 Event: ULOG_JOB_UNSUSPENDED for HTCondor Node topic_generation2 (303.0.0) {03/23/17 16:24:56}
+03/23/17 16:24:56 Number of idle job procs: 0
+03/23/17 16:25:01 Currently monitoring 1 HTCondor log file(s)
+03/23/17 16:25:01 Event: ULOG_JOB_TERMINATED for HTCondor Node topic_generation11 (312.0.0) {03/23/17 16:24:58}
+03/23/17 16:25:01 Number of idle job procs: 0
+03/23/17 16:25:01 Node topic_generation11 job proc (312.0.0) completed successfully.
+03/23/17 16:25:01 Node topic_generation11 job completed
+03/23/17 16:25:01 DAG status: 2 (DAG_STATUS_NODE_FAILED)
+03/23/17 16:25:01 Of 35 nodes total:
+03/23/17 16:25:01  Done     Pre   Queued    Post   Ready   Un-Ready   Failed
+03/23/17 16:25:01   ===     ===      ===     ===     ===        ===      ===
+03/23/17 16:25:01    12       0       21       0       0          0        2
+03/23/17 16:25:01 0 job proc(s) currently held
+03/23/17 16:25:17 Currently monitoring 1 HTCondor log file(s)
+03/23/17 16:25:17 Event: ULOG_JOB_SUSPENDED for HTCondor Node topic_generation3 (304.0.0) {03/23/17 16:25:14}
+03/23/17 16:25:17 Number of idle job procs: 1
+03/23/17 16:25:22 Currently monitoring 1 HTCondor log file(s)
+03/23/17 16:25:22 Event: ULOG_JOB_SUSPENDED for HTCondor Node topic_generation2 (303.0.0) {03/23/17 16:25:21}
+03/23/17 16:25:22 Number of idle job procs: 2
+03/23/17 16:29:28 Currently monitoring 1 HTCondor log file(s)
+03/23/17 16:29:28 Event: ULOG_JOB_UNSUSPENDED for HTCondor Node topic_generation3 (304.0.0) {03/23/17 16:29:25}
+03/23/17 16:29:28 Number of idle job procs: 1
+03/23/17 16:37:20 Currently monitoring 1 HTCondor log file(s)
+03/23/17 16:37:20 Event: ULOG_JOB_UNSUSPENDED for HTCondor Node topic_generation2 (303.0.0) {03/23/17 16:37:17}
+03/23/17 16:37:20 Number of idle job procs: 0
+03/23/17 16:38:25 Currently monitoring 1 HTCondor log file(s)
+03/23/17 16:38:25 Event: ULOG_JOB_TERMINATED for HTCondor Node topic_generation10 (311.0.0) {03/23/17 16:38:22}
+03/23/17 16:38:25 Number of idle job procs: 0
+03/23/17 16:38:25 Node topic_generation10 job proc (311.0.0) completed successfully.
+03/23/17 16:38:25 Node topic_generation10 job completed
+03/23/17 16:38:25 DAG status: 2 (DAG_STATUS_NODE_FAILED)
+03/23/17 16:38:25 Of 35 nodes total:
+03/23/17 16:38:25  Done     Pre   Queued    Post   Ready   Un-Ready   Failed
+03/23/17 16:38:25   ===     ===      ===     ===     ===        ===      ===
+03/23/17 16:38:25    13       0       20       0       0          0        2
+03/23/17 16:38:25 0 job proc(s) currently held
+03/23/17 16:40:36 Currently monitoring 1 HTCondor log file(s)
+03/23/17 16:40:36 Event: ULOG_JOB_SUSPENDED for HTCondor Node topic_generation2 (303.0.0) {03/23/17 16:40:32}
+03/23/17 16:40:36 Number of idle job procs: 1
+03/23/17 16:50:38 602 seconds since last log event
+03/23/17 16:50:38 Pending DAG nodes:
+03/23/17 16:50:38   Node topic_generation0, HTCondor ID 301, status STATUS_SUBMITTED
+03/23/17 16:50:38   Node topic_generation2, HTCondor ID 303, status STATUS_SUBMITTED
+03/23/17 16:50:38   Node topic_generation3, HTCondor ID 304, status STATUS_SUBMITTED
+03/23/17 16:50:38   Node topic_generation7, HTCondor ID 308, status STATUS_SUBMITTED
+03/23/17 16:50:38   Node topic_generation8, HTCondor ID 309, status STATUS_SUBMITTED
+03/23/17 16:50:38   Node topic_generation9, HTCondor ID 310, status STATUS_SUBMITTED
+03/23/17 16:50:38   Node topic_generation14, HTCondor ID 315, status STATUS_SUBMITTED
+03/23/17 16:50:38   Node topic_generation15, HTCondor ID 316, status STATUS_SUBMITTED
+03/23/17 16:50:38   Node topic_generation16, HTCondor ID 317, status STATUS_SUBMITTED
+03/23/17 16:50:38   Node topic_generation17, HTCondor ID 318, status STATUS_SUBMITTED
+03/23/17 16:50:38   Node topic_generation18, HTCondor ID 319, status STATUS_SUBMITTED
+03/23/17 16:50:38   Node topic_generation19, HTCondor ID 320, status STATUS_SUBMITTED
+03/23/17 16:50:38   Node topic_generation21, HTCondor ID 322, status STATUS_SUBMITTED
+03/23/17 16:50:38   Node topic_generation22, HTCondor ID 323, status STATUS_SUBMITTED
+03/23/17 16:50:38   Node topic_generation23, HTCondor ID 324, status STATUS_SUBMITTED
+03/23/17 16:50:38   Node topic_generation24, HTCondor ID 325, status STATUS_SUBMITTED
+03/23/17 16:50:38   Node topic_generation25, HTCondor ID 326, status STATUS_SUBMITTED
+03/23/17 16:50:38   Node topic_generation26, HTCondor ID 327, status STATUS_SUBMITTED
+03/23/17 16:50:38   Node topic_generation27, HTCondor ID 328, status STATUS_SUBMITTED
+03/23/17 16:50:38   Node topic_generation28, HTCondor ID 329, status STATUS_SUBMITTED
+03/23/17 16:52:04 Currently monitoring 1 HTCondor log file(s)
+03/23/17 16:52:04 Event: ULOG_JOB_UNSUSPENDED for HTCondor Node topic_generation2 (303.0.0) {03/23/17 16:51:59}
+03/23/17 16:52:04 Number of idle job procs: 0
+03/23/17 16:52:04 Event: ULOG_JOB_SUSPENDED for HTCondor Node topic_generation3 (304.0.0) {03/23/17 16:52:00}
+03/23/17 16:52:04 Number of idle job procs: 1
+03/23/17 16:53:54 Currently monitoring 1 HTCondor log file(s)
+03/23/17 16:53:54 Event: ULOG_JOB_TERMINATED for HTCondor Node topic_generation19 (320.0.0) {03/23/17 16:53:50}
+03/23/17 16:53:54 Number of idle job procs: 1
+03/23/17 16:53:54 Node topic_generation19 job proc (320.0.0) completed successfully.
+03/23/17 16:53:54 Node topic_generation19 job completed
+03/23/17 16:53:54 DAG status: 2 (DAG_STATUS_NODE_FAILED)
+03/23/17 16:53:54 Of 35 nodes total:
+03/23/17 16:53:54  Done     Pre   Queued    Post   Ready   Un-Ready   Failed
+03/23/17 16:53:54   ===     ===      ===     ===     ===        ===      ===
+03/23/17 16:53:54    14       0       19       0       0          0        2
+03/23/17 16:53:54 0 job proc(s) currently held
+03/23/17 16:59:16 Currently monitoring 1 HTCondor log file(s)
+03/23/17 16:59:16 Event: ULOG_JOB_UNSUSPENDED for HTCondor Node topic_generation3 (304.0.0) {03/23/17 16:59:13}
+03/23/17 16:59:16 Number of idle job procs: 0
+03/23/17 17:05:53 Currently monitoring 1 HTCondor log file(s)
+03/23/17 17:05:53 Event: ULOG_JOB_EVICTED for HTCondor Node topic_generation7 (308.0.0) {03/23/17 17:05:51}
+03/23/17 17:05:53 Number of idle job procs: 1
+03/23/17 17:05:53 Event: ULOG_JOB_EVICTED for HTCondor Node topic_generation8 (309.0.0) {03/23/17 17:05:51}
+03/23/17 17:05:53 Number of idle job procs: 2
+03/23/17 17:06:13 Currently monitoring 1 HTCondor log file(s)
+03/23/17 17:06:13 Event: ULOG_JOB_TERMINATED for HTCondor Node topic_generation3 (304.0.0) {03/23/17 17:06:08}
+03/23/17 17:06:13 Number of idle job procs: 2
+03/23/17 17:06:13 Node topic_generation3 job proc (304.0.0) completed successfully.
+03/23/17 17:06:13 Node topic_generation3 job completed
+03/23/17 17:06:13 DAG status: 2 (DAG_STATUS_NODE_FAILED)
+03/23/17 17:06:13 Of 35 nodes total:
+03/23/17 17:06:13  Done     Pre   Queued    Post   Ready   Un-Ready   Failed
+03/23/17 17:06:13   ===     ===      ===     ===     ===        ===      ===
+03/23/17 17:06:13    15       0       18       0       0          0        2
+03/23/17 17:06:13 0 job proc(s) currently held
+03/23/17 17:07:23 Currently monitoring 1 HTCondor log file(s)
+03/23/17 17:07:23 Event: ULOG_JOB_SUSPENDED for HTCondor Node topic_generation2 (303.0.0) {03/23/17 17:07:21}
+03/23/17 17:07:23 Number of idle job procs: 3
+03/23/17 17:07:54 Currently monitoring 1 HTCondor log file(s)
+03/23/17 17:07:54 Event: ULOG_EXECUTE for HTCondor Node topic_generation8 (309.0.0) {03/23/17 17:07:52}
+03/23/17 17:07:54 Number of idle job procs: 2
+03/23/17 17:07:59 Currently monitoring 1 HTCondor log file(s)
+03/23/17 17:07:59 Event: ULOG_EXECUTE for HTCondor Node topic_generation7 (308.0.0) {03/23/17 17:07:54}
+03/23/17 17:07:59 Number of idle job procs: 1
+03/23/17 17:16:34 Currently monitoring 1 HTCondor log file(s)
+03/23/17 17:16:34 Event: ULOG_JOB_TERMINATED for HTCondor Node topic_generation17 (318.0.0) {03/23/17 17:16:34}
+03/23/17 17:16:34 Number of idle job procs: 1
+03/23/17 17:16:34 Node topic_generation17 job proc (318.0.0) completed successfully.
+03/23/17 17:16:34 Node topic_generation17 job completed
+03/23/17 17:16:34 DAG status: 2 (DAG_STATUS_NODE_FAILED)
+03/23/17 17:16:34 Of 35 nodes total:
+03/23/17 17:16:34  Done     Pre   Queued    Post   Ready   Un-Ready   Failed
+03/23/17 17:16:34   ===     ===      ===     ===     ===        ===      ===
+03/23/17 17:16:34    16       0       17       0       0          0        2
+03/23/17 17:16:34 0 job proc(s) currently held
