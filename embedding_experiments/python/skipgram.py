@@ -249,7 +249,6 @@ with tf.Session(graph=graph) as session:
         for k in xrange(top_k):
           close_word = reverse_dictionary[nearest[k]]
           log_str = "%s %s," % (log_str, close_word)
-        print(log_str)
   final_embeddings = normalized_embeddings.eval()
   saver.save(session,output_path + '/embedding_skip/embeddings_' + str(vocabulary_size) + '_' + str(embedding_size)  +'.ckpt')
 
