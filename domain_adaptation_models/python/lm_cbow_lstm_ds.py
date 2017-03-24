@@ -106,14 +106,14 @@ class ds_cbow_sentence_model(object):
                 slice2 = tf.slice(inputs_cbow,[0,i,0],[batch_size,num_history,config.embedded_size_cbow])
                 
                 if FLAGS.combination == "mean":
-                    mask = tf.cast(tf.logical_and(tf.not_equal(slice1,[input_.pad_id]), dtype = data_type()),tf.not_equal(slice1,[input_.unk_id]), dtype = data_type()),tf.not_equal(slice1,[input_.bos_id]), dtype = data_type()),tf.logical_and(tf.not_equal(slice1,[input_.eos_id]), dtype = data_type()))
+                    mask = tf.cast(tf.logical_and(tf.logical_and(tf.not_equal(slice1,[input_.pad_id]), tf.not_equal(slice1,[input_.unk_id])), tf.logical_and(tf.not_equal(slice1,[input_.bos_id]), tf.not_equal(slice1,[input_.eos_id]))), dtype = data_type())
                     mask1 = tf.pack([mask]*config.embedded_size_cbow,axis = 2)
                     out = mask1*slice2
                     comb_ = tf.reduce_sum(out,1)/(tf.reduce_sum(mask1,1) + 1e-32)
     
                 if FLAGS.combination == "exp":
                     exp_weights = tf.reverse(tf.constant([[config.embedded_size_cbow*[config.cbow_exp_decay**k] for k in range(num_history)] for j in range(batch_size)]),[False,True,False])
-                    mask = tf.cast(tf.logical_and(tf.not_equal(slice1,[input_.pad_id]), dtype = data_type()),tf.not_equal(slice1,[input_.unk_id]), dtype = data_type()),tf.not_equal(slice1,[input_.bos_id]), dtype = data_type()),tf.logical_and(tf.not_equal(slice1,[input_.eos_id]), dtype = data_type()))
+                    mask = tf.cast(tf.logical_and(tf.logical_and(tf.not_equal(slice1,[input_.pad_id]), tf.not_equal(slice1,[input_.unk_id])), tf.logical_and(tf.not_equal(slice1,[input_.bos_id]), tf.not_equal(slice1,[input_.eos_id]))), dtype = data_type())
                     mask1 = tf.pack([mask]*config.embedded_size_cbow,axis = 2)
                     out = mask1*slice2*exp_weights
                     comb_ = tf.reduce_sum(out,1)/(tf.reduce_sum(mask1*exp_weights,1) + 1e-32)
