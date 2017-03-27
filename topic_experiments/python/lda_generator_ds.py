@@ -88,7 +88,7 @@ nb_topics_to_print = 10
 nb_words_per_topic_to_print = 20
 
 nb_topics_to_print_tex = 6
-nb_words_per_topic_to_print_tex = 8
+nb_words_per_topic_to_print_tex = 20
 with open('topics_'+str(nb_topics)+'_'+str(sentences_per_document)+'.tex','w') as f:
     f.write('\\begin{table}[H]\n')
     f.write('\\centering\n')

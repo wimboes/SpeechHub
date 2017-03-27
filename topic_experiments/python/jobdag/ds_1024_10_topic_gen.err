@@ -9,10 +9,8 @@ Traceback (most recent call last):
     self.update(corpus, chunks_as_numpy=use_numpy)
   File "/users/start2014/r0364650/.local/lib/python2.7/site-packages/gensim/models/ldamodel.py", line 677, in update
     self.do_mstep(rho(), other, pass_ > 0)
-  File "/users/start2014/r0364650/.local/lib/python2.7/site-packages/gensim/models/ldamodel.py", line 712, in do_mstep
-    diff -= self.state.get_Elogbeta()
-  File "/users/start2014/r0364650/.local/lib/python2.7/site-packages/gensim/models/ldamodel.py", line 194, in get_Elogbeta
-    return dirichlet_expectation(self.get_lambda())
-  File "/users/start2014/r0364650/.local/lib/python2.7/site-packages/gensim/models/ldamodel.py", line 67, in dirichlet_expectation
-    result = psi(alpha) - psi(numpy.sum(alpha, 1))[:, numpy.newaxis]
+  File "/users/start2014/r0364650/.local/lib/python2.7/site-packages/gensim/models/ldamodel.py", line 711, in do_mstep
+    self.state.blend(rho, other)
+  File "/users/start2014/r0364650/.local/lib/python2.7/site-packages/gensim/models/ldamodel.py", line 174, in blend
+    self.sstats += rhot * scale * other.sstats
 MemoryError
