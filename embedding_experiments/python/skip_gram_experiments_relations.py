@@ -11,13 +11,13 @@ from gensim import corpora
 ### inputs
 
 # A-B+C
-testwoorden_A = ['papa', 'Parijs', 'groter', 'cool', 'Anke']
-testwoorden_B = ['mama', 'Frankrijk', 'groot', 'Wim', 'Robbe']
+testwoorden_A = ['papa', 'Parijs', 'groter', 'cool', 'Robbe']
+testwoorden_B = ['mama', 'Frankrijk', 'groot', 'Wim', 'Anke']
 testwoorden_C = ['koningin', 'Duitsland', 'klein', 'Robbe', 'Wim']
 
 neigbourhoud = 10
 
-test_name = 'embedding'
+test_name = 'skip_gram'
 num_run = '0'
 
 
@@ -85,7 +85,7 @@ closest_words = [[dictionary[closest_ids[i,j]].encode('utf-8') for j in range(le
 #[dictionary[id].encode('utf-8') for id_lst in closest_ids for id in id_lst]
     
 nb_words_to_print = len(testwoorden_A)
-with open('embedding_experiments_relations.tex','w') as f:
+with open('skip_gram_experiments_relations.tex','w') as f:
     f.write('\\begin{table}[H]\n')
     f.write('\\centering\n')
     f.write('\\caption[Vocabulary size = '+str(vocab_size-1)+', embedding dimension = '+str(embedded_size)+']{Vocabulary size = '+str(vocab_size-1)+', embedding dimension = '+str(embedded_size)+'}'+'\n')
