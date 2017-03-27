@@ -152,6 +152,10 @@ class ds_cbow_sentence_model(object):
         return self._temp4
 
     @property
+    def temp5(self):
+        return self._temp5
+
+    @property
     def input(self):
         return self._input
 
@@ -263,7 +267,7 @@ def run_epoch(session, model, cost=None, eval_op=None):
     reverse_dict = {v: k for k, v in model.input.word_to_id.iteritems()}
     reverse_dict[model.input.pad_id] = 'PAD'
     
-    fetches = {"cost": model.cost, "temp1" :model.temp1, "temp2" :model.temp2, "temp3" :model.temp3, "temp4" :model.temp4}
+    fetches = {"cost": model.cost, "temp1" :model.temp1, "temp2" :model.temp2, "temp3" :model.temp3, "temp4" :model.temp4, "temp5":model.temp5}
 
     if (os.path.exists((FLAGS.save_path + '/' + FLAGS.test_name + '_' + str(FLAGS.num_run)+ '/eval' +'.txt'))):
         os.remove(FLAGS.save_path + '/' + FLAGS.test_name + '_' + str(FLAGS.num_run)+ '/eval' +'.txt')
@@ -298,7 +302,7 @@ def run_epoch(session, model, cost=None, eval_op=None):
                     f.write("{:<15}".format(reverse_dict[top_k[i][j]].encode('utf-8')))
                 f.write("\n")
 
-            domain_info = vals["temp_5"]
+            domain_info = vals["temp5"]
             for i in xrange(len(data)):
                 g.write("{:<15}".format(reverse_dict[data[i]].encode('utf-8')))
                 g.write("| ")
