@@ -7,16 +7,15 @@ import sys
 import time
 import numpy as np
 
-#if 'LD_LIBRARY_PATH' not in os.environ:
-#        print('hihi')
-#        os.environ['LD_LIBRARY_PATH'] = '/usr/local/cuda/lib64:/usr/local/cuda-7.5/lib64:/usr/local/cuda-8.0/lib64:/users/start2014/r0385169/.local/cudnn'
-#        try:
-#            	os.system('/users/start2014/r0385169/bin/python ' + ' '.join(sys.argv))
-#                sys.exit(0)
-#        except Exception, exc:
-#                print('Failed re_exec:', exc)
-#                sys.exit(1)
-
+if 'LD_LIBRARY_PATH' not in os.environ:
+        print('hihi')
+        os.environ['LD_LIBRARY_PATH'] = '/usr/local/cuda/lib64:/usr/local/cuda-7.5/lib64:/usr/local/cuda-8.0/lib64:/users/start2014/r0385169/.local/cudnn'
+        try:
+            	os.system('/users/start2014/r0385169/bin/python ' + ' '.join(sys.argv))
+                sys.exit(0)
+        except Exception, exc:
+                print('Failed re_exec:', exc)
+                sys.exit(1)
 
 import tensorflow as tf
 import reader
@@ -108,7 +107,7 @@ class ds_cbow_sentence_model(object):
             normed_embedding_cbow = tf.nn.l2_normalize(embedding_cbow, dim=1)
             normed_array = tf.nn.l2_normalize(output_cbow_soft, dim=1)
 
-            cosine_similarity = tf.matmul(normed_array, tf.transpose(normed_embedding_cbow, [1, 0]))
+            cosine_similarity = tf.matmul(tf.squeeze(normed_array), tf.transpose(normed_embedding_cbow, [1, 0]))
             _, closest_ids = tf.nn.top_k(cosine_similarity, k=FLAGS.neighborhood, sorted=True)
             self._temp5 = closest_ids
 
