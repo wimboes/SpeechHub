@@ -8,11 +8,17 @@ I tensorflow/stream_executor/dso_loader.cc:128] successfully opened CUDA library
 I tensorflow/stream_executor/dso_loader.cc:128] successfully opened CUDA library libcurand.so locally
 I tensorflow/stream_executor/cuda/cuda_gpu_executor.cc:937] successful NUMA node read from SysFS had negative value (-1), but there must be at least one NUMA node, so returning NUMA node zero
 I tensorflow/core/common_runtime/gpu/gpu_device.cc:885] Found device 0 with properties: 
-name: GeForce GTX 960
-major: 5 minor: 2 memoryClockRate (GHz) 1.253
-pciBusID 0000:46:00.0
-Total memory: 3.94GiB
-Free memory: 3.90GiB
+name: GeForce GTX 980 Ti
+major: 5 minor: 2 memoryClockRate (GHz) 1.19
+pciBusID 0000:02:00.0
+Total memory: 5.94GiB
+Free memory: 5.83GiB
 I tensorflow/core/common_runtime/gpu/gpu_device.cc:906] DMA: 0 
 I tensorflow/core/common_runtime/gpu/gpu_device.cc:916] 0:   Y 
-I tensorflow/core/common_runtime/gpu/gpu_device.cc:975] Creating TensorFlow device (/gpu:0) -> (device: 0, name: GeForce GTX 960, pci bus id: 0000:46:00.0)
+I tensorflow/core/common_runtime/gpu/gpu_device.cc:975] Creating TensorFlow device (/gpu:0) -> (device: 0, name: GeForce GTX 980 Ti, pci bus id: 0000:02:00.0)
+Traceback (most recent call last):
+  File "skipgram.py", line 226, in <module>
+    batch_size, num_skips, skip_window)
+  File "skipgram.py", line 121, in generate_batch
+    assert batch_size % num_skips == 0
+AssertionError
