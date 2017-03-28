@@ -126,13 +126,15 @@ class ds_cbow_sentence_model(object):
         softmax_b_soft = tf.get_variable("softmax_b_soft", [vocab_size], dtype=data_type())            
                       
           
-        loss = get_loss_function(output_soft, softmax_w_soft, softmax_b_soft, labels, input_, is_training)
+        self._cost, self._nb_words_in_batch = get_loss_function(output_soft, softmax_w_soft, softmax_b_soft, labels, input_, is_training)
         self._temp1,self._temp2,self._temp3 = get_N_most_probable_words(output_soft, softmax_w_soft, softmax_b_soft, labels, data, input_)
         _,_,self._temp4 = get_probability(output_soft, softmax_w_soft, softmax_b_soft, labels, data, input_)
 
 
-        self._cost = loss
-    
+    @property
+    def nb_words_in_batch(self):
+        return self._nb_words_in_batch    
+        
     @property
     def temp1(self):
         return self._temp1
@@ -196,8 +198,6 @@ class ds_cbow_sentence_model(object):
     @property
     def final_state(self):
         return self._final_state
-
-
              
     
 def get_N_most_probable_words(output, softmax_w, softmax_b, targets, data, model):
@@ -237,21 +237,21 @@ def get_loss_function(output, softmax_w, softmax_b, targets, data, is_training):
     mask2 = tf.reshape(tf.where(mask),[-1])
     targets = tf.gather(targets, mask2)
     output = tf.gather(output, mask2)
-    nb_words_in_batch = tf.reduce_sum(tf.cast(mask,dtype=tf.float32)) + 1e-32
+    nb_words_in_batch = tf.reduce_sum(tf.cast(mask,dtype=tf.float32))
 
     if FLAGS.loss_function == "full_softmax":
         logits = tf.matmul(output, softmax_w) + softmax_b
         loss = tf.nn.sparse_softmax_cross_entropy_with_logits(logits, targets, name=None)
-        return tf.reduce_sum(loss) / nb_words_in_batch
+        return tf.reduce_sum(loss), nb_words_in_batch
 
     if FLAGS.loss_function == 'sampled_softmax':
         if is_training:
             loss = tf.nn.sampled_softmax_loss(tf.transpose(softmax_w), softmax_b, output, tf.reshape(targets, [-1,1]), 32, data.pad_id)
-            return tf.reduce_sum(loss) / nb_words_in_batch
+            return tf.reduce_sum(loss), nb_words_in_batch
         else:
             logits = tf.matmul(output, softmax_w) + softmax_b
             loss = tf.nn.sparse_softmax_cross_entropy_with_logits(logits, targets, name=None)
-            return tf.reduce_sum(loss) / nb_words_in_batch
+            return tf.reduce_sum(loss), nb_words_in_batch
 
     return 0
 
@@ -265,7 +265,7 @@ def run_epoch(session, model, cost=None, eval_op=None):
     reverse_dict = {v: k for k, v in model.input.word_to_id.iteritems()}
     reverse_dict[model.input.pad_id] = 'PAD'
     
-    fetches = {"cost": model.cost, "temp1" :model.temp1, "temp2" :model.temp2, "temp3" :model.temp3, "temp4" :model.temp4, "temp5": model.temp5}
+    fetches = {"cost": model.cost,"nb_words_in_batch": model.nb_words_in_batch, "temp1" :model.temp1, "temp2" :model.temp2, "temp3" :model.temp3, "temp4" :model.temp4, "temp5": model.temp5}
 
     if (os.path.exists((FLAGS.save_path + '/' + FLAGS.test_name + '_' + str(FLAGS.num_run)+ '/eval' +'.txt'))):
         os.remove(FLAGS.save_path + '/' + FLAGS.test_name + '_' + str(FLAGS.num_run)+ '/eval' +'.txt')
@@ -282,6 +282,7 @@ def run_epoch(session, model, cost=None, eval_op=None):
     
             vals = session.run(fetches, feed_dict)
             cost = vals["cost"]
+            nb_words_in_batch = vals["nb_words_in_batch"]
 
             data = vals["temp1"]
             labels = vals["temp2"]
@@ -309,7 +310,7 @@ def run_epoch(session, model, cost=None, eval_op=None):
                 g.write("\n")           
 
             costs += cost
-            iters += 1
+            iters += nb_words_in_batch
             processed_words += sum(batch_seq_len)
     
             if step % (model.input.epoch_size // 10) == 0:

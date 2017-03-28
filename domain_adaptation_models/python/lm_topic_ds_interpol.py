@@ -103,14 +103,15 @@ class ds_topic_model(object):
         softmax_b_lda = tf.get_variable("softmax_b_lda", [nb_topics], dtype=data_type(), initializer = initializer_lda)
         
     
-        loss = get_loss_function(output_reg, output_lda, softmax_w_reg, softmax_w_lda, softmax_b_reg, softmax_b_lda, FLAGS.interpol, labels, topic_matrix, input_continuous, is_training)
+        self._cost, self._nb_words_in_batch = get_loss_function(output_reg, output_lda, softmax_w_reg, softmax_w_lda, softmax_b_reg, softmax_b_lda, FLAGS.interpol, labels, topic_matrix, input_continuous, is_training)
         self._temp1,self._temp2,self._temp3 = get_probability(output_reg, output_lda, softmax_w_reg, softmax_w_lda, softmax_b_reg, softmax_b_lda, FLAGS.interpol, labels, topic_matrix, data, input_continuous)
-
-        self._cost = loss
         
         self._final_state_reg = state_reg
         self._final_state_lda = state_lda
-        
+    
+    @property
+    def nb_words_in_batch(self):
+        return self._nb_words_in_batch    
 
     @property
     def temp1(self):
@@ -227,7 +228,7 @@ def get_loss_function(output_reg, output_lda, softmax_w_reg, softmax_w_lda, soft
     targets = tf.gather(targets, mask2)
     output_reg = tf.gather(output_reg, mask2)
     output_lda = tf.gather(output_lda, mask2) 
-    nb_words_in_batch = tf.reduce_sum(tf.cast(mask,dtype=tf.float32)) + 1e-32
+    nb_words_in_batch = tf.reduce_sum(tf.cast(mask,dtype=tf.float32))
         
     if FLAGS.loss_function == "full_softmax":        
         logits_reg = tf.matmul(output_reg, softmax_w_reg) + softmax_b_reg
@@ -243,7 +244,7 @@ def get_loss_function(output_reg, output_lda, softmax_w_reg, softmax_w_lda, soft
         idx_flattened = tf.range(0, tf.shape(probs)[0]) * tf.shape(probs)[1] + idx
         y = tf.gather(tf.reshape(probs, [-1]), idx_flattened)  # use flattened indices
         loss = -tf.log(y)
-        return tf.reduce_sum(loss) / nb_words_in_batch
+        return tf.reduce_sum(loss), nb_words_in_batch
 
 
 def run_test_epoch(session, model, epoch_nb = 0):
@@ -265,7 +266,7 @@ def run_test_epoch(session, model, epoch_nb = 0):
     reverse_dict = {v: k for k, v in model.input_continuous.word_to_id.iteritems()}
     reverse_dict[model.input_continuous.pad_id] = 'PAD'
     
-    fetches = {"cost": model.cost, "final_state_reg": model.final_state_reg,"final_state_lda": model.final_state_lda, "temp1" :model.temp1, "temp2" :model.temp2, "temp3" :model.temp3}
+    fetches = {"cost": model.cost,"nb_words_in_batch": model.nb_words_in_batch,  "final_state_reg": model.final_state_reg,"final_state_lda": model.final_state_lda, "temp1" :model.temp1, "temp2" :model.temp2, "temp3" :model.temp3}
 
     if (os.path.exists((FLAGS.save_path + '/' + FLAGS.test_name + '_' + str(FLAGS.num_run)+ '/eval' +'.txt'))):
         os.remove(FLAGS.save_path + '/' + FLAGS.test_name + '_' + str(FLAGS.num_run)+ '/eval' +'.txt')
@@ -291,6 +292,7 @@ def run_test_epoch(session, model, epoch_nb = 0):
             vals = session.run(fetches, feed_dict)
             cost = vals["cost"]
             state_lda = vals["final_state_lda"]
+            nb_words_in_batch = vals["nb_words_in_batch"]
 
             if batch_data[0,0] == model.input_continuous.eos_id:
                 state_reg = session.run(model.initial_state_reg)
@@ -342,7 +344,7 @@ def run_test_epoch(session, model, epoch_nb = 0):
             
             
             costs += cost
-            iters += 1
+            iters += nb_words_in_batch
             processed_words += sum(batch_seq_len)
     
             if step % (model.input_continuous.epoch_size // 10) == 0:

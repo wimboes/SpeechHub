@@ -76,12 +76,11 @@ class ds_original_model(object):
         softmax_w = tf.get_variable("softmax_w", [hidden_size, vocab_size], dtype=data_type())
         softmax_b = tf.get_variable("softmax_b", [vocab_size], dtype=data_type())
         
-        loss = get_loss_function(output, softmax_w, softmax_b, labels, input_, is_training)
+        self._cost, self._nb_words_in_batch = get_loss_function(output, softmax_w, softmax_b, labels, input_, is_training)
         self._temp1,self._temp2,self._temp3 = get_N_most_probable_words(output, softmax_w, softmax_b, labels, data, input_)
         _,_,self._temp4 = get_probability(output, softmax_w, softmax_b, labels, data, input_)
         
-        self._cost  = loss
-        self._final_state = state
+        self._final_state = state        
 
     @property
     def temp1(self):
@@ -102,6 +101,10 @@ class ds_original_model(object):
     @property
     def input(self):
         return self._input
+
+    @property
+    def nb_words_in_batch(self):
+        return self._nb_words_in_batch    
         
     @property
     def num_steps(self):
@@ -169,21 +172,21 @@ def get_loss_function(output, softmax_w, softmax_b, targets, data, is_training):
     mask2 = tf.reshape(tf.where(mask),[-1])
     targets = tf.gather(targets, mask2)
     output = tf.gather(output, mask2)
-    nb_words_in_batch = tf.reduce_sum(tf.cast(mask,dtype=tf.float32)) + 1e-32
+    nb_words_in_batch = tf.reduce_sum(tf.cast(mask,dtype=tf.float32))
 
     if FLAGS.loss_function == "full_softmax":
         logits = tf.matmul(output, softmax_w) + softmax_b
         loss = tf.nn.sparse_softmax_cross_entropy_with_logits(logits, targets, name=None)
-        return tf.reduce_sum(loss) / nb_words_in_batch
+        return tf.reduce_sum(loss), nb_words_in_batch
 
     if FLAGS.loss_function == 'sampled_softmax':
         if is_training:
             loss = tf.nn.sampled_softmax_loss(tf.transpose(softmax_w), softmax_b, output, tf.reshape(targets, [-1,1]), 32, data.pad_id)
-            return tf.reduce_sum(loss) / nb_words_in_batch
+            return tf.reduce_sum(loss), nb_words_in_batch
         else:
             logits = tf.matmul(output, softmax_w) + softmax_b
             loss = tf.nn.sparse_softmax_cross_entropy_with_logits(logits, targets, name=None)
-            return tf.reduce_sum(loss) / nb_words_in_batch
+            return tf.reduce_sum(loss), nb_words_in_batch
 
     return 0
 
@@ -197,7 +200,7 @@ def run_epoch(session, model, eval_op=None, verbose=False, epoch_nb = 0):
     reverse_dict = {v: k for k, v in model.input.word_to_id.iteritems()}
     reverse_dict[model.input.pad_id] = 'PAD'
 
-    fetches = {"cost": model.cost,"final_state": model.final_state, "temp1" :model.temp1, "temp2" :model.temp2, "temp3" :model.temp3, "temp4" :model.temp4}
+    fetches = {"cost": model.cost,"nb_words_in_batch": model.nb_words_in_batch, "final_state": model.final_state, "temp1" :model.temp1, "temp2" :model.temp2, "temp3" :model.temp3, "temp4" :model.temp4}
 
     if (os.path.exists((FLAGS.save_path + '/' + FLAGS.test_name + '_' + str(FLAGS.num_run)+ '/eval' +'.txt'))):
         os.remove(FLAGS.save_path + '/' + FLAGS.test_name + '_' + str(FLAGS.num_run)+ '/eval' +'.txt')
@@ -215,6 +218,7 @@ def run_epoch(session, model, eval_op=None, verbose=False, epoch_nb = 0):
     
             vals = session.run(fetches, feed_dict)
             cost = vals["cost"]
+            nb_words_in_batch = vals["nb_words_in_batch"]
             state = vals["final_state"]
     
             data = vals["temp1"]
@@ -235,10 +239,11 @@ def run_epoch(session, model, eval_op=None, verbose=False, epoch_nb = 0):
                 f.write("\n")
     
             costs += cost
-            iters += 1 
+            print(cost, nb_words_in_batch)
+            iters += nb_words_in_batch 
             processed_words += sum(batch_seq_len)
     
-            if step % (model.input.epoch_size // 10) == 0:
+            if step % (model.input.epoch_size // 1) == 0:
                 print("%.3f perplexity: %.3f speed: %.0f wps" % (step * 1.0 / model.input.epoch_size, np.exp(costs / iters),
     						 processed_words / (time.time() - start_time)))
     return np.exp(costs/iters)

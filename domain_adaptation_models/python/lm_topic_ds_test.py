@@ -105,15 +105,16 @@ class ds_topic_model(object):
         
         self._interpol = tf.get_variable("interpol", [], dtype=data_type())
     
-        loss = get_loss_function(output_reg, output_lda, softmax_w_reg, softmax_w_lda, softmax_b_reg, softmax_b_lda, self._interpol, labels, topic_matrix, input_continuous, is_training)
+        self._cost, self._nb_words_in_batch = get_loss_function(output_reg, output_lda, softmax_w_reg, softmax_w_lda, softmax_b_reg, softmax_b_lda, self._interpol, labels, topic_matrix, input_continuous, is_training)
         self._temp1,self._temp2,self._temp3 = get_N_most_probable_words(output_reg, output_lda, softmax_w_reg, softmax_w_lda, softmax_b_reg, softmax_b_lda, self._interpol, labels, topic_matrix, data, input_continuous)
         _,_,self._temp4 = get_probability(output_reg, output_lda, softmax_w_reg, softmax_w_lda, softmax_b_reg, softmax_b_lda, self._interpol, labels, topic_matrix, data, input_continuous)
-
-        self._cost = loss
         
         self._final_state_reg = state_reg
         self._final_state_lda = state_lda
         
+    @property
+    def nb_words_in_batch(self):
+        return self._nb_words_in_batch    
 
     @property
     def temp1(self):
@@ -269,7 +270,7 @@ def get_loss_function(output_reg, output_lda, softmax_w_reg, softmax_w_lda, soft
         idx_flattened = tf.range(0, tf.shape(probs)[0]) * tf.shape(probs)[1] + idx
         y = tf.gather(tf.reshape(probs, [-1]), idx_flattened)  # use flattened indices
         loss = -tf.log(y)
-        return tf.reduce_sum(loss) / nb_words_in_batch
+        return tf.reduce_sum(loss), nb_words_in_batch
 
 
 def run_test_epoch(session, model, epoch_nb = 0):
@@ -309,6 +310,7 @@ def run_test_epoch(session, model, epoch_nb = 0):
             vals = session.run(fetches, feed_dict)
             cost = vals["cost"]
             state_lda = vals["final_state_lda"]
+            nb_words_in_batch = vals["nb_words_in_batch"]
 
             if batch_data[0,0] == model.input_continuous.eos_id:
                 state_reg = session.run(model.initial_state_reg)
@@ -333,7 +335,7 @@ def run_test_epoch(session, model, epoch_nb = 0):
                 f.write("\n")
 
             costs += cost
-            iters += 1
+            iters += nb_words_in_batch
             processed_words += sum(batch_seq_len)
     
             if step % (model.input_continuous.epoch_size // 10) == 0:

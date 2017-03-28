@@ -143,9 +143,9 @@ class ds_topic_model(object):
         self._new_interpol = tf.placeholder(tf.float32, shape=[], name="new_interpol")
         self._interpol_update = tf.assign(self._interpol, self._new_interpol)
     
-        loss = get_loss_function(output_reg, output_lda, softmax_w_reg, softmax_w_lda, softmax_b_reg, softmax_b_lda, self._interpol, labels, topic_matrix, input_sentence, is_training)
+        self._cost, self._nb_words_in_batch = get_loss_function(output_reg, output_lda, softmax_w_reg, softmax_w_lda, softmax_b_reg, softmax_b_lda, self._interpol, labels, topic_matrix, input_sentence, is_training)
 
-        self._cost = cost = loss
+        cost = self._cost / (self._nb_words_in_batch + 1e-32)
         
         self._final_state_reg = state_reg
         self._final_state_lda = state_lda
@@ -180,6 +180,10 @@ class ds_topic_model(object):
     @property
     def temp1(self):
         return self._temp1
+        
+    @property
+    def nb_words_in_batch(self):
+        return self._nb_words_in_batch    
         
     @property
     def input_sentence(self):
@@ -246,7 +250,6 @@ class ds_topic_model(object):
         return self._train_op_int
         
 
-
 class config_topic(object):
     init_scale_reg = FLAGS.init_scale_reg
     learning_rate_reg = FLAGS.learning_rate_reg
@@ -297,7 +300,7 @@ def get_loss_function(output_reg, output_lda, softmax_w_reg, softmax_w_lda, soft
     targets = tf.gather(targets, mask2)
     output_reg = tf.gather(output_reg, mask2)
     output_lda = tf.gather(output_lda, mask2) 
-    nb_words_in_batch = tf.reduce_sum(tf.cast(mask,dtype=tf.float32)) + 1e-32
+    nb_words_in_batch = tf.reduce_sum(tf.cast(mask,dtype=tf.float32))
         
     if FLAGS.loss_function == "full_softmax":        
         logits_reg = tf.matmul(output_reg, softmax_w_reg) + softmax_b_reg
@@ -313,7 +316,7 @@ def get_loss_function(output_reg, output_lda, softmax_w_reg, softmax_w_lda, soft
         idx_flattened = tf.range(0, tf.shape(probs)[0]) * tf.shape(probs)[1] + idx
         y = tf.gather(tf.reshape(probs, [-1]), idx_flattened)  # use flattened indices
         loss = -tf.log(y)
-        return tf.reduce_sum(loss) / nb_words_in_batch
+        return tf.reduce_sum(loss), nb_words_in_batch
 
 
 def run_epoch(session, model, eval_op=None, verbose=False, epoch_nb = 0, mode = None):
@@ -326,7 +329,7 @@ def run_epoch(session, model, eval_op=None, verbose=False, epoch_nb = 0, mode = 
         state = session.run(model.initial_state_lda)
         save_np = np.array([[0,0,0,0]])
     
-        fetches = {"cost": model.cost}
+        fetches = {"cost": model.cost, "nb_words_in_batch": model.nb_words_in_batch}
         if eval_op is not None:
             fetches["eval_op"] = eval_op
     
@@ -339,9 +342,10 @@ def run_epoch(session, model, eval_op=None, verbose=False, epoch_nb = 0, mode = 
     
             vals = session.run(fetches, feed_dict)
             cost = vals["cost"]
+            nb_words_in_batch = vals["nb_words_in_batch"]
     
             costs += cost
-            iters += 1
+            iters += nb_words_in_batch
             processed_words += sum(batch_seq_len)
     
             if verbose and step % (model.input_sentence.epoch_size // 10) == 0:
@@ -357,7 +361,7 @@ def run_epoch(session, model, eval_op=None, verbose=False, epoch_nb = 0, mode = 
         state = session.run(model.initial_state_lda)
         save_np = np.array([[0,0,0,0]])
     
-        fetches = {"cost": model.cost,"final_state_lda": model.final_state_lda}
+        fetches = {"cost": model.cost,"nb_words_in_batch": model.nb_words_in_batch,"final_state_lda": model.final_state_lda}
         if eval_op is not None:
             fetches["eval_op"] = eval_op
     
@@ -375,9 +379,10 @@ def run_epoch(session, model, eval_op=None, verbose=False, epoch_nb = 0, mode = 
             vals = session.run(fetches, feed_dict)
             cost = vals["cost"]
             state = vals["final_state_lda"]
+            nb_words_in_batch = vals["nb_words_in_batch"]
     
             costs += cost
-            iters += 1
+            iters += nb_words_in_batch
             processed_words += sum(batch_seq_len)
     
             if verbose and step % (model.input_continuous.epoch_size // 10) == 0:
@@ -402,7 +407,7 @@ def run_test_epoch(session, model, epoch_nb = 0):
     state_lda = session.run(model.initial_state_lda)
     save_np = np.array([[0,0,0,0]])
 
-    fetches = {"cost": model.cost,"final_state_reg": model.final_state_reg,"final_state_lda": model.final_state_lda}
+    fetches = {"cost": model.cost,"nb_words_in_batch": model.nb_words_in_batch,"final_state_reg": model.final_state_reg,"final_state_lda": model.final_state_lda}
 
     for step in range(model.input_continuous.epoch_size):
         batch_data, batch_labels = model.input_continuous.next_batch()
@@ -423,6 +428,7 @@ def run_test_epoch(session, model, epoch_nb = 0):
         vals = session.run(fetches, feed_dict)
         cost = vals["cost"]
         state_lda = vals["final_state_lda"]
+        nb_words_in_batch = vals["nb_words_in_batch"]
 
         if batch_data[0,0] == model.input_continuous.eos_id:
             state_reg = session.run(model.initial_state_reg)
@@ -430,7 +436,7 @@ def run_test_epoch(session, model, epoch_nb = 0):
             state_reg = vals["final_state_reg"]
 
         costs += cost
-        iters += 1
+        iters += nb_words_in_batch
         processed_words += sum(batch_seq_len)
 
     print("with(perplexity: %.3f) speed: %.0f wps" % (np.exp(costs / iters),
