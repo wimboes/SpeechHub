@@ -301,7 +301,7 @@ def run_epoch(session, model, cost=None, eval_op=None):
                     f.write("{:<15}".format(reverse_dict[top_k[i][j]].encode('utf-8')))
                 f.write("\n")
                 
-            domain_info = vals["temp_5"]
+            domain_info = vals["temp5"]
             for i in xrange(len(data)):
                 g.write("{:<15}".format(reverse_dict[data[i]].encode('utf-8')))
                 g.write("| ")
