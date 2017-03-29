@@ -1,0 +1,19 @@
+Universe         = vanilla
+RequestCpus     = 1
+RequestMemory    = 14G
++RequestWalltime = 51840
+
+getenv = true
+NiceUser = true
+Notification = Error
+initialdir = .
+
+executable = /users/start2014/r0385169/bin/python
+arguments = "lda_generator_$(data_set).py --nb_topics=$(nb_topics) --sentences_per_document=$(sentences_per_document)"
+
+Log          = jobdag/$(data_set)_$(nb_topics)_$(sentences_per_document)_topic_test_a.log
+Output       = jobdag/$(data_set)_$(nb_topics)_$(sentences_per_document)_topic_test_a.out
+Error        = jobdag/$(data_set)_$(nb_topics)_$(sentences_per_document)_topic_test_a.err
+
+Queue
+
