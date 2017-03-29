@@ -227,19 +227,18 @@ def run_epoch(session, model, eval_op=None, verbose=False, epoch_nb = 0):
             prob = vals['temp4']
             for i in xrange(len(data)):
                 f.write("{:<15}".format(reverse_dict[data[i]].encode('utf-8')))
-                f.write("| ")
+                f.write(" | ")
                 f.write("{:<15}".format(reverse_dict[labels[i]].encode('utf-8')))
-                f.write("| ")
+                f.write(" | ")
                 f.write("{:<15}".format(prob[i]))
-                f.write("-> ")
+                f.write(" -> ")
                 f.write("{:<15}".format(('%e'% np.exp(-prob[i]))))
-                f.write("| ")
+                f.write(" | ")
                 for j in xrange(len(top_k[i])):
                     f.write("{:<15}".format(reverse_dict[top_k[i][j]].encode('utf-8')))
                 f.write("\n")
     
             costs += cost
-            print(cost, nb_words_in_batch)
             iters += nb_words_in_batch 
             processed_words += sum(batch_seq_len)
     

@@ -294,13 +294,13 @@ def run_epoch(session, model, cost=None, eval_op=None):
             prob = vals['temp4']
             for i in xrange(len(data)):
                 f.write("{:<15}".format(reverse_dict[data[i]].encode('utf-8')))
-                f.write("| ")
+                f.write(" | ")
                 f.write("{:<15}".format(reverse_dict[labels[i]].encode('utf-8')))
-                f.write("| ")
+                f.write(" | ")
                 f.write("{:<15}".format(prob[i]))
-                f.write("-> ")
+                f.write(" -> ")
                 f.write("{:<15}".format(('%e'% np.exp(-prob[i]))))
-                f.write("| ")
+                f.write(" | ")
                 for j in xrange(len(top_k[i])):
                     f.write("{:<15}".format(reverse_dict[top_k[i][j]].encode('utf-8')))
                 f.write("\n")
