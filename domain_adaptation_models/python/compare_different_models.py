@@ -20,7 +20,7 @@ import argparse
 ap = argparse.ArgumentParser()
 ap.add_argument('--model1', default='original', type=str)
 ap.add_argument('--model1_num_run', default='0', type=str)
-ap.add_argument('--model2', default='original', type=str)
+ap.add_argument('--model2', default='cbow_exp_soft', type=str)
 ap.add_argument('--model2_num_run', default='0', type=str)
 
 opts = ap.parse_args()
@@ -52,8 +52,11 @@ words2, targets2, probs2 = read_eval_file(output_path2)
 
 if words1 != words2 or targets1 != targets2:
     sys.exit('Wrong eval-files')
+
+del words2
+del targets2
     
-with open(os.path.join(output_path, 'figures/comparation_' + opts.model1 + opts.model1_num_run + '_' + opts.model2 + opts.model2_num_run), 'w') as f:
+with open(os.path.join(output_path, 'figures/prob_comparison_' + opts.model1 + opts.model1_num_run + '_' + opts.model2 + opts.model2_num_run) +'.txt', 'w') as f:
     f.write("{:<15}".format('input'))
     f.write(" | ")
     f.write("{:<15}".format('target'))
@@ -64,6 +67,8 @@ with open(os.path.join(output_path, 'figures/comparation_' + opts.model1 + opts.
     f.write(' || ')
     f.write('best model: 0:first, 1:second')
     f.write("\n")
+    f.write("-"*120)
+    f.write('\n')
     best = []
     for i in range(len(words1)):
         f.write("{:<15}".format(words1[i].encode('utf-8')))
@@ -87,6 +92,76 @@ with open(os.path.join(output_path, 'figures/comparation_' + opts.model1 + opts.
     f.write('model 2: ' + opts.model2 + opts.model2_num_run + ' = ')
     f.write(str(acc))
     f.write('\n')
-           
+    
+possible_words = list(set(targets1))
+count1 = {}
+count2 = {}
+for i in possible_words:
+    count1[i] = 0
+    count2[i] = 0
+    
+for i in range(len(targets1)):
+    if probs1[i] < probs2[i]:
+        count1[targets1[i]] += 1
+    elif probs1[i] > probs2[i]:
+        count2[targets1[i]] += 1
+
+pos_words = []
+amount_model1_better = 0
+amount_model2_better = 0
+amount_model_same = 0
+num1 = []
+num2 = []
+for i in possible_words:
+    if count1[i] > count2[i]:
+        pos_words.append(i)
+        num1.append(count1[i])
+        num2.append(count2[i])
+        amount_model1_better += 1 
         
+        
+for i in possible_words:
+    if count1[i] == count2[i]:
+        pos_words.append(i)
+        num1.append(count1[i])
+        num2.append(count2[i])
+        amount_model_same += 1
+        
+for i in possible_words:
+    if count1[i] < count2[i]:
+        pos_words.append(i)
+        num1.append(count1[i])
+        num2.append(count2[i])
+        amount_model2_better += 1
+
+with open(os.path.join(output_path, 'figures/word_comparison_' + opts.model1 + opts.model1_num_run + '_' + opts.model2 + opts.model2_num_run) +'.txt', 'w') as f:
+    f.write("{:<15}".format('target'))
+    f.write(" | ")
+    f.write("{:<15}".format(opts.model1 + opts.model1_num_run))
+    f.write(" <-> ")
+    f.write("{:<15}".format(opts.model2 + opts.model2_num_run))
+    f.write("\n")
+    f.write("-"*45)
+    f.write('\n')
+    for i in range(len(pos_words)):
+        f.write("{:<15}".format(pos_words[i].encode('utf-8')))
+        f.write(" | ")
+        f.write("{:<15}".format(num1[i]))
+        f.write(" <-> ")
+        f.write("{:<15}".format(num2[i]))
+        f.write("\n")
+    f.write('\n')
+    f.write('better_words: ')
+    f.write('\n')
+    f.write('model 1: ' + opts.model1 + opts.model1_num_run + ' = ')
+    f.write(str(amount_model1_better)) 
+    f.write('\n')
+    f.write('model 2: ' + opts.model2 + opts.model2_num_run + ' = ')
+    f.write(str(amount_model2_better))
+    f.write('\n')
+    f.write('same: ')
+    f.write(str(amount_model_same))
+    f.write('\n')
+        
+
 

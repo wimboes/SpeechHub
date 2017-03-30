@@ -34,7 +34,7 @@ flags = tf.flags
 logging = tf.logging
 
 flags.DEFINE_integer("num_run", 0, "num_run")
-flags.DEFINE_string("test_name","cbow_tfidf_lstm","test_name")
+flags.DEFINE_string("test_name","cbow_exp_lstm","test_name")
 flags.DEFINE_string("eval_name",'ds.testshort.txt',"eval_name")
 flags.DEFINE_integer("top_k",7,"top_k")
 flags.DEFINE_integer("neighborhood",7,"neighborhood")

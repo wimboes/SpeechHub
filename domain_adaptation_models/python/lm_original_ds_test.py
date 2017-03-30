@@ -242,7 +242,7 @@ def run_epoch(session, model, eval_op=None, verbose=False, epoch_nb = 0):
             iters += nb_words_in_batch 
             processed_words += sum(batch_seq_len)
     
-            if step % (model.input.epoch_size // 1) == 0:
+            if step % (model.input.epoch_size // 10) == 0:
                 print("%.3f perplexity: %.3f speed: %.0f wps" % (step * 1.0 / model.input.epoch_size, np.exp(costs / iters),
     						 processed_words / (time.time() - start_time)))
     return np.exp(costs/iters)
