@@ -467,7 +467,7 @@ def main(_):
         for i in xrange(vocab_size):
             topic_array[topic_nb,current_topic[i][0]] = current_topic[i][1]
 
-    train_name = 'ds.train.txt'
+    train_name = 'ds.trainshort.txt'
     valid_name = 'ds.valid.txt'
     test_name = 'ds.test.txt'
 
