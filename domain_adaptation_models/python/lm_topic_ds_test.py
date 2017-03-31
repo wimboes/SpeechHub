@@ -42,6 +42,7 @@ flags.DEFINE_integer("num_run", 0, "num_run")
 flags.DEFINE_string("test_name","topic","test_name")
 flags.DEFINE_string("eval_name",'ds.testshort.txt',"eval_name")
 flags.DEFINE_integer("top_k",7,"top_k")
+flags.DEFINE_integer("topic_k",4,"topic_k")
 
 flags.DEFINE_string("loss_function","full_softmax","loss_function")
 
@@ -108,6 +109,7 @@ class ds_topic_model(object):
         self._cost, self._nb_words_in_batch = get_loss_function(output_reg, output_lda, softmax_w_reg, softmax_w_lda, softmax_b_reg, softmax_b_lda, self._interpol, labels, topic_matrix, input_continuous, is_training)
         self._temp1,self._temp2,self._temp3 = get_N_most_probable_words(output_reg, output_lda, softmax_w_reg, softmax_w_lda, softmax_b_reg, softmax_b_lda, self._interpol, labels, topic_matrix, data, input_continuous)
         _,_,self._temp4 = get_probability(output_reg, output_lda, softmax_w_reg, softmax_w_lda, softmax_b_reg, softmax_b_lda, self._interpol, labels, topic_matrix, data, input_continuous)
+        _,_,self._temp5 = get_N_most_probable_topics(output_lda, softmax_w_lda, softmax_b_lda, labels, data, input_continuous)
         
         self._final_state_reg = state_reg
         self._final_state_lda = state_lda
@@ -131,6 +133,10 @@ class ds_topic_model(object):
     @property
     def temp4(self):
         return self._temp4
+        
+    @property
+    def temp5(self):
+        return self._temp5
         
     @property
     def input_sentence(self):
@@ -216,6 +222,23 @@ def get_N_most_probable_words(output_reg, output_lda, softmax_w_reg, softmax_w_l
         _, indeces = tf.nn.top_k(probs, k=FLAGS.top_k, sorted=True)
                 
         return data, targets, indeces
+        
+def get_N_most_probable_topics(output_lda, softmax_w_lda, softmax_b_lda, targets, data, model):
+    targets = tf.reshape(targets, [-1])
+    data = tf.reshape(data, [-1])
+    mask = tf.not_equal(targets,[model.pad_id]) 
+    mask2 = tf.reshape(tf.where(mask),[-1])
+    targets = tf.gather(targets, mask2)
+    data = tf.gather(data, mask2)
+    output_lda = tf.gather(output_lda, mask2) 
+    
+    if FLAGS.loss_function == "full_softmax":        
+        logits_lda = tf.matmul(output_lda, softmax_w_lda) + softmax_b_lda
+        probs_topic = tf.nn.softmax(logits_lda) 
+        
+        _, indeces = tf.nn.top_k(probs_topic, k=FLAGS.topic_k, sorted=True)
+                
+        return data, targets, indeces
     
 def get_probability(output_reg, output_lda, softmax_w_reg, softmax_w_lda, softmax_b_reg, softmax_b_lda, interpol, targets, topic_matrix, data, model):
     targets = tf.reshape(targets, [-1])
@@ -285,12 +308,12 @@ def run_test_epoch(session, model, epoch_nb = 0):
     reverse_dict = {v: k for k, v in model.input_continuous.word_to_id.iteritems()}
     reverse_dict[model.input_continuous.pad_id] = 'PAD'
     
-    fetches = {"cost": model.cost, "final_state_reg": model.final_state_reg,"final_state_lda": model.final_state_lda, "temp1" :model.temp1, "temp2" :model.temp2, "temp3" :model.temp3, "temp4" :model.temp4}
+    fetches = {"cost": model.cost, 'nb_words_in_batch': model.nb_words_in_batch, "final_state_reg": model.final_state_reg,"final_state_lda": model.final_state_lda, "temp1" :model.temp1, "temp2" :model.temp2, "temp3" :model.temp3, "temp4" :model.temp4, "temp5" :model.temp5}
 
     if (os.path.exists((FLAGS.save_path + '/' + FLAGS.test_name + '_' + str(FLAGS.num_run)+ '/eval' +'.txt'))):
         os.remove(FLAGS.save_path + '/' + FLAGS.test_name + '_' + str(FLAGS.num_run)+ '/eval' +'.txt')
 
-    with open((FLAGS.save_path + '/' + FLAGS.test_name + '_' + str(FLAGS.num_run) + '/eval' +'.txt'), "w") as f:
+    with open((FLAGS.save_path + '/' + FLAGS.test_name + '_' + str(FLAGS.num_run) + '/eval' +'.txt'), "w") as f, open((FLAGS.save_path + '/' + FLAGS.test_name + '_' + str(FLAGS.num_run) + '/topic' +'.txt'), "w") as g:
         for step in range(model.input_continuous.epoch_size):
             batch_data, batch_labels = model.input_continuous.next_batch()
             batch_seq_len = np.ones(model.input_continuous.batch_size)*model.input_continuous.num_steps
@@ -321,6 +344,7 @@ def run_test_epoch(session, model, epoch_nb = 0):
             labels = vals["temp2"]
             top_k = vals["temp3"]
             prob = vals['temp4']
+            topic_k = vals['temp5']
             for i in xrange(len(data)):
                 f.write("{:<15}".format(reverse_dict[data[i]].encode('utf-8')))
                 f.write(" | ")
@@ -333,6 +357,14 @@ def run_test_epoch(session, model, epoch_nb = 0):
                 for j in xrange(len(top_k[i])):
                     f.write("{:<15}".format(reverse_dict[top_k[i][j]].encode('utf-8')))
                 f.write("\n")
+                
+                g.write("{:<15}".format(reverse_dict[data[i]].encode('utf-8')))
+                g.write(" | ")
+                g.write("{:<15}".format(reverse_dict[labels[i]].encode('utf-8')))
+                g.write(" | ")
+                for j in xrange(len(topic_k[i])):
+                    g.write("{:<15}".format('topic ' + str(topic_k[i][j])))
+                g.write("\n")
 
             costs += cost
             iters += nb_words_in_batch
@@ -346,7 +378,7 @@ def run_test_epoch(session, model, epoch_nb = 0):
 def main(_):
     print('Eval job started')
     
-    lda_path = os.path.join(FLAGS.data_path, "lda.ds")
+    lda_path = os.path.join(FLAGS.data_path, "lda_64_5.ds")
     lda = models.LdaModel.load(lda_path) 
     dict_path = os.path.join(FLAGS.data_path, "dictionary.ds")
     dictionary = corpora.Dictionary.load(dict_path)
