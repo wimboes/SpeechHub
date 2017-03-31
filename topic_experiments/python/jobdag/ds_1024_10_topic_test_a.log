@@ -43,3 +43,29 @@
 	13803  -  MemoryUsage of job (MB)
 	14134064  -  ResidentSetSize of job (KB)
 ...
+022 (559.000.000) 03/30 15:43:39 Job disconnected, attempting to reconnect
+    Socket between submit and execute hosts closed unexpectedly
+    Trying to reconnect to slot1@askoy.esat.kuleuven.be <10.33.133.71:9618?addrs=10.33.133.71-9618+[--1]-9618&noUDP&sock=1555_2ddb_3>
+...
+024 (559.000.000) 03/30 16:23:39 Job reconnection failed
+    Job disconnected too long: JobLeaseDuration (2400 seconds) expired
+    Can not reconnect to slot1@askoy.esat.kuleuven.be, rescheduling job
+...
+001 (559.000.000) 03/30 16:24:27 Job executing on host: <10.33.133.19:9618?addrs=10.33.133.19-9618+[--1]-9618&noUDP&sock=1262_349c_3>
+...
+004 (559.000.000) 03/31 01:18:32 Job was evicted.
+	(0) Job was not checkpointed.
+		Usr 0 08:12:28, Sys 0 00:32:58  -  Run Remote Usage
+		Usr 0 00:00:00, Sys 0 00:00:00  -  Run Local Usage
+	0  -  Run Bytes Sent By Job
+	0  -  Run Bytes Received By Job
+	Partitionable Resources :    Usage  Request Allocated
+	   Cpus                 :                 1         1
+	   Disk (KB)            :        7        7   1508240
+	   Memory (MB)          :    14649    14336     14336
+...
+001 (559.000.000) 03/31 01:23:52 Job executing on host: <10.33.133.113:9618?addrs=10.33.133.113-9618+[--1]-9618&noUDP&sock=1403_eb76_3>
+...
+009 (559.000.000) 03/31 01:54:47 Job was aborted by the user.
+	The system macro SYSTEM_PERIODIC_REMOVE expression '( JobStatus == 5 && CurrentTime - EnteredCurrentStatus > 3600 * 24 * 30 ) || ( ProportionalSetSizeKb > ( 1024 * My.RequestMemory ) ) || ( ( JobStatus == 2 ) && ( ( RemoteWallClockTime - CumulativeSuspensionTime ) > My.RequestWalltime ) )' evaluated to TRUE
+...

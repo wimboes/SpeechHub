@@ -2,11 +2,9 @@ import gensim
 import os
 import numpy as np
 
+input_path = '/esat/spchtemp/scratch/wboes/SpeechHub/input'
 
-input_path = os.path.join(os.path.split(os.path.split(os.path.abspath(os.getcwd()))[0])[0],'input')
-filename = 'ds.train.txt'
-
-model = gensim.models.Word2Vec.load(os.path.join(os.path.split(os.path.abspath(os.getcwd()))[0],'output/embedding_skip/embedding_skip.emb')
+model = gensim.models.Word2Vec.load(os.path.join(os.path.split(os.path.abspath(os.getcwd()))[0],'output/embedding_skip/embedding_skip.emb'))
 
 dict_path = os.path.join(input_path, "dictionary.ds")
 dictionary = gensim.corpora.Dictionary.load(dict_path)
@@ -20,8 +18,8 @@ id_to_word = {v: k for k, v in word_to_id.iteritems()}
 vocab_size = len(word_to_id)
 
 # +1 for padding symbol
-embedding = np.zeros([vocab_size+1,np.size(model.wv['<UNK>'])])
+embedding = np.zeros([vocab_size+1,np.size(model['<UNK>'])])
 for id in range(vocab_size):
-    embedding[id,:] = model.vw[id_to_word[id]]
+    embedding[id,:] = model[id_to_word[id].encode('utf-8')]
 
 np.save('embedding.npy',embedding)
