@@ -1,0 +1,906 @@
+02/02/17 15:14:38 ******************************************************
+02/02/17 15:14:38 ** condor_scheduniv_exec.158.0 (CONDOR_DAGMAN) STARTING UP
+02/02/17 15:14:38 ** /usr/bin/condor_dagman
+02/02/17 15:14:38 ** SubsystemInfo: name=DAGMAN type=DAGMAN(10) class=DAEMON(1)
+02/02/17 15:14:38 ** Configuration: subsystem:DAGMAN local:<NONE> class:DAEMON
+02/02/17 15:14:38 ** $CondorVersion: 8.4.11 Jan 23 2017 BuildID: 394757 $
+02/02/17 15:14:38 ** $CondorPlatform: x86_64_RedHat7 $
+02/02/17 15:14:38 ** PID = 20971
+02/02/17 15:14:38 ** Log last touched time unavailable (No such file or directory)
+02/02/17 15:14:38 ******************************************************
+02/02/17 15:14:38 Using config source: /etc/condor/condor_config
+02/02/17 15:14:38 Using local config sources: 
+02/02/17 15:14:38    /etc/condor/config.d/00esat.config
+02/02/17 15:14:38    /etc/condor/config.d/01java.config
+02/02/17 15:14:38    /etc/condor/config.d/80optout_users.config
+02/02/17 15:14:38    /etc/condor/condor_config.local
+02/02/17 15:14:38 config Macros = 147, Sorted = 147, StringBytes = 5231, TablesBytes = 5364
+02/02/17 15:14:38 CLASSAD_CACHING is ENABLED
+02/02/17 15:14:38 Daemon Log is logging: D_ALWAYS D_ERROR
+02/02/17 15:14:38 DaemonCore: No command port requested.
+02/02/17 15:14:38 DAGMAN_USE_STRICT setting: 1
+02/02/17 15:14:38 DAGMAN_VERBOSITY setting: 3
+02/02/17 15:14:38 DAGMAN_DEBUG_CACHE_SIZE setting: 5242880
+02/02/17 15:14:38 DAGMAN_DEBUG_CACHE_ENABLE setting: False
+02/02/17 15:14:38 DAGMAN_SUBMIT_DELAY setting: 0
+02/02/17 15:14:38 DAGMAN_MAX_SUBMIT_ATTEMPTS setting: 6
+02/02/17 15:14:38 DAGMAN_STARTUP_CYCLE_DETECT setting: False
+02/02/17 15:14:38 DAGMAN_MAX_SUBMITS_PER_INTERVAL setting: 5
+02/02/17 15:14:38 DAGMAN_USER_LOG_SCAN_INTERVAL setting: 5
+02/02/17 15:14:38 DAGMAN_DEFAULT_PRIORITY setting: 0
+02/02/17 15:14:38 DAGMAN_SUPPRESS_NOTIFICATION setting: True
+02/02/17 15:14:38 allow_events (DAGMAN_ALLOW_EVENTS) setting: 114
+02/02/17 15:14:38 DAGMAN_RETRY_SUBMIT_FIRST setting: True
+02/02/17 15:14:38 DAGMAN_RETRY_NODE_FIRST setting: False
+02/02/17 15:14:38 DAGMAN_MAX_JOBS_IDLE setting: 1000
+02/02/17 15:14:38 DAGMAN_MAX_JOBS_SUBMITTED setting: 0
+02/02/17 15:14:38 DAGMAN_MAX_PRE_SCRIPTS setting: 20
+02/02/17 15:14:38 DAGMAN_MAX_POST_SCRIPTS setting: 20
+02/02/17 15:14:38 DAGMAN_ALLOW_LOG_ERROR setting: False
+02/02/17 15:14:38 DAGMAN_MUNGE_NODE_NAMES setting: True
+02/02/17 15:14:38 DAGMAN_PROHIBIT_MULTI_JOBS setting: False
+02/02/17 15:14:38 DAGMAN_SUBMIT_DEPTH_FIRST setting: False
+02/02/17 15:14:38 DAGMAN_ALWAYS_RUN_POST setting: True
+02/02/17 15:14:38 DAGMAN_ABORT_DUPLICATES setting: True
+02/02/17 15:14:38 DAGMAN_ABORT_ON_SCARY_SUBMIT setting: True
+02/02/17 15:14:38 DAGMAN_PENDING_REPORT_INTERVAL setting: 600
+02/02/17 15:14:38 DAGMAN_AUTO_RESCUE setting: True
+02/02/17 15:14:38 DAGMAN_MAX_RESCUE_NUM setting: 100
+02/02/17 15:14:38 DAGMAN_WRITE_PARTIAL_RESCUE setting: True
+02/02/17 15:14:38 DAGMAN_DEFAULT_NODE_LOG setting: @(DAG_DIR)/@(DAG_FILE).nodes.log
+02/02/17 15:14:38 DAGMAN_GENERATE_SUBDAG_SUBMITS setting: True
+02/02/17 15:14:38 DAGMAN_MAX_JOB_HOLDS setting: 100
+02/02/17 15:14:38 DAGMAN_HOLD_CLAIM_TIME setting: 20
+02/02/17 15:14:38 ALL_DEBUG setting: 
+02/02/17 15:14:38 DAGMAN_DEBUG setting: 
+02/02/17 15:14:38 DAGMAN_SUPPRESS_JOB_LOGS setting: False
+02/02/17 15:14:38 argv[0] == "condor_scheduniv_exec.158.0"
+02/02/17 15:14:38 argv[1] == "-Lockfile"
+02/02/17 15:14:38 argv[2] == "ptb.dag.lock"
+02/02/17 15:14:38 argv[3] == "-AutoRescue"
+02/02/17 15:14:38 argv[4] == "1"
+02/02/17 15:14:38 argv[5] == "-DoRescueFrom"
+02/02/17 15:14:38 argv[6] == "0"
+02/02/17 15:14:38 argv[7] == "-Dag"
+02/02/17 15:14:38 argv[8] == "ptb.dag"
+02/02/17 15:14:38 argv[9] == "-Suppress_notification"
+02/02/17 15:14:38 argv[10] == "-CsdVersion"
+02/02/17 15:14:38 argv[11] == "$CondorVersion: 8.4.11 Jan 23 2017 BuildID: 394757 $"
+02/02/17 15:14:38 argv[12] == "-Dagman"
+02/02/17 15:14:38 argv[13] == "/usr/bin/condor_dagman"
+02/02/17 15:14:38 Warning: failed to get attribute DAGNodeName
+02/02/17 15:14:38 DAGMAN_LOG_ON_NFS_IS_ERROR setting: False
+02/02/17 15:14:38 Default node log file is: </esat/spchtemp/scratch/robbe/python/jobdag/./ptb.dag.nodes.log>
+02/02/17 15:14:38 DAG Lockfile will be written to ptb.dag.lock
+02/02/17 15:14:38 DAG Input file is ptb.dag
+02/02/17 15:14:38 Parsing 1 dagfiles
+02/02/17 15:14:38 Parsing ptb.dag ...
+02/02/17 15:14:38 Dag contains 10 total jobs
+02/02/17 15:14:38 Sleeping for 3 seconds to ensure ProcessId uniqueness
+02/02/17 15:14:41 Bootstrapping...
+02/02/17 15:14:41 Number of pre-completed nodes: 0
+02/02/17 15:14:41 MultiLogFiles: truncating log file /esat/spchtemp/scratch/robbe/python/jobdag/./ptb.dag.nodes.log
+02/02/17 15:14:41 DAG status: 0 (DAG_STATUS_OK)
+02/02/17 15:14:41 Of 10 nodes total:
+02/02/17 15:14:41  Done     Pre   Queued    Post   Ready   Un-Ready   Failed
+02/02/17 15:14:41   ===     ===      ===     ===     ===        ===      ===
+02/02/17 15:14:41     0       0        0       0       1          9        0
+02/02/17 15:14:41 0 job proc(s) currently held
+02/02/17 15:14:41 Registering condor_event_timer...
+02/02/17 15:14:42 Submitting Condor Node transform job(s)...
+02/02/17 15:14:42 Adding a DAGMan workflow log /esat/spchtemp/scratch/robbe/python/jobdag/./ptb.dag.nodes.log
+02/02/17 15:14:42 Masking the events recorded in the DAGMAN workflow log
+02/02/17 15:14:42 Mask for workflow log is 0,1,2,4,5,7,9,10,11,12,13,16,17,24,27
+02/02/17 15:14:42 submitting: /usr/bin/condor_submit -a dag_node_name' '=' 'transform -a +DAGManJobId' '=' '158 -a DAGManJobId' '=' '158 -a submit_event_notes' '=' 'DAG' 'Node:' 'transform -a dagman_log' '=' '/esat/spchtemp/scratch/robbe/python/jobdag/./ptb.dag.nodes.log -a +DAGManNodesMask' '=' '"0,1,2,4,5,7,9,10,11,12,13,16,17,24,27" -a data_set' '=' 'ptb -a DAG_STATUS' '=' '0 -a FAILED_COUNT' '=' '0 -a +DAGParentNodeNames' '=' '"" -a +KeepClaimIdle' '=' '20 -a notification' '=' 'never jobdag/transform.job
+02/02/17 15:14:42 From submit: Submitting job(s).
+02/02/17 15:14:42 From submit: 1 job(s) submitted to cluster 159.
+02/02/17 15:14:42 	assigned Condor ID (159.0.0)
+02/02/17 15:14:42 Just submitted 1 job this cycle...
+02/02/17 15:14:42 Currently monitoring 1 Condor log file(s)
+02/02/17 15:14:42 Reassigning the id of job transform from (159.0.0) to (159.0.0)
+02/02/17 15:14:42 Event: ULOG_SUBMIT for Condor Node transform (159.0.0)
+02/02/17 15:14:42 Number of idle job procs: 1
+02/02/17 15:14:42 DAG status: 0 (DAG_STATUS_OK)
+02/02/17 15:14:42 Of 10 nodes total:
+02/02/17 15:14:42  Done     Pre   Queued    Post   Ready   Un-Ready   Failed
+02/02/17 15:14:42   ===     ===      ===     ===     ===        ===      ===
+02/02/17 15:14:42     0       0        1       0       0          9        0
+02/02/17 15:14:42 0 job proc(s) currently held
+02/02/17 15:15:07 Currently monitoring 1 Condor log file(s)
+02/02/17 15:15:07 Event: ULOG_EXECUTE for Condor Node transform (159.0.0)
+02/02/17 15:15:07 Number of idle job procs: 0
+02/02/17 15:15:37 Currently monitoring 1 Condor log file(s)
+02/02/17 15:15:37 Event: ULOG_JOB_TERMINATED for Condor Node transform (159.0.0)
+02/02/17 15:15:37 Number of idle job procs: 0
+02/02/17 15:15:37 Node transform job proc (159.0.0) completed successfully.
+02/02/17 15:15:37 Node transform job completed
+02/02/17 15:15:37 DAG status: 0 (DAG_STATUS_OK)
+02/02/17 15:15:37 Of 10 nodes total:
+02/02/17 15:15:37  Done     Pre   Queued    Post   Ready   Un-Ready   Failed
+02/02/17 15:15:37   ===     ===      ===     ===     ===        ===      ===
+02/02/17 15:15:37     1       0        0       0       6          3        0
+02/02/17 15:15:37 0 job proc(s) currently held
+02/02/17 15:15:42 Submitting Condor Node original job(s)...
+02/02/17 15:15:42 Adding a DAGMan workflow log /esat/spchtemp/scratch/robbe/python/jobdag/./ptb.dag.nodes.log
+02/02/17 15:15:42 Masking the events recorded in the DAGMAN workflow log
+02/02/17 15:15:42 Mask for workflow log is 0,1,2,4,5,7,9,10,11,12,13,16,17,24,27
+02/02/17 15:15:42 submitting: /usr/bin/condor_submit -a dag_node_name' '=' 'original -a +DAGManJobId' '=' '158 -a DAGManJobId' '=' '158 -a submit_event_notes' '=' 'DAG' 'Node:' 'original -a dagman_log' '=' '/esat/spchtemp/scratch/robbe/python/jobdag/./ptb.dag.nodes.log -a +DAGManNodesMask' '=' '"0,1,2,4,5,7,9,10,11,12,13,16,17,24,27" -a data_set' '=' 'ptb -a test_name' '=' 'original -a num_run' '=' '0 -a DAG_STATUS' '=' '0 -a FAILED_COUNT' '=' '0 -a +DAGParentNodeNames' '=' '"transform" -a notification' '=' 'never jobdag/original.job
+02/02/17 15:15:42 From submit: Submitting job(s).
+02/02/17 15:15:42 From submit: 1 job(s) submitted to cluster 160.
+02/02/17 15:15:42 	assigned Condor ID (160.0.0)
+02/02/17 15:15:42 Submitting Condor Node cbow_mean_soft job(s)...
+02/02/17 15:15:42 Adding a DAGMan workflow log /esat/spchtemp/scratch/robbe/python/jobdag/./ptb.dag.nodes.log
+02/02/17 15:15:42 Masking the events recorded in the DAGMAN workflow log
+02/02/17 15:15:42 Mask for workflow log is 0,1,2,4,5,7,9,10,11,12,13,16,17,24,27
+02/02/17 15:15:42 submitting: /usr/bin/condor_submit -a dag_node_name' '=' 'cbow_mean_soft -a +DAGManJobId' '=' '158 -a DAGManJobId' '=' '158 -a submit_event_notes' '=' 'DAG' 'Node:' 'cbow_mean_soft -a dagman_log' '=' '/esat/spchtemp/scratch/robbe/python/jobdag/./ptb.dag.nodes.log -a +DAGManNodesMask' '=' '"0,1,2,4,5,7,9,10,11,12,13,16,17,24,27" -a data_set' '=' 'ptb -a test_name' '=' 'cbow_mean_soft -a num_run' '=' '0 -a combination' '=' 'mean -a position' '=' 'soft -a DAG_STATUS' '=' '0 -a FAILED_COUNT' '=' '0 -a +DAGParentNodeNames' '=' '"transform" -a notification' '=' 'never jobdag/cbow.job
+02/02/17 15:15:42 From submit: Submitting job(s).
+02/02/17 15:15:42 From submit: 1 job(s) submitted to cluster 161.
+02/02/17 15:15:42 	assigned Condor ID (161.0.0)
+02/02/17 15:15:42 Submitting Condor Node cbow_exp_soft job(s)...
+02/02/17 15:15:42 Adding a DAGMan workflow log /esat/spchtemp/scratch/robbe/python/jobdag/./ptb.dag.nodes.log
+02/02/17 15:15:42 Masking the events recorded in the DAGMAN workflow log
+02/02/17 15:15:42 Mask for workflow log is 0,1,2,4,5,7,9,10,11,12,13,16,17,24,27
+02/02/17 15:15:42 submitting: /usr/bin/condor_submit -a dag_node_name' '=' 'cbow_exp_soft -a +DAGManJobId' '=' '158 -a DAGManJobId' '=' '158 -a submit_event_notes' '=' 'DAG' 'Node:' 'cbow_exp_soft -a dagman_log' '=' '/esat/spchtemp/scratch/robbe/python/jobdag/./ptb.dag.nodes.log -a +DAGManNodesMask' '=' '"0,1,2,4,5,7,9,10,11,12,13,16,17,24,27" -a data_set' '=' 'ptb -a test_name' '=' 'cbow_exp_soft -a num_run' '=' '0 -a combination' '=' 'exp -a position' '=' 'soft -a DAG_STATUS' '=' '0 -a FAILED_COUNT' '=' '0 -a +DAGParentNodeNames' '=' '"transform" -a notification' '=' 'never jobdag/cbow.job
+02/02/17 15:15:42 From submit: Submitting job(s).
+02/02/17 15:15:42 From submit: 1 job(s) submitted to cluster 162.
+02/02/17 15:15:42 	assigned Condor ID (162.0.0)
+02/02/17 15:15:42 Submitting Condor Node cbow_mean_lstm job(s)...
+02/02/17 15:15:42 Adding a DAGMan workflow log /esat/spchtemp/scratch/robbe/python/jobdag/./ptb.dag.nodes.log
+02/02/17 15:15:42 Masking the events recorded in the DAGMAN workflow log
+02/02/17 15:15:42 Mask for workflow log is 0,1,2,4,5,7,9,10,11,12,13,16,17,24,27
+02/02/17 15:15:42 submitting: /usr/bin/condor_submit -a dag_node_name' '=' 'cbow_mean_lstm -a +DAGManJobId' '=' '158 -a DAGManJobId' '=' '158 -a submit_event_notes' '=' 'DAG' 'Node:' 'cbow_mean_lstm -a dagman_log' '=' '/esat/spchtemp/scratch/robbe/python/jobdag/./ptb.dag.nodes.log -a +DAGManNodesMask' '=' '"0,1,2,4,5,7,9,10,11,12,13,16,17,24,27" -a data_set' '=' 'ptb -a test_name' '=' 'cbow_mean_lstm -a num_run' '=' '0 -a combination' '=' 'mean -a position' '=' 'lstm -a DAG_STATUS' '=' '0 -a FAILED_COUNT' '=' '0 -a +DAGParentNodeNames' '=' '"transform" -a notification' '=' 'never jobdag/cbow.job
+02/02/17 15:15:43 From submit: Submitting job(s).
+02/02/17 15:15:43 From submit: 1 job(s) submitted to cluster 163.
+02/02/17 15:15:43 	assigned Condor ID (163.0.0)
+02/02/17 15:15:43 Submitting Condor Node cbow_exp_lstm job(s)...
+02/02/17 15:15:43 Adding a DAGMan workflow log /esat/spchtemp/scratch/robbe/python/jobdag/./ptb.dag.nodes.log
+02/02/17 15:15:43 Masking the events recorded in the DAGMAN workflow log
+02/02/17 15:15:43 Mask for workflow log is 0,1,2,4,5,7,9,10,11,12,13,16,17,24,27
+02/02/17 15:15:43 submitting: /usr/bin/condor_submit -a dag_node_name' '=' 'cbow_exp_lstm -a +DAGManJobId' '=' '158 -a DAGManJobId' '=' '158 -a submit_event_notes' '=' 'DAG' 'Node:' 'cbow_exp_lstm -a dagman_log' '=' '/esat/spchtemp/scratch/robbe/python/jobdag/./ptb.dag.nodes.log -a +DAGManNodesMask' '=' '"0,1,2,4,5,7,9,10,11,12,13,16,17,24,27" -a data_set' '=' 'ptb -a test_name' '=' 'cbow_exp_lstm -a num_run' '=' '0 -a combination' '=' 'exp -a position' '=' 'lstm -a DAG_STATUS' '=' '0 -a FAILED_COUNT' '=' '0 -a +DAGParentNodeNames' '=' '"transform" -a notification' '=' 'never jobdag/cbow.job
+02/02/17 15:15:43 From submit: Submitting job(s).
+02/02/17 15:15:43 From submit: 1 job(s) submitted to cluster 164.
+02/02/17 15:15:43 	assigned Condor ID (164.0.0)
+02/02/17 15:15:43 Just submitted 5 jobs this cycle...
+02/02/17 15:15:43 Currently monitoring 1 Condor log file(s)
+02/02/17 15:15:43 Reassigning the id of job original from (160.0.0) to (160.0.0)
+02/02/17 15:15:43 Event: ULOG_SUBMIT for Condor Node original (160.0.0)
+02/02/17 15:15:43 Number of idle job procs: 1
+02/02/17 15:15:43 Reassigning the id of job cbow_mean_soft from (161.0.0) to (161.0.0)
+02/02/17 15:15:43 Event: ULOG_SUBMIT for Condor Node cbow_mean_soft (161.0.0)
+02/02/17 15:15:43 Number of idle job procs: 2
+02/02/17 15:15:43 Reassigning the id of job cbow_exp_soft from (162.0.0) to (162.0.0)
+02/02/17 15:15:43 Event: ULOG_SUBMIT for Condor Node cbow_exp_soft (162.0.0)
+02/02/17 15:15:43 Number of idle job procs: 3
+02/02/17 15:15:43 Reassigning the id of job cbow_mean_lstm from (163.0.0) to (163.0.0)
+02/02/17 15:15:43 Event: ULOG_SUBMIT for Condor Node cbow_mean_lstm (163.0.0)
+02/02/17 15:15:43 Number of idle job procs: 4
+02/02/17 15:15:43 Reassigning the id of job cbow_exp_lstm from (164.0.0) to (164.0.0)
+02/02/17 15:15:43 Event: ULOG_SUBMIT for Condor Node cbow_exp_lstm (164.0.0)
+02/02/17 15:15:43 Number of idle job procs: 5
+02/02/17 15:15:43 DAG status: 0 (DAG_STATUS_OK)
+02/02/17 15:15:43 Of 10 nodes total:
+02/02/17 15:15:43  Done     Pre   Queued    Post   Ready   Un-Ready   Failed
+02/02/17 15:15:43   ===     ===      ===     ===     ===        ===      ===
+02/02/17 15:15:43     1       0        5       0       1          3        0
+02/02/17 15:15:43 0 job proc(s) currently held
+02/02/17 15:15:48 Submitting Condor Node topic_generation job(s)...
+02/02/17 15:15:48 Adding a DAGMan workflow log /esat/spchtemp/scratch/robbe/python/jobdag/./ptb.dag.nodes.log
+02/02/17 15:15:48 Masking the events recorded in the DAGMAN workflow log
+02/02/17 15:15:48 Mask for workflow log is 0,1,2,4,5,7,9,10,11,12,13,16,17,24,27
+02/02/17 15:15:48 submitting: /usr/bin/condor_submit -a dag_node_name' '=' 'topic_generation -a +DAGManJobId' '=' '158 -a DAGManJobId' '=' '158 -a submit_event_notes' '=' 'DAG' 'Node:' 'topic_generation -a dagman_log' '=' '/esat/spchtemp/scratch/robbe/python/jobdag/./ptb.dag.nodes.log -a +DAGManNodesMask' '=' '"0,1,2,4,5,7,9,10,11,12,13,16,17,24,27" -a data_set' '=' 'ptb -a DAG_STATUS' '=' '0 -a FAILED_COUNT' '=' '0 -a +DAGParentNodeNames' '=' '"transform" -a +KeepClaimIdle' '=' '20 -a notification' '=' 'never jobdag/topic_generation.job
+02/02/17 15:15:48 From submit: Submitting job(s).
+02/02/17 15:15:48 From submit: 1 job(s) submitted to cluster 165.
+02/02/17 15:15:48 	assigned Condor ID (165.0.0)
+02/02/17 15:15:48 Just submitted 1 job this cycle...
+02/02/17 15:15:48 Currently monitoring 1 Condor log file(s)
+02/02/17 15:15:48 Event: ULOG_EXECUTE for Condor Node original (160.0.0)
+02/02/17 15:15:48 Number of idle job procs: 4
+02/02/17 15:15:48 Reassigning the id of job topic_generation from (165.0.0) to (165.0.0)
+02/02/17 15:15:48 Event: ULOG_SUBMIT for Condor Node topic_generation (165.0.0)
+02/02/17 15:15:48 Number of idle job procs: 5
+02/02/17 15:15:48 DAG status: 0 (DAG_STATUS_OK)
+02/02/17 15:15:48 Of 10 nodes total:
+02/02/17 15:15:48  Done     Pre   Queued    Post   Ready   Un-Ready   Failed
+02/02/17 15:15:48   ===     ===      ===     ===     ===        ===      ===
+02/02/17 15:15:48     1       0        6       0       0          3        0
+02/02/17 15:15:48 0 job proc(s) currently held
+02/02/17 15:24:45 Currently monitoring 1 Condor log file(s)
+02/02/17 15:24:45 Event: ULOG_JOB_TERMINATED for Condor Node original (160.0.0)
+02/02/17 15:24:45 Number of idle job procs: 5
+02/02/17 15:24:45 Node original job proc (160.0.0) completed successfully.
+02/02/17 15:24:45 Node original job completed
+02/02/17 15:24:45 Event: ULOG_EXECUTE for Condor Node cbow_mean_soft (161.0.0)
+02/02/17 15:24:45 Number of idle job procs: 4
+02/02/17 15:24:45 DAG status: 0 (DAG_STATUS_OK)
+02/02/17 15:24:45 Of 10 nodes total:
+02/02/17 15:24:45  Done     Pre   Queued    Post   Ready   Un-Ready   Failed
+02/02/17 15:24:45   ===     ===      ===     ===     ===        ===      ===
+02/02/17 15:24:45     2       0        5       0       0          3        0
+02/02/17 15:24:45 0 job proc(s) currently held
+02/02/17 15:34:47 602 seconds since last log event
+02/02/17 15:34:47 Pending DAG nodes:
+02/02/17 15:34:47   Node cbow_mean_soft, Condor ID 161, status STATUS_SUBMITTED
+02/02/17 15:34:47   Node cbow_exp_soft, Condor ID 162, status STATUS_SUBMITTED
+02/02/17 15:34:47   Node cbow_mean_lstm, Condor ID 163, status STATUS_SUBMITTED
+02/02/17 15:34:47   Node cbow_exp_lstm, Condor ID 164, status STATUS_SUBMITTED
+02/02/17 15:34:47   Node topic_generation, Condor ID 165, status STATUS_SUBMITTED
+02/02/17 15:44:50 1205 seconds since last log event
+02/02/17 15:44:50 Pending DAG nodes:
+02/02/17 15:44:50   Node cbow_mean_soft, Condor ID 161, status STATUS_SUBMITTED
+02/02/17 15:44:50   Node cbow_exp_soft, Condor ID 162, status STATUS_SUBMITTED
+02/02/17 15:44:50   Node cbow_mean_lstm, Condor ID 163, status STATUS_SUBMITTED
+02/02/17 15:44:50   Node cbow_exp_lstm, Condor ID 164, status STATUS_SUBMITTED
+02/02/17 15:44:50   Node topic_generation, Condor ID 165, status STATUS_SUBMITTED
+02/02/17 15:54:52 1807 seconds since last log event
+02/02/17 15:54:52 Pending DAG nodes:
+02/02/17 15:54:52   Node cbow_mean_soft, Condor ID 161, status STATUS_SUBMITTED
+02/02/17 15:54:52   Node cbow_exp_soft, Condor ID 162, status STATUS_SUBMITTED
+02/02/17 15:54:52   Node cbow_mean_lstm, Condor ID 163, status STATUS_SUBMITTED
+02/02/17 15:54:52   Node cbow_exp_lstm, Condor ID 164, status STATUS_SUBMITTED
+02/02/17 15:54:52   Node topic_generation, Condor ID 165, status STATUS_SUBMITTED
+02/02/17 16:04:55 2410 seconds since last log event
+02/02/17 16:04:55 Pending DAG nodes:
+02/02/17 16:04:55   Node cbow_mean_soft, Condor ID 161, status STATUS_SUBMITTED
+02/02/17 16:04:55   Node cbow_exp_soft, Condor ID 162, status STATUS_SUBMITTED
+02/02/17 16:04:55   Node cbow_mean_lstm, Condor ID 163, status STATUS_SUBMITTED
+02/02/17 16:04:55   Node cbow_exp_lstm, Condor ID 164, status STATUS_SUBMITTED
+02/02/17 16:04:55   Node topic_generation, Condor ID 165, status STATUS_SUBMITTED
+02/02/17 16:14:58 3013 seconds since last log event
+02/02/17 16:14:58 Pending DAG nodes:
+02/02/17 16:14:58   Node cbow_mean_soft, Condor ID 161, status STATUS_SUBMITTED
+02/02/17 16:14:58   Node cbow_exp_soft, Condor ID 162, status STATUS_SUBMITTED
+02/02/17 16:14:58   Node cbow_mean_lstm, Condor ID 163, status STATUS_SUBMITTED
+02/02/17 16:14:58   Node cbow_exp_lstm, Condor ID 164, status STATUS_SUBMITTED
+02/02/17 16:14:58   Node topic_generation, Condor ID 165, status STATUS_SUBMITTED
+02/02/17 16:25:01 3616 seconds since last log event
+02/02/17 16:25:01 Pending DAG nodes:
+02/02/17 16:25:01   Node cbow_mean_soft, Condor ID 161, status STATUS_SUBMITTED
+02/02/17 16:25:01   Node cbow_exp_soft, Condor ID 162, status STATUS_SUBMITTED
+02/02/17 16:25:01   Node cbow_mean_lstm, Condor ID 163, status STATUS_SUBMITTED
+02/02/17 16:25:01   Node cbow_exp_lstm, Condor ID 164, status STATUS_SUBMITTED
+02/02/17 16:25:01   Node topic_generation, Condor ID 165, status STATUS_SUBMITTED
+02/02/17 16:35:03 4218 seconds since last log event
+02/02/17 16:35:03 Pending DAG nodes:
+02/02/17 16:35:03   Node cbow_mean_soft, Condor ID 161, status STATUS_SUBMITTED
+02/02/17 16:35:03   Node cbow_exp_soft, Condor ID 162, status STATUS_SUBMITTED
+02/02/17 16:35:03   Node cbow_mean_lstm, Condor ID 163, status STATUS_SUBMITTED
+02/02/17 16:35:03   Node cbow_exp_lstm, Condor ID 164, status STATUS_SUBMITTED
+02/02/17 16:35:03   Node topic_generation, Condor ID 165, status STATUS_SUBMITTED
+02/02/17 16:43:10 Currently monitoring 1 Condor log file(s)
+02/02/17 16:43:10 Event: ULOG_JOB_TERMINATED for Condor Node cbow_mean_soft (161.0.0)
+02/02/17 16:43:10 Number of idle job procs: 4
+02/02/17 16:43:10 Node cbow_mean_soft job proc (161.0.0) completed successfully.
+02/02/17 16:43:10 Node cbow_mean_soft job completed
+02/02/17 16:43:10 DAG status: 0 (DAG_STATUS_OK)
+02/02/17 16:43:10 Of 10 nodes total:
+02/02/17 16:43:10  Done     Pre   Queued    Post   Ready   Un-Ready   Failed
+02/02/17 16:43:10   ===     ===      ===     ===     ===        ===      ===
+02/02/17 16:43:10     3       0        4       0       0          3        0
+02/02/17 16:43:10 0 job proc(s) currently held
+02/02/17 16:53:13 603 seconds since last log event
+02/02/17 16:53:13 Pending DAG nodes:
+02/02/17 16:53:13   Node cbow_exp_soft, Condor ID 162, status STATUS_SUBMITTED
+02/02/17 16:53:13   Node cbow_mean_lstm, Condor ID 163, status STATUS_SUBMITTED
+02/02/17 16:53:13   Node cbow_exp_lstm, Condor ID 164, status STATUS_SUBMITTED
+02/02/17 16:53:13   Node topic_generation, Condor ID 165, status STATUS_SUBMITTED
+02/02/17 17:03:16 1206 seconds since last log event
+02/02/17 17:03:16 Pending DAG nodes:
+02/02/17 17:03:16   Node cbow_exp_soft, Condor ID 162, status STATUS_SUBMITTED
+02/02/17 17:03:16   Node cbow_mean_lstm, Condor ID 163, status STATUS_SUBMITTED
+02/02/17 17:03:16   Node cbow_exp_lstm, Condor ID 164, status STATUS_SUBMITTED
+02/02/17 17:03:16   Node topic_generation, Condor ID 165, status STATUS_SUBMITTED
+02/02/17 17:13:17 1807 seconds since last log event
+02/02/17 17:13:17 Pending DAG nodes:
+02/02/17 17:13:17   Node cbow_exp_soft, Condor ID 162, status STATUS_SUBMITTED
+02/02/17 17:13:17   Node cbow_mean_lstm, Condor ID 163, status STATUS_SUBMITTED
+02/02/17 17:13:17   Node cbow_exp_lstm, Condor ID 164, status STATUS_SUBMITTED
+02/02/17 17:13:17   Node topic_generation, Condor ID 165, status STATUS_SUBMITTED
+02/02/17 17:23:19 2409 seconds since last log event
+02/02/17 17:23:19 Pending DAG nodes:
+02/02/17 17:23:19   Node cbow_exp_soft, Condor ID 162, status STATUS_SUBMITTED
+02/02/17 17:23:19   Node cbow_mean_lstm, Condor ID 163, status STATUS_SUBMITTED
+02/02/17 17:23:19   Node cbow_exp_lstm, Condor ID 164, status STATUS_SUBMITTED
+02/02/17 17:23:19   Node topic_generation, Condor ID 165, status STATUS_SUBMITTED
+02/02/17 17:33:21 3011 seconds since last log event
+02/02/17 17:33:21 Pending DAG nodes:
+02/02/17 17:33:21   Node cbow_exp_soft, Condor ID 162, status STATUS_SUBMITTED
+02/02/17 17:33:21   Node cbow_mean_lstm, Condor ID 163, status STATUS_SUBMITTED
+02/02/17 17:33:21   Node cbow_exp_lstm, Condor ID 164, status STATUS_SUBMITTED
+02/02/17 17:33:21   Node topic_generation, Condor ID 165, status STATUS_SUBMITTED
+02/02/17 17:43:23 3613 seconds since last log event
+02/02/17 17:43:23 Pending DAG nodes:
+02/02/17 17:43:23   Node cbow_exp_soft, Condor ID 162, status STATUS_SUBMITTED
+02/02/17 17:43:23   Node cbow_mean_lstm, Condor ID 163, status STATUS_SUBMITTED
+02/02/17 17:43:23   Node cbow_exp_lstm, Condor ID 164, status STATUS_SUBMITTED
+02/02/17 17:43:23   Node topic_generation, Condor ID 165, status STATUS_SUBMITTED
+02/02/17 17:53:26 4216 seconds since last log event
+02/02/17 17:53:26 Pending DAG nodes:
+02/02/17 17:53:26   Node cbow_exp_soft, Condor ID 162, status STATUS_SUBMITTED
+02/02/17 17:53:26   Node cbow_mean_lstm, Condor ID 163, status STATUS_SUBMITTED
+02/02/17 17:53:26   Node cbow_exp_lstm, Condor ID 164, status STATUS_SUBMITTED
+02/02/17 17:53:26   Node topic_generation, Condor ID 165, status STATUS_SUBMITTED
+02/02/17 18:03:28 4818 seconds since last log event
+02/02/17 18:03:28 Pending DAG nodes:
+02/02/17 18:03:28   Node cbow_exp_soft, Condor ID 162, status STATUS_SUBMITTED
+02/02/17 18:03:28   Node cbow_mean_lstm, Condor ID 163, status STATUS_SUBMITTED
+02/02/17 18:03:28   Node cbow_exp_lstm, Condor ID 164, status STATUS_SUBMITTED
+02/02/17 18:03:28   Node topic_generation, Condor ID 165, status STATUS_SUBMITTED
+02/02/17 18:13:31 5421 seconds since last log event
+02/02/17 18:13:31 Pending DAG nodes:
+02/02/17 18:13:31   Node cbow_exp_soft, Condor ID 162, status STATUS_SUBMITTED
+02/02/17 18:13:31   Node cbow_mean_lstm, Condor ID 163, status STATUS_SUBMITTED
+02/02/17 18:13:31   Node cbow_exp_lstm, Condor ID 164, status STATUS_SUBMITTED
+02/02/17 18:13:31   Node topic_generation, Condor ID 165, status STATUS_SUBMITTED
+02/02/17 18:23:33 6023 seconds since last log event
+02/02/17 18:23:33 Pending DAG nodes:
+02/02/17 18:23:33   Node cbow_exp_soft, Condor ID 162, status STATUS_SUBMITTED
+02/02/17 18:23:33   Node cbow_mean_lstm, Condor ID 163, status STATUS_SUBMITTED
+02/02/17 18:23:33   Node cbow_exp_lstm, Condor ID 164, status STATUS_SUBMITTED
+02/02/17 18:23:33   Node topic_generation, Condor ID 165, status STATUS_SUBMITTED
+02/02/17 18:33:35 6625 seconds since last log event
+02/02/17 18:33:35 Pending DAG nodes:
+02/02/17 18:33:35   Node cbow_exp_soft, Condor ID 162, status STATUS_SUBMITTED
+02/02/17 18:33:35   Node cbow_mean_lstm, Condor ID 163, status STATUS_SUBMITTED
+02/02/17 18:33:35   Node cbow_exp_lstm, Condor ID 164, status STATUS_SUBMITTED
+02/02/17 18:33:35   Node topic_generation, Condor ID 165, status STATUS_SUBMITTED
+02/02/17 18:35:10 Currently monitoring 1 Condor log file(s)
+02/02/17 18:35:10 Event: ULOG_EXECUTE for Condor Node cbow_exp_soft (162.0.0)
+02/02/17 18:35:10 Number of idle job procs: 3
+02/02/17 18:37:11 Currently monitoring 1 Condor log file(s)
+02/02/17 18:37:11 Event: ULOG_EXECUTE for Condor Node cbow_mean_lstm (163.0.0)
+02/02/17 18:37:11 Number of idle job procs: 2
+02/02/17 18:47:14 603 seconds since last log event
+02/02/17 18:47:14 Pending DAG nodes:
+02/02/17 18:47:14   Node cbow_exp_soft, Condor ID 162, status STATUS_SUBMITTED
+02/02/17 18:47:14   Node cbow_mean_lstm, Condor ID 163, status STATUS_SUBMITTED
+02/02/17 18:47:14   Node cbow_exp_lstm, Condor ID 164, status STATUS_SUBMITTED
+02/02/17 18:47:14   Node topic_generation, Condor ID 165, status STATUS_SUBMITTED
+02/02/17 18:57:16 1205 seconds since last log event
+02/02/17 18:57:16 Pending DAG nodes:
+02/02/17 18:57:16   Node cbow_exp_soft, Condor ID 162, status STATUS_SUBMITTED
+02/02/17 18:57:16   Node cbow_mean_lstm, Condor ID 163, status STATUS_SUBMITTED
+02/02/17 18:57:16   Node cbow_exp_lstm, Condor ID 164, status STATUS_SUBMITTED
+02/02/17 18:57:16   Node topic_generation, Condor ID 165, status STATUS_SUBMITTED
+02/02/17 19:07:19 1808 seconds since last log event
+02/02/17 19:07:19 Pending DAG nodes:
+02/02/17 19:07:19   Node cbow_exp_soft, Condor ID 162, status STATUS_SUBMITTED
+02/02/17 19:07:19   Node cbow_mean_lstm, Condor ID 163, status STATUS_SUBMITTED
+02/02/17 19:07:19   Node cbow_exp_lstm, Condor ID 164, status STATUS_SUBMITTED
+02/02/17 19:07:19   Node topic_generation, Condor ID 165, status STATUS_SUBMITTED
+02/02/17 19:17:21 2410 seconds since last log event
+02/02/17 19:17:21 Pending DAG nodes:
+02/02/17 19:17:21   Node cbow_exp_soft, Condor ID 162, status STATUS_SUBMITTED
+02/02/17 19:17:21   Node cbow_mean_lstm, Condor ID 163, status STATUS_SUBMITTED
+02/02/17 19:17:21   Node cbow_exp_lstm, Condor ID 164, status STATUS_SUBMITTED
+02/02/17 19:17:21   Node topic_generation, Condor ID 165, status STATUS_SUBMITTED
+02/02/17 19:19:07 Currently monitoring 1 Condor log file(s)
+02/02/17 19:19:07 Event: ULOG_JOB_TERMINATED for Condor Node cbow_mean_lstm (163.0.0)
+02/02/17 19:19:07 Number of idle job procs: 2
+02/02/17 19:19:07 Node cbow_mean_lstm job proc (163.0.0) completed successfully.
+02/02/17 19:19:07 Node cbow_mean_lstm job completed
+02/02/17 19:19:07 DAG status: 0 (DAG_STATUS_OK)
+02/02/17 19:19:07 Of 10 nodes total:
+02/02/17 19:19:07  Done     Pre   Queued    Post   Ready   Un-Ready   Failed
+02/02/17 19:19:07   ===     ===      ===     ===     ===        ===      ===
+02/02/17 19:19:07     4       0        3       0       0          3        0
+02/02/17 19:19:07 0 job proc(s) currently held
+02/02/17 19:29:09 602 seconds since last log event
+02/02/17 19:29:09 Pending DAG nodes:
+02/02/17 19:29:09   Node cbow_exp_soft, Condor ID 162, status STATUS_SUBMITTED
+02/02/17 19:29:09   Node cbow_exp_lstm, Condor ID 164, status STATUS_SUBMITTED
+02/02/17 19:29:09   Node topic_generation, Condor ID 165, status STATUS_SUBMITTED
+02/02/17 19:39:12 1205 seconds since last log event
+02/02/17 19:39:12 Pending DAG nodes:
+02/02/17 19:39:12   Node cbow_exp_soft, Condor ID 162, status STATUS_SUBMITTED
+02/02/17 19:39:12   Node cbow_exp_lstm, Condor ID 164, status STATUS_SUBMITTED
+02/02/17 19:39:12   Node topic_generation, Condor ID 165, status STATUS_SUBMITTED
+02/02/17 19:41:12 Currently monitoring 1 Condor log file(s)
+02/02/17 19:41:12 Event: ULOG_EXECUTE for Condor Node cbow_exp_lstm (164.0.0)
+02/02/17 19:41:12 Number of idle job procs: 1
+02/02/17 19:51:15 603 seconds since last log event
+02/02/17 19:51:15 Pending DAG nodes:
+02/02/17 19:51:15   Node cbow_exp_soft, Condor ID 162, status STATUS_SUBMITTED
+02/02/17 19:51:15   Node cbow_exp_lstm, Condor ID 164, status STATUS_SUBMITTED
+02/02/17 19:51:15   Node topic_generation, Condor ID 165, status STATUS_SUBMITTED
+02/02/17 20:01:17 1205 seconds since last log event
+02/02/17 20:01:17 Pending DAG nodes:
+02/02/17 20:01:17   Node cbow_exp_soft, Condor ID 162, status STATUS_SUBMITTED
+02/02/17 20:01:17   Node cbow_exp_lstm, Condor ID 164, status STATUS_SUBMITTED
+02/02/17 20:01:17   Node topic_generation, Condor ID 165, status STATUS_SUBMITTED
+02/02/17 20:11:19 1807 seconds since last log event
+02/02/17 20:11:19 Pending DAG nodes:
+02/02/17 20:11:19   Node cbow_exp_soft, Condor ID 162, status STATUS_SUBMITTED
+02/02/17 20:11:19   Node cbow_exp_lstm, Condor ID 164, status STATUS_SUBMITTED
+02/02/17 20:11:19   Node topic_generation, Condor ID 165, status STATUS_SUBMITTED
+02/02/17 20:21:22 2410 seconds since last log event
+02/02/17 20:21:22 Pending DAG nodes:
+02/02/17 20:21:22   Node cbow_exp_soft, Condor ID 162, status STATUS_SUBMITTED
+02/02/17 20:21:22   Node cbow_exp_lstm, Condor ID 164, status STATUS_SUBMITTED
+02/02/17 20:21:22   Node topic_generation, Condor ID 165, status STATUS_SUBMITTED
+02/02/17 20:27:53 Currently monitoring 1 Condor log file(s)
+02/02/17 20:27:53 Event: ULOG_JOB_TERMINATED for Condor Node cbow_exp_soft (162.0.0)
+02/02/17 20:27:53 Number of idle job procs: 1
+02/02/17 20:27:53 Node cbow_exp_soft job proc (162.0.0) completed successfully.
+02/02/17 20:27:53 Node cbow_exp_soft job completed
+02/02/17 20:27:53 DAG status: 0 (DAG_STATUS_OK)
+02/02/17 20:27:53 Of 10 nodes total:
+02/02/17 20:27:53  Done     Pre   Queued    Post   Ready   Un-Ready   Failed
+02/02/17 20:27:53   ===     ===      ===     ===     ===        ===      ===
+02/02/17 20:27:53     5       0        2       0       0          3        0
+02/02/17 20:27:53 0 job proc(s) currently held
+02/02/17 20:28:18 Currently monitoring 1 Condor log file(s)
+02/02/17 20:28:18 Event: ULOG_EXECUTE for Condor Node topic_generation (165.0.0)
+02/02/17 20:28:18 Number of idle job procs: 0
+02/02/17 20:29:04 Currently monitoring 1 Condor log file(s)
+02/02/17 20:29:04 Event: ULOG_JOB_TERMINATED for Condor Node topic_generation (165.0.0)
+02/02/17 20:29:04 Number of idle job procs: 0
+02/02/17 20:29:04 Node topic_generation job proc (165.0.0) completed successfully.
+02/02/17 20:29:04 Node topic_generation job completed
+02/02/17 20:29:04 DAG status: 0 (DAG_STATUS_OK)
+02/02/17 20:29:04 Of 10 nodes total:
+02/02/17 20:29:04  Done     Pre   Queued    Post   Ready   Un-Ready   Failed
+02/02/17 20:29:04   ===     ===      ===     ===     ===        ===      ===
+02/02/17 20:29:04     6       0        1       0       1          2        0
+02/02/17 20:29:04 0 job proc(s) currently held
+02/02/17 20:29:09 Submitting Condor Node topic_reg job(s)...
+02/02/17 20:29:09 Adding a DAGMan workflow log /esat/spchtemp/scratch/robbe/python/jobdag/./ptb.dag.nodes.log
+02/02/17 20:29:09 Masking the events recorded in the DAGMAN workflow log
+02/02/17 20:29:09 Mask for workflow log is 0,1,2,4,5,7,9,10,11,12,13,16,17,24,27
+02/02/17 20:29:09 submitting: /usr/bin/condor_submit -a dag_node_name' '=' 'topic_reg -a +DAGManJobId' '=' '158 -a DAGManJobId' '=' '158 -a submit_event_notes' '=' 'DAG' 'Node:' 'topic_reg -a dagman_log' '=' '/esat/spchtemp/scratch/robbe/python/jobdag/./ptb.dag.nodes.log -a +DAGManNodesMask' '=' '"0,1,2,4,5,7,9,10,11,12,13,16,17,24,27" -a data_set' '=' 'ptb -a test_name' '=' 'topic -a num_run' '=' '0 -a mode' '=' 'reg -a DAG_STATUS' '=' '0 -a FAILED_COUNT' '=' '0 -a +DAGParentNodeNames' '=' '"topic_generation" -a +KeepClaimIdle' '=' '20 -a notification' '=' 'never jobdag/topic.job
+02/02/17 20:29:09 From submit: Submitting job(s).
+02/02/17 20:29:09 From submit: 1 job(s) submitted to cluster 166.
+02/02/17 20:29:09 	assigned Condor ID (166.0.0)
+02/02/17 20:29:09 Just submitted 1 job this cycle...
+02/02/17 20:29:09 Currently monitoring 1 Condor log file(s)
+02/02/17 20:29:09 Reassigning the id of job topic_reg from (166.0.0) to (166.0.0)
+02/02/17 20:29:09 Event: ULOG_SUBMIT for Condor Node topic_reg (166.0.0)
+02/02/17 20:29:09 Number of idle job procs: 1
+02/02/17 20:29:09 DAG status: 0 (DAG_STATUS_OK)
+02/02/17 20:29:09 Of 10 nodes total:
+02/02/17 20:29:09  Done     Pre   Queued    Post   Ready   Un-Ready   Failed
+02/02/17 20:29:09   ===     ===      ===     ===     ===        ===      ===
+02/02/17 20:29:09     6       0        2       0       0          2        0
+02/02/17 20:29:09 0 job proc(s) currently held
+02/02/17 20:29:14 Currently monitoring 1 Condor log file(s)
+02/02/17 20:29:14 Event: ULOG_EXECUTE for Condor Node topic_reg (166.0.0)
+02/02/17 20:29:14 Number of idle job procs: 0
+02/02/17 20:39:17 603 seconds since last log event
+02/02/17 20:39:17 Pending DAG nodes:
+02/02/17 20:39:17   Node cbow_exp_lstm, Condor ID 164, status STATUS_SUBMITTED
+02/02/17 20:39:17   Node topic_reg, Condor ID 166, status STATUS_SUBMITTED
+02/02/17 20:49:19 1205 seconds since last log event
+02/02/17 20:49:19 Pending DAG nodes:
+02/02/17 20:49:19   Node cbow_exp_lstm, Condor ID 164, status STATUS_SUBMITTED
+02/02/17 20:49:19   Node topic_reg, Condor ID 166, status STATUS_SUBMITTED
+02/02/17 20:59:22 1808 seconds since last log event
+02/02/17 20:59:22 Pending DAG nodes:
+02/02/17 20:59:22   Node cbow_exp_lstm, Condor ID 164, status STATUS_SUBMITTED
+02/02/17 20:59:22   Node topic_reg, Condor ID 166, status STATUS_SUBMITTED
+02/02/17 21:09:25 2411 seconds since last log event
+02/02/17 21:09:25 Pending DAG nodes:
+02/02/17 21:09:25   Node cbow_exp_lstm, Condor ID 164, status STATUS_SUBMITTED
+02/02/17 21:09:25   Node topic_reg, Condor ID 166, status STATUS_SUBMITTED
+02/02/17 21:19:28 3014 seconds since last log event
+02/02/17 21:19:28 Pending DAG nodes:
+02/02/17 21:19:28   Node cbow_exp_lstm, Condor ID 164, status STATUS_SUBMITTED
+02/02/17 21:19:28   Node topic_reg, Condor ID 166, status STATUS_SUBMITTED
+02/02/17 21:29:15 Currently monitoring 1 Condor log file(s)
+02/02/17 21:29:15 Event: ULOG_JOB_TERMINATED for Condor Node topic_reg (166.0.0)
+02/02/17 21:29:15 Number of idle job procs: 0
+02/02/17 21:29:15 Node topic_reg job proc (166.0.0) completed successfully.
+02/02/17 21:29:15 Node topic_reg job completed
+02/02/17 21:29:15 DAG status: 0 (DAG_STATUS_OK)
+02/02/17 21:29:15 Of 10 nodes total:
+02/02/17 21:29:15  Done     Pre   Queued    Post   Ready   Un-Ready   Failed
+02/02/17 21:29:15   ===     ===      ===     ===     ===        ===      ===
+02/02/17 21:29:15     7       0        1       0       1          1        0
+02/02/17 21:29:15 0 job proc(s) currently held
+02/02/17 21:29:20 Submitting Condor Node topic_lda job(s)...
+02/02/17 21:29:20 Adding a DAGMan workflow log /esat/spchtemp/scratch/robbe/python/jobdag/./ptb.dag.nodes.log
+02/02/17 21:29:20 Masking the events recorded in the DAGMAN workflow log
+02/02/17 21:29:20 Mask for workflow log is 0,1,2,4,5,7,9,10,11,12,13,16,17,24,27
+02/02/17 21:29:20 submitting: /usr/bin/condor_submit -a dag_node_name' '=' 'topic_lda -a +DAGManJobId' '=' '158 -a DAGManJobId' '=' '158 -a submit_event_notes' '=' 'DAG' 'Node:' 'topic_lda -a dagman_log' '=' '/esat/spchtemp/scratch/robbe/python/jobdag/./ptb.dag.nodes.log -a +DAGManNodesMask' '=' '"0,1,2,4,5,7,9,10,11,12,13,16,17,24,27" -a data_set' '=' 'ptb -a test_name' '=' 'topic -a num_run' '=' '0 -a mode' '=' 'lda -a DAG_STATUS' '=' '0 -a FAILED_COUNT' '=' '0 -a +DAGParentNodeNames' '=' '"topic_reg" -a +KeepClaimIdle' '=' '20 -a notification' '=' 'never jobdag/topic.job
+02/02/17 21:29:20 From submit: Submitting job(s).
+02/02/17 21:29:20 From submit: 1 job(s) submitted to cluster 167.
+02/02/17 21:29:20 	assigned Condor ID (167.0.0)
+02/02/17 21:29:20 Just submitted 1 job this cycle...
+02/02/17 21:29:20 Currently monitoring 1 Condor log file(s)
+02/02/17 21:29:20 Reassigning the id of job topic_lda from (167.0.0) to (167.0.0)
+02/02/17 21:29:20 Event: ULOG_SUBMIT for Condor Node topic_lda (167.0.0)
+02/02/17 21:29:20 Number of idle job procs: 1
+02/02/17 21:29:20 DAG status: 0 (DAG_STATUS_OK)
+02/02/17 21:29:20 Of 10 nodes total:
+02/02/17 21:29:20  Done     Pre   Queued    Post   Ready   Un-Ready   Failed
+02/02/17 21:29:20   ===     ===      ===     ===     ===        ===      ===
+02/02/17 21:29:20     7       0        2       0       0          1        0
+02/02/17 21:29:20 0 job proc(s) currently held
+02/02/17 21:30:15 Currently monitoring 1 Condor log file(s)
+02/02/17 21:30:15 Event: ULOG_EXECUTE for Condor Node topic_lda (167.0.0)
+02/02/17 21:30:15 Number of idle job procs: 0
+02/02/17 21:40:18 603 seconds since last log event
+02/02/17 21:40:18 Pending DAG nodes:
+02/02/17 21:40:18   Node cbow_exp_lstm, Condor ID 164, status STATUS_SUBMITTED
+02/02/17 21:40:18   Node topic_lda, Condor ID 167, status STATUS_SUBMITTED
+02/02/17 21:50:20 1205 seconds since last log event
+02/02/17 21:50:20 Pending DAG nodes:
+02/02/17 21:50:20   Node cbow_exp_lstm, Condor ID 164, status STATUS_SUBMITTED
+02/02/17 21:50:20   Node topic_lda, Condor ID 167, status STATUS_SUBMITTED
+02/02/17 22:00:22 1807 seconds since last log event
+02/02/17 22:00:22 Pending DAG nodes:
+02/02/17 22:00:22   Node cbow_exp_lstm, Condor ID 164, status STATUS_SUBMITTED
+02/02/17 22:00:22   Node topic_lda, Condor ID 167, status STATUS_SUBMITTED
+02/02/17 22:07:49 Currently monitoring 1 Condor log file(s)
+02/02/17 22:07:49 Event: ULOG_JOB_TERMINATED for Condor Node cbow_exp_lstm (164.0.0)
+02/02/17 22:07:49 Number of idle job procs: 0
+02/02/17 22:07:49 Node cbow_exp_lstm job proc (164.0.0) completed successfully.
+02/02/17 22:07:49 Node cbow_exp_lstm job completed
+02/02/17 22:07:49 DAG status: 0 (DAG_STATUS_OK)
+02/02/17 22:07:49 Of 10 nodes total:
+02/02/17 22:07:49  Done     Pre   Queued    Post   Ready   Un-Ready   Failed
+02/02/17 22:07:49   ===     ===      ===     ===     ===        ===      ===
+02/02/17 22:07:49     8       0        1       0       0          1        0
+02/02/17 22:07:49 0 job proc(s) currently held
+02/02/17 22:17:51 602 seconds since last log event
+02/02/17 22:17:51 Pending DAG nodes:
+02/02/17 22:17:51   Node topic_lda, Condor ID 167, status STATUS_SUBMITTED
+02/02/17 22:27:54 1205 seconds since last log event
+02/02/17 22:27:54 Pending DAG nodes:
+02/02/17 22:27:54   Node topic_lda, Condor ID 167, status STATUS_SUBMITTED
+02/02/17 22:29:54 Currently monitoring 1 Condor log file(s)
+02/02/17 22:29:54 Event: ULOG_JOB_TERMINATED for Condor Node topic_lda (167.0.0)
+02/02/17 22:29:54 Number of idle job procs: 0
+02/02/17 22:29:54 Node topic_lda job proc (167.0.0) completed successfully.
+02/02/17 22:29:54 Node topic_lda job completed
+02/02/17 22:29:54 DAG status: 0 (DAG_STATUS_OK)
+02/02/17 22:29:54 Of 10 nodes total:
+02/02/17 22:29:54  Done     Pre   Queued    Post   Ready   Un-Ready   Failed
+02/02/17 22:29:54   ===     ===      ===     ===     ===        ===      ===
+02/02/17 22:29:54     9       0        0       0       1          0        0
+02/02/17 22:29:54 0 job proc(s) currently held
+02/02/17 22:29:59 Submitting Condor Node topic_int job(s)...
+02/02/17 22:29:59 Adding a DAGMan workflow log /esat/spchtemp/scratch/robbe/python/jobdag/./ptb.dag.nodes.log
+02/02/17 22:29:59 Masking the events recorded in the DAGMAN workflow log
+02/02/17 22:29:59 Mask for workflow log is 0,1,2,4,5,7,9,10,11,12,13,16,17,24,27
+02/02/17 22:29:59 submitting: /usr/bin/condor_submit -a dag_node_name' '=' 'topic_int -a +DAGManJobId' '=' '158 -a DAGManJobId' '=' '158 -a submit_event_notes' '=' 'DAG' 'Node:' 'topic_int -a dagman_log' '=' '/esat/spchtemp/scratch/robbe/python/jobdag/./ptb.dag.nodes.log -a +DAGManNodesMask' '=' '"0,1,2,4,5,7,9,10,11,12,13,16,17,24,27" -a data_set' '=' 'ptb -a test_name' '=' 'topic -a num_run' '=' '0 -a mode' '=' 'int -a DAG_STATUS' '=' '0 -a FAILED_COUNT' '=' '0 -a +DAGParentNodeNames' '=' '"topic_lda" -a notification' '=' 'never jobdag/topic.job
+02/02/17 22:30:00 From submit: Submitting job(s).
+02/02/17 22:30:00 From submit: 1 job(s) submitted to cluster 168.
+02/02/17 22:30:00 	assigned Condor ID (168.0.0)
+02/02/17 22:30:00 Just submitted 1 job this cycle...
+02/02/17 22:30:00 Currently monitoring 1 Condor log file(s)
+02/02/17 22:30:00 Reassigning the id of job topic_int from (168.0.0) to (168.0.0)
+02/02/17 22:30:00 Event: ULOG_SUBMIT for Condor Node topic_int (168.0.0)
+02/02/17 22:30:00 Number of idle job procs: 1
+02/02/17 22:30:00 DAG status: 0 (DAG_STATUS_OK)
+02/02/17 22:30:00 Of 10 nodes total:
+02/02/17 22:30:00  Done     Pre   Queued    Post   Ready   Un-Ready   Failed
+02/02/17 22:30:00   ===     ===      ===     ===     ===        ===      ===
+02/02/17 22:30:00     9       0        1       0       0          0        0
+02/02/17 22:30:00 0 job proc(s) currently held
+02/02/17 22:30:20 Currently monitoring 1 Condor log file(s)
+02/02/17 22:30:20 Event: ULOG_EXECUTE for Condor Node topic_int (168.0.0)
+02/02/17 22:30:20 Number of idle job procs: 0
+02/02/17 22:32:50 Currently monitoring 1 Condor log file(s)
+02/02/17 22:32:50 Event: ULOG_JOB_TERMINATED for Condor Node topic_int (168.0.0)
+02/02/17 22:32:50 Number of idle job procs: 0
+02/02/17 22:32:50 Node topic_int job proc (168.0.0) completed successfully.
+02/02/17 22:32:50 Node topic_int job completed
+02/02/17 22:32:50 DAG status: 0 (DAG_STATUS_OK)
+02/02/17 22:32:50 Of 10 nodes total:
+02/02/17 22:32:50  Done     Pre   Queued    Post   Ready   Un-Ready   Failed
+02/02/17 22:32:50   ===     ===      ===     ===     ===        ===      ===
+02/02/17 22:32:50    10       0        0       0       0          0        0
+02/02/17 22:32:50 0 job proc(s) currently held
+02/02/17 22:32:50 All jobs Completed!
+02/02/17 22:32:50 Note: 0 total job deferrals because of -MaxJobs limit (0)
+02/02/17 22:32:50 Note: 0 total job deferrals because of -MaxIdle limit (1000)
+02/02/17 22:32:50 Note: 0 total job deferrals because of node category throttles
+02/02/17 22:32:50 Note: 0 total PRE script deferrals because of -MaxPre limit (20) or DEFER
+02/02/17 22:32:50 Note: 0 total POST script deferrals because of -MaxPost limit (20) or DEFER
+02/02/17 22:32:50 DAG status: 0 (DAG_STATUS_OK)
+02/02/17 22:32:50 Of 10 nodes total:
+02/02/17 22:32:50  Done     Pre   Queued    Post   Ready   Un-Ready   Failed
+02/02/17 22:32:50   ===     ===      ===     ===     ===        ===      ===
+02/02/17 22:32:50    10       0        0       0       0          0        0
+02/02/17 22:32:50 0 job proc(s) currently held
+02/02/17 22:32:50 Wrote metrics file ptb.dag.metrics.
+02/02/17 22:32:50 Metrics not sent because of PEGASUS_METRICS or CONDOR_DEVELOPERS setting.
+02/02/17 22:32:50 **** condor_scheduniv_exec.158.0 (condor_DAGMAN) pid 20971 EXITING WITH STATUS 0
+Stack dump for process 32111 at timestamp 1487126796 (9 frames)
+/lib64/libcondor_utils_8_4_11.so(dprintf_dump_stack+0x72)[0x7fde2421afd2]
+/lib64/libcondor_utils_8_4_11.so(+0x1e8a57)[0x7fde242b4a57]
+/lib64/libpthread.so.0(+0xf370)[0x7fde22bbd370]
+/lib64/libc.so.6(__poll+0x10)[0x7fde228d9de0]
+/lib64/libcondor_utils_8_4_11.so(_ZN8Selector7executeEv+0x189)[0x7fde24284549]
+/lib64/libcondor_utils_8_4_11.so(_ZN10DaemonCore6DriverEv+0x1065)[0x7fde2435a8e5]
+/lib64/libcondor_utils_8_4_11.so(_Z7dc_mainiPPc+0x13a4)[0x7fde24379eb4]
+/lib64/libc.so.6(__libc_start_main+0xf5)[0x7fde2280eb35]
+condor_scheduniv_exec.6884.0[0x40e537]
+02/15/17 03:47:42 ******************************************************
+02/15/17 03:47:42 ** condor_scheduniv_exec.6884.0 (CONDOR_DAGMAN) STARTING UP
+02/15/17 03:47:42 ** /usr/bin/condor_dagman
+02/15/17 03:47:42 ** SubsystemInfo: name=DAGMAN type=DAGMAN(10) class=DAEMON(1)
+02/15/17 03:47:42 ** Configuration: subsystem:DAGMAN local:<NONE> class:DAEMON
+02/15/17 03:47:42 ** $CondorVersion: 8.6.0 Jan 26 2017 BuildID: 395190 $
+02/15/17 03:47:42 ** $CondorPlatform: x86_64_RedHat7 $
+02/15/17 03:47:42 ** PID = 31245
+02/15/17 03:47:42 ** Log last touched 2/15 03:46:36
+02/15/17 03:47:42 ******************************************************
+02/15/17 03:47:42 Using config source: /etc/condor/condor_config
+02/15/17 03:47:42 Using local config sources: 
+02/15/17 03:47:42    /etc/condor/config.d/00esat.config
+02/15/17 03:47:42    /etc/condor/config.d/01java.config
+02/15/17 03:47:42    /etc/condor/config.d/80optout_users.config
+02/15/17 03:47:42    /etc/condor/condor_config.local
+02/15/17 03:47:42 config Macros = 149, Sorted = 149, StringBytes = 5290, TablesBytes = 5436
+02/15/17 03:47:42 CLASSAD_CACHING is ENABLED
+02/15/17 03:47:42 Daemon Log is logging: D_ALWAYS D_ERROR
+02/15/17 03:47:42 DaemonCore: No command port requested.
+02/15/17 03:47:42 DAGMAN_USE_STRICT setting: 1
+02/15/17 03:47:42 DAGMAN_VERBOSITY setting: 3
+02/15/17 03:47:42 DAGMAN_DEBUG_CACHE_SIZE setting: 5242880
+02/15/17 03:47:42 DAGMAN_DEBUG_CACHE_ENABLE setting: False
+02/15/17 03:47:42 DAGMAN_SUBMIT_DELAY setting: 0
+02/15/17 03:47:42 DAGMAN_MAX_SUBMIT_ATTEMPTS setting: 6
+02/15/17 03:47:42 DAGMAN_STARTUP_CYCLE_DETECT setting: False
+02/15/17 03:47:42 DAGMAN_MAX_SUBMITS_PER_INTERVAL setting: 5
+02/15/17 03:47:42 DAGMAN_USER_LOG_SCAN_INTERVAL setting: 5
+02/15/17 03:47:42 DAGMAN_DEFAULT_PRIORITY setting: 0
+02/15/17 03:47:42 DAGMAN_SUPPRESS_NOTIFICATION setting: True
+02/15/17 03:47:42 allow_events (DAGMAN_ALLOW_EVENTS) setting: 114
+02/15/17 03:47:42 DAGMAN_RETRY_SUBMIT_FIRST setting: True
+02/15/17 03:47:42 DAGMAN_RETRY_NODE_FIRST setting: False
+02/15/17 03:47:42 DAGMAN_MAX_JOBS_IDLE setting: 1000
+02/15/17 03:47:42 DAGMAN_MAX_JOBS_SUBMITTED setting: 0
+02/15/17 03:47:42 DAGMAN_MAX_PRE_SCRIPTS setting: 20
+02/15/17 03:47:42 DAGMAN_MAX_POST_SCRIPTS setting: 20
+02/15/17 03:47:42 DAGMAN_MUNGE_NODE_NAMES setting: True
+02/15/17 03:47:42 DAGMAN_PROHIBIT_MULTI_JOBS setting: False
+02/15/17 03:47:42 DAGMAN_SUBMIT_DEPTH_FIRST setting: False
+02/15/17 03:47:42 DAGMAN_ALWAYS_RUN_POST setting: False
+02/15/17 03:47:42 DAGMAN_ABORT_DUPLICATES setting: True
+02/15/17 03:47:42 DAGMAN_ABORT_ON_SCARY_SUBMIT setting: True
+02/15/17 03:47:42 DAGMAN_PENDING_REPORT_INTERVAL setting: 600
+02/15/17 03:47:42 DAGMAN_AUTO_RESCUE setting: True
+02/15/17 03:47:42 DAGMAN_MAX_RESCUE_NUM setting: 100
+02/15/17 03:47:42 DAGMAN_WRITE_PARTIAL_RESCUE setting: True
+02/15/17 03:47:42 DAGMAN_DEFAULT_NODE_LOG setting: @(DAG_DIR)/@(DAG_FILE).nodes.log
+02/15/17 03:47:42 DAGMAN_GENERATE_SUBDAG_SUBMITS setting: True
+02/15/17 03:47:42 DAGMAN_MAX_JOB_HOLDS setting: 100
+02/15/17 03:47:42 DAGMAN_HOLD_CLAIM_TIME setting: 20
+02/15/17 03:47:42 ALL_DEBUG setting: 
+02/15/17 03:47:42 DAGMAN_DEBUG setting: 
+02/15/17 03:47:42 DAGMAN_SUPPRESS_JOB_LOGS setting: False
+02/15/17 03:47:42 DAGMAN_REMOVE_NODE_JOBS setting: True
+02/15/17 03:47:42 argv[0] == "condor_scheduniv_exec.6884.0"
+02/15/17 03:47:42 argv[1] == "-Lockfile"
+02/15/17 03:47:42 argv[2] == "ptb.dag.lock"
+02/15/17 03:47:42 argv[3] == "-AutoRescue"
+02/15/17 03:47:42 argv[4] == "1"
+02/15/17 03:47:42 argv[5] == "-DoRescueFrom"
+02/15/17 03:47:42 argv[6] == "0"
+02/15/17 03:47:42 argv[7] == "-Dag"
+02/15/17 03:47:42 argv[8] == "ptb.dag"
+02/15/17 03:47:42 argv[9] == "-Suppress_notification"
+02/15/17 03:47:42 argv[10] == "-CsdVersion"
+02/15/17 03:47:42 argv[11] == "$CondorVersion: 8.4.11 Jan 23 2017 BuildID: 394757 $"
+02/15/17 03:47:42 argv[12] == "-Dagman"
+02/15/17 03:47:42 argv[13] == "/usr/bin/condor_dagman"
+02/15/17 03:47:42 Workflow batch-name: <ptb.dag+6884>
+02/15/17 03:47:42 Workflow accounting_group: <>
+02/15/17 03:47:42 Workflow accounting_group_user: <>
+02/15/17 03:47:42 Warning: failed to get attribute DAGNodeName
+02/15/17 03:47:42 DAGMAN_LOG_ON_NFS_IS_ERROR setting: False
+02/15/17 03:47:42 Default node log file is: </esat/spchtemp/scratch/robbe/python/jobdag/./ptb.dag.nodes.log>
+02/15/17 03:47:42 Note: the version ($CondorVersion: 8.4.11 Jan 23 2017 BuildID: 394757 $) of this DAG's HTCondor submit file (created by condor_submit_dag) differs from condor_dagman version ($CondorVersion: 8.6.0 Jan 26 2017 BuildID: 395190 $), but the difference is permissible
+02/15/17 03:47:42 DAG Lockfile will be written to ptb.dag.lock
+02/15/17 03:47:42 DAG Input file is ptb.dag
+02/15/17 03:47:42 Parsing 1 dagfiles
+02/15/17 03:47:42 Parsing ptb.dag ...
+02/15/17 03:47:42 Dag contains 10 total jobs
+02/15/17 03:47:42 Sleeping for 3 seconds to ensure ProcessId uniqueness
+02/15/17 03:47:45 Bootstrapping...
+02/15/17 03:47:45 Number of pre-completed nodes: 0
+02/15/17 03:47:45 MultiLogFiles: truncating log file /esat/spchtemp/scratch/robbe/python/jobdag/./ptb.dag.nodes.log
+02/15/17 03:47:45 DAG status: 0 (DAG_STATUS_OK)
+02/15/17 03:47:45 Of 10 nodes total:
+02/15/17 03:47:45  Done     Pre   Queued    Post   Ready   Un-Ready   Failed
+02/15/17 03:47:45   ===     ===      ===     ===     ===        ===      ===
+02/15/17 03:47:45     0       0        0       0       1          9        0
+02/15/17 03:47:45 0 job proc(s) currently held
+02/15/17 03:47:45 Registering condor_event_timer...
+02/15/17 03:47:46 Submitting HTCondor Node transform job(s)...
+02/15/17 03:47:46 Adding a DAGMan workflow log /esat/spchtemp/scratch/robbe/python/jobdag/./ptb.dag.nodes.log
+02/15/17 03:47:46 Masking the events recorded in the DAGMAN workflow log
+02/15/17 03:47:46 Mask for workflow log is 0,1,2,4,5,7,9,10,11,12,13,16,17,24,27
+02/15/17 03:47:46 submitting: /usr/bin/condor_submit -a dag_node_name' '=' 'transform -a +DAGManJobId' '=' '6884 -a DAGManJobId' '=' '6884 -batch-name ptb.dag+6884 -a submit_event_notes' '=' 'DAG' 'Node:' 'transform -a dagman_log' '=' '/esat/spchtemp/scratch/robbe/python/jobdag/./ptb.dag.nodes.log -a +DAGManNodesMask' '=' '"0,1,2,4,5,7,9,10,11,12,13,16,17,24,27" -a data_set' '=' 'ptb -a DAG_STATUS' '=' '0 -a FAILED_COUNT' '=' '0 -a +KeepClaimIdle' '=' '20 -a notification' '=' 'never -a +DAGParentNodeNames' '=' '"" jobdag/transform.job
+02/15/17 03:47:46 From submit: Submitting job(s).
+02/15/17 03:47:46 From submit: 1 job(s) submitted to cluster 6903.
+02/15/17 03:47:46 	assigned HTCondor ID (6903.0.0)
+02/15/17 03:47:46 Just submitted 1 job this cycle...
+02/15/17 03:47:46 Currently monitoring 1 HTCondor log file(s)
+02/15/17 03:47:46 Reassigning the id of job transform from (6903.0.0) to (6903.0.0)
+02/15/17 03:47:46 Event: ULOG_SUBMIT for HTCondor Node transform (6903.0.0) {02/15/17 03:47:46}
+02/15/17 03:47:46 Number of idle job procs: 1
+02/15/17 03:47:46 DAG status: 0 (DAG_STATUS_OK)
+02/15/17 03:47:46 Of 10 nodes total:
+02/15/17 03:47:46  Done     Pre   Queued    Post   Ready   Un-Ready   Failed
+02/15/17 03:47:46   ===     ===      ===     ===     ===        ===      ===
+02/15/17 03:47:46     0       0        1       0       0          9        0
+02/15/17 03:47:46 0 job proc(s) currently held
+02/15/17 03:47:56 Currently monitoring 1 HTCondor log file(s)
+02/15/17 03:47:56 Event: ULOG_EXECUTE for HTCondor Node transform (6903.0.0) {02/15/17 03:47:56}
+02/15/17 03:47:56 Number of idle job procs: 0
+02/15/17 03:48:26 Currently monitoring 1 HTCondor log file(s)
+02/15/17 03:48:26 Event: ULOG_JOB_TERMINATED for HTCondor Node transform (6903.0.0) {02/15/17 03:48:23}
+02/15/17 03:48:26 Number of idle job procs: 0
+02/15/17 03:48:26 Node transform job proc (6903.0.0) completed successfully.
+02/15/17 03:48:26 Node transform job completed
+02/15/17 03:48:26 DAG status: 0 (DAG_STATUS_OK)
+02/15/17 03:48:26 Of 10 nodes total:
+02/15/17 03:48:26  Done     Pre   Queued    Post   Ready   Un-Ready   Failed
+02/15/17 03:48:26   ===     ===      ===     ===     ===        ===      ===
+02/15/17 03:48:26     1       0        0       0       6          3        0
+02/15/17 03:48:26 0 job proc(s) currently held
+02/15/17 03:48:31 Submitting HTCondor Node original job(s)...
+02/15/17 03:48:31 Adding a DAGMan workflow log /esat/spchtemp/scratch/robbe/python/jobdag/./ptb.dag.nodes.log
+02/15/17 03:48:31 Masking the events recorded in the DAGMAN workflow log
+02/15/17 03:48:31 Mask for workflow log is 0,1,2,4,5,7,9,10,11,12,13,16,17,24,27
+02/15/17 03:48:31 submitting: /usr/bin/condor_submit -a dag_node_name' '=' 'original -a +DAGManJobId' '=' '6884 -a DAGManJobId' '=' '6884 -batch-name ptb.dag+6884 -a submit_event_notes' '=' 'DAG' 'Node:' 'original -a dagman_log' '=' '/esat/spchtemp/scratch/robbe/python/jobdag/./ptb.dag.nodes.log -a +DAGManNodesMask' '=' '"0,1,2,4,5,7,9,10,11,12,13,16,17,24,27" -a data_set' '=' 'ptb -a test_name' '=' 'original -a num_run' '=' '0 -a DAG_STATUS' '=' '0 -a FAILED_COUNT' '=' '0 -a notification' '=' 'never -a +DAGParentNodeNames' '=' '"transform" jobdag/original.job
+02/15/17 03:48:32 From submit: Submitting job(s).
+02/15/17 03:48:32 From submit: 1 job(s) submitted to cluster 6904.
+02/15/17 03:48:32 	assigned HTCondor ID (6904.0.0)
+02/15/17 03:48:32 Submitting HTCondor Node cbow_mean_soft job(s)...
+02/15/17 03:48:32 Adding a DAGMan workflow log /esat/spchtemp/scratch/robbe/python/jobdag/./ptb.dag.nodes.log
+02/15/17 03:48:32 Masking the events recorded in the DAGMAN workflow log
+02/15/17 03:48:32 Mask for workflow log is 0,1,2,4,5,7,9,10,11,12,13,16,17,24,27
+02/15/17 03:48:32 submitting: /usr/bin/condor_submit -a dag_node_name' '=' 'cbow_mean_soft -a +DAGManJobId' '=' '6884 -a DAGManJobId' '=' '6884 -batch-name ptb.dag+6884 -a submit_event_notes' '=' 'DAG' 'Node:' 'cbow_mean_soft -a dagman_log' '=' '/esat/spchtemp/scratch/robbe/python/jobdag/./ptb.dag.nodes.log -a +DAGManNodesMask' '=' '"0,1,2,4,5,7,9,10,11,12,13,16,17,24,27" -a data_set' '=' 'ptb -a test_name' '=' 'cbow_mean_soft -a num_run' '=' '0 -a combination' '=' 'mean -a position' '=' 'soft -a DAG_STATUS' '=' '0 -a FAILED_COUNT' '=' '0 -a notification' '=' 'never -a +DAGParentNodeNames' '=' '"transform" jobdag/cbow.job
+02/15/17 03:48:32 From submit: Submitting job(s).
+02/15/17 03:48:32 From submit: 1 job(s) submitted to cluster 6905.
+02/15/17 03:48:32 	assigned HTCondor ID (6905.0.0)
+02/15/17 03:48:32 Submitting HTCondor Node cbow_exp_soft job(s)...
+02/15/17 03:48:32 Adding a DAGMan workflow log /esat/spchtemp/scratch/robbe/python/jobdag/./ptb.dag.nodes.log
+02/15/17 03:48:32 Masking the events recorded in the DAGMAN workflow log
+02/15/17 03:48:32 Mask for workflow log is 0,1,2,4,5,7,9,10,11,12,13,16,17,24,27
+02/15/17 03:48:32 submitting: /usr/bin/condor_submit -a dag_node_name' '=' 'cbow_exp_soft -a +DAGManJobId' '=' '6884 -a DAGManJobId' '=' '6884 -batch-name ptb.dag+6884 -a submit_event_notes' '=' 'DAG' 'Node:' 'cbow_exp_soft -a dagman_log' '=' '/esat/spchtemp/scratch/robbe/python/jobdag/./ptb.dag.nodes.log -a +DAGManNodesMask' '=' '"0,1,2,4,5,7,9,10,11,12,13,16,17,24,27" -a data_set' '=' 'ptb -a test_name' '=' 'cbow_exp_soft -a num_run' '=' '0 -a combination' '=' 'exp -a position' '=' 'soft -a DAG_STATUS' '=' '0 -a FAILED_COUNT' '=' '0 -a notification' '=' 'never -a +DAGParentNodeNames' '=' '"transform" jobdag/cbow.job
+02/15/17 03:48:32 From submit: Submitting job(s).
+02/15/17 03:48:32 From submit: 1 job(s) submitted to cluster 6906.
+02/15/17 03:48:32 	assigned HTCondor ID (6906.0.0)
+02/15/17 03:48:32 Submitting HTCondor Node cbow_mean_lstm job(s)...
+02/15/17 03:48:32 Adding a DAGMan workflow log /esat/spchtemp/scratch/robbe/python/jobdag/./ptb.dag.nodes.log
+02/15/17 03:48:32 Masking the events recorded in the DAGMAN workflow log
+02/15/17 03:48:32 Mask for workflow log is 0,1,2,4,5,7,9,10,11,12,13,16,17,24,27
+02/15/17 03:48:32 submitting: /usr/bin/condor_submit -a dag_node_name' '=' 'cbow_mean_lstm -a +DAGManJobId' '=' '6884 -a DAGManJobId' '=' '6884 -batch-name ptb.dag+6884 -a submit_event_notes' '=' 'DAG' 'Node:' 'cbow_mean_lstm -a dagman_log' '=' '/esat/spchtemp/scratch/robbe/python/jobdag/./ptb.dag.nodes.log -a +DAGManNodesMask' '=' '"0,1,2,4,5,7,9,10,11,12,13,16,17,24,27" -a data_set' '=' 'ptb -a test_name' '=' 'cbow_mean_lstm -a num_run' '=' '0 -a combination' '=' 'mean -a position' '=' 'lstm -a DAG_STATUS' '=' '0 -a FAILED_COUNT' '=' '0 -a notification' '=' 'never -a +DAGParentNodeNames' '=' '"transform" jobdag/cbow.job
+02/15/17 03:48:32 From submit: Submitting job(s).
+02/15/17 03:48:32 From submit: 1 job(s) submitted to cluster 6907.
+02/15/17 03:48:32 	assigned HTCondor ID (6907.0.0)
+02/15/17 03:48:32 Submitting HTCondor Node cbow_exp_lstm job(s)...
+02/15/17 03:48:32 Adding a DAGMan workflow log /esat/spchtemp/scratch/robbe/python/jobdag/./ptb.dag.nodes.log
+02/15/17 03:48:32 Masking the events recorded in the DAGMAN workflow log
+02/15/17 03:48:32 Mask for workflow log is 0,1,2,4,5,7,9,10,11,12,13,16,17,24,27
+02/15/17 03:48:32 submitting: /usr/bin/condor_submit -a dag_node_name' '=' 'cbow_exp_lstm -a +DAGManJobId' '=' '6884 -a DAGManJobId' '=' '6884 -batch-name ptb.dag+6884 -a submit_event_notes' '=' 'DAG' 'Node:' 'cbow_exp_lstm -a dagman_log' '=' '/esat/spchtemp/scratch/robbe/python/jobdag/./ptb.dag.nodes.log -a +DAGManNodesMask' '=' '"0,1,2,4,5,7,9,10,11,12,13,16,17,24,27" -a data_set' '=' 'ptb -a test_name' '=' 'cbow_exp_lstm -a num_run' '=' '0 -a combination' '=' 'exp -a position' '=' 'lstm -a DAG_STATUS' '=' '0 -a FAILED_COUNT' '=' '0 -a notification' '=' 'never -a +DAGParentNodeNames' '=' '"transform" jobdag/cbow.job
+02/15/17 03:48:32 From submit: Submitting job(s).
+02/15/17 03:48:32 From submit: 1 job(s) submitted to cluster 6908.
+02/15/17 03:48:32 	assigned HTCondor ID (6908.0.0)
+02/15/17 03:48:32 Just submitted 5 jobs this cycle...
+02/15/17 03:48:32 Currently monitoring 1 HTCondor log file(s)
+02/15/17 03:48:32 Reassigning the id of job original from (6904.0.0) to (6904.0.0)
+02/15/17 03:48:32 Event: ULOG_SUBMIT for HTCondor Node original (6904.0.0) {02/15/17 03:48:32}
+02/15/17 03:48:32 Number of idle job procs: 1
+02/15/17 03:48:32 Reassigning the id of job cbow_mean_soft from (6905.0.0) to (6905.0.0)
+02/15/17 03:48:32 Event: ULOG_SUBMIT for HTCondor Node cbow_mean_soft (6905.0.0) {02/15/17 03:48:32}
+02/15/17 03:48:32 Number of idle job procs: 2
+02/15/17 03:48:32 Reassigning the id of job cbow_exp_soft from (6906.0.0) to (6906.0.0)
+02/15/17 03:48:32 Event: ULOG_SUBMIT for HTCondor Node cbow_exp_soft (6906.0.0) {02/15/17 03:48:32}
+02/15/17 03:48:32 Number of idle job procs: 3
+02/15/17 03:48:32 Reassigning the id of job cbow_mean_lstm from (6907.0.0) to (6907.0.0)
+02/15/17 03:48:32 Event: ULOG_SUBMIT for HTCondor Node cbow_mean_lstm (6907.0.0) {02/15/17 03:48:32}
+02/15/17 03:48:32 Number of idle job procs: 4
+02/15/17 03:48:32 Reassigning the id of job cbow_exp_lstm from (6908.0.0) to (6908.0.0)
+02/15/17 03:48:32 Event: ULOG_SUBMIT for HTCondor Node cbow_exp_lstm (6908.0.0) {02/15/17 03:48:32}
+02/15/17 03:48:32 Number of idle job procs: 5
+02/15/17 03:48:32 DAG status: 0 (DAG_STATUS_OK)
+02/15/17 03:48:32 Of 10 nodes total:
+02/15/17 03:48:32  Done     Pre   Queued    Post   Ready   Un-Ready   Failed
+02/15/17 03:48:32   ===     ===      ===     ===     ===        ===      ===
+02/15/17 03:48:32     1       0        5       0       1          3        0
+02/15/17 03:48:32 0 job proc(s) currently held
+02/15/17 03:48:37 Submitting HTCondor Node topic_generation job(s)...
+02/15/17 03:48:37 Adding a DAGMan workflow log /esat/spchtemp/scratch/robbe/python/jobdag/./ptb.dag.nodes.log
+02/15/17 03:48:37 Masking the events recorded in the DAGMAN workflow log
+02/15/17 03:48:37 Mask for workflow log is 0,1,2,4,5,7,9,10,11,12,13,16,17,24,27
+02/15/17 03:48:37 submitting: /usr/bin/condor_submit -a dag_node_name' '=' 'topic_generation -a +DAGManJobId' '=' '6884 -a DAGManJobId' '=' '6884 -batch-name ptb.dag+6884 -a submit_event_notes' '=' 'DAG' 'Node:' 'topic_generation -a dagman_log' '=' '/esat/spchtemp/scratch/robbe/python/jobdag/./ptb.dag.nodes.log -a +DAGManNodesMask' '=' '"0,1,2,4,5,7,9,10,11,12,13,16,17,24,27" -a data_set' '=' 'ptb -a DAG_STATUS' '=' '0 -a FAILED_COUNT' '=' '0 -a +KeepClaimIdle' '=' '20 -a notification' '=' 'never -a +DAGParentNodeNames' '=' '"transform" jobdag/topic_generation.job
+02/15/17 03:48:37 From submit: Submitting job(s).
+02/15/17 03:48:37 From submit: 1 job(s) submitted to cluster 6909.
+02/15/17 03:48:37 	assigned HTCondor ID (6909.0.0)
+02/15/17 03:48:37 Just submitted 1 job this cycle...
+02/15/17 03:48:37 Currently monitoring 1 HTCondor log file(s)
+02/15/17 03:48:37 Event: ULOG_EXECUTE for HTCondor Node original (6904.0.0) {02/15/17 03:48:34}
+02/15/17 03:48:37 Number of idle job procs: 4
+02/15/17 03:48:37 Reassigning the id of job topic_generation from (6909.0.0) to (6909.0.0)
+02/15/17 03:48:37 Event: ULOG_SUBMIT for HTCondor Node topic_generation (6909.0.0) {02/15/17 03:48:37}
+02/15/17 03:48:37 Number of idle job procs: 5
+02/15/17 03:48:37 DAG status: 0 (DAG_STATUS_OK)
+02/15/17 03:48:37 Of 10 nodes total:
+02/15/17 03:48:37  Done     Pre   Queued    Post   Ready   Un-Ready   Failed
+02/15/17 03:48:37   ===     ===      ===     ===     ===        ===      ===
+02/15/17 03:48:37     1       0        6       0       0          3        0
+02/15/17 03:48:37 0 job proc(s) currently held
+02/15/17 03:48:57 Currently monitoring 1 HTCondor log file(s)
+02/15/17 03:48:57 Event: ULOG_EXECUTE for HTCondor Node topic_generation (6909.0.0) {02/15/17 03:48:54}
+02/15/17 03:48:57 Number of idle job procs: 4
+02/15/17 03:49:12 Currently monitoring 1 HTCondor log file(s)
+02/15/17 03:49:12 Event: ULOG_JOB_TERMINATED for HTCondor Node original (6904.0.0) {02/15/17 03:49:09}
+02/15/17 03:49:12 Number of idle job procs: 4
+02/15/17 03:49:12 Node original job proc (6904.0.0) completed successfully.
+02/15/17 03:49:12 Node original job completed
+02/15/17 03:49:12 Event: ULOG_EXECUTE for HTCondor Node cbow_mean_soft (6905.0.0) {02/15/17 03:49:09}
+02/15/17 03:49:12 Number of idle job procs: 3
+02/15/17 03:49:12 DAG status: 0 (DAG_STATUS_OK)
+02/15/17 03:49:12 Of 10 nodes total:
+02/15/17 03:49:12  Done     Pre   Queued    Post   Ready   Un-Ready   Failed
+02/15/17 03:49:12   ===     ===      ===     ===     ===        ===      ===
+02/15/17 03:49:12     2       0        5       0       0          3        0
+02/15/17 03:49:12 0 job proc(s) currently held
+02/15/17 03:49:27 Currently monitoring 1 HTCondor log file(s)
+02/15/17 03:49:27 Event: ULOG_JOB_TERMINATED for HTCondor Node topic_generation (6909.0.0) {02/15/17 03:49:23}
+02/15/17 03:49:27 Number of idle job procs: 3
+02/15/17 03:49:27 Node topic_generation job proc (6909.0.0) completed successfully.
+02/15/17 03:49:27 Node topic_generation job completed
+02/15/17 03:49:27 DAG status: 0 (DAG_STATUS_OK)
+02/15/17 03:49:27 Of 10 nodes total:
+02/15/17 03:49:27  Done     Pre   Queued    Post   Ready   Un-Ready   Failed
+02/15/17 03:49:27   ===     ===      ===     ===     ===        ===      ===
+02/15/17 03:49:27     3       0        4       0       1          2        0
+02/15/17 03:49:27 0 job proc(s) currently held
+02/15/17 03:49:32 Submitting HTCondor Node topic_reg job(s)...
+02/15/17 03:49:32 Adding a DAGMan workflow log /esat/spchtemp/scratch/robbe/python/jobdag/./ptb.dag.nodes.log
+02/15/17 03:49:32 Masking the events recorded in the DAGMAN workflow log
+02/15/17 03:49:32 Mask for workflow log is 0,1,2,4,5,7,9,10,11,12,13,16,17,24,27
+02/15/17 03:49:32 submitting: /usr/bin/condor_submit -a dag_node_name' '=' 'topic_reg -a +DAGManJobId' '=' '6884 -a DAGManJobId' '=' '6884 -batch-name ptb.dag+6884 -a submit_event_notes' '=' 'DAG' 'Node:' 'topic_reg -a dagman_log' '=' '/esat/spchtemp/scratch/robbe/python/jobdag/./ptb.dag.nodes.log -a +DAGManNodesMask' '=' '"0,1,2,4,5,7,9,10,11,12,13,16,17,24,27" -a data_set' '=' 'ptb -a test_name' '=' 'topic -a num_run' '=' '0 -a mode' '=' 'reg -a DAG_STATUS' '=' '0 -a FAILED_COUNT' '=' '0 -a +KeepClaimIdle' '=' '20 -a notification' '=' 'never -a +DAGParentNodeNames' '=' '"topic_generation" jobdag/topic.job
+02/15/17 03:49:32 From submit: Submitting job(s).
+02/15/17 03:49:32 From submit: 1 job(s) submitted to cluster 6910.
+02/15/17 03:49:32 	assigned HTCondor ID (6910.0.0)
+02/15/17 03:49:32 Just submitted 1 job this cycle...
+02/15/17 03:49:32 Currently monitoring 1 HTCondor log file(s)
+02/15/17 03:49:32 Reassigning the id of job topic_reg from (6910.0.0) to (6910.0.0)
+02/15/17 03:49:32 Event: ULOG_SUBMIT for HTCondor Node topic_reg (6910.0.0) {02/15/17 03:49:32}
+02/15/17 03:49:32 Number of idle job procs: 4
+02/15/17 03:49:32 DAG status: 0 (DAG_STATUS_OK)
+02/15/17 03:49:32 Of 10 nodes total:
+02/15/17 03:49:32  Done     Pre   Queued    Post   Ready   Un-Ready   Failed
+02/15/17 03:49:32   ===     ===      ===     ===     ===        ===      ===
+02/15/17 03:49:32     3       0        5       0       0          2        0
+02/15/17 03:49:32 0 job proc(s) currently held
+02/15/17 03:50:58 Currently monitoring 1 HTCondor log file(s)
+02/15/17 03:50:58 Event: ULOG_JOB_TERMINATED for HTCondor Node cbow_mean_soft (6905.0.0) {02/15/17 03:50:56}
+02/15/17 03:50:58 Number of idle job procs: 4
+02/15/17 03:50:58 Node cbow_mean_soft job proc (6905.0.0) completed successfully.
+02/15/17 03:50:58 Node cbow_mean_soft job completed
+02/15/17 03:50:58 Event: ULOG_EXECUTE for HTCondor Node cbow_exp_soft (6906.0.0) {02/15/17 03:50:56}
+02/15/17 03:50:58 Number of idle job procs: 3
+02/15/17 03:50:58 DAG status: 0 (DAG_STATUS_OK)
+02/15/17 03:50:58 Of 10 nodes total:
+02/15/17 03:50:58  Done     Pre   Queued    Post   Ready   Un-Ready   Failed
+02/15/17 03:50:58   ===     ===      ===     ===     ===        ===      ===
+02/15/17 03:50:58     4       0        4       0       0          2        0
+02/15/17 03:50:58 0 job proc(s) currently held
+02/15/17 03:52:37 Received SIGUSR1
+02/15/17 03:52:37 Aborting DAG...
+02/15/17 03:52:37 Writing Rescue DAG to ptb.dag.rescue001...
+02/15/17 03:52:37 Removing submitted jobs...
+02/15/17 03:52:37 Removing any/all submitted HTCondor jobs...
+02/15/17 03:52:37 Running: /usr/bin/condor_rm -const DAGManJobId' '=?=' '6884
+02/15/17 03:52:37 Note: 0 total job deferrals because of -MaxJobs limit (0)
+02/15/17 03:52:37 Note: 0 total job deferrals because of -MaxIdle limit (1000)
+02/15/17 03:52:37 Note: 0 total job deferrals because of node category throttles
+02/15/17 03:52:37 Note: 0 total PRE script deferrals because of -MaxPre limit (20) or DEFER
+02/15/17 03:52:37 Note: 0 total POST script deferrals because of -MaxPost limit (20) or DEFER
+02/15/17 03:52:37 DAG status: 4 (DAG_STATUS_RM)
+02/15/17 03:52:37 Of 10 nodes total:
+02/15/17 03:52:37  Done     Pre   Queued    Post   Ready   Un-Ready   Failed
+02/15/17 03:52:37   ===     ===      ===     ===     ===        ===      ===
+02/15/17 03:52:37     4       0        4       0       0          2        0
+02/15/17 03:52:37 0 job proc(s) currently held
+02/15/17 03:52:37 Wrote metrics file ptb.dag.metrics.
+02/15/17 03:52:37 Metrics not sent because of PEGASUS_METRICS or CONDOR_DEVELOPERS setting.
+02/15/17 03:52:37 **** condor_scheduniv_exec.6884.0 (condor_DAGMAN) pid 31245 EXITING WITH STATUS 2
