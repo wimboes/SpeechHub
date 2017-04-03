@@ -1,0 +1,18 @@
+JOB cbow_exp_soft jobdag/cbow_soft.job DIR ./..
+JOB cbow_exp_soft_emb jobdag/cbow_soft.job DIR ./..
+JOB cbow_exp_soft_test jobdag/cbow_soft_test.job DIR ./..
+JOB cbow_exp_soft_emb_test jobdag/cbow_soft_test.job DIR ./..
+
+ 
+VARS cbow_exp_soft data_set="ds" test_name="cbow_exp_soft" num_run="0" combination="exp" pretrained="no"
+VARS cbow_exp_soft_test data_set="ds" test_name="cbow_exp_soft" num_run="0" 
+
+VARS cbow_exp_soft_emb data_set="ds" test_name="cbow_exp_soft" num_run="1" combination="exp" pretrained="yes"
+VARS cbow_exp_soft_emb_test data_set="ds" test_name="cbow_exp_soft" num_run="1"
+
+
+
+
+PARENT cbow_exp_soft CHILD cbow_exp_soft_test
+PARENT cbow_exp_soft_emb CHILD cbow_exp_soft_emb_test
+
