@@ -1,0 +1,22 @@
+Universe         = vanilla
+RequestCpus     = 1
+RequestMemory    = 8G
++RequestWalltime = 518400
+
+request_GPUs = 1
+requirements = (CUDAGlobalMemoryMb >= 2000) && (CUDACapability >= 3.5)
+
+NiceUser = true
+Notification = Error
+initialdir = .
+
+executable = /users/start2014/r0385169/bin/python
+arguments = "lda_generator_$(data_set).py" 
+# --nb_topics=$(nb_topics) --sentences_per_document=$(sentences_per_document)"
+
+Log          = jobdag/$(data_set)_$(nb_topics)_$(sentences_per_document)_topic_gen.log
+Output       = jobdag/$(data_set)_$(nb_topics)_$(sentences_per_document)_topic_gen.out
+Error        = jobdag/$(data_set)_$(nb_topics)_$(sentences_per_document)_topic_gen.err
+
+Queue
+

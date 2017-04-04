@@ -11,5 +11,5 @@ class sentence_generator():
         for line in open(self.file_path,'r'):
             yield line.split()
 
-model = gensim.models.Word2Vec(sentences=sentence_generator(input_path,filename), size=256, window=5, min_count=0, sg=1)
+model = gensim.models.Word2Vec(sentences=sentence_generator(input_path,filename), size=128, window=5, min_count=0, sg=1)
 model.save(os.path.join(os.path.split(os.path.abspath(os.getcwd()))[0],'output/embedding_skip/embedding_skip.emb'))
