@@ -52,12 +52,12 @@ class corpus_iterator(object):
         for i in range(len(self.corpus)):
             yield self.dict.doc2bow(self.corpus[i])
 
-def lda_generate_model(sentences_per_document, nb_topics, data_path, lda_save_path, dict_save_path, tf_save_path):
+def lda_generate_model(sentences_per_document, nb_topics, data_path, lda_save_path, tf_save_path):
     train_path = os.path.join(data_path, "ds.train.txt")
 
     docs = read_and_split_doc(train_path, sentences_per_document)
     texts = [[word for word in doc.split()] for doc in docs]
-    dictionary = corpora.dictionary.Dictionary(texts)
+    dictionary = corpora.dictionary.Dictionary.load(os.path.join(data_path, "dictionary.ds"))
     corpus = corpus_iterator(texts,dictionary)
 
     corpora.MmCorpus.serialize('bow_'+str(nb_topics)+'_'+str(sentences_per_document)+'.ds.mm',corpus)
@@ -70,17 +70,14 @@ def lda_generate_model(sentences_per_document, nb_topics, data_path, lda_save_pa
     mm = corpora.MmCorpus('tfidf_'+str(nb_topics)+'_'+str(sentences_per_document)+'.ds.mm')
     lda = models.ldamodel.LdaModel(corpus=mm, id2word=dictionary, num_topics=nb_topics)
     lda.save(lda_save_path)
-    lda_dict = dictionary
-    lda_dict.save(dict_save_path)
 
     return lda, lda_dict
 
 ##### script
 
 lda_save_path = os.path.join(data_path, 'lda_'+str(nb_topics)+'_'+str(sentences_per_document)+'.ds')
-dict_save_path = os.path.join(data_path, 'dictionary_'+str(nb_topics)+'_'+str(sentences_per_document)+'.ds')
 tf_save_path = os.path.join(data_path, 'tfidf_'+str(nb_topics)+'_'+str(sentences_per_document)+'.ds')
-lda, lda_dict = lda_generate_model(sentences_per_document, nb_topics, data_path, lda_save_path, dict_save_path,tf_save_path)
+lda, lda_dict = lda_generate_model(sentences_per_document, nb_topics, data_path, lda_save_path, tf_save_path)
 
 print(str(nb_topics)+ ' topics are generated based on documents of ' + str(sentences_per_document) + ' sentences long')
 
