@@ -1,0 +1,8 @@
+JOB cbow_mean_lstm jobdag/cbow_lstm.job DIR ./..
+JOB cbow_mean_lstm_test jobdag/cbow_lstm_test.job DIR ./..
+
+VARS cbow_mean_lstm data_set="ds" test_name="cbow_mean_lstm" num_run="0" combination="mean" 
+VARS cbow_mean_lstm_test data_set="ds" test_name="cbow_mean_lstm" num_run="0"
+
+PARENT cbow_mean_lstm CHILD cbow_mean_lstm_test
+
