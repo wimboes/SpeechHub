@@ -294,7 +294,7 @@ def run_test_epoch(session, model, epoch_nb = 0):
             state_lda = vals["final_state_lda"]
             nb_words_in_batch = vals["nb_words_in_batch"]
 
-            if batch_data[0,0] == model.input_continuous.eos_id:
+            if batch_labels[0,0] == model.input_continuous.eos_id:
                 state_reg = session.run(model.initial_state_reg)
             else:
                 state_reg = vals["final_state_reg"]
