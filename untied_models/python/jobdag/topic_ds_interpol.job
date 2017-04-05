@@ -1,0 +1,21 @@
+Universe         = vanilla
+RequestCpus     = 1
+RequestMemory    = 4G
++RequestWalltime = 518400
+
+request_GPUs = 1
+requirements = (CUDAGlobalMemoryMb >= 4000) && (CUDACapability >= 3.5)
+
+Notification = Error
+initialdir = .
+
+executable = /users/start2014/r0385169/bin/python
+arguments = "lm_topic_$(data_set)_interpol.py --test_name=$(test_name) --num_run=$(num_run) --interpol=$(interpol)"
+
+Log          = jobdag/$(data_set)_topic_interpol_$(interpol).log
+Output       = jobdag/$(data_set)_topic_interpol_$(interpol).out
+Error        = jobdag/$(data_set)_topic_interpol_$(interpol).err
+
+Queue
+
+
