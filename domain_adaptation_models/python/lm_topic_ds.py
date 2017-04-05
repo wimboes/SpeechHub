@@ -66,7 +66,7 @@ flags.DEFINE_integer("embedded_size_lda", 64, "embedded_size_lda")
 
 ### general
 
-flags.DEFINE_string("mode", "lda", "mode")
+flags.DEFINE_string("mode", "int", "mode")
 flags.DEFINE_integer("batch_size", 50, "batch_size")
 flags.DEFINE_integer("num_steps", 50, "num_steps")
 flags.DEFINE_integer("num_run", 0, "num_run")

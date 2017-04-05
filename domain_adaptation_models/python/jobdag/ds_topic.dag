@@ -1,5 +1,5 @@
 #JOB topic_generation jobdag/topic_generation.job DIR ./..
-#JOB topic_reg jobdag/topic.job DIR ./..
+JOB topic_reg jobdag/topic.job DIR ./..
 JOB topic_lda jobdag/topic.job DIR ./..
 JOB topic_int jobdag/topic.job DIR ./..
 
@@ -10,7 +10,7 @@ JOB topic_ds_interpol_1 jobdag/topic_ds_interpol.job DIR ./..
 JOB compute_best_mix jobdag/compute_best_mix.job DIR ./..
 
 #VARS topic_generation data_set="ds" 
-#VARS topic_reg data_set="ds" test_name="topic"	num_run="0" mode="reg"
+VARS topic_reg data_set="ds" test_name="topic"	num_run="0" mode="reg"
 VARS topic_lda data_set="ds" test_name="topic" num_run="0" mode="lda"
 VARS topic_int data_set="ds" test_name="topic" num_run="0" mode="int"
 
@@ -21,7 +21,7 @@ VARS topic_ds_interpol_1 data_set="ds" test_name="topic" num_run="0" interpol="1
 
 
 #PARENT topic_generation CHILD topic_reg
-#PARENT topic_reg CHILD topic_lda
+PARENT topic_reg CHILD topic_lda
 PARENT topic_lda CHILD topic_int
 
 PARENT topic_int CHILD topic_test
