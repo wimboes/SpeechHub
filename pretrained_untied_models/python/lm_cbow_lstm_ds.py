@@ -41,13 +41,13 @@ flags.DEFINE_float("max_grad_norm", 5, "max_grad_norm")
 flags.DEFINE_integer("num_layers", 1, "num_layers")
 flags.DEFINE_integer("num_history", 80, "num_history")
 flags.DEFINE_float("cbow_exp_decay", 0.9, "cbow_exp_decay")
-flags.DEFINE_integer("hidden_size", 128, "hidden_size")
+flags.DEFINE_integer("hidden_size", 512, "hidden_size")
 flags.DEFINE_integer("max_epoch", 3, "max_epoch")
 flags.DEFINE_integer("max_max_epoch", 3, "max_max_epoch")
 flags.DEFINE_float("keep_prob", 0.5, "keep_prob")
 flags.DEFINE_float("lr_decay", 0.8, "lr_decay")
-flags.DEFINE_integer("embedded_size_reg", 64, "embedded_size_reg")
-flags.DEFINE_integer("embedded_size_cbow", 64, "embedded_size_cbow")
+flags.DEFINE_integer("embedded_size_reg", 128, "embedded_size_reg")
+flags.DEFINE_integer("embedded_size_cbow", 128, "embedded_size_cbow")
 
 ### general
 
@@ -62,7 +62,7 @@ flags.DEFINE_string("loss_function","full_softmax","loss_function")
 flags.DEFINE_string("optimizer","Adagrad","optimizer")
 flags.DEFINE_string("combination","tfidf","combination")
 flags.DEFINE_string("position","lstm","position")
-
+flags.DEFINE_string("pretrained", "yes", "pretrained")
 
 FLAGS = flags.FLAGS
 
@@ -88,12 +88,20 @@ class ds_cbow_sentence_model(object):
         self._labels = labels =  tf.placeholder(tf.int32, [batch_size, num_steps], name = 'batch_labels')
         self._seq_len = seq_len =  tf.placeholder(tf.int32, [batch_size], name = 'seq_len')
         
-        with tf.device("/cpu:0"):
-            embedding_reg = tf.get_variable("embedding_reg", [vocab_size+1, config.embedded_size_reg], dtype=data_type())
-            embedding_cbow = tf.get_variable("embedding_cbow", [vocab_size+1, config.embedded_size_cbow], dtype=data_type())
-            # NOG NIET GETIED
-            inputs_reg = tf.nn.embedding_lookup(embedding_reg, data)
-            inputs_cbow = tf.nn.embedding_lookup(embedding_cbow, history)
+	if FLAGS.pretrained == "yes":
+            input_path = os.path.join(os.path.split(os.path.split(python_path)[0])[0],'input')
+	    embedding_np= np.load(os.path.join(input_path,"embedding_128.npy"))	
+	    with tf.device("/cpu:0"):
+                embedding_reg = tf.get_variable("embedding_reg", [vocab_size+1, config.embedded_size_reg], initializer=tf.constant_initializer(embedding_np),  dtype=data_type())
+                embedding_cbow = tf.get_variable("embedding_cbow", [vocab_size+1, config.embedded_size_cbow], initializer=tf.constant_initializer(embedding_np),  dtype=data_type())
+                inputs_reg = tf.nn.embedding_lookup(embedding_reg, data)
+                inputs_cbow = tf.nn.embedding_lookup(embedding_cbow, history)
+	else:
+            with tf.device("/cpu:0"):
+                embedding_reg = tf.get_variable("embedding_reg", [vocab_size+1, config.embedded_size_reg], dtype=data_type())
+                embedding_cbow = tf.get_variable("embedding_cbow", [vocab_size+1, config.embedded_size_cbow],  dtype=data_type())
+                inputs_reg = tf.nn.embedding_lookup(embedding_reg, data)
+                inputs_cbow = tf.nn.embedding_lookup(embedding_cbow, history)
 
         if is_training and config.keep_prob < 1:
             inputs_reg = tf.nn.dropout(inputs_reg, config.keep_prob)

@@ -36,13 +36,13 @@ flags.DEFINE_float("learning_rate", 1, "learning_rate")
 flags.DEFINE_float("max_grad_norm", 5, "max_grad_norm")
 flags.DEFINE_integer("num_layers", 1, "num_layers")
 flags.DEFINE_integer("num_steps", 50, "num_steps")
-flags.DEFINE_integer("hidden_size", 128, "hidden_size")
+flags.DEFINE_integer("hidden_size", 512, "hidden_size")
 flags.DEFINE_integer("max_epoch", 3, "max_epoch")
 flags.DEFINE_integer("max_max_epoch", 3, "max_max_epoch")
 flags.DEFINE_float("keep_prob", 0.5, "keep_prob")
 flags.DEFINE_float("lr_decay", 0.8, "lr_decay")
 flags.DEFINE_integer("batch_size", 50, "batch_size")
-flags.DEFINE_integer("embedded_size", 64, "embedded_size")
+flags.DEFINE_integer("embedded_size", 256, "embedded_size")
 flags.DEFINE_integer("num_run", 0, "num_run")
 flags.DEFINE_string("test_name","original","test_name")
 flags.DEFINE_string("optimizer","Adagrad","optimizer")
@@ -51,6 +51,7 @@ flags.DEFINE_string("loss_function","full_softmax","loss_function")
 flags.DEFINE_string("data_path", input_path, "data_path")
 flags.DEFINE_string("save_path", output_path, "save_path")
 flags.DEFINE_bool("use_fp16", False, "train using 16-bit floats instead of 32bit floats")
+flags.DEFINE_string("pretrained", "yes", "pretrained")
 
 FLAGS = flags.FLAGS
 
@@ -78,9 +79,16 @@ class ds_original_model(object):
 
         self._initial_state = cell.zero_state(batch_size, data_type())
 
-        with tf.device("/cpu:0"):
-            embedding = tf.get_variable("embedding", [vocab_size + 1, embedded_size], dtype=data_type()) #om pad symbool toe te laten
-            inputs = tf.nn.embedding_lookup(embedding, data)
+	if FLAGS.pretrained == "yes":
+            input_path = os.path.join(os.path.split(os.path.split(python_path)[0])[0],'input')
+	    embedding_np= np.load(os.path.join(input_path,"embedding_256.npy"))	
+	    with tf.device("/cpu:0"):
+                embedding = tf.get_variable("embedding", [vocab_size+1, config.embedded_size], initializer=tf.constant_initializer(embedding_np),  dtype=data_type())
+                inputs = tf.nn.embedding_lookup(embedding, data)
+	else:
+            with tf.device("/cpu:0"):
+                embedding = tf.get_variable("embedding", [vocab_size+1, config.embedded_size], dtype=data_type())
+                inputs = tf.nn.embedding_lookup(embedding, data)
 
         if is_training and config.keep_prob < 1:
             inputs = tf.nn.dropout(inputs, config.keep_prob)
