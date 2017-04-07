@@ -44,12 +44,12 @@ flags.DEFINE_float("init_scale_reg", 0.05, "init_scale_reg")
 flags.DEFINE_float("learning_rate_reg", 1, "learning_rate_reg")
 flags.DEFINE_float("max_grad_norm_reg", 5, "max_grad_norm_reg")
 flags.DEFINE_integer("num_layers_reg", 1, "num_layers_reg")
-flags.DEFINE_integer("hidden_size_reg", 500, "hidden_size_reg")
+flags.DEFINE_integer("hidden_size_reg", 128, "hidden_size_reg")
 flags.DEFINE_integer("max_epoch_reg", 3, "max_epoch_reg")
 flags.DEFINE_integer("max_max_epoch_reg", 3, "max_max_epoch_reg")
 flags.DEFINE_float("keep_prob_reg", 0.5, "keep_prob_reg")
 flags.DEFINE_float("lr_decay_reg", 1, "lr_decay_reg")
-flags.DEFINE_integer("embedded_size_reg", 128, "embedded_size_reg")
+flags.DEFINE_integer("embedded_size_reg", 64, "embedded_size_reg")
 
 ### lda
 
@@ -57,12 +57,12 @@ flags.DEFINE_float("init_scale_lda", 0.05, "init_scale_lda")
 flags.DEFINE_float("learning_rate_lda", 1, "learning_rate_lda")
 flags.DEFINE_float("max_grad_norm_lda", 5, "max_grad_norm_lda")
 flags.DEFINE_integer("num_layers_lda", 1, "num_layers_lda")
-flags.DEFINE_integer("hidden_size_lda", 500, "hidden_size_lda")
+flags.DEFINE_integer("hidden_size_lda", 128, "hidden_size_lda")
 flags.DEFINE_integer("max_epoch_lda", 3, "max_epoch_lda")
 flags.DEFINE_integer("max_max_epoch_lda", 3, "max_max_epoch_lda")
 flags.DEFINE_float("keep_prob_lda", 0.5, "keep_prob_lda")
 flags.DEFINE_float("lr_decay_lda", 0.8, "lr_decay_lda")
-flags.DEFINE_integer("embedded_size_lda", 128, "embedded_size_lda")
+flags.DEFINE_integer("embedded_size_lda", 64, "embedded_size_lda")
 
 ### general
 
@@ -102,7 +102,7 @@ class ds_topic_model(object):
             embedding_reg = tf.get_variable("embedding_reg", [vocab_size+1, config.embedded_size_reg], dtype=data_type(), initializer = initializer_reg)
             inputs_reg = tf.nn.embedding_lookup(embedding_reg, data)
             embedding_lda = tf.get_variable("embedding_lda", [vocab_size+1, config.embedded_size_lda], dtype=data_type(), initializer = initializer_lda)
-            inputs_lda = tf.nn.embedding_lookup(embedding_lda, data)
+            inputs_lda = tf.nn.embedding_lookup(embedding_reg, data)
             
         if is_training and config.keep_prob_reg < 1:
             inputs_reg = tf.nn.dropout(inputs_reg, config.keep_prob_reg)
