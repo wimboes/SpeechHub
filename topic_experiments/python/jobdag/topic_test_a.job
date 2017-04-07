@@ -1,10 +1,26 @@
 Universe         = vanilla
 RequestCpus     = 1
-RequestMemory    = 14G
+RequestMemory    = 28G
 +RequestWalltime = 51840
 
-getenv = true
-NiceUser = true
+MAXJOBRETIREMENTTIME = 3600 * 24 * 2
+
+#Disable preemption by machine activity.
+PREEMPT = False
+#Disable preemption by user priority.
+PREEMPTION_REQUIREMENTS = False
+#Disable preemption by machine RANK by ranking all jobs equally.
+RANK = 0
+#Since we are disabling claim preemption, we
+# may as well optimize negotiation for this case:
+NEGOTIATOR_CONSIDER_PREEMPTION = False
+
+# after 20 minutes, schedd must renegotiate to run
+# additional jobs on the machine
+CLAIM_WORKLIFE = 1200 * 3
+
+#getenv = true
+#NiceUser = true
 Notification = Error
 initialdir = .
 

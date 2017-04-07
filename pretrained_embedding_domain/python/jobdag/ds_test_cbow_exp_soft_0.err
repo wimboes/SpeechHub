@@ -1,8 +1,10 @@
 I tensorflow/stream_executor/dso_loader.cc:128] successfully opened CUDA library libcublas.so locally
 I tensorflow/stream_executor/dso_loader.cc:128] successfully opened CUDA library libcudnn.so locally
-I tensorflow/stream_executor/dso_loader.cc:128] successfully opened CUDA library libcufft.so locally
+I tensorflow/stream_executor/dso_loader.cc:119] Couldn't open CUDA library libcufft.so. LD_LIBRARY_PATH: /usr/local/cuda/lib64:/usr/local/cuda-7.5/lib64:/usr/local/cuda-8.0/lib64:/users/start2014/r0385169/.local/cudnn
+I tensorflow/stream_executor/cuda/cuda_fft.cc:344] Unable to load cuFFT DSO.
 I tensorflow/stream_executor/dso_loader.cc:128] successfully opened CUDA library libcuda.so.1 locally
-I tensorflow/stream_executor/dso_loader.cc:128] successfully opened CUDA library libcurand.so locally
+I tensorflow/stream_executor/dso_loader.cc:119] Couldn't open CUDA library libcurand.so. LD_LIBRARY_PATH: /usr/local/cuda/lib64:/usr/local/cuda-7.5/lib64:/usr/local/cuda-8.0/lib64:/users/start2014/r0385169/.local/cudnn
+I tensorflow/stream_executor/cuda/cuda_rng.cc:338] Unable to load cuRAND DSO.
 /users/start2014/r0364650/.local/lib/python2.7/site-packages/gensim/utils.py:1015: UserWarning: Pattern library is not installed, lemmatization won't be available.
   warnings.warn("Pattern library is not installed, lemmatization won't be available.")
 Traceback (most recent call last):
@@ -10,8 +12,16 @@ Traceback (most recent call last):
     tf.app.run()
   File "/users/start2014/r0364650/.local/lib/python2.7/site-packages/tensorflow/python/platform/app.py", line 43, in run
     sys.exit(main(sys.argv[:1] + flags_passthrough))
-  File "lm_cbow_soft_ds_test.py", line 325, in main
-    param_np = np.load((FLAGS.save_path + '/' + FLAGS.test_name + '_' + str(FLAGS.num_run)+ '/results' +'.npz'))
-  File "/users/start2014/r0364650/.local/lib/python2.7/site-packages/numpy/lib/npyio.py", line 362, in load
-    fid = open(file, "rb")
-IOError: [Errno 2] No such file or directory: '/esat/spchtemp/scratch/robbe/SpeechHub/pretrained_embedding_domain/output/cbow_exp_soft_0/results.npz'
+  File "lm_cbow_soft_ds_test.py", line 344, in main
+    eval_data = reader.ds_data_sentence_with_history(eval_config['batch_size'], eval_config['num_history'], FLAGS.data_path, FLAGS.eval_name)
+  File "/esat/spchtemp/scratch/robbe/SpeechHub/pretrained_embedding_domain/python/reader.py", line 347, in __init__
+    self._tfidf = models.TfidfModel.load(tfidf_path)
+  File "/users/start2014/r0364650/.local/lib/python2.7/site-packages/gensim/utils.py", line 248, in load
+    obj = unpickle(fname)
+  File "/users/start2014/r0364650/.local/lib/python2.7/site-packages/gensim/utils.py", line 910, in unpickle
+    with smart_open(fname) as f:
+  File "/users/start2014/r0364650/.local/lib/python2.7/site-packages/smart_open/smart_open_lib.py", line 127, in smart_open
+    return file_smart_open(parsed_uri.uri_path, mode)
+  File "/users/start2014/r0364650/.local/lib/python2.7/site-packages/smart_open/smart_open_lib.py", line 558, in file_smart_open
+    return open(fname, mode)
+IOError: [Errno 2] No such file or directory: '/esat/spchtemp/scratch/robbe/SpeechHub/input/tfidf.ds'
