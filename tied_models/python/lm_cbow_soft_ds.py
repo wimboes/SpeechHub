@@ -41,13 +41,13 @@ flags.DEFINE_float("max_grad_norm", 5, "max_grad_norm")
 flags.DEFINE_integer("num_layers", 1, "num_layers")
 flags.DEFINE_integer("num_history", 80, "num_history")
 flags.DEFINE_float("cbow_exp_decay", 0.9, "cbow_exp_decay")
-flags.DEFINE_integer("hidden_size", 128, "hidden_size")
+flags.DEFINE_integer("hidden_size", 400, "hidden_size")
 flags.DEFINE_integer("max_epoch", 3, "max_epoch")
 flags.DEFINE_integer("max_max_epoch", 3, "max_max_epoch")
 flags.DEFINE_float("keep_prob", 0.5, "keep_prob")
 flags.DEFINE_float("lr_decay", 0.8, "lr_decay")
-flags.DEFINE_integer("embedded_size_reg", 64, "embedded_size_reg")
-flags.DEFINE_integer("embedded_size_cbow", 64, "embedded_size_cbow")
+flags.DEFINE_integer("embedded_size_reg", 200, "embedded_size_reg")
+flags.DEFINE_integer("embedded_size_cbow", 1, "embedded_size_cbow")
 
 ### general
 
