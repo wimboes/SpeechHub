@@ -41,12 +41,12 @@ flags.DEFINE_float("max_grad_norm", 5, "max_grad_norm")
 flags.DEFINE_integer("num_layers", 1, "num_layers")
 flags.DEFINE_integer("num_history", 80, "num_history")
 flags.DEFINE_float("cbow_exp_decay", 0.9, "cbow_exp_decay")
-flags.DEFINE_integer("hidden_size", 400, "hidden_size")
+flags.DEFINE_integer("hidden_size", 256, "hidden_size")
 flags.DEFINE_integer("max_epoch", 3, "max_epoch")
 flags.DEFINE_integer("max_max_epoch", 3, "max_max_epoch")
 flags.DEFINE_float("keep_prob", 0.5, "keep_prob")
 flags.DEFINE_float("lr_decay", 0.8, "lr_decay")
-flags.DEFINE_integer("embedded_size_reg", 200, "embedded_size_reg")
+flags.DEFINE_integer("embedded_size_reg", 128, "embedded_size_reg")
 flags.DEFINE_integer("embedded_size_cbow", 1, "embedded_size_cbow")
 
 ### general
@@ -54,14 +54,14 @@ flags.DEFINE_integer("embedded_size_cbow", 1, "embedded_size_cbow")
 flags.DEFINE_integer("batch_size", 50, "batch_size")
 flags.DEFINE_integer("num_steps", 50, "num_steps")
 flags.DEFINE_integer("num_run", 0, "num_run")
-flags.DEFINE_string("test_name","cbow_test_sotf","test_name")
+flags.DEFINE_string("test_name","cbow_test_lstm","test_name")
 flags.DEFINE_string("data_path",input_path,"data_path")
 flags.DEFINE_string("save_path",output_path,"save_path")
 flags.DEFINE_string("use_fp16",False,"train blabla")
 flags.DEFINE_string("loss_function","full_softmax","loss_function")
 flags.DEFINE_string("optimizer","Adagrad","optimizer")
-flags.DEFINE_string("combination","mean","combination")
-flags.DEFINE_string("position","soft","position")
+flags.DEFINE_string("combination","tfidf","combination")
+flags.DEFINE_string("position","lstm","position")
 
 
 FLAGS = flags.FLAGS
@@ -91,7 +91,7 @@ class ds_cbow_sentence_model(object):
         with tf.device("/cpu:0"):
             embedding_reg = tf.get_variable("embedding_reg", [vocab_size+1, config.embedded_size_reg], dtype=data_type())
             embedding_cbow = tf.get_variable("embedding_cbow", [vocab_size+1, config.embedded_size_cbow], dtype=data_type())
-
+            # NOG NIET GETIED
             inputs_reg = tf.nn.embedding_lookup(embedding_reg, data)
             inputs_cbow = tf.nn.embedding_lookup(embedding_reg, history)
 
@@ -117,36 +117,36 @@ class ds_cbow_sentence_model(object):
                     mask1 = tf.pack([mask]*config.embedded_size_cbow,axis = 2)
                     out = mask1*slice2*exp_weights
                     comb_ = tf.reduce_sum(out,1)/(tf.reduce_sum(mask1*exp_weights,1) + 1e-32)
-
+                    
                 if FLAGS.combination == "tfidf":
                     tfidf =  tf.slice(history_tfidf,[0,i],[batch_size,num_history])                   
                     out = slice2*tf.expand_dims(tf.cast(tfidf, dtype=data_type()), -1)
-                    comb_ = tf.reduce_sum(out,1)/(tf.reduce_sum(tf.expand_dims(tf.cast(tfidf, dtype=data_type()), -1),1) + 1e-32)    
+                    comb_ = tf.reduce_sum(out,1)/(tf.reduce_sum(tf.expand_dims(tf.cast(tfidf, dtype=data_type()), -1),1) + 1e-32)
     
                 outputs_cbow.append(comb_)
-            output_cbow_soft = tf.reshape(tf.concat(1, outputs_cbow), [-1, config.embedded_size_cbow])
-            
-        with tf.variable_scope('lstm_soft') as lstm_soft:
-            
-            lstm_cell_soft = tf.nn.rnn_cell.BasicLSTMCell(hidden_size, forget_bias=0.0, state_is_tuple=True)
-            if is_training and config.keep_prob < 1:
-                lstm_cell_soft = tf.nn.rnn_cell.DropoutWrapper(lstm_cell_soft, output_keep_prob=config.keep_prob)
-            cell_soft = tf.nn.rnn_cell.MultiRNNCell([lstm_cell_soft] * config.num_layers, state_is_tuple=True)
-
-            self._initial_state_soft = cell_soft.zero_state(batch_size, data_type())
-   
-            outputs_soft, state_soft = tf.nn.dynamic_rnn(cell_soft, inputs_reg, initial_state=self._initial_state_soft, dtype=data_type(), sequence_length=seq_len)
-            output_LSTM_soft = tf.reshape(tf.concat(1, outputs_soft), [-1, hidden_size])
-            output_soft = tf.concat(1,[output_LSTM_soft,output_cbow_soft])
-
-
-        softmax_w_soft = tf.get_variable("softmax_w_soft", [hidden_size+config.embedded_size_cbow, vocab_size], dtype=data_type())
-        softmax_b_soft = tf.get_variable("softmax_b_soft", [vocab_size], dtype=data_type())            
+            output_cbow_lstm = tf.reshape(tf.concat(1, outputs_cbow), [batch_size,num_steps, config.embedded_size_cbow])
         
+        with tf.variable_scope('lstm_lstm') as lstm_lstm:
+
+            lstm_cell_lstm = tf.nn.rnn_cell.BasicLSTMCell(hidden_size, forget_bias=0.0, state_is_tuple=True)
+            if is_training and config.keep_prob < 1:
+                lstm_cell_lstm = tf.nn.rnn_cell.DropoutWrapper(lstm_cell_lstm, output_keep_prob=config.keep_prob)
+            cell_lstm = tf.nn.rnn_cell.MultiRNNCell([lstm_cell_lstm] * config.num_layers, state_is_tuple=True)
+
+            self._initial_state_lstm = cell_lstm.zero_state(batch_size, data_type())
             
-        self._cost_soft, self._nb_words_in_batch = get_loss_function(output_soft, softmax_w_soft, softmax_b_soft, labels, input_, is_training)
-    
-        cost_soft = self._cost_soft / (self._nb_words_in_batch + 1e-32)        
+            inputs_lstm = tf.concat(2,[inputs_reg, output_cbow_lstm])
+            outputs_lstm, state_lstm = tf.nn.dynamic_rnn(cell_lstm, inputs_lstm, initial_state=self._initial_state_lstm, dtype=data_type(), sequence_length=seq_len)
+            output_LSTM_lstm = tf.reshape(tf.concat(1, outputs_lstm), [-1, hidden_size])
+            output_lstm = output_LSTM_lstm
+
+        softmax_w_lstm = tf.get_variable("softmax_w_lstm", [hidden_size, vocab_size], dtype=data_type())
+        softmax_b_lstm = tf.get_variable("softmax_b_lstm", [vocab_size], dtype=data_type())            
+            
+        self._cost, self._nb_words_in_batch  = get_loss_function(output_lstm, softmax_w_lstm, softmax_b_lstm, labels, input_, is_training)
+
+        cost_lstm = self._cost / (self._nb_words_in_batch + 1e-32)
+        self._final_state = state_lstm
         
         if not is_training:
             return      
@@ -154,24 +154,24 @@ class ds_cbow_sentence_model(object):
         self._global_step = tf.Variable(0, name='global_step', trainable=False)
         self._lr = tf.Variable(0.0, trainable=False)
         
-        tvars_soft = [embedding_reg, embedding_cbow, softmax_w_soft, softmax_b_soft] + [v for v in tf.trainable_variables() if v.name.startswith(lstm_soft.name)] + [v for v in tf.trainable_variables() if v.name.startswith(cbow.name)]
-        grads_soft, _ = tf.clip_by_global_norm(tf.gradients(cost_soft, tvars_soft),config.max_grad_norm)   
+        tvars_lstm = [embedding_reg, embedding_cbow, softmax_w_lstm, softmax_b_lstm] + [v for v in tf.trainable_variables() if v.name.startswith(lstm_lstm.name)] + [v for v in tf.trainable_variables() if v.name.startswith(cbow.name)]
+        grads_lstm, _ = tf.clip_by_global_norm(tf.gradients(cost_lstm, tvars_lstm),config.max_grad_norm)   
         optimizer = get_optimizer(self._lr)
-        self._train_op_soft = optimizer.apply_gradients(zip(grads_soft, tvars_soft),global_step=self._global_step)
+        self._train_op_lstm = optimizer.apply_gradients(zip(grads_lstm, tvars_lstm),global_step=self._global_step)
 
         self._new_lr = tf.placeholder(tf.float32, shape=[], name="new_learning_rate")
         self._lr_update = tf.assign(self._lr, self._new_lr)
         
     def assign_lr(self, session, lr_value):
         session.run(self._lr_update, feed_dict={self._new_lr: lr_value})
+        
+    @property
+    def nb_words_in_batch(self):
+        return self._nb_words_in_batch    
 
     @property
     def input(self):
         return self._input
-        
-    @property
-    def nb_words_in_batch(self):
-        return self._nb_words_in_batch 
 
     @property
     def initial_state(self):
@@ -192,11 +192,11 @@ class ds_cbow_sentence_model(object):
     @property
     def history(self):
         return self._history
-        
+    
     @property
     def history_tfidf(self):
         return self._history_tfidf 
-        
+    
     @property
     def labels(self):
         return self._labels
@@ -207,7 +207,7 @@ class ds_cbow_sentence_model(object):
         
     @property
     def cost(self):
-        return self._cost_soft
+        return self._cost
 
     @property
     def final_state(self):
@@ -219,7 +219,7 @@ class ds_cbow_sentence_model(object):
 
     @property
     def train_op(self):
-        return self._train_op_soft
+        return self._train_op_lstm
 
 
 class config_cbow(object):
@@ -261,7 +261,7 @@ def get_loss_function(output, softmax_w, softmax_b, targets, data, is_training):
     mask2 = tf.reshape(tf.where(mask),[-1])
     targets = tf.gather(targets, mask2)
     output = tf.gather(output, mask2)
-    nb_words_in_batch = tf.reduce_sum(tf.cast(mask,dtype=tf.float32)) 
+    nb_words_in_batch = tf.reduce_sum(tf.cast(mask,dtype=tf.float32))
 
     if FLAGS.loss_function == "full_softmax":
         logits = tf.matmul(output, softmax_w) + softmax_b
@@ -287,7 +287,7 @@ def run_epoch(session, model, eval_op=None, verbose=False, epoch_nb = 0, pos_epo
     processed_words = 0
     save_np = np.array([[0,0,0,0]])
 
-    fetches = {'cost':model.cost, "nb_words_in_batch": model.nb_words_in_batch}
+    fetches = {"cost":model.cost, "nb_words_in_batch": model.nb_words_in_batch}
     if eval_op is not None:
         fetches["eval_op"] = eval_op
 
@@ -370,7 +370,7 @@ def main(_):
             train_np = np.array([[0,0,0,0]])
             valid_np = np.array([[0,0,0,0]])
 		
-        sv = tf.train.Supervisor(summary_writer=None, save_model_secs=300, logdir=FLAGS.save_path + '/' + FLAGS.test_name + '_' + str(FLAGS.num_run))
+        sv = tf.train.Supervisor(summary_writer=None, save_model_secs=60, logdir=FLAGS.save_path + '/' + FLAGS.test_name + '_' + str(FLAGS.num_run))
         with sv.managed_session() as session:
             start_epoch = session.run(m.global_step) // m.input.epoch_size
             pos_epoch = session.run(m.global_step) % m.input.epoch_size

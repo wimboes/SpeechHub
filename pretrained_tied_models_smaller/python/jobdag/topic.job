@@ -1,0 +1,20 @@
+Universe         = vanilla
+RequestCpus     = 1
+RequestMemory    = 4G
++RequestWalltime = 518400
+
+request_GPUs = 1
+requirements = (CUDAGlobalMemoryMb >= 4000) && (CUDACapability >= 3.5) 
+
+Notification = Error
+initialdir = .
+
+executable = /users/start2014/r0385169/bin/python
+arguments = "lm_topic_ds.py --test_name=$(test_name) --num_run=$(num_run) --mode=$(mode)"
+
+Log          = jobdag/$(data_set)_$(test_name)_$(mode).log
+Output       = jobdag/$(data_set)_$(test_name)_$(mode).out
+Error        = jobdag/$(data_set)_$(test_name)_$(mode).err
+
+Queue
+

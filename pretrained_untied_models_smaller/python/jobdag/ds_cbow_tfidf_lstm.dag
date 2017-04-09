@@ -1,0 +1,7 @@
+JOB cbow_tfidf_lstm jobdag/cbow_lstm.job DIR ./..
+JOB cbow_tfidf_lstm_test jobdag/cbow_lstm_test.job DIR ./..
+ 
+VARS cbow_tfidf_lstm data_set="ds" test_name="cbow_tfidf_lstm" num_run="0" combination="tfidf" 
+VARS cbow_tfidf_lstm_test data_set="ds" test_name="cbow_tfidf_lstm" num_run="0"
+
+PARENT cbow_tfidf_lstm CHILD cbow_tfidf_lstm_test

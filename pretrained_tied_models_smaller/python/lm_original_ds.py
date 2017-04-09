@@ -8,7 +8,6 @@ import time
 import numpy as np
 
 if 'LD_LIBRARY_PATH' not in os.environ:
-        print('hihi')
         os.environ['LD_LIBRARY_PATH'] = '/usr/local/cuda/lib64:/usr/local/cuda-7.5/lib64:/usr/local/cuda-8.0/lib64:/users/start2014/r0385169/.local/cudnn'
         try:
             	os.system('/users/start2014/r0385169/bin/python ' + ' '.join(sys.argv))
@@ -18,146 +17,102 @@ if 'LD_LIBRARY_PATH' not in os.environ:
                 sys.exit(1)
 
 
+
 import tensorflow as tf
 import reader
-
-##### paths
 
 python_path = os.path.abspath(os.getcwd())
 general_path = os.path.split(python_path)[0]
 input_path = os.path.join(os.path.split(os.path.split(python_path)[0])[0],'input')
 output_path = os.path.join(general_path,'output')
 
-##### flags
+# set data and save path
 
 flags = tf.flags
 logging = tf.logging
-
-### regular
 
 flags.DEFINE_float("init_scale", 0.05, "init_scale")
 flags.DEFINE_float("learning_rate", 1, "learning_rate")
 flags.DEFINE_float("max_grad_norm", 5, "max_grad_norm")
 flags.DEFINE_integer("num_layers", 1, "num_layers")
-flags.DEFINE_integer("num_history", 80, "num_history")
-flags.DEFINE_float("cbow_exp_decay", 0.9, "cbow_exp_decay")
-flags.DEFINE_integer("hidden_size", 400, "hidden_size")
+flags.DEFINE_integer("num_steps", 50, "num_steps")
+flags.DEFINE_integer("hidden_size", 256, "hidden_size")
 flags.DEFINE_integer("max_epoch", 3, "max_epoch")
 flags.DEFINE_integer("max_max_epoch", 3, "max_max_epoch")
 flags.DEFINE_float("keep_prob", 0.5, "keep_prob")
 flags.DEFINE_float("lr_decay", 0.8, "lr_decay")
-flags.DEFINE_integer("embedded_size_reg", 200, "embedded_size_reg")
-flags.DEFINE_integer("embedded_size_cbow", 1, "embedded_size_cbow")
-
-### general
-
 flags.DEFINE_integer("batch_size", 50, "batch_size")
-flags.DEFINE_integer("num_steps", 50, "num_steps")
+flags.DEFINE_integer("embedded_size", 128, "embedded_size")
 flags.DEFINE_integer("num_run", 0, "num_run")
-flags.DEFINE_string("test_name","cbow_test_sotf","test_name")
-flags.DEFINE_string("data_path",input_path,"data_path")
-flags.DEFINE_string("save_path",output_path,"save_path")
-flags.DEFINE_string("use_fp16",False,"train blabla")
-flags.DEFINE_string("loss_function","full_softmax","loss_function")
+flags.DEFINE_string("test_name","original","test_name")
 flags.DEFINE_string("optimizer","Adagrad","optimizer")
-flags.DEFINE_string("combination","mean","combination")
-flags.DEFINE_string("position","soft","position")
+flags.DEFINE_string("loss_function","full_softmax","loss_function")
 
+flags.DEFINE_string("data_path", input_path, "data_path")
+flags.DEFINE_string("save_path", output_path, "save_path")
+flags.DEFINE_bool("use_fp16", False, "train using 16-bit floats instead of 32bit floats")
+flags.DEFINE_string("pretrained", "yes", "pretrained")
 
 FLAGS = flags.FLAGS
 
-##### classes and functions 
-
 def data_type():
     return tf.float16 if FLAGS.use_fp16 else tf.float32
-    
-class ds_cbow_sentence_model(object):
 
+class ds_original_model(object):
     def __init__(self, is_training, config, input_):
         self._input = input_
 
         batch_size = input_.batch_size
         self._num_steps = num_steps = config.num_steps
-        vocab_size = input_.pad_id #om pad symbool toe te laten
         hidden_size = config.hidden_size
-        num_history = input_.history_size
+        vocab_size = input_.pad_id 
+        embedded_size = config.embedded_size
         
         self._data = data =  tf.placeholder(tf.int32, [batch_size, num_steps], name = 'batch_data')
-        self._history = history = tf.placeholder(tf.int32, [batch_size, num_history+num_steps-1], name = 'batch_history')
-        self._history_tfidf = history_tfidf = tf.placeholder(tf.int32, [batch_size, num_history+num_steps-1], name = 'batch_history_tfidf')
         self._labels = labels =  tf.placeholder(tf.int32, [batch_size, num_steps], name = 'batch_labels')
         self._seq_len = seq_len =  tf.placeholder(tf.int32, [batch_size], name = 'seq_len')
-        
-        with tf.device("/cpu:0"):
-            embedding_reg = tf.get_variable("embedding_reg", [vocab_size+1, config.embedded_size_reg], dtype=data_type())
-            embedding_cbow = tf.get_variable("embedding_cbow", [vocab_size+1, config.embedded_size_cbow], dtype=data_type())
 
-            inputs_reg = tf.nn.embedding_lookup(embedding_reg, data)
-            inputs_cbow = tf.nn.embedding_lookup(embedding_reg, history)
+        lstm_cell = tf.nn.rnn_cell.BasicLSTMCell(hidden_size, forget_bias=0.0, state_is_tuple=True)
+        if is_training and config.keep_prob < 1:
+            lstm_cell = tf.nn.rnn_cell.DropoutWrapper(lstm_cell, output_keep_prob=config.keep_prob)
+        cell = tf.nn.rnn_cell.MultiRNNCell([lstm_cell] * config.num_layers, state_is_tuple=True)
+
+        self._initial_state = cell.zero_state(batch_size, data_type())
+
+	if FLAGS.pretrained == "yes":
+            input_path = os.path.join(os.path.split(os.path.split(python_path)[0])[0],'input')
+	    embedding_np= np.load(os.path.join(input_path,"embedding_128.npy"))	
+	    with tf.device("/cpu:0"):
+                embedding = tf.get_variable("embedding", [vocab_size+1, config.embedded_size], initializer=tf.constant_initializer(embedding_np),  dtype=data_type())
+                inputs = tf.nn.embedding_lookup(embedding, data)
+	else:
+            with tf.device("/cpu:0"):
+                embedding = tf.get_variable("embedding", [vocab_size+1, config.embedded_size], dtype=data_type())
+                inputs = tf.nn.embedding_lookup(embedding, data)
 
         if is_training and config.keep_prob < 1:
-            inputs_reg = tf.nn.dropout(inputs_reg, config.keep_prob)
-            inputs_cbow = tf.nn.dropout(inputs_cbow, config.keep_prob)
-
-        with tf.variable_scope('cbow') as cbow:           
-            outputs_cbow = []
-            for i in xrange(num_steps):
-                slice1 = tf.slice(history,[0,i],[batch_size,num_history])
-                slice2 = tf.slice(inputs_cbow,[0,i,0],[batch_size,num_history,config.embedded_size_cbow])
-                
-                if FLAGS.combination == "mean":
-                    mask = tf.cast(tf.logical_and(tf.logical_and(tf.not_equal(slice1,[input_.pad_id]), tf.not_equal(slice1,[input_.unk_id])), tf.logical_and(tf.not_equal(slice1,[input_.bos_id]), tf.not_equal(slice1,[input_.eos_id]))), dtype = data_type())
-                    mask1 = tf.pack([mask]*config.embedded_size_cbow,axis = 2)
-                    out = mask1*slice2
-                    comb_ = tf.reduce_sum(out,1)/(tf.reduce_sum(mask1,1) + 1e-32)
-    
-                if FLAGS.combination == "exp":
-                    exp_weights = tf.reverse(tf.constant([[config.embedded_size_cbow*[config.cbow_exp_decay**k] for k in range(num_history)] for j in range(batch_size)]),[False,True,False])
-                    mask = tf.cast(tf.logical_and(tf.logical_and(tf.not_equal(slice1,[input_.pad_id]), tf.not_equal(slice1,[input_.unk_id])), tf.logical_and(tf.not_equal(slice1,[input_.bos_id]), tf.not_equal(slice1,[input_.eos_id]))), dtype = data_type())
-                    mask1 = tf.pack([mask]*config.embedded_size_cbow,axis = 2)
-                    out = mask1*slice2*exp_weights
-                    comb_ = tf.reduce_sum(out,1)/(tf.reduce_sum(mask1*exp_weights,1) + 1e-32)
-
-                if FLAGS.combination == "tfidf":
-                    tfidf =  tf.slice(history_tfidf,[0,i],[batch_size,num_history])                   
-                    out = slice2*tf.expand_dims(tf.cast(tfidf, dtype=data_type()), -1)
-                    comb_ = tf.reduce_sum(out,1)/(tf.reduce_sum(tf.expand_dims(tf.cast(tfidf, dtype=data_type()), -1),1) + 1e-32)    
-    
-                outputs_cbow.append(comb_)
-            output_cbow_soft = tf.reshape(tf.concat(1, outputs_cbow), [-1, config.embedded_size_cbow])
-            
-        with tf.variable_scope('lstm_soft') as lstm_soft:
-            
-            lstm_cell_soft = tf.nn.rnn_cell.BasicLSTMCell(hidden_size, forget_bias=0.0, state_is_tuple=True)
-            if is_training and config.keep_prob < 1:
-                lstm_cell_soft = tf.nn.rnn_cell.DropoutWrapper(lstm_cell_soft, output_keep_prob=config.keep_prob)
-            cell_soft = tf.nn.rnn_cell.MultiRNNCell([lstm_cell_soft] * config.num_layers, state_is_tuple=True)
-
-            self._initial_state_soft = cell_soft.zero_state(batch_size, data_type())
-   
-            outputs_soft, state_soft = tf.nn.dynamic_rnn(cell_soft, inputs_reg, initial_state=self._initial_state_soft, dtype=data_type(), sequence_length=seq_len)
-            output_LSTM_soft = tf.reshape(tf.concat(1, outputs_soft), [-1, hidden_size])
-            output_soft = tf.concat(1,[output_LSTM_soft,output_cbow_soft])
-
-
-        softmax_w_soft = tf.get_variable("softmax_w_soft", [hidden_size+config.embedded_size_cbow, vocab_size], dtype=data_type())
-        softmax_b_soft = tf.get_variable("softmax_b_soft", [vocab_size], dtype=data_type())            
+            inputs = tf.nn.dropout(inputs, config.keep_prob)
         
-            
-        self._cost_soft, self._nb_words_in_batch = get_loss_function(output_soft, softmax_w_soft, softmax_b_soft, labels, input_, is_training)
-    
-        cost_soft = self._cost_soft / (self._nb_words_in_batch + 1e-32)        
+        outputs, state = tf.nn.dynamic_rnn(cell, inputs, initial_state=self._initial_state, dtype=data_type(), sequence_length = seq_len)
+        output = tf.reshape(tf.concat(1, outputs), [-1, hidden_size])
         
+        softmax_w = tf.get_variable("softmax_w", [hidden_size, vocab_size], dtype=data_type())
+        softmax_b = tf.get_variable("softmax_b", [vocab_size], dtype=data_type())
+        self._cost, self._nb_words_in_batch = get_loss_function(output, softmax_w, softmax_b, labels, input_, is_training)
+        
+        cost = self._cost / (self._nb_words_in_batch + 1e-32)
+        self._final_state = state
+
         if not is_training:
-            return      
-            
-        self._global_step = tf.Variable(0, name='global_step', trainable=False)
-        self._lr = tf.Variable(0.0, trainable=False)
+            return
         
-        tvars_soft = [embedding_reg, embedding_cbow, softmax_w_soft, softmax_b_soft] + [v for v in tf.trainable_variables() if v.name.startswith(lstm_soft.name)] + [v for v in tf.trainable_variables() if v.name.startswith(cbow.name)]
-        grads_soft, _ = tf.clip_by_global_norm(tf.gradients(cost_soft, tvars_soft),config.max_grad_norm)   
+        self._global_step = tf.Variable(0, name='global_step', trainable=False)
+
+        self._lr = tf.Variable(0.0, trainable=False)
+        tvars = tf.trainable_variables()
+        grads, _ = tf.clip_by_global_norm(tf.gradients(cost, tvars),config.max_grad_norm)
         optimizer = get_optimizer(self._lr)
-        self._train_op_soft = optimizer.apply_gradients(zip(grads_soft, tvars_soft),global_step=self._global_step)
+        self._train_op = optimizer.apply_gradients(zip(grads, tvars),global_step=self._global_step)
 
         self._new_lr = tf.placeholder(tf.float32, shape=[], name="new_learning_rate")
         self._lr_update = tf.assign(self._lr, self._new_lr)
@@ -168,34 +123,22 @@ class ds_cbow_sentence_model(object):
     @property
     def input(self):
         return self._input
-        
+
     @property
     def nb_words_in_batch(self):
-        return self._nb_words_in_batch 
+        return self._nb_words_in_batch    
+
+    @property
+    def num_steps(self):
+        return self._num_steps
 
     @property
     def initial_state(self):
         return self._initial_state
     
     @property
-    def global_step(self):
-        return self._global_step
-        
-    @property
-    def num_steps(self):
-        return self._num_steps
-    
-    @property
     def data(self):
         return self._data
-    
-    @property
-    def history(self):
-        return self._history
-        
-    @property
-    def history_tfidf(self):
-        return self._history_tfidf 
         
     @property
     def labels(self):
@@ -204,10 +147,10 @@ class ds_cbow_sentence_model(object):
     @property
     def seq_len(self):
         return self._seq_len
-        
+
     @property
     def cost(self):
-        return self._cost_soft
+        return self._cost
 
     @property
     def final_state(self):
@@ -216,28 +159,29 @@ class ds_cbow_sentence_model(object):
     @property
     def lr(self):
         return self._lr
+        
+    @property
+    def global_step(self):
+        return self._global_step
 
     @property
     def train_op(self):
-        return self._train_op_soft
+        return self._train_op
 
 
-class config_cbow(object):
+class config_original(object):
     init_scale = FLAGS.init_scale
     learning_rate = FLAGS.learning_rate
     max_grad_norm = FLAGS.max_grad_norm
     num_layers = FLAGS.num_layers
+    num_steps = FLAGS.num_steps
     hidden_size = FLAGS.hidden_size
     max_epoch = FLAGS.max_epoch
     max_max_epoch = FLAGS.max_max_epoch
     keep_prob = FLAGS.keep_prob
     lr_decay = FLAGS.lr_decay
     batch_size = FLAGS.batch_size
-    num_steps = FLAGS.num_steps
-    embedded_size_reg = FLAGS.embedded_size_reg
-    embedded_size_cbow = FLAGS.embedded_size_cbow
-    num_history = FLAGS.num_history                     
-    cbow_exp_decay = FLAGS.cbow_exp_decay
+    embedded_size = FLAGS.embedded_size
 
 def get_optimizer(lr):
     if FLAGS.optimizer == "GradDesc":
@@ -261,7 +205,7 @@ def get_loss_function(output, softmax_w, softmax_b, targets, data, is_training):
     mask2 = tf.reshape(tf.where(mask),[-1])
     targets = tf.gather(targets, mask2)
     output = tf.gather(output, mask2)
-    nb_words_in_batch = tf.reduce_sum(tf.cast(mask,dtype=tf.float32)) 
+    nb_words_in_batch = tf.reduce_sum(tf.cast(mask,dtype=tf.float32))
 
     if FLAGS.loss_function == "full_softmax":
         logits = tf.matmul(output, softmax_w) + softmax_b
@@ -280,33 +224,35 @@ def get_loss_function(output, softmax_w, softmax_b, targets, data, is_training):
     return 0
 
 def run_epoch(session, model, eval_op=None, verbose=False, epoch_nb = 0, pos_epoch = 0):
-    """Runs the model on the given data."""
     start_time = time.time()
     costs = 0.0
     iters = 0
     processed_words = 0
+    state = session.run(model.initial_state)
     save_np = np.array([[0,0,0,0]])
 
-    fetches = {'cost':model.cost, "nb_words_in_batch": model.nb_words_in_batch}
+    fetches = {"cost": model.cost,"nb_words_in_batch": model.nb_words_in_batch, "final_state": model.final_state}
     if eval_op is not None:
         fetches["eval_op"] = eval_op
 
     for step in range(pos_epoch, model.input.epoch_size):
-        batch_data, batch_history, batch_history_tfidf, batch_labels, batch_seq_len = model.input.next_batch(model.num_steps)
+        batch_data, batch_labels = model.input.next_batch()
         feed_dict = {}
         feed_dict[model.data] = batch_data
-        feed_dict[model.history] = batch_history
-        feed_dict[model.history_tfidf] = batch_history_tfidf
         feed_dict[model.labels] = batch_labels
-        feed_dict[model.seq_len] = batch_seq_len
+        feed_dict[model.seq_len] = np.ones(model.input.batch_size)*model.input.num_steps
+        for i, (c, h) in enumerate(model.initial_state):
+            feed_dict[c] = state[i].c
+            feed_dict[h] = state[i].h
 
         vals = session.run(fetches, feed_dict)
-        
         cost = vals["cost"]
         nb_words_in_batch = vals["nb_words_in_batch"]
+        state = vals["final_state"]
+
         costs += cost
         iters += nb_words_in_batch
-        processed_words += sum(batch_seq_len)
+        processed_words += model.input.batch_size*model.input.num_steps
 
         if verbose and step % (model.input.epoch_size // 10) == 0:
             print("%.3f perplexity: %.3f speed: %.0f wps" % (step * 1.0 / model.input.epoch_size, np.exp(costs / iters),
@@ -319,48 +265,47 @@ def run_epoch(session, model, eval_op=None, verbose=False, epoch_nb = 0, pos_epo
     save_np = np.append(save_np,[[epoch_nb, 1,np.exp(costs / iters),0]],axis=0)		 
     return np.exp(costs/iters), save_np[1:]
 
- 
+
 def main(_):
     print('job started')
     train_name = 'ds.train.txt'
     valid_name = 'ds.valid.txt'
     test_name = 'ds.test.txt'
 
-    config = config_cbow()
     
-    eval_config = config_cbow()
+    config = config_original()
+    
+    eval_config = config_original()
     eval_config.batch_size = 1
-    eval_config.num_steps = 79 #de langste zin moet hier in passen
-    
+    eval_config.num_steps = 1 
+
     with tf.Graph().as_default():
         initializer = tf.random_uniform_initializer(-config.init_scale, config.init_scale)
         tf.set_random_seed(1)
 
         with tf.name_scope("train"):
-            train_data = reader.ds_data_sentence_with_history(config.batch_size, config.num_history, FLAGS.data_path, train_name)
+            train_data = reader.ds_data_continuous(config.batch_size, FLAGS.num_steps, FLAGS.data_path, train_name)
             with tf.variable_scope("model", reuse=None, initializer=initializer):
-                m = ds_cbow_sentence_model(is_training=True, config=config, input_=train_data)
+                m = ds_original_model(is_training=True, config=config, input_=train_data)
 
         with tf.name_scope("valid"):
-            valid_data = reader.ds_data_sentence_with_history(config.batch_size, config.num_history, FLAGS.data_path, valid_name)
+            valid_data = reader.ds_data_continuous(config.batch_size, FLAGS.num_steps, FLAGS.data_path, valid_name)
             with tf.variable_scope("model", reuse=True, initializer=initializer):
-                mvalid = ds_cbow_sentence_model(is_training=False, config=config, input_=valid_data)
+                mvalid = ds_original_model(is_training=False, config=config, input_=valid_data)
 
         with tf.name_scope("test"):
-            test_data = reader.ds_data_sentence_with_history(eval_config.batch_size, eval_config.num_history, FLAGS.data_path, test_name)
+            test_data = reader.ds_data_continuous(eval_config.batch_size, eval_config.num_steps, FLAGS.data_path, test_name)
             with tf.variable_scope("model", reuse=True, initializer=initializer):
-                mtest = ds_cbow_sentence_model(is_training=False, config=eval_config, input_=test_data)
+                mtest = ds_original_model(is_training=False, config=eval_config, input_=test_data)
 				
         param_train_np = np.array([['init_scale',config.init_scale], ['learning_rate', config.learning_rate],
-                                   ['max_grad_norm', config.max_grad_norm], ['num_layers', config.num_layers], 
-                                   ['num_history', config.num_history], ['hidden_size', config.hidden_size], 
-                                   ['embedded_size_reg', config.embedded_size_reg],['embedded_size_cbow', config.embedded_size_cbow],
-                                   ['max_epoch', config.max_epoch], ['max_max_epoch', config.max_max_epoch],
-                                   ['keep_prob', config.keep_prob], ['lr_decay', config.lr_decay], ['cbow_exp_decay', config.cbow_exp_decay],
-                                   ['batch_size', config.batch_size], ['vocab_size', train_data.pad_id], ['num_steps', config.num_steps], 
-                                   ['optimizer', FLAGS.optimizer], ['loss_function', FLAGS.loss_function],  
-                                   ['cbow_position', FLAGS.position],  ['cbow_combination', FLAGS.combination],
-                                   ['test_name',FLAGS.test_name + str(FLAGS.num_run)]])
+                                   ['max_grad_norm', config.max_grad_norm], ['num_layers', config.num_layers],
+                                   ['num_steps', config.num_steps], ['hidden_size', config.hidden_size], 
+                                   ['embedded_size', config.embedded_size],['max_epoch', config.max_epoch],
+                                   ['max_max_epoch', config.max_max_epoch],['keep_prob', config.keep_prob], 
+                                   ['lr_decay', config.lr_decay], ['batch_size', config.batch_size], 
+                                   ['vocab_size', train_data.pad_id], ['optimizer', FLAGS.optimizer], 
+                                   ['loss_function', FLAGS.loss_function], ['test_name',FLAGS.test_name + str(FLAGS.num_run)]])
         
         if (os.path.exists((FLAGS.save_path + '/' + FLAGS.test_name + '_' + str(FLAGS.num_run)+ '/results_temp' +'.npz'))):
             a = np.load((FLAGS.save_path + '/' + FLAGS.test_name + '_' + str(FLAGS.num_run)+ '/results_temp' +'.npz'))
@@ -370,41 +315,40 @@ def main(_):
             train_np = np.array([[0,0,0,0]])
             valid_np = np.array([[0,0,0,0]])
 		
-        sv = tf.train.Supervisor(summary_writer=None, save_model_secs=300, logdir=FLAGS.save_path + '/' + FLAGS.test_name + '_' + str(FLAGS.num_run))
+        sv = tf.train.Supervisor(summary_writer=None,save_model_secs=300, logdir=FLAGS.save_path + '/' + FLAGS.test_name + '_' + str(FLAGS.num_run))
         with sv.managed_session() as session:
             start_epoch = session.run(m.global_step) // m.input.epoch_size
             pos_epoch = session.run(m.global_step) % m.input.epoch_size
             m.input.assign_batch_id(pos_epoch) 
-        
+
             for i in range(start_epoch, config.max_max_epoch):
                 if sv.should_stop():
                     break
-                    
+                
                 lr_decay = config.lr_decay ** max(i - config.max_epoch, 0.0)
                 m.assign_lr(session, config.learning_rate * lr_decay)
-    				
+				
                 print("Epoch: %d Learning rate: %.3f" % (i + 1, session.run(m.lr)))
-    				
-                train_perplexity, tra_np = run_epoch(session, m, eval_op=m.train_op, verbose=True, epoch_nb=i, pos_epoch = pos_epoch)
+				
+                train_perplexity, tra_np = run_epoch(session, m, eval_op=m.train_op, verbose=True, epoch_nb=i, pos_epoch=pos_epoch)
                 print("Epoch: %d Train Perplexity: %.3f" % (i + 1, train_perplexity))
                 pos_epoch = 0
-    				
+				
                 valid_perplexity, val_np = run_epoch(session, mvalid, epoch_nb = i)
                 print("Epoch: %d Valid Perplexity: %.3f" % (i + 1, valid_perplexity))
-                    
+				
                 train_np = np.append(train_np, tra_np, axis=0)
                 valid_np= np.append(valid_np, val_np, axis=0)
                 np.savez((FLAGS.save_path + '/' + FLAGS.test_name + '_' + str(FLAGS.num_run)+ '/results_temp' +'.npz'), train_np = train_np, valid_np=valid_np)
-                    		
+                		
                 #early stopping
                 early_stopping = 3; #new valid_PPL will be compared to the previous 3 valid_PPL: if it is bigger than the maximun of the 3 previous, it will stop
                 if i>early_stopping-1:
                     if valid_np[i+1][2] > np.max(valid_np[i+1-early_stopping:i],axis=0)[2]:
                         break
-                
+            
             test_perplexity, test_np = run_epoch(session, mtest)
             print("Test Perplexity: %.3f" % test_perplexity)
-            
             if FLAGS.save_path:
                 print("Saving model to %s." % (FLAGS.save_path + '/' + FLAGS.test_name + '_' + str(FLAGS.num_run)  + '/' + FLAGS.test_name + '_' + str(FLAGS.num_run)))
                 sv.saver.save(session, FLAGS.save_path + '/' + FLAGS.test_name + '_' + str(FLAGS.num_run) + '/' + FLAGS.test_name + '_'  + str(FLAGS.num_run), global_step=sv.global_step)
