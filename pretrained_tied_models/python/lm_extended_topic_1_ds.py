@@ -438,7 +438,7 @@ def run_test_epoch(session, model, epoch_nb = 0):
  
 def main(_):
     print('job started')
-    lda_path = os.path.join(FLAGS.data_path, "lda.ds")
+    lda_path = os.path.join(FLAGS.data_path, "lda_512_10.ds")
     lda = models.LdaModel.load(lda_path) 
     dict_path = os.path.join(FLAGS.data_path, "dictionary.ds")
     dictionary = corpora.Dictionary.load(dict_path)
@@ -451,7 +451,7 @@ def main(_):
         for i in xrange(vocab_size):
             topic_array[topic_nb,current_topic[i][0]] = current_topic[i][1]
 
-    train_name = 'ds.test.txt'
+    train_name = 'ds.train.txt'
     valid_name = 'ds.valid.txt'
     test_name = 'ds.test.txt'
 
