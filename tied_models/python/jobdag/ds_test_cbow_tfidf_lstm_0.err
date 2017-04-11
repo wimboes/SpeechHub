@@ -3,3 +3,31 @@ I tensorflow/stream_executor/dso_loader.cc:128] successfully opened CUDA library
 I tensorflow/stream_executor/dso_loader.cc:128] successfully opened CUDA library libcufft.so locally
 I tensorflow/stream_executor/dso_loader.cc:128] successfully opened CUDA library libcuda.so.1 locally
 I tensorflow/stream_executor/dso_loader.cc:128] successfully opened CUDA library libcurand.so locally
+/users/start2014/r0364650/.local/lib/python2.7/site-packages/gensim/utils.py:1015: UserWarning: Pattern library is not installed, lemmatization won't be available.
+  warnings.warn("Pattern library is not installed, lemmatization won't be available.")
+Traceback (most recent call last):
+  File "lm_cbow_lstm_ds_test.py", line 360, in <module>
+    tf.app.run()
+  File "/users/start2014/r0364650/.local/lib/python2.7/site-packages/tensorflow/python/platform/app.py", line 43, in run
+    sys.exit(main(sys.argv[:1] + flags_passthrough))
+  File "lm_cbow_lstm_ds_test.py", line 351, in main
+    mtest = ds_cbow_sentence_model(is_training=False, config=eval_config, input_=eval_data)
+  File "lm_cbow_lstm_ds_test.py", line 110, in __init__
+    cosine_similarity = tf.matmul(tf.squeeze(normed_array), tf.transpose(normed_embedding_cbow, [1, 0]))
+  File "/users/start2014/r0364650/.local/lib/python2.7/site-packages/tensorflow/python/ops/math_ops.py", line 1729, in matmul
+    a, b, transpose_a=transpose_a, transpose_b=transpose_b, name=name)
+  File "/users/start2014/r0364650/.local/lib/python2.7/site-packages/tensorflow/python/ops/gen_math_ops.py", line 1442, in _mat_mul
+    transpose_b=transpose_b, name=name)
+  File "/users/start2014/r0364650/.local/lib/python2.7/site-packages/tensorflow/python/framework/op_def_library.py", line 759, in apply_op
+    op_def=op_def)
+  File "/users/start2014/r0364650/.local/lib/python2.7/site-packages/tensorflow/python/framework/ops.py", line 2242, in create_op
+    set_shapes_for_outputs(ret)
+  File "/users/start2014/r0364650/.local/lib/python2.7/site-packages/tensorflow/python/framework/ops.py", line 1617, in set_shapes_for_outputs
+    shapes = shape_func(op)
+  File "/users/start2014/r0364650/.local/lib/python2.7/site-packages/tensorflow/python/framework/ops.py", line 1568, in call_with_requiring
+    return call_cpp_shape_fn(op, require_shape_fn=True)
+  File "/users/start2014/r0364650/.local/lib/python2.7/site-packages/tensorflow/python/framework/common_shapes.py", line 610, in call_cpp_shape_fn
+    debug_python_shape_fn, require_shape_fn)
+  File "/users/start2014/r0364650/.local/lib/python2.7/site-packages/tensorflow/python/framework/common_shapes.py", line 675, in _call_cpp_shape_fn_impl
+    raise ValueError(err.message)
+ValueError: Shape must be rank 2 but is rank 1 for 'test/model/cbow/MatMul' (op: 'MatMul') with input shapes: [58], [1,50001].
