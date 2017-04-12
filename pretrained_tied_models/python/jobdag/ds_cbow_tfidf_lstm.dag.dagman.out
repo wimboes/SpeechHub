@@ -1,542 +1,519 @@
-04/07/17 18:36:20 ******************************************************
-04/07/17 18:36:20 ** condor_scheduniv_exec.726.0 (CONDOR_DAGMAN) STARTING UP
-04/07/17 18:36:20 ** /usr/bin/condor_dagman
-04/07/17 18:36:20 ** SubsystemInfo: name=DAGMAN type=DAGMAN(10) class=DAEMON(1)
-04/07/17 18:36:20 ** Configuration: subsystem:DAGMAN local:<NONE> class:DAEMON
-04/07/17 18:36:20 ** $CondorVersion: 8.6.1 Mar 01 2017 BuildID: 398585 $
-04/07/17 18:36:20 ** $CondorPlatform: x86_64_RedHat7 $
-04/07/17 18:36:20 ** PID = 12662
-04/07/17 18:36:20 ** Log last touched time unavailable (No such file or directory)
-04/07/17 18:36:20 ******************************************************
-04/07/17 18:36:20 Using config source: /etc/condor/condor_config
-04/07/17 18:36:20 Using local config sources: 
-04/07/17 18:36:20    /etc/condor/config.d/00esat.config
-04/07/17 18:36:20    /etc/condor/config.d/01java.config
-04/07/17 18:36:20    /etc/condor/config.d/80optout_users.config
-04/07/17 18:36:20    /etc/condor/condor_config.local
-04/07/17 18:36:20 config Macros = 166, Sorted = 166, StringBytes = 6029, TablesBytes = 6048
-04/07/17 18:36:20 CLASSAD_CACHING is ENABLED
-04/07/17 18:36:20 Daemon Log is logging: D_ALWAYS D_ERROR
-04/07/17 18:36:20 DaemonCore: No command port requested.
-04/07/17 18:36:20 DAGMAN_USE_STRICT setting: 1
-04/07/17 18:36:20 DAGMAN_VERBOSITY setting: 3
-04/07/17 18:36:20 DAGMAN_DEBUG_CACHE_SIZE setting: 5242880
-04/07/17 18:36:20 DAGMAN_DEBUG_CACHE_ENABLE setting: False
-04/07/17 18:36:20 DAGMAN_SUBMIT_DELAY setting: 0
-04/07/17 18:36:20 DAGMAN_MAX_SUBMIT_ATTEMPTS setting: 6
-04/07/17 18:36:20 DAGMAN_STARTUP_CYCLE_DETECT setting: False
-04/07/17 18:36:20 DAGMAN_MAX_SUBMITS_PER_INTERVAL setting: 5
-04/07/17 18:36:20 DAGMAN_USER_LOG_SCAN_INTERVAL setting: 5
-04/07/17 18:36:20 DAGMAN_DEFAULT_PRIORITY setting: 0
-04/07/17 18:36:20 DAGMAN_SUPPRESS_NOTIFICATION setting: True
-04/07/17 18:36:20 allow_events (DAGMAN_ALLOW_EVENTS) setting: 114
-04/07/17 18:36:20 DAGMAN_RETRY_SUBMIT_FIRST setting: True
-04/07/17 18:36:20 DAGMAN_RETRY_NODE_FIRST setting: False
-04/07/17 18:36:20 DAGMAN_MAX_JOBS_IDLE setting: 1000
-04/07/17 18:36:20 DAGMAN_MAX_JOBS_SUBMITTED setting: 0
-04/07/17 18:36:20 DAGMAN_MAX_PRE_SCRIPTS setting: 20
-04/07/17 18:36:20 DAGMAN_MAX_POST_SCRIPTS setting: 20
-04/07/17 18:36:20 DAGMAN_MUNGE_NODE_NAMES setting: True
-04/07/17 18:36:20 DAGMAN_PROHIBIT_MULTI_JOBS setting: False
-04/07/17 18:36:20 DAGMAN_SUBMIT_DEPTH_FIRST setting: False
-04/07/17 18:36:20 DAGMAN_ALWAYS_RUN_POST setting: False
-04/07/17 18:36:20 DAGMAN_ABORT_DUPLICATES setting: True
-04/07/17 18:36:20 DAGMAN_ABORT_ON_SCARY_SUBMIT setting: True
-04/07/17 18:36:20 DAGMAN_PENDING_REPORT_INTERVAL setting: 600
-04/07/17 18:36:20 DAGMAN_AUTO_RESCUE setting: True
-04/07/17 18:36:20 DAGMAN_MAX_RESCUE_NUM setting: 100
-04/07/17 18:36:20 DAGMAN_WRITE_PARTIAL_RESCUE setting: True
-04/07/17 18:36:20 DAGMAN_DEFAULT_NODE_LOG setting: @(DAG_DIR)/@(DAG_FILE).nodes.log
-04/07/17 18:36:20 DAGMAN_GENERATE_SUBDAG_SUBMITS setting: True
-04/07/17 18:36:20 DAGMAN_MAX_JOB_HOLDS setting: 100
-04/07/17 18:36:20 DAGMAN_HOLD_CLAIM_TIME setting: 20
-04/07/17 18:36:20 ALL_DEBUG setting: 
-04/07/17 18:36:20 DAGMAN_DEBUG setting: 
-04/07/17 18:36:20 DAGMAN_SUPPRESS_JOB_LOGS setting: False
-04/07/17 18:36:20 DAGMAN_REMOVE_NODE_JOBS setting: True
-04/07/17 18:36:20 argv[0] == "condor_scheduniv_exec.726.0"
-04/07/17 18:36:20 argv[1] == "-Lockfile"
-04/07/17 18:36:20 argv[2] == "ds_cbow_tfidf_lstm.dag.lock"
-04/07/17 18:36:20 argv[3] == "-AutoRescue"
-04/07/17 18:36:20 argv[4] == "1"
-04/07/17 18:36:20 argv[5] == "-DoRescueFrom"
-04/07/17 18:36:20 argv[6] == "0"
-04/07/17 18:36:20 argv[7] == "-Dag"
-04/07/17 18:36:20 argv[8] == "ds_cbow_tfidf_lstm.dag"
-04/07/17 18:36:20 argv[9] == "-Suppress_notification"
-04/07/17 18:36:20 argv[10] == "-CsdVersion"
-04/07/17 18:36:20 argv[11] == "$CondorVersion: 8.6.1 Mar 01 2017 BuildID: 398585 $"
-04/07/17 18:36:20 argv[12] == "-Dagman"
-04/07/17 18:36:20 argv[13] == "/usr/bin/condor_dagman"
-04/07/17 18:36:20 Workflow batch-name: <ds_cbow_tfidf_lstm.dag+726>
-04/07/17 18:36:20 Workflow accounting_group: <>
-04/07/17 18:36:20 Workflow accounting_group_user: <>
-04/07/17 18:36:20 Warning: failed to get attribute DAGNodeName
-04/07/17 18:36:20 DAGMAN_LOG_ON_NFS_IS_ERROR setting: False
-04/07/17 18:36:20 Default node log file is: </esat/spchtemp/scratch/robbe/SpeechHub/pretrained_tied_models/python/jobdag/./ds_cbow_tfidf_lstm.dag.nodes.log>
-04/07/17 18:36:20 DAG Lockfile will be written to ds_cbow_tfidf_lstm.dag.lock
-04/07/17 18:36:20 DAG Input file is ds_cbow_tfidf_lstm.dag
-04/07/17 18:36:20 Parsing 1 dagfiles
-04/07/17 18:36:20 Parsing ds_cbow_tfidf_lstm.dag ...
-04/07/17 18:36:20 Dag contains 2 total jobs
-04/07/17 18:36:20 Sleeping for 3 seconds to ensure ProcessId uniqueness
-04/07/17 18:36:23 Bootstrapping...
-04/07/17 18:36:23 Number of pre-completed nodes: 0
-04/07/17 18:36:23 MultiLogFiles: truncating log file /esat/spchtemp/scratch/robbe/SpeechHub/pretrained_tied_models/python/jobdag/./ds_cbow_tfidf_lstm.dag.nodes.log
-04/07/17 18:36:23 DAG status: 0 (DAG_STATUS_OK)
-04/07/17 18:36:23 Of 2 nodes total:
-04/07/17 18:36:23  Done     Pre   Queued    Post   Ready   Un-Ready   Failed
-04/07/17 18:36:23   ===     ===      ===     ===     ===        ===      ===
-04/07/17 18:36:23     0       0        0       0       1          1        0
-04/07/17 18:36:23 0 job proc(s) currently held
-04/07/17 18:36:23 Registering condor_event_timer...
-04/07/17 18:36:25 Submitting HTCondor Node cbow_tfidf_lstm job(s)...
-04/07/17 18:36:25 Adding a DAGMan workflow log /esat/spchtemp/scratch/robbe/SpeechHub/pretrained_tied_models/python/jobdag/./ds_cbow_tfidf_lstm.dag.nodes.log
-04/07/17 18:36:25 Masking the events recorded in the DAGMAN workflow log
-04/07/17 18:36:25 Mask for workflow log is 0,1,2,4,5,7,9,10,11,12,13,16,17,24,27
-04/07/17 18:36:25 submitting: /usr/bin/condor_submit -a dag_node_name' '=' 'cbow_tfidf_lstm -a +DAGManJobId' '=' '726 -a DAGManJobId' '=' '726 -batch-name ds_cbow_tfidf_lstm.dag+726 -a submit_event_notes' '=' 'DAG' 'Node:' 'cbow_tfidf_lstm -a dagman_log' '=' '/esat/spchtemp/scratch/robbe/SpeechHub/pretrained_tied_models/python/jobdag/./ds_cbow_tfidf_lstm.dag.nodes.log -a +DAGManNodesMask' '=' '"0,1,2,4,5,7,9,10,11,12,13,16,17,24,27" -a data_set' '=' 'ds -a test_name' '=' 'cbow_tfidf_lstm -a num_run' '=' '0 -a combination' '=' 'tfidf -a DAG_STATUS' '=' '0 -a FAILED_COUNT' '=' '0 -a +KeepClaimIdle' '=' '20 -a notification' '=' 'never -a +DAGParentNodeNames' '=' '"" jobdag/cbow_lstm.job
-04/07/17 18:36:25 From submit: Submitting job(s).
-04/07/17 18:36:25 From submit: 1 job(s) submitted to cluster 729.
-04/07/17 18:36:25 	assigned HTCondor ID (729.0.0)
-04/07/17 18:36:25 Just submitted 1 job this cycle...
-04/07/17 18:36:25 Currently monitoring 1 HTCondor log file(s)
-04/07/17 18:36:25 Reassigning the id of job cbow_tfidf_lstm from (729.0.0) to (729.0.0)
-04/07/17 18:36:25 Event: ULOG_SUBMIT for HTCondor Node cbow_tfidf_lstm (729.0.0) {04/07/17 18:36:25}
-04/07/17 18:36:25 Number of idle job procs: 1
-04/07/17 18:36:25 DAG status: 0 (DAG_STATUS_OK)
-04/07/17 18:36:25 Of 2 nodes total:
-04/07/17 18:36:25  Done     Pre   Queued    Post   Ready   Un-Ready   Failed
-04/07/17 18:36:25   ===     ===      ===     ===     ===        ===      ===
-04/07/17 18:36:25     0       0        1       0       0          1        0
-04/07/17 18:36:25 0 job proc(s) currently held
-04/07/17 18:46:27 602 seconds since last log event
-04/07/17 18:46:27 Pending DAG nodes:
-04/07/17 18:46:27   Node cbow_tfidf_lstm, HTCondor ID 729, status STATUS_SUBMITTED
-04/07/17 18:56:28 1203 seconds since last log event
-04/07/17 18:56:28 Pending DAG nodes:
-04/07/17 18:56:28   Node cbow_tfidf_lstm, HTCondor ID 729, status STATUS_SUBMITTED
-04/07/17 19:06:31 1806 seconds since last log event
-04/07/17 19:06:32 Pending DAG nodes:
-04/07/17 19:06:32   Node cbow_tfidf_lstm, HTCondor ID 729, status STATUS_SUBMITTED
-04/07/17 19:16:34 2409 seconds since last log event
-04/07/17 19:16:34 Pending DAG nodes:
-04/07/17 19:16:34   Node cbow_tfidf_lstm, HTCondor ID 729, status STATUS_SUBMITTED
-04/07/17 19:26:36 3011 seconds since last log event
-04/07/17 19:26:36 Pending DAG nodes:
-04/07/17 19:26:36   Node cbow_tfidf_lstm, HTCondor ID 729, status STATUS_SUBMITTED
-04/07/17 19:36:39 3614 seconds since last log event
-04/07/17 19:36:39 Pending DAG nodes:
-04/07/17 19:36:39   Node cbow_tfidf_lstm, HTCondor ID 729, status STATUS_SUBMITTED
-04/07/17 19:46:43 4218 seconds since last log event
-04/07/17 19:46:43 Pending DAG nodes:
-04/07/17 19:46:43   Node cbow_tfidf_lstm, HTCondor ID 729, status STATUS_SUBMITTED
-04/07/17 19:56:47 4822 seconds since last log event
-04/07/17 19:56:47 Pending DAG nodes:
-04/07/17 19:56:47   Node cbow_tfidf_lstm, HTCondor ID 729, status STATUS_SUBMITTED
-04/07/17 20:06:50 5425 seconds since last log event
-04/07/17 20:06:50 Pending DAG nodes:
-04/07/17 20:06:50   Node cbow_tfidf_lstm, HTCondor ID 729, status STATUS_SUBMITTED
-04/07/17 20:16:53 6028 seconds since last log event
-04/07/17 20:16:53 Pending DAG nodes:
-04/07/17 20:16:53   Node cbow_tfidf_lstm, HTCondor ID 729, status STATUS_SUBMITTED
-04/07/17 20:26:55 6630 seconds since last log event
-04/07/17 20:26:55 Pending DAG nodes:
-04/07/17 20:26:55   Node cbow_tfidf_lstm, HTCondor ID 729, status STATUS_SUBMITTED
-04/07/17 20:36:57 7232 seconds since last log event
-04/07/17 20:36:57 Pending DAG nodes:
-04/07/17 20:36:57   Node cbow_tfidf_lstm, HTCondor ID 729, status STATUS_SUBMITTED
-04/07/17 20:47:00 7835 seconds since last log event
-04/07/17 20:47:00 Pending DAG nodes:
-04/07/17 20:47:00   Node cbow_tfidf_lstm, HTCondor ID 729, status STATUS_SUBMITTED
-04/07/17 20:57:03 8438 seconds since last log event
-04/07/17 20:57:03 Pending DAG nodes:
-04/07/17 20:57:03   Node cbow_tfidf_lstm, HTCondor ID 729, status STATUS_SUBMITTED
-04/07/17 21:07:06 9041 seconds since last log event
-04/07/17 21:07:06 Pending DAG nodes:
-04/07/17 21:07:06   Node cbow_tfidf_lstm, HTCondor ID 729, status STATUS_SUBMITTED
-04/07/17 21:17:09 9644 seconds since last log event
-04/07/17 21:17:09 Pending DAG nodes:
-04/07/17 21:17:09   Node cbow_tfidf_lstm, HTCondor ID 729, status STATUS_SUBMITTED
-04/07/17 21:27:12 10247 seconds since last log event
-04/07/17 21:27:12 Pending DAG nodes:
-04/07/17 21:27:12   Node cbow_tfidf_lstm, HTCondor ID 729, status STATUS_SUBMITTED
-04/07/17 21:37:12 10847 seconds since last log event
-04/07/17 21:37:12 Pending DAG nodes:
-04/07/17 21:37:12   Node cbow_tfidf_lstm, HTCondor ID 729, status STATUS_SUBMITTED
-04/07/17 21:47:14 11449 seconds since last log event
-04/07/17 21:47:14 Pending DAG nodes:
-04/07/17 21:47:14   Node cbow_tfidf_lstm, HTCondor ID 729, status STATUS_SUBMITTED
-04/07/17 21:57:16 12051 seconds since last log event
-04/07/17 21:57:16 Pending DAG nodes:
-04/07/17 21:57:16   Node cbow_tfidf_lstm, HTCondor ID 729, status STATUS_SUBMITTED
-04/07/17 22:07:19 12654 seconds since last log event
-04/07/17 22:07:19 Pending DAG nodes:
-04/07/17 22:07:19   Node cbow_tfidf_lstm, HTCondor ID 729, status STATUS_SUBMITTED
-04/07/17 22:17:22 13257 seconds since last log event
-04/07/17 22:17:22 Pending DAG nodes:
-04/07/17 22:17:22   Node cbow_tfidf_lstm, HTCondor ID 729, status STATUS_SUBMITTED
-04/07/17 22:27:25 13860 seconds since last log event
-04/07/17 22:27:25 Pending DAG nodes:
-04/07/17 22:27:25   Node cbow_tfidf_lstm, HTCondor ID 729, status STATUS_SUBMITTED
-04/07/17 22:37:26 14461 seconds since last log event
-04/07/17 22:37:26 Pending DAG nodes:
-04/07/17 22:37:26   Node cbow_tfidf_lstm, HTCondor ID 729, status STATUS_SUBMITTED
-04/07/17 22:47:29 15064 seconds since last log event
-04/07/17 22:47:29 Pending DAG nodes:
-04/07/17 22:47:29   Node cbow_tfidf_lstm, HTCondor ID 729, status STATUS_SUBMITTED
-04/07/17 22:57:32 15667 seconds since last log event
-04/07/17 22:57:32 Pending DAG nodes:
-04/07/17 22:57:32   Node cbow_tfidf_lstm, HTCondor ID 729, status STATUS_SUBMITTED
-04/07/17 23:07:35 16270 seconds since last log event
-04/07/17 23:07:35 Pending DAG nodes:
-04/07/17 23:07:35   Node cbow_tfidf_lstm, HTCondor ID 729, status STATUS_SUBMITTED
-04/07/17 23:17:38 16873 seconds since last log event
-04/07/17 23:17:38 Pending DAG nodes:
-04/07/17 23:17:38   Node cbow_tfidf_lstm, HTCondor ID 729, status STATUS_SUBMITTED
-04/07/17 23:27:41 17476 seconds since last log event
-04/07/17 23:27:41 Pending DAG nodes:
-04/07/17 23:27:41   Node cbow_tfidf_lstm, HTCondor ID 729, status STATUS_SUBMITTED
-04/07/17 23:37:43 18078 seconds since last log event
-04/07/17 23:37:43 Pending DAG nodes:
-04/07/17 23:37:43   Node cbow_tfidf_lstm, HTCondor ID 729, status STATUS_SUBMITTED
-04/07/17 23:47:45 18680 seconds since last log event
-04/07/17 23:47:45 Pending DAG nodes:
-04/07/17 23:47:45   Node cbow_tfidf_lstm, HTCondor ID 729, status STATUS_SUBMITTED
-04/07/17 23:57:48 19283 seconds since last log event
-04/07/17 23:57:48 Pending DAG nodes:
-04/07/17 23:57:48   Node cbow_tfidf_lstm, HTCondor ID 729, status STATUS_SUBMITTED
-04/08/17 00:07:50 19885 seconds since last log event
-04/08/17 00:07:50 Pending DAG nodes:
-04/08/17 00:07:50   Node cbow_tfidf_lstm, HTCondor ID 729, status STATUS_SUBMITTED
-04/08/17 00:17:53 20488 seconds since last log event
-04/08/17 00:17:53 Pending DAG nodes:
-04/08/17 00:17:53   Node cbow_tfidf_lstm, HTCondor ID 729, status STATUS_SUBMITTED
-04/08/17 00:27:55 21090 seconds since last log event
-04/08/17 00:27:55 Pending DAG nodes:
-04/08/17 00:27:55   Node cbow_tfidf_lstm, HTCondor ID 729, status STATUS_SUBMITTED
-04/08/17 00:37:58 21693 seconds since last log event
-04/08/17 00:37:58 Pending DAG nodes:
-04/08/17 00:37:58   Node cbow_tfidf_lstm, HTCondor ID 729, status STATUS_SUBMITTED
-04/08/17 00:48:01 22296 seconds since last log event
-04/08/17 00:48:01 Pending DAG nodes:
-04/08/17 00:48:01   Node cbow_tfidf_lstm, HTCondor ID 729, status STATUS_SUBMITTED
-04/08/17 00:58:04 22899 seconds since last log event
-04/08/17 00:58:04 Pending DAG nodes:
-04/08/17 00:58:04   Node cbow_tfidf_lstm, HTCondor ID 729, status STATUS_SUBMITTED
-04/08/17 01:08:06 23501 seconds since last log event
-04/08/17 01:08:06 Pending DAG nodes:
-04/08/17 01:08:06   Node cbow_tfidf_lstm, HTCondor ID 729, status STATUS_SUBMITTED
-04/08/17 01:18:08 24103 seconds since last log event
-04/08/17 01:18:08 Pending DAG nodes:
-04/08/17 01:18:08   Node cbow_tfidf_lstm, HTCondor ID 729, status STATUS_SUBMITTED
-04/08/17 01:28:11 24706 seconds since last log event
-04/08/17 01:28:11 Pending DAG nodes:
-04/08/17 01:28:11   Node cbow_tfidf_lstm, HTCondor ID 729, status STATUS_SUBMITTED
-04/08/17 01:38:13 25308 seconds since last log event
-04/08/17 01:38:13 Pending DAG nodes:
-04/08/17 01:38:13   Node cbow_tfidf_lstm, HTCondor ID 729, status STATUS_SUBMITTED
-04/08/17 01:48:14 25909 seconds since last log event
-04/08/17 01:48:14 Pending DAG nodes:
-04/08/17 01:48:14   Node cbow_tfidf_lstm, HTCondor ID 729, status STATUS_SUBMITTED
-04/08/17 01:58:17 26512 seconds since last log event
-04/08/17 01:58:17 Pending DAG nodes:
-04/08/17 01:58:17   Node cbow_tfidf_lstm, HTCondor ID 729, status STATUS_SUBMITTED
-04/08/17 02:08:19 27114 seconds since last log event
-04/08/17 02:08:19 Pending DAG nodes:
-04/08/17 02:08:19   Node cbow_tfidf_lstm, HTCondor ID 729, status STATUS_SUBMITTED
-04/08/17 02:18:22 27717 seconds since last log event
-04/08/17 02:18:22 Pending DAG nodes:
-04/08/17 02:18:22   Node cbow_tfidf_lstm, HTCondor ID 729, status STATUS_SUBMITTED
-04/08/17 02:28:25 28320 seconds since last log event
-04/08/17 02:28:25 Pending DAG nodes:
-04/08/17 02:28:25   Node cbow_tfidf_lstm, HTCondor ID 729, status STATUS_SUBMITTED
-04/08/17 02:38:28 28923 seconds since last log event
-04/08/17 02:38:28 Pending DAG nodes:
-04/08/17 02:38:28   Node cbow_tfidf_lstm, HTCondor ID 729, status STATUS_SUBMITTED
-04/08/17 02:48:30 29525 seconds since last log event
-04/08/17 02:48:30 Pending DAG nodes:
-04/08/17 02:48:30   Node cbow_tfidf_lstm, HTCondor ID 729, status STATUS_SUBMITTED
-04/08/17 02:58:33 30128 seconds since last log event
-04/08/17 02:58:33 Pending DAG nodes:
-04/08/17 02:58:33   Node cbow_tfidf_lstm, HTCondor ID 729, status STATUS_SUBMITTED
-04/08/17 03:08:35 30730 seconds since last log event
-04/08/17 03:08:35 Pending DAG nodes:
-04/08/17 03:08:35   Node cbow_tfidf_lstm, HTCondor ID 729, status STATUS_SUBMITTED
-04/08/17 03:18:38 31333 seconds since last log event
-04/08/17 03:18:38 Pending DAG nodes:
-04/08/17 03:18:38   Node cbow_tfidf_lstm, HTCondor ID 729, status STATUS_SUBMITTED
-04/08/17 03:28:41 31936 seconds since last log event
-04/08/17 03:28:41 Pending DAG nodes:
-04/08/17 03:28:41   Node cbow_tfidf_lstm, HTCondor ID 729, status STATUS_SUBMITTED
-04/08/17 03:38:43 32538 seconds since last log event
-04/08/17 03:38:43 Pending DAG nodes:
-04/08/17 03:38:43   Node cbow_tfidf_lstm, HTCondor ID 729, status STATUS_SUBMITTED
-04/08/17 03:48:46 33141 seconds since last log event
-04/08/17 03:48:46 Pending DAG nodes:
-04/08/17 03:48:46   Node cbow_tfidf_lstm, HTCondor ID 729, status STATUS_SUBMITTED
-04/08/17 03:58:49 33744 seconds since last log event
-04/08/17 03:58:49 Pending DAG nodes:
-04/08/17 03:58:49   Node cbow_tfidf_lstm, HTCondor ID 729, status STATUS_SUBMITTED
-04/08/17 04:08:52 34347 seconds since last log event
-04/08/17 04:08:52 Pending DAG nodes:
-04/08/17 04:08:52   Node cbow_tfidf_lstm, HTCondor ID 729, status STATUS_SUBMITTED
-04/08/17 04:18:55 34950 seconds since last log event
-04/08/17 04:18:55 Pending DAG nodes:
-04/08/17 04:18:55   Node cbow_tfidf_lstm, HTCondor ID 729, status STATUS_SUBMITTED
-04/08/17 04:28:57 35552 seconds since last log event
-04/08/17 04:28:57 Pending DAG nodes:
-04/08/17 04:28:57   Node cbow_tfidf_lstm, HTCondor ID 729, status STATUS_SUBMITTED
-04/08/17 04:39:00 36155 seconds since last log event
-04/08/17 04:39:00 Pending DAG nodes:
-04/08/17 04:39:00   Node cbow_tfidf_lstm, HTCondor ID 729, status STATUS_SUBMITTED
-04/08/17 04:49:02 36757 seconds since last log event
-04/08/17 04:49:02 Pending DAG nodes:
-04/08/17 04:49:02   Node cbow_tfidf_lstm, HTCondor ID 729, status STATUS_SUBMITTED
-04/08/17 04:59:05 37360 seconds since last log event
-04/08/17 04:59:05 Pending DAG nodes:
-04/08/17 04:59:05   Node cbow_tfidf_lstm, HTCondor ID 729, status STATUS_SUBMITTED
-04/08/17 05:09:08 37963 seconds since last log event
-04/08/17 05:09:08 Pending DAG nodes:
-04/08/17 05:09:08   Node cbow_tfidf_lstm, HTCondor ID 729, status STATUS_SUBMITTED
-04/08/17 05:19:11 38566 seconds since last log event
-04/08/17 05:19:11 Pending DAG nodes:
-04/08/17 05:19:11   Node cbow_tfidf_lstm, HTCondor ID 729, status STATUS_SUBMITTED
-04/08/17 05:29:15 39170 seconds since last log event
-04/08/17 05:29:15 Pending DAG nodes:
-04/08/17 05:29:15   Node cbow_tfidf_lstm, HTCondor ID 729, status STATUS_SUBMITTED
-04/08/17 05:39:17 39772 seconds since last log event
-04/08/17 05:39:17 Pending DAG nodes:
-04/08/17 05:39:17   Node cbow_tfidf_lstm, HTCondor ID 729, status STATUS_SUBMITTED
-04/08/17 05:49:20 40375 seconds since last log event
-04/08/17 05:49:20 Pending DAG nodes:
-04/08/17 05:49:20   Node cbow_tfidf_lstm, HTCondor ID 729, status STATUS_SUBMITTED
-04/08/17 05:59:23 40978 seconds since last log event
-04/08/17 05:59:23 Pending DAG nodes:
-04/08/17 05:59:23   Node cbow_tfidf_lstm, HTCondor ID 729, status STATUS_SUBMITTED
-04/08/17 06:09:26 41581 seconds since last log event
-04/08/17 06:09:26 Pending DAG nodes:
-04/08/17 06:09:26   Node cbow_tfidf_lstm, HTCondor ID 729, status STATUS_SUBMITTED
-04/08/17 06:19:29 42184 seconds since last log event
-04/08/17 06:19:29 Pending DAG nodes:
-04/08/17 06:19:29   Node cbow_tfidf_lstm, HTCondor ID 729, status STATUS_SUBMITTED
-04/08/17 06:29:32 42787 seconds since last log event
-04/08/17 06:29:32 Pending DAG nodes:
-04/08/17 06:29:32   Node cbow_tfidf_lstm, HTCondor ID 729, status STATUS_SUBMITTED
-04/08/17 06:39:33 43388 seconds since last log event
-04/08/17 06:39:33 Pending DAG nodes:
-04/08/17 06:39:33   Node cbow_tfidf_lstm, HTCondor ID 729, status STATUS_SUBMITTED
-04/08/17 06:49:36 43991 seconds since last log event
-04/08/17 06:49:36 Pending DAG nodes:
-04/08/17 06:49:36   Node cbow_tfidf_lstm, HTCondor ID 729, status STATUS_SUBMITTED
-04/08/17 06:59:39 44594 seconds since last log event
-04/08/17 06:59:39 Pending DAG nodes:
-04/08/17 06:59:39   Node cbow_tfidf_lstm, HTCondor ID 729, status STATUS_SUBMITTED
-04/08/17 07:09:41 45196 seconds since last log event
-04/08/17 07:09:41 Pending DAG nodes:
-04/08/17 07:09:41   Node cbow_tfidf_lstm, HTCondor ID 729, status STATUS_SUBMITTED
-04/08/17 07:19:43 45798 seconds since last log event
-04/08/17 07:19:43 Pending DAG nodes:
-04/08/17 07:19:43   Node cbow_tfidf_lstm, HTCondor ID 729, status STATUS_SUBMITTED
-04/08/17 07:29:46 46401 seconds since last log event
-04/08/17 07:29:46 Pending DAG nodes:
-04/08/17 07:29:46   Node cbow_tfidf_lstm, HTCondor ID 729, status STATUS_SUBMITTED
-04/08/17 07:39:49 47004 seconds since last log event
-04/08/17 07:39:49 Pending DAG nodes:
-04/08/17 07:39:49   Node cbow_tfidf_lstm, HTCondor ID 729, status STATUS_SUBMITTED
-04/08/17 07:49:51 47606 seconds since last log event
-04/08/17 07:49:51 Pending DAG nodes:
-04/08/17 07:49:51   Node cbow_tfidf_lstm, HTCondor ID 729, status STATUS_SUBMITTED
-04/08/17 07:59:53 48208 seconds since last log event
-04/08/17 07:59:53 Pending DAG nodes:
-04/08/17 07:59:53   Node cbow_tfidf_lstm, HTCondor ID 729, status STATUS_SUBMITTED
-04/08/17 08:09:56 48811 seconds since last log event
-04/08/17 08:09:56 Pending DAG nodes:
-04/08/17 08:09:56   Node cbow_tfidf_lstm, HTCondor ID 729, status STATUS_SUBMITTED
-04/08/17 08:19:59 49414 seconds since last log event
-04/08/17 08:19:59 Pending DAG nodes:
-04/08/17 08:19:59   Node cbow_tfidf_lstm, HTCondor ID 729, status STATUS_SUBMITTED
-04/08/17 08:30:02 50017 seconds since last log event
-04/08/17 08:30:02 Pending DAG nodes:
-04/08/17 08:30:02   Node cbow_tfidf_lstm, HTCondor ID 729, status STATUS_SUBMITTED
-04/08/17 08:40:05 50620 seconds since last log event
-04/08/17 08:40:05 Pending DAG nodes:
-04/08/17 08:40:05   Node cbow_tfidf_lstm, HTCondor ID 729, status STATUS_SUBMITTED
-04/08/17 08:50:07 51222 seconds since last log event
-04/08/17 08:50:07 Pending DAG nodes:
-04/08/17 08:50:07   Node cbow_tfidf_lstm, HTCondor ID 729, status STATUS_SUBMITTED
-04/08/17 09:00:10 51825 seconds since last log event
-04/08/17 09:00:10 Pending DAG nodes:
-04/08/17 09:00:10   Node cbow_tfidf_lstm, HTCondor ID 729, status STATUS_SUBMITTED
-04/08/17 09:10:13 52428 seconds since last log event
-04/08/17 09:10:13 Pending DAG nodes:
-04/08/17 09:10:13   Node cbow_tfidf_lstm, HTCondor ID 729, status STATUS_SUBMITTED
-04/08/17 09:20:15 53030 seconds since last log event
-04/08/17 09:20:15 Pending DAG nodes:
-04/08/17 09:20:15   Node cbow_tfidf_lstm, HTCondor ID 729, status STATUS_SUBMITTED
-04/08/17 09:30:18 53633 seconds since last log event
-04/08/17 09:30:18 Pending DAG nodes:
-04/08/17 09:30:18   Node cbow_tfidf_lstm, HTCondor ID 729, status STATUS_SUBMITTED
-04/08/17 09:40:21 54236 seconds since last log event
-04/08/17 09:40:21 Pending DAG nodes:
-04/08/17 09:40:21   Node cbow_tfidf_lstm, HTCondor ID 729, status STATUS_SUBMITTED
-04/08/17 09:50:24 54839 seconds since last log event
-04/08/17 09:50:24 Pending DAG nodes:
-04/08/17 09:50:24   Node cbow_tfidf_lstm, HTCondor ID 729, status STATUS_SUBMITTED
-04/08/17 10:00:26 55441 seconds since last log event
-04/08/17 10:00:26 Pending DAG nodes:
-04/08/17 10:00:26   Node cbow_tfidf_lstm, HTCondor ID 729, status STATUS_SUBMITTED
-04/08/17 10:10:29 56044 seconds since last log event
-04/08/17 10:10:29 Pending DAG nodes:
-04/08/17 10:10:29   Node cbow_tfidf_lstm, HTCondor ID 729, status STATUS_SUBMITTED
-04/08/17 10:20:32 56647 seconds since last log event
-04/08/17 10:20:32 Pending DAG nodes:
-04/08/17 10:20:32   Node cbow_tfidf_lstm, HTCondor ID 729, status STATUS_SUBMITTED
-04/08/17 10:30:35 57250 seconds since last log event
-04/08/17 10:30:35 Pending DAG nodes:
-04/08/17 10:30:35   Node cbow_tfidf_lstm, HTCondor ID 729, status STATUS_SUBMITTED
-04/08/17 10:40:38 57853 seconds since last log event
-04/08/17 10:40:38 Pending DAG nodes:
-04/08/17 10:40:38   Node cbow_tfidf_lstm, HTCondor ID 729, status STATUS_SUBMITTED
-04/08/17 10:50:40 58455 seconds since last log event
-04/08/17 10:50:40 Pending DAG nodes:
-04/08/17 10:50:40   Node cbow_tfidf_lstm, HTCondor ID 729, status STATUS_SUBMITTED
-04/08/17 11:00:43 59058 seconds since last log event
-04/08/17 11:00:43 Pending DAG nodes:
-04/08/17 11:00:43   Node cbow_tfidf_lstm, HTCondor ID 729, status STATUS_SUBMITTED
-04/08/17 11:10:46 59661 seconds since last log event
-04/08/17 11:10:46 Pending DAG nodes:
-04/08/17 11:10:46   Node cbow_tfidf_lstm, HTCondor ID 729, status STATUS_SUBMITTED
-04/08/17 11:20:48 60263 seconds since last log event
-04/08/17 11:20:48 Pending DAG nodes:
-04/08/17 11:20:48   Node cbow_tfidf_lstm, HTCondor ID 729, status STATUS_SUBMITTED
-04/08/17 11:30:51 60866 seconds since last log event
-04/08/17 11:30:51 Pending DAG nodes:
-04/08/17 11:30:51   Node cbow_tfidf_lstm, HTCondor ID 729, status STATUS_SUBMITTED
-04/08/17 11:40:54 61469 seconds since last log event
-04/08/17 11:40:54 Pending DAG nodes:
-04/08/17 11:40:54   Node cbow_tfidf_lstm, HTCondor ID 729, status STATUS_SUBMITTED
-04/08/17 11:50:56 62071 seconds since last log event
-04/08/17 11:50:56 Pending DAG nodes:
-04/08/17 11:50:56   Node cbow_tfidf_lstm, HTCondor ID 729, status STATUS_SUBMITTED
-04/08/17 12:00:58 62673 seconds since last log event
-04/08/17 12:00:58 Pending DAG nodes:
-04/08/17 12:00:58   Node cbow_tfidf_lstm, HTCondor ID 729, status STATUS_SUBMITTED
-04/08/17 12:11:01 63276 seconds since last log event
-04/08/17 12:11:01 Pending DAG nodes:
-04/08/17 12:11:01   Node cbow_tfidf_lstm, HTCondor ID 729, status STATUS_SUBMITTED
-04/08/17 12:21:04 63879 seconds since last log event
-04/08/17 12:21:04 Pending DAG nodes:
-04/08/17 12:21:04   Node cbow_tfidf_lstm, HTCondor ID 729, status STATUS_SUBMITTED
-04/08/17 12:31:07 64482 seconds since last log event
-04/08/17 12:31:07 Pending DAG nodes:
-04/08/17 12:31:07   Node cbow_tfidf_lstm, HTCondor ID 729, status STATUS_SUBMITTED
-04/08/17 12:41:10 65085 seconds since last log event
-04/08/17 12:41:10 Pending DAG nodes:
-04/08/17 12:41:10   Node cbow_tfidf_lstm, HTCondor ID 729, status STATUS_SUBMITTED
-04/08/17 12:51:13 65688 seconds since last log event
-04/08/17 12:51:13 Pending DAG nodes:
-04/08/17 12:51:13   Node cbow_tfidf_lstm, HTCondor ID 729, status STATUS_SUBMITTED
-04/08/17 13:01:15 66290 seconds since last log event
-04/08/17 13:01:15 Pending DAG nodes:
-04/08/17 13:01:15   Node cbow_tfidf_lstm, HTCondor ID 729, status STATUS_SUBMITTED
-04/08/17 13:11:18 66893 seconds since last log event
-04/08/17 13:11:18 Pending DAG nodes:
-04/08/17 13:11:18   Node cbow_tfidf_lstm, HTCondor ID 729, status STATUS_SUBMITTED
-04/08/17 13:21:21 67496 seconds since last log event
-04/08/17 13:21:21 Pending DAG nodes:
-04/08/17 13:21:21   Node cbow_tfidf_lstm, HTCondor ID 729, status STATUS_SUBMITTED
-04/08/17 13:31:23 68098 seconds since last log event
-04/08/17 13:31:23 Pending DAG nodes:
-04/08/17 13:31:23   Node cbow_tfidf_lstm, HTCondor ID 729, status STATUS_SUBMITTED
-04/08/17 13:41:24 68699 seconds since last log event
-04/08/17 13:41:24 Pending DAG nodes:
-04/08/17 13:41:24   Node cbow_tfidf_lstm, HTCondor ID 729, status STATUS_SUBMITTED
-04/08/17 13:51:27 69302 seconds since last log event
-04/08/17 13:51:27 Pending DAG nodes:
-04/08/17 13:51:27   Node cbow_tfidf_lstm, HTCondor ID 729, status STATUS_SUBMITTED
-04/08/17 14:01:30 69905 seconds since last log event
-04/08/17 14:01:30 Pending DAG nodes:
-04/08/17 14:01:30   Node cbow_tfidf_lstm, HTCondor ID 729, status STATUS_SUBMITTED
-04/08/17 14:11:33 70508 seconds since last log event
-04/08/17 14:11:33 Pending DAG nodes:
-04/08/17 14:11:33   Node cbow_tfidf_lstm, HTCondor ID 729, status STATUS_SUBMITTED
-04/08/17 14:21:36 71111 seconds since last log event
-04/08/17 14:21:36 Pending DAG nodes:
-04/08/17 14:21:36   Node cbow_tfidf_lstm, HTCondor ID 729, status STATUS_SUBMITTED
-04/08/17 14:31:38 71713 seconds since last log event
-04/08/17 14:31:38 Pending DAG nodes:
-04/08/17 14:31:38   Node cbow_tfidf_lstm, HTCondor ID 729, status STATUS_SUBMITTED
-04/08/17 14:41:40 72315 seconds since last log event
-04/08/17 14:41:40 Pending DAG nodes:
-04/08/17 14:41:40   Node cbow_tfidf_lstm, HTCondor ID 729, status STATUS_SUBMITTED
-04/08/17 14:51:42 72917 seconds since last log event
-04/08/17 14:51:42 Pending DAG nodes:
-04/08/17 14:51:42   Node cbow_tfidf_lstm, HTCondor ID 729, status STATUS_SUBMITTED
-04/08/17 15:01:44 73519 seconds since last log event
-04/08/17 15:01:44 Pending DAG nodes:
-04/08/17 15:01:44   Node cbow_tfidf_lstm, HTCondor ID 729, status STATUS_SUBMITTED
-04/08/17 15:11:46 74121 seconds since last log event
-04/08/17 15:11:46 Pending DAG nodes:
-04/08/17 15:11:46   Node cbow_tfidf_lstm, HTCondor ID 729, status STATUS_SUBMITTED
-04/08/17 15:17:48 Currently monitoring 1 HTCondor log file(s)
-04/08/17 15:17:48 Event: ULOG_EXECUTE for HTCondor Node cbow_tfidf_lstm (729.0.0) {04/08/17 15:17:47}
-04/08/17 15:17:48 Number of idle job procs: 0
-04/08/17 15:20:18 Currently monitoring 1 HTCondor log file(s)
-04/08/17 15:20:18 Event: ULOG_JOB_TERMINATED for HTCondor Node cbow_tfidf_lstm (729.0.0) {04/08/17 15:20:17}
-04/08/17 15:20:18 Number of idle job procs: 0
-04/08/17 15:20:18 Node cbow_tfidf_lstm job proc (729.0.0) completed successfully.
-04/08/17 15:20:18 Node cbow_tfidf_lstm job completed
-04/08/17 15:20:18 DAG status: 0 (DAG_STATUS_OK)
-04/08/17 15:20:18 Of 2 nodes total:
-04/08/17 15:20:18  Done     Pre   Queued    Post   Ready   Un-Ready   Failed
-04/08/17 15:20:18   ===     ===      ===     ===     ===        ===      ===
-04/08/17 15:20:18     1       0        0       0       1          0        0
-04/08/17 15:20:18 0 job proc(s) currently held
-04/08/17 15:20:23 Submitting HTCondor Node cbow_tfidf_lstm_test job(s)...
-04/08/17 15:20:23 Adding a DAGMan workflow log /esat/spchtemp/scratch/robbe/SpeechHub/pretrained_tied_models/python/jobdag/./ds_cbow_tfidf_lstm.dag.nodes.log
-04/08/17 15:20:23 Masking the events recorded in the DAGMAN workflow log
-04/08/17 15:20:23 Mask for workflow log is 0,1,2,4,5,7,9,10,11,12,13,16,17,24,27
-04/08/17 15:20:23 submitting: /usr/bin/condor_submit -a dag_node_name' '=' 'cbow_tfidf_lstm_test -a +DAGManJobId' '=' '726 -a DAGManJobId' '=' '726 -batch-name ds_cbow_tfidf_lstm.dag+726 -a submit_event_notes' '=' 'DAG' 'Node:' 'cbow_tfidf_lstm_test -a dagman_log' '=' '/esat/spchtemp/scratch/robbe/SpeechHub/pretrained_tied_models/python/jobdag/./ds_cbow_tfidf_lstm.dag.nodes.log -a +DAGManNodesMask' '=' '"0,1,2,4,5,7,9,10,11,12,13,16,17,24,27" -a data_set' '=' 'ds -a test_name' '=' 'cbow_tfidf_lstm -a num_run' '=' '0 -a DAG_STATUS' '=' '0 -a FAILED_COUNT' '=' '0 -a notification' '=' 'never -a +DAGParentNodeNames' '=' '"cbow_tfidf_lstm" jobdag/cbow_lstm_test.job
-04/08/17 15:20:24 From submit: Submitting job(s).
-04/08/17 15:20:24 From submit: 1 job(s) submitted to cluster 738.
-04/08/17 15:20:24 	assigned HTCondor ID (738.0.0)
-04/08/17 15:20:24 Just submitted 1 job this cycle...
-04/08/17 15:20:24 Currently monitoring 1 HTCondor log file(s)
-04/08/17 15:20:24 Reassigning the id of job cbow_tfidf_lstm_test from (738.0.0) to (738.0.0)
-04/08/17 15:20:24 Event: ULOG_SUBMIT for HTCondor Node cbow_tfidf_lstm_test (738.0.0) {04/08/17 15:20:24}
-04/08/17 15:20:24 Number of idle job procs: 1
-04/08/17 15:20:24 DAG status: 0 (DAG_STATUS_OK)
-04/08/17 15:20:24 Of 2 nodes total:
-04/08/17 15:20:24  Done     Pre   Queued    Post   Ready   Un-Ready   Failed
-04/08/17 15:20:24   ===     ===      ===     ===     ===        ===      ===
-04/08/17 15:20:24     1       0        1       0       0          0        0
-04/08/17 15:20:24 0 job proc(s) currently held
-04/08/17 15:26:30 Currently monitoring 1 HTCondor log file(s)
-04/08/17 15:26:30 Event: ULOG_EXECUTE for HTCondor Node cbow_tfidf_lstm_test (738.0.0) {04/08/17 15:26:28}
-04/08/17 15:26:30 Number of idle job procs: 0
-04/08/17 15:26:35 Currently monitoring 1 HTCondor log file(s)
-04/08/17 15:26:35 Event: ULOG_JOB_TERMINATED for HTCondor Node cbow_tfidf_lstm_test (738.0.0) {04/08/17 15:26:35}
-04/08/17 15:26:35 Number of idle job procs: 0
-04/08/17 15:26:35 Node cbow_tfidf_lstm_test job proc (738.0.0) completed successfully.
-04/08/17 15:26:35 Node cbow_tfidf_lstm_test job completed
-04/08/17 15:26:35 DAG status: 0 (DAG_STATUS_OK)
-04/08/17 15:26:35 Of 2 nodes total:
-04/08/17 15:26:35  Done     Pre   Queued    Post   Ready   Un-Ready   Failed
-04/08/17 15:26:35   ===     ===      ===     ===     ===        ===      ===
-04/08/17 15:26:35     2       0        0       0       0          0        0
-04/08/17 15:26:35 0 job proc(s) currently held
-04/08/17 15:26:35 All jobs Completed!
-04/08/17 15:26:35 Note: 0 total job deferrals because of -MaxJobs limit (0)
-04/08/17 15:26:35 Note: 0 total job deferrals because of -MaxIdle limit (1000)
-04/08/17 15:26:35 Note: 0 total job deferrals because of node category throttles
-04/08/17 15:26:35 Note: 0 total PRE script deferrals because of -MaxPre limit (20) or DEFER
-04/08/17 15:26:35 Note: 0 total POST script deferrals because of -MaxPost limit (20) or DEFER
-04/08/17 15:26:35 DAG status: 0 (DAG_STATUS_OK)
-04/08/17 15:26:35 Of 2 nodes total:
-04/08/17 15:26:35  Done     Pre   Queued    Post   Ready   Un-Ready   Failed
-04/08/17 15:26:35   ===     ===      ===     ===     ===        ===      ===
-04/08/17 15:26:35     2       0        0       0       0          0        0
-04/08/17 15:26:35 0 job proc(s) currently held
-04/08/17 15:26:35 Wrote metrics file ds_cbow_tfidf_lstm.dag.metrics.
-04/08/17 15:26:35 Metrics not sent because of PEGASUS_METRICS or CONDOR_DEVELOPERS setting.
-04/08/17 15:26:35 **** condor_scheduniv_exec.726.0 (condor_DAGMAN) pid 12662 EXITING WITH STATUS 0
+04/11/17 14:29:51 ******************************************************
+04/11/17 14:29:51 ** condor_scheduniv_exec.38.0 (CONDOR_DAGMAN) STARTING UP
+04/11/17 14:29:51 ** /usr/bin/condor_dagman
+04/11/17 14:29:51 ** SubsystemInfo: name=DAGMAN type=DAGMAN(10) class=DAEMON(1)
+04/11/17 14:29:51 ** Configuration: subsystem:DAGMAN local:<NONE> class:DAEMON
+04/11/17 14:29:51 ** $CondorVersion: 8.6.1 Mar 01 2017 BuildID: 398585 $
+04/11/17 14:29:51 ** $CondorPlatform: x86_64_RedHat7 $
+04/11/17 14:29:51 ** PID = 15315
+04/11/17 14:29:51 ** Log last touched time unavailable (No such file or directory)
+04/11/17 14:29:51 ******************************************************
+04/11/17 14:29:51 Using config source: /etc/condor/condor_config
+04/11/17 14:29:51 Using local config sources: 
+04/11/17 14:29:51    /etc/condor/config.d/00esat.config
+04/11/17 14:29:51    /etc/condor/config.d/01java.config
+04/11/17 14:29:51    /etc/condor/config.d/80optout_users.config
+04/11/17 14:29:51    /etc/condor/condor_config.local
+04/11/17 14:29:51 config Macros = 174, Sorted = 174, StringBytes = 6664, TablesBytes = 6336
+04/11/17 14:29:51 CLASSAD_CACHING is ENABLED
+04/11/17 14:29:51 Daemon Log is logging: D_ALWAYS D_ERROR
+04/11/17 14:29:51 DaemonCore: No command port requested.
+04/11/17 14:29:51 DAGMAN_USE_STRICT setting: 1
+04/11/17 14:29:51 DAGMAN_VERBOSITY setting: 3
+04/11/17 14:29:51 DAGMAN_DEBUG_CACHE_SIZE setting: 5242880
+04/11/17 14:29:51 DAGMAN_DEBUG_CACHE_ENABLE setting: False
+04/11/17 14:29:51 DAGMAN_SUBMIT_DELAY setting: 0
+04/11/17 14:29:51 DAGMAN_MAX_SUBMIT_ATTEMPTS setting: 6
+04/11/17 14:29:51 DAGMAN_STARTUP_CYCLE_DETECT setting: False
+04/11/17 14:29:51 DAGMAN_MAX_SUBMITS_PER_INTERVAL setting: 5
+04/11/17 14:29:51 DAGMAN_USER_LOG_SCAN_INTERVAL setting: 5
+04/11/17 14:29:51 DAGMAN_DEFAULT_PRIORITY setting: 0
+04/11/17 14:29:51 DAGMAN_SUPPRESS_NOTIFICATION setting: True
+04/11/17 14:29:51 allow_events (DAGMAN_ALLOW_EVENTS) setting: 114
+04/11/17 14:29:51 DAGMAN_RETRY_SUBMIT_FIRST setting: True
+04/11/17 14:29:51 DAGMAN_RETRY_NODE_FIRST setting: False
+04/11/17 14:29:51 DAGMAN_MAX_JOBS_IDLE setting: 1000
+04/11/17 14:29:51 DAGMAN_MAX_JOBS_SUBMITTED setting: 0
+04/11/17 14:29:51 DAGMAN_MAX_PRE_SCRIPTS setting: 20
+04/11/17 14:29:51 DAGMAN_MAX_POST_SCRIPTS setting: 20
+04/11/17 14:29:51 DAGMAN_MUNGE_NODE_NAMES setting: True
+04/11/17 14:29:51 DAGMAN_PROHIBIT_MULTI_JOBS setting: False
+04/11/17 14:29:51 DAGMAN_SUBMIT_DEPTH_FIRST setting: False
+04/11/17 14:29:51 DAGMAN_ALWAYS_RUN_POST setting: False
+04/11/17 14:29:51 DAGMAN_ABORT_DUPLICATES setting: True
+04/11/17 14:29:51 DAGMAN_ABORT_ON_SCARY_SUBMIT setting: True
+04/11/17 14:29:51 DAGMAN_PENDING_REPORT_INTERVAL setting: 600
+04/11/17 14:29:51 DAGMAN_AUTO_RESCUE setting: True
+04/11/17 14:29:51 DAGMAN_MAX_RESCUE_NUM setting: 100
+04/11/17 14:29:51 DAGMAN_WRITE_PARTIAL_RESCUE setting: True
+04/11/17 14:29:51 DAGMAN_DEFAULT_NODE_LOG setting: @(DAG_DIR)/@(DAG_FILE).nodes.log
+04/11/17 14:29:51 DAGMAN_GENERATE_SUBDAG_SUBMITS setting: True
+04/11/17 14:29:51 DAGMAN_MAX_JOB_HOLDS setting: 100
+04/11/17 14:29:51 DAGMAN_HOLD_CLAIM_TIME setting: 20
+04/11/17 14:29:51 ALL_DEBUG setting: 
+04/11/17 14:29:51 DAGMAN_DEBUG setting: 
+04/11/17 14:29:51 DAGMAN_SUPPRESS_JOB_LOGS setting: False
+04/11/17 14:29:51 DAGMAN_REMOVE_NODE_JOBS setting: True
+04/11/17 14:29:51 argv[0] == "condor_scheduniv_exec.38.0"
+04/11/17 14:29:51 argv[1] == "-Lockfile"
+04/11/17 14:29:51 argv[2] == "ds_cbow_tfidf_lstm.dag.lock"
+04/11/17 14:29:51 argv[3] == "-AutoRescue"
+04/11/17 14:29:51 argv[4] == "1"
+04/11/17 14:29:51 argv[5] == "-DoRescueFrom"
+04/11/17 14:29:51 argv[6] == "0"
+04/11/17 14:29:51 argv[7] == "-Dag"
+04/11/17 14:29:51 argv[8] == "ds_cbow_tfidf_lstm.dag"
+04/11/17 14:29:51 argv[9] == "-Suppress_notification"
+04/11/17 14:29:51 argv[10] == "-CsdVersion"
+04/11/17 14:29:51 argv[11] == "$CondorVersion: 8.6.1 Mar 01 2017 BuildID: 398585 $"
+04/11/17 14:29:51 argv[12] == "-Dagman"
+04/11/17 14:29:51 argv[13] == "/usr/bin/condor_dagman"
+04/11/17 14:29:51 Workflow batch-name: <ds_cbow_tfidf_lstm.dag+38>
+04/11/17 14:29:51 Workflow accounting_group: <>
+04/11/17 14:29:51 Workflow accounting_group_user: <>
+04/11/17 14:29:51 Warning: failed to get attribute DAGNodeName
+04/11/17 14:29:51 DAGMAN_LOG_ON_NFS_IS_ERROR setting: False
+04/11/17 14:29:51 Default node log file is: </esat/spchtemp/scratch/robbe/SpeechHub/pretrained_tied_models/python/jobdag/./ds_cbow_tfidf_lstm.dag.nodes.log>
+04/11/17 14:29:51 DAG Lockfile will be written to ds_cbow_tfidf_lstm.dag.lock
+04/11/17 14:29:51 DAG Input file is ds_cbow_tfidf_lstm.dag
+04/11/17 14:29:51 Parsing 1 dagfiles
+04/11/17 14:29:51 Parsing ds_cbow_tfidf_lstm.dag ...
+04/11/17 14:29:51 Dag contains 2 total jobs
+04/11/17 14:29:51 Sleeping for 3 seconds to ensure ProcessId uniqueness
+04/11/17 14:29:54 Bootstrapping...
+04/11/17 14:29:54 Number of pre-completed nodes: 0
+04/11/17 14:29:54 MultiLogFiles: truncating log file /esat/spchtemp/scratch/robbe/SpeechHub/pretrained_tied_models/python/jobdag/./ds_cbow_tfidf_lstm.dag.nodes.log
+04/11/17 14:29:54 DAG status: 0 (DAG_STATUS_OK)
+04/11/17 14:29:54 Of 2 nodes total:
+04/11/17 14:29:54  Done     Pre   Queued    Post   Ready   Un-Ready   Failed
+04/11/17 14:29:54   ===     ===      ===     ===     ===        ===      ===
+04/11/17 14:29:54     0       0        0       0       1          1        0
+04/11/17 14:29:54 0 job proc(s) currently held
+04/11/17 14:29:55 Registering condor_event_timer...
+04/11/17 14:29:56 Submitting HTCondor Node cbow_tfidf_lstm job(s)...
+04/11/17 14:29:56 Adding a DAGMan workflow log /esat/spchtemp/scratch/robbe/SpeechHub/pretrained_tied_models/python/jobdag/./ds_cbow_tfidf_lstm.dag.nodes.log
+04/11/17 14:29:56 Masking the events recorded in the DAGMAN workflow log
+04/11/17 14:29:56 Mask for workflow log is 0,1,2,4,5,7,9,10,11,12,13,16,17,24,27
+04/11/17 14:29:56 submitting: /usr/bin/condor_submit -a dag_node_name' '=' 'cbow_tfidf_lstm -a +DAGManJobId' '=' '38 -a DAGManJobId' '=' '38 -batch-name ds_cbow_tfidf_lstm.dag+38 -a submit_event_notes' '=' 'DAG' 'Node:' 'cbow_tfidf_lstm -a dagman_log' '=' '/esat/spchtemp/scratch/robbe/SpeechHub/pretrained_tied_models/python/jobdag/./ds_cbow_tfidf_lstm.dag.nodes.log -a +DAGManNodesMask' '=' '"0,1,2,4,5,7,9,10,11,12,13,16,17,24,27" -a data_set' '=' 'ds -a test_name' '=' 'cbow_tfidf_lstm -a num_run' '=' '0 -a combination' '=' 'tfidf -a DAG_STATUS' '=' '0 -a FAILED_COUNT' '=' '0 -a +KeepClaimIdle' '=' '20 -a notification' '=' 'never -a +DAGParentNodeNames' '=' '"" jobdag/cbow_lstm.job
+04/11/17 14:29:56 From submit: Submitting job(s).
+04/11/17 14:29:56 From submit: 1 job(s) submitted to cluster 39.
+04/11/17 14:29:56 	assigned HTCondor ID (39.0.0)
+04/11/17 14:29:56 Just submitted 1 job this cycle...
+04/11/17 14:29:56 Currently monitoring 1 HTCondor log file(s)
+04/11/17 14:29:56 Reassigning the id of job cbow_tfidf_lstm from (39.0.0) to (39.0.0)
+04/11/17 14:29:56 Event: ULOG_SUBMIT for HTCondor Node cbow_tfidf_lstm (39.0.0) {04/11/17 14:29:56}
+04/11/17 14:29:56 Number of idle job procs: 1
+04/11/17 14:29:56 DAG status: 0 (DAG_STATUS_OK)
+04/11/17 14:29:56 Of 2 nodes total:
+04/11/17 14:29:56  Done     Pre   Queued    Post   Ready   Un-Ready   Failed
+04/11/17 14:29:56   ===     ===      ===     ===     ===        ===      ===
+04/11/17 14:29:56     0       0        1       0       0          1        0
+04/11/17 14:29:56 0 job proc(s) currently held
+04/11/17 14:39:58 602 seconds since last log event
+04/11/17 14:39:58 Pending DAG nodes:
+04/11/17 14:39:58   Node cbow_tfidf_lstm, HTCondor ID 39, status STATUS_SUBMITTED
+04/11/17 14:50:00 1204 seconds since last log event
+04/11/17 14:50:00 Pending DAG nodes:
+04/11/17 14:50:00   Node cbow_tfidf_lstm, HTCondor ID 39, status STATUS_SUBMITTED
+04/11/17 15:00:02 1806 seconds since last log event
+04/11/17 15:00:02 Pending DAG nodes:
+04/11/17 15:00:02   Node cbow_tfidf_lstm, HTCondor ID 39, status STATUS_SUBMITTED
+04/11/17 15:10:04 2408 seconds since last log event
+04/11/17 15:10:04 Pending DAG nodes:
+04/11/17 15:10:04   Node cbow_tfidf_lstm, HTCondor ID 39, status STATUS_SUBMITTED
+04/11/17 15:20:07 3011 seconds since last log event
+04/11/17 15:20:07 Pending DAG nodes:
+04/11/17 15:20:07   Node cbow_tfidf_lstm, HTCondor ID 39, status STATUS_SUBMITTED
+04/11/17 15:30:09 3613 seconds since last log event
+04/11/17 15:30:09 Pending DAG nodes:
+04/11/17 15:30:09   Node cbow_tfidf_lstm, HTCondor ID 39, status STATUS_SUBMITTED
+04/11/17 15:40:11 4215 seconds since last log event
+04/11/17 15:40:11 Pending DAG nodes:
+04/11/17 15:40:11   Node cbow_tfidf_lstm, HTCondor ID 39, status STATUS_SUBMITTED
+04/11/17 15:50:14 4818 seconds since last log event
+04/11/17 15:50:14 Pending DAG nodes:
+04/11/17 15:50:14   Node cbow_tfidf_lstm, HTCondor ID 39, status STATUS_SUBMITTED
+04/11/17 16:00:16 5420 seconds since last log event
+04/11/17 16:00:16 Pending DAG nodes:
+04/11/17 16:00:16   Node cbow_tfidf_lstm, HTCondor ID 39, status STATUS_SUBMITTED
+04/11/17 16:10:18 6022 seconds since last log event
+04/11/17 16:10:18 Pending DAG nodes:
+04/11/17 16:10:18   Node cbow_tfidf_lstm, HTCondor ID 39, status STATUS_SUBMITTED
+04/11/17 16:20:20 6624 seconds since last log event
+04/11/17 16:20:20 Pending DAG nodes:
+04/11/17 16:20:20   Node cbow_tfidf_lstm, HTCondor ID 39, status STATUS_SUBMITTED
+04/11/17 16:30:22 7226 seconds since last log event
+04/11/17 16:30:22 Pending DAG nodes:
+04/11/17 16:30:22   Node cbow_tfidf_lstm, HTCondor ID 39, status STATUS_SUBMITTED
+04/11/17 16:40:25 7829 seconds since last log event
+04/11/17 16:40:25 Pending DAG nodes:
+04/11/17 16:40:25   Node cbow_tfidf_lstm, HTCondor ID 39, status STATUS_SUBMITTED
+04/11/17 16:50:28 8432 seconds since last log event
+04/11/17 16:50:28 Pending DAG nodes:
+04/11/17 16:50:28   Node cbow_tfidf_lstm, HTCondor ID 39, status STATUS_SUBMITTED
+04/11/17 17:00:31 9035 seconds since last log event
+04/11/17 17:00:31 Pending DAG nodes:
+04/11/17 17:00:31   Node cbow_tfidf_lstm, HTCondor ID 39, status STATUS_SUBMITTED
+04/11/17 17:10:34 9638 seconds since last log event
+04/11/17 17:10:34 Pending DAG nodes:
+04/11/17 17:10:34   Node cbow_tfidf_lstm, HTCondor ID 39, status STATUS_SUBMITTED
+04/11/17 17:20:37 10241 seconds since last log event
+04/11/17 17:20:37 Pending DAG nodes:
+04/11/17 17:20:37   Node cbow_tfidf_lstm, HTCondor ID 39, status STATUS_SUBMITTED
+04/11/17 17:30:40 10844 seconds since last log event
+04/11/17 17:30:40 Pending DAG nodes:
+04/11/17 17:30:40   Node cbow_tfidf_lstm, HTCondor ID 39, status STATUS_SUBMITTED
+04/11/17 17:40:42 11446 seconds since last log event
+04/11/17 17:40:42 Pending DAG nodes:
+04/11/17 17:40:42   Node cbow_tfidf_lstm, HTCondor ID 39, status STATUS_SUBMITTED
+04/11/17 17:50:45 12049 seconds since last log event
+04/11/17 17:50:45 Pending DAG nodes:
+04/11/17 17:50:45   Node cbow_tfidf_lstm, HTCondor ID 39, status STATUS_SUBMITTED
+04/11/17 18:00:48 12652 seconds since last log event
+04/11/17 18:00:48 Pending DAG nodes:
+04/11/17 18:00:48   Node cbow_tfidf_lstm, HTCondor ID 39, status STATUS_SUBMITTED
+04/11/17 18:10:51 13255 seconds since last log event
+04/11/17 18:10:51 Pending DAG nodes:
+04/11/17 18:10:51   Node cbow_tfidf_lstm, HTCondor ID 39, status STATUS_SUBMITTED
+04/11/17 18:20:53 13857 seconds since last log event
+04/11/17 18:20:53 Pending DAG nodes:
+04/11/17 18:20:53   Node cbow_tfidf_lstm, HTCondor ID 39, status STATUS_SUBMITTED
+04/11/17 18:30:55 14459 seconds since last log event
+04/11/17 18:30:55 Pending DAG nodes:
+04/11/17 18:30:55   Node cbow_tfidf_lstm, HTCondor ID 39, status STATUS_SUBMITTED
+04/11/17 18:40:58 15062 seconds since last log event
+04/11/17 18:40:58 Pending DAG nodes:
+04/11/17 18:40:58   Node cbow_tfidf_lstm, HTCondor ID 39, status STATUS_SUBMITTED
+04/11/17 18:51:01 15665 seconds since last log event
+04/11/17 18:51:01 Pending DAG nodes:
+04/11/17 18:51:01   Node cbow_tfidf_lstm, HTCondor ID 39, status STATUS_SUBMITTED
+04/11/17 19:01:04 16268 seconds since last log event
+04/11/17 19:01:04 Pending DAG nodes:
+04/11/17 19:01:04   Node cbow_tfidf_lstm, HTCondor ID 39, status STATUS_SUBMITTED
+04/11/17 19:11:07 16871 seconds since last log event
+04/11/17 19:11:07 Pending DAG nodes:
+04/11/17 19:11:07   Node cbow_tfidf_lstm, HTCondor ID 39, status STATUS_SUBMITTED
+04/11/17 19:21:10 17474 seconds since last log event
+04/11/17 19:21:10 Pending DAG nodes:
+04/11/17 19:21:10   Node cbow_tfidf_lstm, HTCondor ID 39, status STATUS_SUBMITTED
+04/11/17 19:31:13 18077 seconds since last log event
+04/11/17 19:31:13 Pending DAG nodes:
+04/11/17 19:31:13   Node cbow_tfidf_lstm, HTCondor ID 39, status STATUS_SUBMITTED
+04/11/17 19:41:15 18679 seconds since last log event
+04/11/17 19:41:15 Pending DAG nodes:
+04/11/17 19:41:15   Node cbow_tfidf_lstm, HTCondor ID 39, status STATUS_SUBMITTED
+04/11/17 19:51:17 19281 seconds since last log event
+04/11/17 19:51:17 Pending DAG nodes:
+04/11/17 19:51:17   Node cbow_tfidf_lstm, HTCondor ID 39, status STATUS_SUBMITTED
+04/11/17 20:01:20 19884 seconds since last log event
+04/11/17 20:01:20 Pending DAG nodes:
+04/11/17 20:01:20   Node cbow_tfidf_lstm, HTCondor ID 39, status STATUS_SUBMITTED
+04/11/17 20:11:23 20487 seconds since last log event
+04/11/17 20:11:23 Pending DAG nodes:
+04/11/17 20:11:23   Node cbow_tfidf_lstm, HTCondor ID 39, status STATUS_SUBMITTED
+04/11/17 20:21:26 21090 seconds since last log event
+04/11/17 20:21:26 Pending DAG nodes:
+04/11/17 20:21:26   Node cbow_tfidf_lstm, HTCondor ID 39, status STATUS_SUBMITTED
+04/11/17 20:31:29 21693 seconds since last log event
+04/11/17 20:31:29 Pending DAG nodes:
+04/11/17 20:31:29   Node cbow_tfidf_lstm, HTCondor ID 39, status STATUS_SUBMITTED
+04/11/17 20:41:32 22296 seconds since last log event
+04/11/17 20:41:32 Pending DAG nodes:
+04/11/17 20:41:32   Node cbow_tfidf_lstm, HTCondor ID 39, status STATUS_SUBMITTED
+04/11/17 20:51:34 22898 seconds since last log event
+04/11/17 20:51:34 Pending DAG nodes:
+04/11/17 20:51:34   Node cbow_tfidf_lstm, HTCondor ID 39, status STATUS_SUBMITTED
+04/11/17 21:01:37 23501 seconds since last log event
+04/11/17 21:01:37 Pending DAG nodes:
+04/11/17 21:01:37   Node cbow_tfidf_lstm, HTCondor ID 39, status STATUS_SUBMITTED
+04/11/17 21:11:40 24104 seconds since last log event
+04/11/17 21:11:40 Pending DAG nodes:
+04/11/17 21:11:40   Node cbow_tfidf_lstm, HTCondor ID 39, status STATUS_SUBMITTED
+04/11/17 21:21:43 24707 seconds since last log event
+04/11/17 21:21:43 Pending DAG nodes:
+04/11/17 21:21:43   Node cbow_tfidf_lstm, HTCondor ID 39, status STATUS_SUBMITTED
+04/11/17 21:31:45 25309 seconds since last log event
+04/11/17 21:31:45 Pending DAG nodes:
+04/11/17 21:31:45   Node cbow_tfidf_lstm, HTCondor ID 39, status STATUS_SUBMITTED
+04/11/17 21:41:48 25912 seconds since last log event
+04/11/17 21:41:48 Pending DAG nodes:
+04/11/17 21:41:48   Node cbow_tfidf_lstm, HTCondor ID 39, status STATUS_SUBMITTED
+04/11/17 21:51:51 26515 seconds since last log event
+04/11/17 21:51:51 Pending DAG nodes:
+04/11/17 21:51:51   Node cbow_tfidf_lstm, HTCondor ID 39, status STATUS_SUBMITTED
+04/11/17 22:01:53 27117 seconds since last log event
+04/11/17 22:01:53 Pending DAG nodes:
+04/11/17 22:01:53   Node cbow_tfidf_lstm, HTCondor ID 39, status STATUS_SUBMITTED
+04/11/17 22:11:55 27719 seconds since last log event
+04/11/17 22:11:55 Pending DAG nodes:
+04/11/17 22:11:55   Node cbow_tfidf_lstm, HTCondor ID 39, status STATUS_SUBMITTED
+04/11/17 22:21:58 28322 seconds since last log event
+04/11/17 22:21:58 Pending DAG nodes:
+04/11/17 22:21:58   Node cbow_tfidf_lstm, HTCondor ID 39, status STATUS_SUBMITTED
+04/11/17 22:32:01 28925 seconds since last log event
+04/11/17 22:32:01 Pending DAG nodes:
+04/11/17 22:32:01   Node cbow_tfidf_lstm, HTCondor ID 39, status STATUS_SUBMITTED
+04/11/17 22:42:04 29528 seconds since last log event
+04/11/17 22:42:04 Pending DAG nodes:
+04/11/17 22:42:04   Node cbow_tfidf_lstm, HTCondor ID 39, status STATUS_SUBMITTED
+04/11/17 22:52:06 30130 seconds since last log event
+04/11/17 22:52:06 Pending DAG nodes:
+04/11/17 22:52:06   Node cbow_tfidf_lstm, HTCondor ID 39, status STATUS_SUBMITTED
+04/11/17 23:02:09 30733 seconds since last log event
+04/11/17 23:02:09 Pending DAG nodes:
+04/11/17 23:02:09   Node cbow_tfidf_lstm, HTCondor ID 39, status STATUS_SUBMITTED
+04/11/17 23:12:12 31336 seconds since last log event
+04/11/17 23:12:12 Pending DAG nodes:
+04/11/17 23:12:12   Node cbow_tfidf_lstm, HTCondor ID 39, status STATUS_SUBMITTED
+04/11/17 23:22:15 31939 seconds since last log event
+04/11/17 23:22:15 Pending DAG nodes:
+04/11/17 23:22:15   Node cbow_tfidf_lstm, HTCondor ID 39, status STATUS_SUBMITTED
+04/11/17 23:32:18 32542 seconds since last log event
+04/11/17 23:32:18 Pending DAG nodes:
+04/11/17 23:32:18   Node cbow_tfidf_lstm, HTCondor ID 39, status STATUS_SUBMITTED
+04/11/17 23:42:20 33144 seconds since last log event
+04/11/17 23:42:20 Pending DAG nodes:
+04/11/17 23:42:20   Node cbow_tfidf_lstm, HTCondor ID 39, status STATUS_SUBMITTED
+04/11/17 23:52:23 33747 seconds since last log event
+04/11/17 23:52:23 Pending DAG nodes:
+04/11/17 23:52:23   Node cbow_tfidf_lstm, HTCondor ID 39, status STATUS_SUBMITTED
+04/12/17 00:02:26 34350 seconds since last log event
+04/12/17 00:02:26 Pending DAG nodes:
+04/12/17 00:02:26   Node cbow_tfidf_lstm, HTCondor ID 39, status STATUS_SUBMITTED
+04/12/17 00:12:28 34952 seconds since last log event
+04/12/17 00:12:28 Pending DAG nodes:
+04/12/17 00:12:28   Node cbow_tfidf_lstm, HTCondor ID 39, status STATUS_SUBMITTED
+04/12/17 00:22:31 35555 seconds since last log event
+04/12/17 00:22:31 Pending DAG nodes:
+04/12/17 00:22:31   Node cbow_tfidf_lstm, HTCondor ID 39, status STATUS_SUBMITTED
+04/12/17 00:32:34 36158 seconds since last log event
+04/12/17 00:32:34 Pending DAG nodes:
+04/12/17 00:32:34   Node cbow_tfidf_lstm, HTCondor ID 39, status STATUS_SUBMITTED
+04/12/17 00:42:37 36761 seconds since last log event
+04/12/17 00:42:37 Pending DAG nodes:
+04/12/17 00:42:37   Node cbow_tfidf_lstm, HTCondor ID 39, status STATUS_SUBMITTED
+04/12/17 00:52:39 37363 seconds since last log event
+04/12/17 00:52:39 Pending DAG nodes:
+04/12/17 00:52:39   Node cbow_tfidf_lstm, HTCondor ID 39, status STATUS_SUBMITTED
+04/12/17 01:02:42 37966 seconds since last log event
+04/12/17 01:02:42 Pending DAG nodes:
+04/12/17 01:02:42   Node cbow_tfidf_lstm, HTCondor ID 39, status STATUS_SUBMITTED
+04/12/17 01:12:45 38569 seconds since last log event
+04/12/17 01:12:45 Pending DAG nodes:
+04/12/17 01:12:45   Node cbow_tfidf_lstm, HTCondor ID 39, status STATUS_SUBMITTED
+04/12/17 01:22:47 39171 seconds since last log event
+04/12/17 01:22:47 Pending DAG nodes:
+04/12/17 01:22:47   Node cbow_tfidf_lstm, HTCondor ID 39, status STATUS_SUBMITTED
+04/12/17 01:32:50 39774 seconds since last log event
+04/12/17 01:32:50 Pending DAG nodes:
+04/12/17 01:32:50   Node cbow_tfidf_lstm, HTCondor ID 39, status STATUS_SUBMITTED
+04/12/17 01:42:53 40377 seconds since last log event
+04/12/17 01:42:53 Pending DAG nodes:
+04/12/17 01:42:53   Node cbow_tfidf_lstm, HTCondor ID 39, status STATUS_SUBMITTED
+04/12/17 01:52:55 40979 seconds since last log event
+04/12/17 01:52:55 Pending DAG nodes:
+04/12/17 01:52:55   Node cbow_tfidf_lstm, HTCondor ID 39, status STATUS_SUBMITTED
+04/12/17 02:02:58 41582 seconds since last log event
+04/12/17 02:02:58 Pending DAG nodes:
+04/12/17 02:02:58   Node cbow_tfidf_lstm, HTCondor ID 39, status STATUS_SUBMITTED
+04/12/17 02:13:00 42184 seconds since last log event
+04/12/17 02:13:00 Pending DAG nodes:
+04/12/17 02:13:00   Node cbow_tfidf_lstm, HTCondor ID 39, status STATUS_SUBMITTED
+04/12/17 02:23:03 42787 seconds since last log event
+04/12/17 02:23:03 Pending DAG nodes:
+04/12/17 02:23:03   Node cbow_tfidf_lstm, HTCondor ID 39, status STATUS_SUBMITTED
+04/12/17 02:33:05 43389 seconds since last log event
+04/12/17 02:33:05 Pending DAG nodes:
+04/12/17 02:33:05   Node cbow_tfidf_lstm, HTCondor ID 39, status STATUS_SUBMITTED
+04/12/17 02:43:08 43992 seconds since last log event
+04/12/17 02:43:08 Pending DAG nodes:
+04/12/17 02:43:08   Node cbow_tfidf_lstm, HTCondor ID 39, status STATUS_SUBMITTED
+04/12/17 02:53:11 44595 seconds since last log event
+04/12/17 02:53:11 Pending DAG nodes:
+04/12/17 02:53:11   Node cbow_tfidf_lstm, HTCondor ID 39, status STATUS_SUBMITTED
+04/12/17 03:03:14 45198 seconds since last log event
+04/12/17 03:03:14 Pending DAG nodes:
+04/12/17 03:03:14   Node cbow_tfidf_lstm, HTCondor ID 39, status STATUS_SUBMITTED
+04/12/17 03:13:17 45801 seconds since last log event
+04/12/17 03:13:17 Pending DAG nodes:
+04/12/17 03:13:17   Node cbow_tfidf_lstm, HTCondor ID 39, status STATUS_SUBMITTED
+04/12/17 03:23:20 46404 seconds since last log event
+04/12/17 03:23:20 Pending DAG nodes:
+04/12/17 03:23:20   Node cbow_tfidf_lstm, HTCondor ID 39, status STATUS_SUBMITTED
+04/12/17 03:33:23 47007 seconds since last log event
+04/12/17 03:33:23 Pending DAG nodes:
+04/12/17 03:33:23   Node cbow_tfidf_lstm, HTCondor ID 39, status STATUS_SUBMITTED
+04/12/17 03:43:26 47610 seconds since last log event
+04/12/17 03:43:26 Pending DAG nodes:
+04/12/17 03:43:26   Node cbow_tfidf_lstm, HTCondor ID 39, status STATUS_SUBMITTED
+04/12/17 03:53:29 48213 seconds since last log event
+04/12/17 03:53:29 Pending DAG nodes:
+04/12/17 03:53:29   Node cbow_tfidf_lstm, HTCondor ID 39, status STATUS_SUBMITTED
+04/12/17 04:03:32 48816 seconds since last log event
+04/12/17 04:03:32 Pending DAG nodes:
+04/12/17 04:03:32   Node cbow_tfidf_lstm, HTCondor ID 39, status STATUS_SUBMITTED
+04/12/17 04:13:35 49419 seconds since last log event
+04/12/17 04:13:35 Pending DAG nodes:
+04/12/17 04:13:35   Node cbow_tfidf_lstm, HTCondor ID 39, status STATUS_SUBMITTED
+04/12/17 04:23:37 50021 seconds since last log event
+04/12/17 04:23:37 Pending DAG nodes:
+04/12/17 04:23:37   Node cbow_tfidf_lstm, HTCondor ID 39, status STATUS_SUBMITTED
+04/12/17 04:33:40 50624 seconds since last log event
+04/12/17 04:33:40 Pending DAG nodes:
+04/12/17 04:33:40   Node cbow_tfidf_lstm, HTCondor ID 39, status STATUS_SUBMITTED
+04/12/17 04:43:43 51227 seconds since last log event
+04/12/17 04:43:43 Pending DAG nodes:
+04/12/17 04:43:43   Node cbow_tfidf_lstm, HTCondor ID 39, status STATUS_SUBMITTED
+04/12/17 04:53:45 51829 seconds since last log event
+04/12/17 04:53:45 Pending DAG nodes:
+04/12/17 04:53:45   Node cbow_tfidf_lstm, HTCondor ID 39, status STATUS_SUBMITTED
+04/12/17 05:03:48 52432 seconds since last log event
+04/12/17 05:03:48 Pending DAG nodes:
+04/12/17 05:03:48   Node cbow_tfidf_lstm, HTCondor ID 39, status STATUS_SUBMITTED
+04/12/17 05:13:51 53035 seconds since last log event
+04/12/17 05:13:51 Pending DAG nodes:
+04/12/17 05:13:51   Node cbow_tfidf_lstm, HTCondor ID 39, status STATUS_SUBMITTED
+04/12/17 05:23:54 53638 seconds since last log event
+04/12/17 05:23:54 Pending DAG nodes:
+04/12/17 05:23:54   Node cbow_tfidf_lstm, HTCondor ID 39, status STATUS_SUBMITTED
+04/12/17 05:33:56 54240 seconds since last log event
+04/12/17 05:33:56 Pending DAG nodes:
+04/12/17 05:33:56   Node cbow_tfidf_lstm, HTCondor ID 39, status STATUS_SUBMITTED
+04/12/17 05:43:59 54843 seconds since last log event
+04/12/17 05:43:59 Pending DAG nodes:
+04/12/17 05:43:59   Node cbow_tfidf_lstm, HTCondor ID 39, status STATUS_SUBMITTED
+04/12/17 05:54:01 55445 seconds since last log event
+04/12/17 05:54:01 Pending DAG nodes:
+04/12/17 05:54:01   Node cbow_tfidf_lstm, HTCondor ID 39, status STATUS_SUBMITTED
+04/12/17 06:04:04 56048 seconds since last log event
+04/12/17 06:04:04 Pending DAG nodes:
+04/12/17 06:04:04   Node cbow_tfidf_lstm, HTCondor ID 39, status STATUS_SUBMITTED
+04/12/17 06:14:07 56651 seconds since last log event
+04/12/17 06:14:07 Pending DAG nodes:
+04/12/17 06:14:07   Node cbow_tfidf_lstm, HTCondor ID 39, status STATUS_SUBMITTED
+04/12/17 06:24:09 57253 seconds since last log event
+04/12/17 06:24:09 Pending DAG nodes:
+04/12/17 06:24:09   Node cbow_tfidf_lstm, HTCondor ID 39, status STATUS_SUBMITTED
+04/12/17 06:34:11 57855 seconds since last log event
+04/12/17 06:34:11 Pending DAG nodes:
+04/12/17 06:34:11   Node cbow_tfidf_lstm, HTCondor ID 39, status STATUS_SUBMITTED
+04/12/17 06:44:13 58457 seconds since last log event
+04/12/17 06:44:13 Pending DAG nodes:
+04/12/17 06:44:13   Node cbow_tfidf_lstm, HTCondor ID 39, status STATUS_SUBMITTED
+04/12/17 06:54:15 59059 seconds since last log event
+04/12/17 06:54:15 Pending DAG nodes:
+04/12/17 06:54:15   Node cbow_tfidf_lstm, HTCondor ID 39, status STATUS_SUBMITTED
+04/12/17 07:04:18 59662 seconds since last log event
+04/12/17 07:04:18 Pending DAG nodes:
+04/12/17 07:04:18   Node cbow_tfidf_lstm, HTCondor ID 39, status STATUS_SUBMITTED
+04/12/17 07:14:21 60265 seconds since last log event
+04/12/17 07:14:21 Pending DAG nodes:
+04/12/17 07:14:21   Node cbow_tfidf_lstm, HTCondor ID 39, status STATUS_SUBMITTED
+04/12/17 07:24:23 60867 seconds since last log event
+04/12/17 07:24:23 Pending DAG nodes:
+04/12/17 07:24:23   Node cbow_tfidf_lstm, HTCondor ID 39, status STATUS_SUBMITTED
+04/12/17 07:34:26 61470 seconds since last log event
+04/12/17 07:34:26 Pending DAG nodes:
+04/12/17 07:34:26   Node cbow_tfidf_lstm, HTCondor ID 39, status STATUS_SUBMITTED
+04/12/17 07:44:28 62072 seconds since last log event
+04/12/17 07:44:28 Pending DAG nodes:
+04/12/17 07:44:28   Node cbow_tfidf_lstm, HTCondor ID 39, status STATUS_SUBMITTED
+04/12/17 07:54:31 62675 seconds since last log event
+04/12/17 07:54:31 Pending DAG nodes:
+04/12/17 07:54:31   Node cbow_tfidf_lstm, HTCondor ID 39, status STATUS_SUBMITTED
+04/12/17 08:04:34 63278 seconds since last log event
+04/12/17 08:04:34 Pending DAG nodes:
+04/12/17 08:04:34   Node cbow_tfidf_lstm, HTCondor ID 39, status STATUS_SUBMITTED
+04/12/17 08:14:37 63881 seconds since last log event
+04/12/17 08:14:37 Pending DAG nodes:
+04/12/17 08:14:37   Node cbow_tfidf_lstm, HTCondor ID 39, status STATUS_SUBMITTED
+04/12/17 08:24:40 64484 seconds since last log event
+04/12/17 08:24:40 Pending DAG nodes:
+04/12/17 08:24:40   Node cbow_tfidf_lstm, HTCondor ID 39, status STATUS_SUBMITTED
+04/12/17 08:34:43 65087 seconds since last log event
+04/12/17 08:34:43 Pending DAG nodes:
+04/12/17 08:34:43   Node cbow_tfidf_lstm, HTCondor ID 39, status STATUS_SUBMITTED
+04/12/17 08:44:46 65690 seconds since last log event
+04/12/17 08:44:46 Pending DAG nodes:
+04/12/17 08:44:46   Node cbow_tfidf_lstm, HTCondor ID 39, status STATUS_SUBMITTED
+04/12/17 08:54:49 66293 seconds since last log event
+04/12/17 08:54:49 Pending DAG nodes:
+04/12/17 08:54:49   Node cbow_tfidf_lstm, HTCondor ID 39, status STATUS_SUBMITTED
+04/12/17 09:04:52 66896 seconds since last log event
+04/12/17 09:04:52 Pending DAG nodes:
+04/12/17 09:04:52   Node cbow_tfidf_lstm, HTCondor ID 39, status STATUS_SUBMITTED
+04/12/17 09:14:55 67499 seconds since last log event
+04/12/17 09:14:55 Pending DAG nodes:
+04/12/17 09:14:55   Node cbow_tfidf_lstm, HTCondor ID 39, status STATUS_SUBMITTED
+04/12/17 09:24:58 68102 seconds since last log event
+04/12/17 09:24:58 Pending DAG nodes:
+04/12/17 09:24:58   Node cbow_tfidf_lstm, HTCondor ID 39, status STATUS_SUBMITTED
+04/12/17 09:35:01 68705 seconds since last log event
+04/12/17 09:35:01 Pending DAG nodes:
+04/12/17 09:35:01   Node cbow_tfidf_lstm, HTCondor ID 39, status STATUS_SUBMITTED
+04/12/17 09:45:03 69307 seconds since last log event
+04/12/17 09:45:03 Pending DAG nodes:
+04/12/17 09:45:03   Node cbow_tfidf_lstm, HTCondor ID 39, status STATUS_SUBMITTED
+04/12/17 09:55:06 69910 seconds since last log event
+04/12/17 09:55:06 Pending DAG nodes:
+04/12/17 09:55:06   Node cbow_tfidf_lstm, HTCondor ID 39, status STATUS_SUBMITTED
+04/12/17 10:05:09 70513 seconds since last log event
+04/12/17 10:05:09 Pending DAG nodes:
+04/12/17 10:05:09   Node cbow_tfidf_lstm, HTCondor ID 39, status STATUS_SUBMITTED
+04/12/17 10:15:12 71116 seconds since last log event
+04/12/17 10:15:12 Pending DAG nodes:
+04/12/17 10:15:12   Node cbow_tfidf_lstm, HTCondor ID 39, status STATUS_SUBMITTED
+04/12/17 10:25:15 71719 seconds since last log event
+04/12/17 10:25:15 Pending DAG nodes:
+04/12/17 10:25:15   Node cbow_tfidf_lstm, HTCondor ID 39, status STATUS_SUBMITTED
+04/12/17 10:35:18 72322 seconds since last log event
+04/12/17 10:35:18 Pending DAG nodes:
+04/12/17 10:35:18   Node cbow_tfidf_lstm, HTCondor ID 39, status STATUS_SUBMITTED
+04/12/17 10:45:20 72924 seconds since last log event
+04/12/17 10:45:20 Pending DAG nodes:
+04/12/17 10:45:20   Node cbow_tfidf_lstm, HTCondor ID 39, status STATUS_SUBMITTED
+04/12/17 10:55:22 73526 seconds since last log event
+04/12/17 10:55:22 Pending DAG nodes:
+04/12/17 10:55:22   Node cbow_tfidf_lstm, HTCondor ID 39, status STATUS_SUBMITTED
+04/12/17 11:05:25 74129 seconds since last log event
+04/12/17 11:05:25 Pending DAG nodes:
+04/12/17 11:05:25   Node cbow_tfidf_lstm, HTCondor ID 39, status STATUS_SUBMITTED
+04/12/17 11:15:28 74732 seconds since last log event
+04/12/17 11:15:28 Pending DAG nodes:
+04/12/17 11:15:28   Node cbow_tfidf_lstm, HTCondor ID 39, status STATUS_SUBMITTED
+04/12/17 11:25:30 75334 seconds since last log event
+04/12/17 11:25:30 Pending DAG nodes:
+04/12/17 11:25:30   Node cbow_tfidf_lstm, HTCondor ID 39, status STATUS_SUBMITTED
+04/12/17 11:35:33 75937 seconds since last log event
+04/12/17 11:35:33 Pending DAG nodes:
+04/12/17 11:35:33   Node cbow_tfidf_lstm, HTCondor ID 39, status STATUS_SUBMITTED
+04/12/17 11:45:35 76539 seconds since last log event
+04/12/17 11:45:35 Pending DAG nodes:
+04/12/17 11:45:35   Node cbow_tfidf_lstm, HTCondor ID 39, status STATUS_SUBMITTED
+04/12/17 11:55:37 77141 seconds since last log event
+04/12/17 11:55:37 Pending DAG nodes:
+04/12/17 11:55:37   Node cbow_tfidf_lstm, HTCondor ID 39, status STATUS_SUBMITTED
+04/12/17 12:05:40 77744 seconds since last log event
+04/12/17 12:05:40 Pending DAG nodes:
+04/12/17 12:05:40   Node cbow_tfidf_lstm, HTCondor ID 39, status STATUS_SUBMITTED
+04/12/17 12:15:43 78347 seconds since last log event
+04/12/17 12:15:43 Pending DAG nodes:
+04/12/17 12:15:43   Node cbow_tfidf_lstm, HTCondor ID 39, status STATUS_SUBMITTED
+04/12/17 12:25:45 78949 seconds since last log event
+04/12/17 12:25:45 Pending DAG nodes:
+04/12/17 12:25:45   Node cbow_tfidf_lstm, HTCondor ID 39, status STATUS_SUBMITTED
+04/12/17 12:35:48 79552 seconds since last log event
+04/12/17 12:35:48 Pending DAG nodes:
+04/12/17 12:35:48   Node cbow_tfidf_lstm, HTCondor ID 39, status STATUS_SUBMITTED
+04/12/17 12:45:50 80154 seconds since last log event
+04/12/17 12:45:50 Pending DAG nodes:
+04/12/17 12:45:50   Node cbow_tfidf_lstm, HTCondor ID 39, status STATUS_SUBMITTED
+04/12/17 12:55:53 80757 seconds since last log event
+04/12/17 12:55:53 Pending DAG nodes:
+04/12/17 12:55:53   Node cbow_tfidf_lstm, HTCondor ID 39, status STATUS_SUBMITTED
+04/12/17 13:05:55 81359 seconds since last log event
+04/12/17 13:05:55 Pending DAG nodes:
+04/12/17 13:05:55   Node cbow_tfidf_lstm, HTCondor ID 39, status STATUS_SUBMITTED
+04/12/17 13:15:58 81962 seconds since last log event
+04/12/17 13:15:58 Pending DAG nodes:
+04/12/17 13:15:58   Node cbow_tfidf_lstm, HTCondor ID 39, status STATUS_SUBMITTED
