@@ -370,10 +370,10 @@ class ds_data_sentence_with_history(object):
 
             batch_data[i,0:min(seqlen, max_seq_len)] = new_sentence[0:min(seqlen, max_seq_len)]
             history_data[i,-max_seq_len+1:] = batch_data[i,0:-1]
-            count_pairs = collections.Counter(history_data[i]).items()    
-            dict_tfidf = dict(self._tfidf[count_pairs])          
-            
-            history_tfidf[i,:] = [dict_tfidf[id] if id in dict_tfidf.keys() else 0 for id in history_data[i,:]]
+ #           count_pairs = collections.Counter(history_data[i]).items()    
+ #           dict_tfidf = dict(self._tfidf[count_pairs])          
+
+            history_tfidf[i,:] = [self._tfidf.idfs[id] if id in self._tfidf.idfs.keys() else 0 for id in history_data[i,:]]
             if seqlen >= self.history_size:
                 self.history[i] = np.array(new_sentence[-self.history_size-1:-1])
             else:
