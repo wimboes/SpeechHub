@@ -270,9 +270,11 @@ def main(_):
             with tf.variable_scope("model"):
                 mtest = ds_original_model(is_training=False, config=eval_config, input_=eval_data)
 				
-		
-        sv = tf.train.Supervisor(summary_writer=None, save_model_secs=0, logdir=FLAGS.save_path + '/' + FLAGS.test_name + '_' + str(FLAGS.num_run))
-        with sv.managed_session() as session:
+        conf = tf.ConfigProto()
+        conf.gpu_options.allow_growth=True
+
+        sv = tf.train.Supervisor(summary_writer=None,save_model_secs=300, logdir=FLAGS.save_path + '/' + FLAGS.test_name + '_' + str(FLAGS.num_run))
+        with sv.managed_session(config=conf) as session:
             test_perplexity=  run_epoch(session, mtest)
             print("Test Perplexity: %.3f" % test_perplexity)
     

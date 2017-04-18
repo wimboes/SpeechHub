@@ -456,8 +456,11 @@ def main(_):
             with tf.variable_scope("model"):
                 mtest =  ds_extended_topic_1_model(is_training=False, config=eval_config, input_sentence = None, input_continuous = eval_data, topic_matrix = topic_matrix, initializer_reg = None, initializer_lda = None, initializer_int = None)
     
-        sv = tf.train.Supervisor(summary_writer=None, save_model_secs=0, logdir=FLAGS.save_path + '/' + FLAGS.test_name + '_' + str(FLAGS.num_run))
-        with sv.managed_session() as session:
+        conf = tf.ConfigProto()
+        conf.gpu_options.allow_growth=True
+
+        sv = tf.train.Supervisor(summary_writer=None,save_model_secs=300, logdir=FLAGS.save_path + '/' + FLAGS.test_name + '_' + str(FLAGS.num_run))
+        with sv.managed_session(config=conf) as session:
             test_perplexity=  run_test_epoch(session, mtest)
             print("Test Perplexity: %.3f" % test_perplexity)
     

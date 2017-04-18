@@ -389,9 +389,12 @@ def main(_):
             eval_data = reader.ds_data_continuous(eval_config['batch_size'], eval_config['num_steps'], FLAGS.data_path, FLAGS.eval_name)
             with tf.variable_scope("model"):
                 mtest =  ds_topic_model(is_training=False, config=eval_config, input_sentence = None, input_continuous = eval_data, topic_matrix = topic_matrix, initializer_reg = None, initializer_lda = None)
-    
-        sv = tf.train.Supervisor(summary_writer=None, save_model_secs=0, logdir=FLAGS.save_path + '/' + FLAGS.test_name + '_' + str(FLAGS.num_run))
-        with sv.managed_session() as session:
+
+        conf = tf.ConfigProto()
+        conf.gpu_options.allow_growth=True
+
+        sv = tf.train.Supervisor(summary_writer=None,save_model_secs=300, logdir=FLAGS.save_path + '/' + FLAGS.test_name + '_' + str(FLAGS.num_run))
+        with sv.managed_session(config=conf) as session:
             test_perplexity=  run_test_epoch(session, mtest)
             print("Test Perplexity: %.3f" % test_perplexity)
     

@@ -507,8 +507,11 @@ def main(_):
         train_np = np.array([[0,0,0,0]])
         valid_np = np.array([[0,0,0,0]])
         
-        sv = tf.train.Supervisor(summary_writer=None,save_model_secs=300,logdir=FLAGS.save_path + '/' + FLAGS.test_name + '_' + str(FLAGS.num_run))
-        with sv.managed_session() as session:
+        conf = tf.ConfigProto()
+        conf.gpu_options.allow_growth=True
+
+        sv = tf.train.Supervisor(summary_writer=None,save_model_secs=300, logdir=FLAGS.save_path + '/' + FLAGS.test_name + '_' + str(FLAGS.num_run))
+        with sv.managed_session(config=conf) as session:
             for i in range(config.max_max_epoch):
                 lr_decay = config.lr_decay** max(i - config.max_epoch, 0.0)
                 m.assign_lr(session, config.learning_rate * lr_decay)
