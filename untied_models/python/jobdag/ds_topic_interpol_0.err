@@ -16,3 +16,13 @@ I tensorflow/core/common_runtime/gpu/gpu_device.cc:916] 0:   Y
 I tensorflow/core/common_runtime/gpu/gpu_device.cc:975] Creating TensorFlow device (/gpu:0) -> (device: 0, name: Tesla K80, pci bus id: 0000:84:00.0)
 lm_topic_ds_interpol.py:351: RuntimeWarning: invalid value encountered in double_scalars
   print("%.3f perplexity: %.3f speed: %.0f wps" % (step * 1.0 / model.input_continuous.epoch_size, np.exp(costs / iters),
+Traceback (most recent call last):
+  File "lm_topic_ds_interpol.py", line 401, in <module>
+    tf.app.run()
+  File "/users/start2014/r0364650/.local/lib/python2.7/site-packages/tensorflow/python/platform/app.py", line 43, in run
+    sys.exit(main(sys.argv[:1] + flags_passthrough))
+  File "lm_topic_ds_interpol.py", line 395, in main
+    test_perplexity=  run_test_epoch(session, mtest)
+  File "lm_topic_ds_interpol.py", line 354, in run_test_epoch
+    f.write('0 zeroprobs, logprob='+ str(tot_logprob) + ' ppl=' + str(10**(-tot_logprob/(nb_words+nb_sentences-nb_unks))) + ' ppl1 ='+ str(10**(-tot_logprob/(nb_words-nb_unks))) +' \n') 
+ZeroDivisionError: division by zero
