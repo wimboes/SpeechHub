@@ -60,7 +60,7 @@ flags.DEFINE_string("save_path",output_path,"save_path")
 flags.DEFINE_string("use_fp16",False,"train blabla")
 flags.DEFINE_string("loss_function","full_softmax","loss_function")
 flags.DEFINE_string("optimizer","Adagrad","optimizer")
-flags.DEFINE_string("combination","tfidf","combination")
+flags.DEFINE_string("combination","mean","combination")
 flags.DEFINE_string("position","lstm","position")
 
 
