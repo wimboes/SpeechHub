@@ -290,6 +290,8 @@ def run_epoch(session, model, eval_op=None, verbose=False, epoch_nb = 0, pos_epo
     fetches = {'cost':model.cost, "nb_words_in_batch": model.nb_words_in_batch}
     if eval_op is not None:
         fetches["eval_op"] = eval_op
+
+    for step in range(pos_epoch, model.input.epoch_size):
         batch_data, batch_history, batch_history_tfidf, batch_labels, batch_seq_len = model.input.next_batch(model.num_steps)
         feed_dict = {}
         feed_dict[model.data] = batch_data

@@ -368,9 +368,9 @@ class ds_data_sentence_with_history(object):
             new_sentence = sentences[i].split()
             new_sentence = [self._word_to_id[word] for word in new_sentence]
             seqlen = len(new_sentence) - 1
-            seq_len[i] = min(seqlen, max_seq_len)
+            seq_len[i] = temp = min(seqlen, max_seq_len)
 
-            batch_data[i,0:min(seqlen, max_seq_len)] = new_sentence[0:min(seqlen, max_seq_len)]
+            batch_data[i,0:temp] = new_sentence[0:temp]
             history_data[i,-max_seq_len+1:] = batch_data[i,0:-1]
  #           count_pairs = collections.Counter(history_data[i]).items()    
  #           dict_tfidf = dict(self._tfidf[count_pairs])          
@@ -380,7 +380,7 @@ class ds_data_sentence_with_history(object):
             else:
                 self.history[i] = np.concatenate((self.history[i,seqlen:],np.array(new_sentence[:-1])))
             new_sentence.append(self.pad_id)
-            batch_labels[i,0:min(seqlen, max_seq_len)] = new_sentence[1:min(seqlen, max_seq_len)+1]
+            batch_labels[i,0:temp] = new_sentence[1:temp+1]
         self.batch_id += 1 
         
         return batch_data, history_data, history_tfidf, batch_labels, seq_len
