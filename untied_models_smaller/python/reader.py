@@ -345,6 +345,8 @@ class ds_data_sentence_with_history(object):
         
         tfidf_path = os.path.join(data_path,"tfidf.ds")
         self._tfidf = models.TfidfModel.load(tfidf_path)
+	self._idfs = self._tfidf.idfs
+	self._idfs[self._pad_id] = 0
 
         
         self.batch_id = 0
@@ -372,8 +374,7 @@ class ds_data_sentence_with_history(object):
             history_data[i,-max_seq_len+1:] = batch_data[i,0:-1]
  #           count_pairs = collections.Counter(history_data[i]).items()    
  #           dict_tfidf = dict(self._tfidf[count_pairs])          
-
-            history_tfidf[i,:] = [self._tfidf.idfs[id] if id in self._tfidf.idfs.keys() else 0 for id in history_data[i,:]]
+            history_tfidf[i,:] = [self._idfs[id] for id in history_data[i,:]]
             if seqlen >= self.history_size:
                 self.history[i] = np.array(new_sentence[-self.history_size-1:-1])
             else:
