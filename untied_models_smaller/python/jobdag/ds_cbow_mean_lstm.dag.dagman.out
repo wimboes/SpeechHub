@@ -1,529 +1,391 @@
-04/26/17 13:41:26 ******************************************************
-04/26/17 13:41:26 ** condor_scheduniv_exec.939.0 (CONDOR_DAGMAN) STARTING UP
-04/26/17 13:41:26 ** /usr/bin/condor_dagman
-04/26/17 13:41:26 ** SubsystemInfo: name=DAGMAN type=DAGMAN(10) class=DAEMON(1)
-04/26/17 13:41:26 ** Configuration: subsystem:DAGMAN local:<NONE> class:DAEMON
-04/26/17 13:41:26 ** $CondorVersion: 8.6.1 Mar 01 2017 BuildID: 398585 $
-04/26/17 13:41:26 ** $CondorPlatform: x86_64_RedHat7 $
-04/26/17 13:41:26 ** PID = 25300
-04/26/17 13:41:26 ** Log last touched time unavailable (No such file or directory)
-04/26/17 13:41:26 ******************************************************
-04/26/17 13:41:26 Using config source: /etc/condor/condor_config
-04/26/17 13:41:26 Using local config sources: 
-04/26/17 13:41:26    /etc/condor/config.d/00esat.config
-04/26/17 13:41:26    /etc/condor/config.d/01java.config
-04/26/17 13:41:26    /etc/condor/config.d/80optout_users.config
-04/26/17 13:41:26    /etc/condor/condor_config.local
-04/26/17 13:41:26 config Macros = 166, Sorted = 166, StringBytes = 6027, TablesBytes = 6048
-04/26/17 13:41:26 CLASSAD_CACHING is ENABLED
-04/26/17 13:41:26 Daemon Log is logging: D_ALWAYS D_ERROR
-04/26/17 13:41:26 DaemonCore: No command port requested.
-04/26/17 13:41:26 DAGMAN_USE_STRICT setting: 1
-04/26/17 13:41:26 DAGMAN_VERBOSITY setting: 3
-04/26/17 13:41:26 DAGMAN_DEBUG_CACHE_SIZE setting: 5242880
-04/26/17 13:41:26 DAGMAN_DEBUG_CACHE_ENABLE setting: False
-04/26/17 13:41:26 DAGMAN_SUBMIT_DELAY setting: 0
-04/26/17 13:41:26 DAGMAN_MAX_SUBMIT_ATTEMPTS setting: 6
-04/26/17 13:41:26 DAGMAN_STARTUP_CYCLE_DETECT setting: False
-04/26/17 13:41:26 DAGMAN_MAX_SUBMITS_PER_INTERVAL setting: 5
-04/26/17 13:41:26 DAGMAN_USER_LOG_SCAN_INTERVAL setting: 5
-04/26/17 13:41:26 DAGMAN_DEFAULT_PRIORITY setting: 0
-04/26/17 13:41:26 DAGMAN_SUPPRESS_NOTIFICATION setting: True
-04/26/17 13:41:26 allow_events (DAGMAN_ALLOW_EVENTS) setting: 114
-04/26/17 13:41:26 DAGMAN_RETRY_SUBMIT_FIRST setting: True
-04/26/17 13:41:26 DAGMAN_RETRY_NODE_FIRST setting: False
-04/26/17 13:41:26 DAGMAN_MAX_JOBS_IDLE setting: 1000
-04/26/17 13:41:26 DAGMAN_MAX_JOBS_SUBMITTED setting: 0
-04/26/17 13:41:26 DAGMAN_MAX_PRE_SCRIPTS setting: 20
-04/26/17 13:41:26 DAGMAN_MAX_POST_SCRIPTS setting: 20
-04/26/17 13:41:26 DAGMAN_MUNGE_NODE_NAMES setting: True
-04/26/17 13:41:26 DAGMAN_PROHIBIT_MULTI_JOBS setting: False
-04/26/17 13:41:26 DAGMAN_SUBMIT_DEPTH_FIRST setting: False
-04/26/17 13:41:26 DAGMAN_ALWAYS_RUN_POST setting: False
-04/26/17 13:41:26 DAGMAN_ABORT_DUPLICATES setting: True
-04/26/17 13:41:26 DAGMAN_ABORT_ON_SCARY_SUBMIT setting: True
-04/26/17 13:41:26 DAGMAN_PENDING_REPORT_INTERVAL setting: 600
-04/26/17 13:41:26 DAGMAN_AUTO_RESCUE setting: True
-04/26/17 13:41:26 DAGMAN_MAX_RESCUE_NUM setting: 100
-04/26/17 13:41:26 DAGMAN_WRITE_PARTIAL_RESCUE setting: True
-04/26/17 13:41:26 DAGMAN_DEFAULT_NODE_LOG setting: @(DAG_DIR)/@(DAG_FILE).nodes.log
-04/26/17 13:41:26 DAGMAN_GENERATE_SUBDAG_SUBMITS setting: True
-04/26/17 13:41:26 DAGMAN_MAX_JOB_HOLDS setting: 100
-04/26/17 13:41:26 DAGMAN_HOLD_CLAIM_TIME setting: 20
-04/26/17 13:41:26 ALL_DEBUG setting: 
-04/26/17 13:41:26 DAGMAN_DEBUG setting: 
-04/26/17 13:41:26 DAGMAN_SUPPRESS_JOB_LOGS setting: False
-04/26/17 13:41:26 DAGMAN_REMOVE_NODE_JOBS setting: True
-04/26/17 13:41:26 argv[0] == "condor_scheduniv_exec.939.0"
-04/26/17 13:41:26 argv[1] == "-Lockfile"
-04/26/17 13:41:26 argv[2] == "ds_cbow_mean_lstm.dag.lock"
-04/26/17 13:41:26 argv[3] == "-AutoRescue"
-04/26/17 13:41:26 argv[4] == "1"
-04/26/17 13:41:26 argv[5] == "-DoRescueFrom"
-04/26/17 13:41:26 argv[6] == "0"
-04/26/17 13:41:26 argv[7] == "-Dag"
-04/26/17 13:41:26 argv[8] == "ds_cbow_mean_lstm.dag"
-04/26/17 13:41:26 argv[9] == "-Suppress_notification"
-04/26/17 13:41:26 argv[10] == "-CsdVersion"
-04/26/17 13:41:26 argv[11] == "$CondorVersion: 8.6.1 Mar 01 2017 BuildID: 398585 $"
-04/26/17 13:41:26 argv[12] == "-Dagman"
-04/26/17 13:41:26 argv[13] == "/usr/bin/condor_dagman"
-04/26/17 13:41:26 Workflow batch-name: <ds_cbow_mean_lstm.dag+939>
-04/26/17 13:41:26 Workflow accounting_group: <>
-04/26/17 13:41:26 Workflow accounting_group_user: <>
-04/26/17 13:41:26 Warning: failed to get attribute DAGNodeName
-04/26/17 13:41:26 DAGMAN_LOG_ON_NFS_IS_ERROR setting: False
-04/26/17 13:41:26 Default node log file is: </esat/spchtemp/scratch/robbe/SpeechHub/untied_models_smaller/python/jobdag/./ds_cbow_mean_lstm.dag.nodes.log>
-04/26/17 13:41:26 DAG Lockfile will be written to ds_cbow_mean_lstm.dag.lock
-04/26/17 13:41:26 DAG Input file is ds_cbow_mean_lstm.dag
-04/26/17 13:41:26 Parsing 1 dagfiles
-04/26/17 13:41:26 Parsing ds_cbow_mean_lstm.dag ...
-04/26/17 13:41:26 Dag contains 2 total jobs
-04/26/17 13:41:26 Sleeping for 3 seconds to ensure ProcessId uniqueness
-04/26/17 13:41:29 Bootstrapping...
-04/26/17 13:41:29 Number of pre-completed nodes: 0
-04/26/17 13:41:29 MultiLogFiles: truncating log file /esat/spchtemp/scratch/robbe/SpeechHub/untied_models_smaller/python/jobdag/./ds_cbow_mean_lstm.dag.nodes.log
-04/26/17 13:41:29 DAG status: 0 (DAG_STATUS_OK)
-04/26/17 13:41:29 Of 2 nodes total:
-04/26/17 13:41:29  Done     Pre   Queued    Post   Ready   Un-Ready   Failed
-04/26/17 13:41:29   ===     ===      ===     ===     ===        ===      ===
-04/26/17 13:41:29     0       0        0       0       1          1        0
-04/26/17 13:41:29 0 job proc(s) currently held
-04/26/17 13:41:29 Registering condor_event_timer...
-04/26/17 13:41:30 Submitting HTCondor Node cbow_mean_lstm job(s)...
-04/26/17 13:41:30 Adding a DAGMan workflow log /esat/spchtemp/scratch/robbe/SpeechHub/untied_models_smaller/python/jobdag/./ds_cbow_mean_lstm.dag.nodes.log
-04/26/17 13:41:30 Masking the events recorded in the DAGMAN workflow log
-04/26/17 13:41:30 Mask for workflow log is 0,1,2,4,5,7,9,10,11,12,13,16,17,24,27
-04/26/17 13:41:30 submitting: /usr/bin/condor_submit -a dag_node_name' '=' 'cbow_mean_lstm -a +DAGManJobId' '=' '939 -a DAGManJobId' '=' '939 -batch-name ds_cbow_mean_lstm.dag+939 -a submit_event_notes' '=' 'DAG' 'Node:' 'cbow_mean_lstm -a dagman_log' '=' '/esat/spchtemp/scratch/robbe/SpeechHub/untied_models_smaller/python/jobdag/./ds_cbow_mean_lstm.dag.nodes.log -a +DAGManNodesMask' '=' '"0,1,2,4,5,7,9,10,11,12,13,16,17,24,27" -a data_set' '=' 'ds -a test_name' '=' 'cbow_mean_lstm -a num_run' '=' '0 -a combination' '=' 'mean -a DAG_STATUS' '=' '0 -a FAILED_COUNT' '=' '0 -a +KeepClaimIdle' '=' '20 -a notification' '=' 'never -a +DAGParentNodeNames' '=' '"" jobdag/cbow_lstm.job
-04/26/17 13:41:30 From submit: Submitting job(s).
-04/26/17 13:41:30 From submit: 1 job(s) submitted to cluster 941.
-04/26/17 13:41:30 	assigned HTCondor ID (941.0.0)
-04/26/17 13:41:30 Just submitted 1 job this cycle...
-04/26/17 13:41:30 Currently monitoring 1 HTCondor log file(s)
-04/26/17 13:41:30 Reassigning the id of job cbow_mean_lstm from (941.0.0) to (941.0.0)
-04/26/17 13:41:30 Event: ULOG_SUBMIT for HTCondor Node cbow_mean_lstm (941.0.0) {04/26/17 13:41:30}
-04/26/17 13:41:30 Number of idle job procs: 1
-04/26/17 13:41:30 DAG status: 0 (DAG_STATUS_OK)
-04/26/17 13:41:30 Of 2 nodes total:
-04/26/17 13:41:30  Done     Pre   Queued    Post   Ready   Un-Ready   Failed
-04/26/17 13:41:30   ===     ===      ===     ===     ===        ===      ===
-04/26/17 13:41:30     0       0        1       0       0          1        0
-04/26/17 13:41:30 0 job proc(s) currently held
-04/26/17 13:51:33 603 seconds since last log event
-04/26/17 13:51:33 Pending DAG nodes:
-04/26/17 13:51:33   Node cbow_mean_lstm, HTCondor ID 941, status STATUS_SUBMITTED
-04/26/17 14:01:36 1206 seconds since last log event
-04/26/17 14:01:36 Pending DAG nodes:
-04/26/17 14:01:36   Node cbow_mean_lstm, HTCondor ID 941, status STATUS_SUBMITTED
-04/26/17 14:11:40 1810 seconds since last log event
-04/26/17 14:11:40 Pending DAG nodes:
-04/26/17 14:11:40   Node cbow_mean_lstm, HTCondor ID 941, status STATUS_SUBMITTED
-04/26/17 14:17:07 Currently monitoring 1 HTCondor log file(s)
-04/26/17 14:17:07 Event: ULOG_EXECUTE for HTCondor Node cbow_mean_lstm (941.0.0) {04/26/17 14:17:04}
-04/26/17 14:17:07 Number of idle job procs: 0
-04/26/17 14:27:10 603 seconds since last log event
-04/26/17 14:27:10 Pending DAG nodes:
-04/26/17 14:27:10   Node cbow_mean_lstm, HTCondor ID 941, status STATUS_SUBMITTED
-04/26/17 14:37:14 1207 seconds since last log event
-04/26/17 14:37:14 Pending DAG nodes:
-04/26/17 14:37:14   Node cbow_mean_lstm, HTCondor ID 941, status STATUS_SUBMITTED
-04/26/17 14:41:00 Currently monitoring 1 HTCondor log file(s)
-04/26/17 14:41:00 Event: ULOG_JOB_SUSPENDED for HTCondor Node cbow_mean_lstm (941.0.0) {04/26/17 14:40:56}
-04/26/17 14:41:00 Number of idle job procs: 1
-04/26/17 14:51:02 602 seconds since last log event
-04/26/17 14:51:02 Pending DAG nodes:
-04/26/17 14:51:02   Node cbow_mean_lstm, HTCondor ID 941, status STATUS_SUBMITTED
-04/26/17 14:56:04 Currently monitoring 1 HTCondor log file(s)
-04/26/17 14:56:04 Event: ULOG_JOB_UNSUSPENDED for HTCondor Node cbow_mean_lstm (941.0.0) {04/26/17 14:56:00}
-04/26/17 14:56:04 Number of idle job procs: 0
-04/26/17 14:56:04 Event: ULOG_JOB_EVICTED for HTCondor Node cbow_mean_lstm (941.0.0) {04/26/17 14:56:00}
-04/26/17 14:56:04 Number of idle job procs: 1
-04/26/17 15:06:07 603 seconds since last log event
-04/26/17 15:06:07 Pending DAG nodes:
-04/26/17 15:06:07   Node cbow_mean_lstm, HTCondor ID 941, status STATUS_SUBMITTED
-04/26/17 15:16:11 1207 seconds since last log event
-04/26/17 15:16:11 Pending DAG nodes:
-04/26/17 15:16:11   Node cbow_mean_lstm, HTCondor ID 941, status STATUS_SUBMITTED
-04/26/17 15:26:14 1810 seconds since last log event
-04/26/17 15:26:14 Pending DAG nodes:
-04/26/17 15:26:14   Node cbow_mean_lstm, HTCondor ID 941, status STATUS_SUBMITTED
-04/26/17 15:36:15 2411 seconds since last log event
-04/26/17 15:36:15 Pending DAG nodes:
-04/26/17 15:36:15   Node cbow_mean_lstm, HTCondor ID 941, status STATUS_SUBMITTED
-04/26/17 15:42:07 Currently monitoring 1 HTCondor log file(s)
-04/26/17 15:42:07 Event: ULOG_EXECUTE for HTCondor Node cbow_mean_lstm (941.0.0) {04/26/17 15:42:04}
-04/26/17 15:42:07 Number of idle job procs: 0
-04/26/17 15:52:09 602 seconds since last log event
-04/26/17 15:52:09 Pending DAG nodes:
-04/26/17 15:52:09   Node cbow_mean_lstm, HTCondor ID 941, status STATUS_SUBMITTED
-04/26/17 16:02:12 1205 seconds since last log event
-04/26/17 16:02:12 Pending DAG nodes:
-04/26/17 16:02:12   Node cbow_mean_lstm, HTCondor ID 941, status STATUS_SUBMITTED
-04/26/17 16:12:16 1809 seconds since last log event
-04/26/17 16:12:16 Pending DAG nodes:
-04/26/17 16:12:16   Node cbow_mean_lstm, HTCondor ID 941, status STATUS_SUBMITTED
-04/26/17 16:22:16 2409 seconds since last log event
-04/26/17 16:22:16 Pending DAG nodes:
-04/26/17 16:22:16   Node cbow_mean_lstm, HTCondor ID 941, status STATUS_SUBMITTED
-04/26/17 16:32:19 3012 seconds since last log event
-04/26/17 16:32:19 Pending DAG nodes:
-04/26/17 16:32:19   Node cbow_mean_lstm, HTCondor ID 941, status STATUS_SUBMITTED
-04/26/17 16:34:04 Currently monitoring 1 HTCondor log file(s)
-04/26/17 16:34:04 Event: ULOG_JOB_SUSPENDED for HTCondor Node cbow_mean_lstm (941.0.0) {04/26/17 16:34:01}
-04/26/17 16:34:04 Number of idle job procs: 1
-04/26/17 16:44:07 603 seconds since last log event
-04/26/17 16:44:07 Pending DAG nodes:
-04/26/17 16:44:07   Node cbow_mean_lstm, HTCondor ID 941, status STATUS_SUBMITTED
-04/26/17 16:44:22 Currently monitoring 1 HTCondor log file(s)
-04/26/17 16:44:22 Event: ULOG_JOB_UNSUSPENDED for HTCondor Node cbow_mean_lstm (941.0.0) {04/26/17 16:44:21}
-04/26/17 16:44:22 Number of idle job procs: 0
-04/26/17 16:54:25 603 seconds since last log event
-04/26/17 16:54:25 Pending DAG nodes:
-04/26/17 16:54:25   Node cbow_mean_lstm, HTCondor ID 941, status STATUS_SUBMITTED
-04/26/17 17:04:26 1204 seconds since last log event
-04/26/17 17:04:26 Pending DAG nodes:
-04/26/17 17:04:26   Node cbow_mean_lstm, HTCondor ID 941, status STATUS_SUBMITTED
-04/26/17 17:09:48 Currently monitoring 1 HTCondor log file(s)
-04/26/17 17:09:48 Event: ULOG_JOB_SUSPENDED for HTCondor Node cbow_mean_lstm (941.0.0) {04/26/17 17:09:44}
-04/26/17 17:09:48 Number of idle job procs: 1
-04/26/17 17:19:50 602 seconds since last log event
-04/26/17 17:19:50 Pending DAG nodes:
-04/26/17 17:19:50   Node cbow_mean_lstm, HTCondor ID 941, status STATUS_SUBMITTED
-04/26/17 17:24:46 Currently monitoring 1 HTCondor log file(s)
-04/26/17 17:24:46 Event: ULOG_JOB_UNSUSPENDED for HTCondor Node cbow_mean_lstm (941.0.0) {04/26/17 17:24:45}
-04/26/17 17:24:46 Number of idle job procs: 0
-04/26/17 17:24:46 Event: ULOG_JOB_EVICTED for HTCondor Node cbow_mean_lstm (941.0.0) {04/26/17 17:24:45}
-04/26/17 17:24:46 Number of idle job procs: 1
-04/26/17 17:34:49 603 seconds since last log event
-04/26/17 17:34:49 Pending DAG nodes:
-04/26/17 17:34:49   Node cbow_mean_lstm, HTCondor ID 941, status STATUS_SUBMITTED
-04/26/17 17:44:51 1205 seconds since last log event
-04/26/17 17:44:51 Pending DAG nodes:
-04/26/17 17:44:51   Node cbow_mean_lstm, HTCondor ID 941, status STATUS_SUBMITTED
-04/26/17 17:51:28 Currently monitoring 1 HTCondor log file(s)
-04/26/17 17:51:28 Event: ULOG_EXECUTE for HTCondor Node cbow_mean_lstm (941.0.0) {04/26/17 17:51:25}
-04/26/17 17:51:28 Number of idle job procs: 0
-04/26/17 18:01:31 603 seconds since last log event
-04/26/17 18:01:31 Pending DAG nodes:
-04/26/17 18:01:31   Node cbow_mean_lstm, HTCondor ID 941, status STATUS_SUBMITTED
-04/26/17 18:11:33 1205 seconds since last log event
-04/26/17 18:11:33 Pending DAG nodes:
-04/26/17 18:11:33   Node cbow_mean_lstm, HTCondor ID 941, status STATUS_SUBMITTED
-04/26/17 18:21:35 1807 seconds since last log event
-04/26/17 18:21:35 Pending DAG nodes:
-04/26/17 18:21:35   Node cbow_mean_lstm, HTCondor ID 941, status STATUS_SUBMITTED
-04/26/17 18:31:36 2408 seconds since last log event
-04/26/17 18:31:36 Pending DAG nodes:
-04/26/17 18:31:36   Node cbow_mean_lstm, HTCondor ID 941, status STATUS_SUBMITTED
-04/26/17 18:41:38 3010 seconds since last log event
-04/26/17 18:41:38 Pending DAG nodes:
-04/26/17 18:41:38   Node cbow_mean_lstm, HTCondor ID 941, status STATUS_SUBMITTED
-04/26/17 18:51:41 3613 seconds since last log event
-04/26/17 18:51:41 Pending DAG nodes:
-04/26/17 18:51:41   Node cbow_mean_lstm, HTCondor ID 941, status STATUS_SUBMITTED
-04/26/17 19:01:41 4213 seconds since last log event
-04/26/17 19:01:41 Pending DAG nodes:
-04/26/17 19:01:41   Node cbow_mean_lstm, HTCondor ID 941, status STATUS_SUBMITTED
-04/26/17 19:11:43 4815 seconds since last log event
-04/26/17 19:11:43 Pending DAG nodes:
-04/26/17 19:11:43   Node cbow_mean_lstm, HTCondor ID 941, status STATUS_SUBMITTED
-04/26/17 19:21:46 5418 seconds since last log event
-04/26/17 19:21:46 Pending DAG nodes:
-04/26/17 19:21:46   Node cbow_mean_lstm, HTCondor ID 941, status STATUS_SUBMITTED
-04/26/17 19:31:49 6021 seconds since last log event
-04/26/17 19:31:49 Pending DAG nodes:
-04/26/17 19:31:49   Node cbow_mean_lstm, HTCondor ID 941, status STATUS_SUBMITTED
-04/26/17 19:41:52 6624 seconds since last log event
-04/26/17 19:41:52 Pending DAG nodes:
-04/26/17 19:41:52   Node cbow_mean_lstm, HTCondor ID 941, status STATUS_SUBMITTED
-04/26/17 19:51:56 7228 seconds since last log event
-04/26/17 19:51:56 Pending DAG nodes:
-04/26/17 19:51:56   Node cbow_mean_lstm, HTCondor ID 941, status STATUS_SUBMITTED
-04/26/17 19:59:03 Currently monitoring 1 HTCondor log file(s)
-04/26/17 19:59:03 Event: ULOG_JOB_SUSPENDED for HTCondor Node cbow_mean_lstm (941.0.0) {04/26/17 19:59:02}
-04/26/17 19:59:03 Number of idle job procs: 1
-04/26/17 20:00:28 Currently monitoring 1 HTCondor log file(s)
-04/26/17 20:00:28 Event: ULOG_JOB_UNSUSPENDED for HTCondor Node cbow_mean_lstm (941.0.0) {04/26/17 20:00:27}
-04/26/17 20:00:28 Number of idle job procs: 0
-04/26/17 20:10:31 603 seconds since last log event
-04/26/17 20:10:31 Pending DAG nodes:
-04/26/17 20:10:31   Node cbow_mean_lstm, HTCondor ID 941, status STATUS_SUBMITTED
-04/26/17 20:20:35 1207 seconds since last log event
-04/26/17 20:20:35 Pending DAG nodes:
-04/26/17 20:20:35   Node cbow_mean_lstm, HTCondor ID 941, status STATUS_SUBMITTED
-04/26/17 20:30:37 1809 seconds since last log event
-04/26/17 20:30:37 Pending DAG nodes:
-04/26/17 20:30:37   Node cbow_mean_lstm, HTCondor ID 941, status STATUS_SUBMITTED
-04/26/17 20:40:40 2412 seconds since last log event
-04/26/17 20:40:40 Pending DAG nodes:
-04/26/17 20:40:40   Node cbow_mean_lstm, HTCondor ID 941, status STATUS_SUBMITTED
-04/26/17 20:50:41 3013 seconds since last log event
-04/26/17 20:50:41 Pending DAG nodes:
-04/26/17 20:50:41   Node cbow_mean_lstm, HTCondor ID 941, status STATUS_SUBMITTED
-04/26/17 21:00:44 3616 seconds since last log event
-04/26/17 21:00:44 Pending DAG nodes:
-04/26/17 21:00:44   Node cbow_mean_lstm, HTCondor ID 941, status STATUS_SUBMITTED
-04/26/17 21:10:47 4219 seconds since last log event
-04/26/17 21:10:47 Pending DAG nodes:
-04/26/17 21:10:47   Node cbow_mean_lstm, HTCondor ID 941, status STATUS_SUBMITTED
-04/26/17 21:20:50 4822 seconds since last log event
-04/26/17 21:20:50 Pending DAG nodes:
-04/26/17 21:20:50   Node cbow_mean_lstm, HTCondor ID 941, status STATUS_SUBMITTED
-04/26/17 21:30:53 5425 seconds since last log event
-04/26/17 21:30:53 Pending DAG nodes:
-04/26/17 21:30:53   Node cbow_mean_lstm, HTCondor ID 941, status STATUS_SUBMITTED
-04/26/17 21:36:19 Currently monitoring 1 HTCondor log file(s)
-04/26/17 21:36:19 Event: ULOG_JOB_SUSPENDED for HTCondor Node cbow_mean_lstm (941.0.0) {04/26/17 21:36:17}
-04/26/17 21:36:19 Number of idle job procs: 1
-04/26/17 21:37:55 Currently monitoring 1 HTCondor log file(s)
-04/26/17 21:37:55 Event: ULOG_JOB_UNSUSPENDED for HTCondor Node cbow_mean_lstm (941.0.0) {04/26/17 21:37:52}
-04/26/17 21:37:55 Number of idle job procs: 0
-04/26/17 21:47:58 603 seconds since last log event
-04/26/17 21:47:58 Pending DAG nodes:
-04/26/17 21:47:58   Node cbow_mean_lstm, HTCondor ID 941, status STATUS_SUBMITTED
-04/26/17 21:57:59 1204 seconds since last log event
-04/26/17 21:57:59 Pending DAG nodes:
-04/26/17 21:57:59   Node cbow_mean_lstm, HTCondor ID 941, status STATUS_SUBMITTED
-04/26/17 22:08:02 1807 seconds since last log event
-04/26/17 22:08:02 Pending DAG nodes:
-04/26/17 22:08:02   Node cbow_mean_lstm, HTCondor ID 941, status STATUS_SUBMITTED
-04/26/17 22:18:05 2410 seconds since last log event
-04/26/17 22:18:05 Pending DAG nodes:
-04/26/17 22:18:05   Node cbow_mean_lstm, HTCondor ID 941, status STATUS_SUBMITTED
-04/26/17 22:28:08 3013 seconds since last log event
-04/26/17 22:28:08 Pending DAG nodes:
-04/26/17 22:28:08   Node cbow_mean_lstm, HTCondor ID 941, status STATUS_SUBMITTED
-04/26/17 22:29:48 Currently monitoring 1 HTCondor log file(s)
-04/26/17 22:29:48 Event: ULOG_JOB_SUSPENDED for HTCondor Node cbow_mean_lstm (941.0.0) {04/26/17 22:29:48}
-04/26/17 22:29:48 Number of idle job procs: 1
-04/26/17 22:31:14 Currently monitoring 1 HTCondor log file(s)
-04/26/17 22:31:14 Event: ULOG_JOB_UNSUSPENDED for HTCondor Node cbow_mean_lstm (941.0.0) {04/26/17 22:31:13}
-04/26/17 22:31:14 Number of idle job procs: 0
-04/26/17 22:41:15 601 seconds since last log event
-04/26/17 22:41:15 Pending DAG nodes:
-04/26/17 22:41:15   Node cbow_mean_lstm, HTCondor ID 941, status STATUS_SUBMITTED
-04/26/17 22:51:18 1204 seconds since last log event
-04/26/17 22:51:18 Pending DAG nodes:
-04/26/17 22:51:18   Node cbow_mean_lstm, HTCondor ID 941, status STATUS_SUBMITTED
-04/26/17 23:01:21 1807 seconds since last log event
-04/26/17 23:01:21 Pending DAG nodes:
-04/26/17 23:01:21   Node cbow_mean_lstm, HTCondor ID 941, status STATUS_SUBMITTED
-04/26/17 23:11:23 2409 seconds since last log event
-04/26/17 23:11:23 Pending DAG nodes:
-04/26/17 23:11:23   Node cbow_mean_lstm, HTCondor ID 941, status STATUS_SUBMITTED
-04/26/17 23:21:26 3012 seconds since last log event
-04/26/17 23:21:26 Pending DAG nodes:
-04/26/17 23:21:26   Node cbow_mean_lstm, HTCondor ID 941, status STATUS_SUBMITTED
-04/26/17 23:31:29 3615 seconds since last log event
-04/26/17 23:31:29 Pending DAG nodes:
-04/26/17 23:31:29   Node cbow_mean_lstm, HTCondor ID 941, status STATUS_SUBMITTED
-04/26/17 23:41:32 4218 seconds since last log event
-04/26/17 23:41:32 Pending DAG nodes:
-04/26/17 23:41:32   Node cbow_mean_lstm, HTCondor ID 941, status STATUS_SUBMITTED
-04/26/17 23:51:35 4821 seconds since last log event
-04/26/17 23:51:35 Pending DAG nodes:
-04/26/17 23:51:35   Node cbow_mean_lstm, HTCondor ID 941, status STATUS_SUBMITTED
-04/27/17 00:01:38 5424 seconds since last log event
-04/27/17 00:01:38 Pending DAG nodes:
-04/27/17 00:01:38   Node cbow_mean_lstm, HTCondor ID 941, status STATUS_SUBMITTED
-04/27/17 00:11:41 6027 seconds since last log event
-04/27/17 00:11:41 Pending DAG nodes:
-04/27/17 00:11:41   Node cbow_mean_lstm, HTCondor ID 941, status STATUS_SUBMITTED
-04/27/17 00:21:43 6629 seconds since last log event
-04/27/17 00:21:43 Pending DAG nodes:
-04/27/17 00:21:43   Node cbow_mean_lstm, HTCondor ID 941, status STATUS_SUBMITTED
-04/27/17 00:31:46 7232 seconds since last log event
-04/27/17 00:31:46 Pending DAG nodes:
-04/27/17 00:31:46   Node cbow_mean_lstm, HTCondor ID 941, status STATUS_SUBMITTED
-04/27/17 00:41:49 7835 seconds since last log event
-04/27/17 00:41:49 Pending DAG nodes:
-04/27/17 00:41:49   Node cbow_mean_lstm, HTCondor ID 941, status STATUS_SUBMITTED
-04/27/17 00:51:52 8438 seconds since last log event
-04/27/17 00:51:52 Pending DAG nodes:
-04/27/17 00:51:52   Node cbow_mean_lstm, HTCondor ID 941, status STATUS_SUBMITTED
-04/27/17 01:01:55 9041 seconds since last log event
-04/27/17 01:01:55 Pending DAG nodes:
-04/27/17 01:01:55   Node cbow_mean_lstm, HTCondor ID 941, status STATUS_SUBMITTED
-04/27/17 01:11:56 9642 seconds since last log event
-04/27/17 01:11:56 Pending DAG nodes:
-04/27/17 01:11:56   Node cbow_mean_lstm, HTCondor ID 941, status STATUS_SUBMITTED
-04/27/17 01:21:59 10245 seconds since last log event
-04/27/17 01:21:59 Pending DAG nodes:
-04/27/17 01:21:59   Node cbow_mean_lstm, HTCondor ID 941, status STATUS_SUBMITTED
-04/27/17 01:32:01 10847 seconds since last log event
-04/27/17 01:32:01 Pending DAG nodes:
-04/27/17 01:32:01   Node cbow_mean_lstm, HTCondor ID 941, status STATUS_SUBMITTED
-04/27/17 01:42:03 11449 seconds since last log event
-04/27/17 01:42:03 Pending DAG nodes:
-04/27/17 01:42:03   Node cbow_mean_lstm, HTCondor ID 941, status STATUS_SUBMITTED
-04/27/17 01:52:06 12052 seconds since last log event
-04/27/17 01:52:06 Pending DAG nodes:
-04/27/17 01:52:06   Node cbow_mean_lstm, HTCondor ID 941, status STATUS_SUBMITTED
-04/27/17 02:02:07 12653 seconds since last log event
-04/27/17 02:02:07 Pending DAG nodes:
-04/27/17 02:02:07   Node cbow_mean_lstm, HTCondor ID 941, status STATUS_SUBMITTED
-04/27/17 02:12:10 13256 seconds since last log event
-04/27/17 02:12:10 Pending DAG nodes:
-04/27/17 02:12:10   Node cbow_mean_lstm, HTCondor ID 941, status STATUS_SUBMITTED
-04/27/17 02:22:13 13859 seconds since last log event
-04/27/17 02:22:13 Pending DAG nodes:
-04/27/17 02:22:13   Node cbow_mean_lstm, HTCondor ID 941, status STATUS_SUBMITTED
-04/27/17 02:32:16 14462 seconds since last log event
-04/27/17 02:32:16 Pending DAG nodes:
-04/27/17 02:32:16   Node cbow_mean_lstm, HTCondor ID 941, status STATUS_SUBMITTED
-04/27/17 02:42:18 15064 seconds since last log event
-04/27/17 02:42:18 Pending DAG nodes:
-04/27/17 02:42:18   Node cbow_mean_lstm, HTCondor ID 941, status STATUS_SUBMITTED
-04/27/17 02:52:21 15667 seconds since last log event
-04/27/17 02:52:21 Pending DAG nodes:
-04/27/17 02:52:21   Node cbow_mean_lstm, HTCondor ID 941, status STATUS_SUBMITTED
-04/27/17 03:02:24 16270 seconds since last log event
-04/27/17 03:02:24 Pending DAG nodes:
-04/27/17 03:02:24   Node cbow_mean_lstm, HTCondor ID 941, status STATUS_SUBMITTED
-04/27/17 03:12:26 16872 seconds since last log event
-04/27/17 03:12:26 Pending DAG nodes:
-04/27/17 03:12:26   Node cbow_mean_lstm, HTCondor ID 941, status STATUS_SUBMITTED
-04/27/17 03:22:29 17475 seconds since last log event
-04/27/17 03:22:29 Pending DAG nodes:
-04/27/17 03:22:29   Node cbow_mean_lstm, HTCondor ID 941, status STATUS_SUBMITTED
-04/27/17 03:32:32 18078 seconds since last log event
-04/27/17 03:32:32 Pending DAG nodes:
-04/27/17 03:32:32   Node cbow_mean_lstm, HTCondor ID 941, status STATUS_SUBMITTED
-04/27/17 03:42:35 18681 seconds since last log event
-04/27/17 03:42:35 Pending DAG nodes:
-04/27/17 03:42:35   Node cbow_mean_lstm, HTCondor ID 941, status STATUS_SUBMITTED
-04/27/17 03:52:38 19284 seconds since last log event
-04/27/17 03:52:38 Pending DAG nodes:
-04/27/17 03:52:38   Node cbow_mean_lstm, HTCondor ID 941, status STATUS_SUBMITTED
-04/27/17 04:02:40 19886 seconds since last log event
-04/27/17 04:02:40 Pending DAG nodes:
-04/27/17 04:02:40   Node cbow_mean_lstm, HTCondor ID 941, status STATUS_SUBMITTED
-04/27/17 04:12:43 20489 seconds since last log event
-04/27/17 04:12:43 Pending DAG nodes:
-04/27/17 04:12:43   Node cbow_mean_lstm, HTCondor ID 941, status STATUS_SUBMITTED
-04/27/17 04:22:46 21092 seconds since last log event
-04/27/17 04:22:46 Pending DAG nodes:
-04/27/17 04:22:46   Node cbow_mean_lstm, HTCondor ID 941, status STATUS_SUBMITTED
-04/27/17 04:32:49 21695 seconds since last log event
-04/27/17 04:32:49 Pending DAG nodes:
-04/27/17 04:32:49   Node cbow_mean_lstm, HTCondor ID 941, status STATUS_SUBMITTED
-04/27/17 04:42:51 22297 seconds since last log event
-04/27/17 04:42:51 Pending DAG nodes:
-04/27/17 04:42:51   Node cbow_mean_lstm, HTCondor ID 941, status STATUS_SUBMITTED
-04/27/17 04:52:53 22899 seconds since last log event
-04/27/17 04:52:53 Pending DAG nodes:
-04/27/17 04:52:53   Node cbow_mean_lstm, HTCondor ID 941, status STATUS_SUBMITTED
-04/27/17 05:02:55 23501 seconds since last log event
-04/27/17 05:02:55 Pending DAG nodes:
-04/27/17 05:02:55   Node cbow_mean_lstm, HTCondor ID 941, status STATUS_SUBMITTED
-04/27/17 05:12:58 24104 seconds since last log event
-04/27/17 05:12:58 Pending DAG nodes:
-04/27/17 05:12:58   Node cbow_mean_lstm, HTCondor ID 941, status STATUS_SUBMITTED
-04/27/17 05:23:01 24707 seconds since last log event
-04/27/17 05:23:01 Pending DAG nodes:
-04/27/17 05:23:01   Node cbow_mean_lstm, HTCondor ID 941, status STATUS_SUBMITTED
-04/27/17 05:33:04 25310 seconds since last log event
-04/27/17 05:33:04 Pending DAG nodes:
-04/27/17 05:33:04   Node cbow_mean_lstm, HTCondor ID 941, status STATUS_SUBMITTED
-04/27/17 05:43:06 25912 seconds since last log event
-04/27/17 05:43:06 Pending DAG nodes:
-04/27/17 05:43:06   Node cbow_mean_lstm, HTCondor ID 941, status STATUS_SUBMITTED
-04/27/17 05:53:08 26514 seconds since last log event
-04/27/17 05:53:08 Pending DAG nodes:
-04/27/17 05:53:08   Node cbow_mean_lstm, HTCondor ID 941, status STATUS_SUBMITTED
-04/27/17 06:03:11 27117 seconds since last log event
-04/27/17 06:03:11 Pending DAG nodes:
-04/27/17 06:03:11   Node cbow_mean_lstm, HTCondor ID 941, status STATUS_SUBMITTED
-04/27/17 06:13:13 27719 seconds since last log event
-04/27/17 06:13:13 Pending DAG nodes:
-04/27/17 06:13:13   Node cbow_mean_lstm, HTCondor ID 941, status STATUS_SUBMITTED
-04/27/17 06:23:16 28322 seconds since last log event
-04/27/17 06:23:16 Pending DAG nodes:
-04/27/17 06:23:16   Node cbow_mean_lstm, HTCondor ID 941, status STATUS_SUBMITTED
-04/27/17 06:33:18 28924 seconds since last log event
-04/27/17 06:33:18 Pending DAG nodes:
-04/27/17 06:33:18   Node cbow_mean_lstm, HTCondor ID 941, status STATUS_SUBMITTED
-04/27/17 06:43:21 29527 seconds since last log event
-04/27/17 06:43:21 Pending DAG nodes:
-04/27/17 06:43:21   Node cbow_mean_lstm, HTCondor ID 941, status STATUS_SUBMITTED
-04/27/17 06:53:24 30130 seconds since last log event
-04/27/17 06:53:24 Pending DAG nodes:
-04/27/17 06:53:24   Node cbow_mean_lstm, HTCondor ID 941, status STATUS_SUBMITTED
-04/27/17 07:03:26 30732 seconds since last log event
-04/27/17 07:03:26 Pending DAG nodes:
-04/27/17 07:03:26   Node cbow_mean_lstm, HTCondor ID 941, status STATUS_SUBMITTED
-04/27/17 07:13:29 31335 seconds since last log event
-04/27/17 07:13:29 Pending DAG nodes:
-04/27/17 07:13:29   Node cbow_mean_lstm, HTCondor ID 941, status STATUS_SUBMITTED
-04/27/17 07:23:32 31938 seconds since last log event
-04/27/17 07:23:32 Pending DAG nodes:
-04/27/17 07:23:32   Node cbow_mean_lstm, HTCondor ID 941, status STATUS_SUBMITTED
-04/27/17 07:33:35 32541 seconds since last log event
-04/27/17 07:33:35 Pending DAG nodes:
-04/27/17 07:33:35   Node cbow_mean_lstm, HTCondor ID 941, status STATUS_SUBMITTED
-04/27/17 07:43:37 33143 seconds since last log event
-04/27/17 07:43:37 Pending DAG nodes:
-04/27/17 07:43:37   Node cbow_mean_lstm, HTCondor ID 941, status STATUS_SUBMITTED
-04/27/17 07:53:40 33746 seconds since last log event
-04/27/17 07:53:40 Pending DAG nodes:
-04/27/17 07:53:40   Node cbow_mean_lstm, HTCondor ID 941, status STATUS_SUBMITTED
-04/27/17 08:03:43 34349 seconds since last log event
-04/27/17 08:03:43 Pending DAG nodes:
-04/27/17 08:03:43   Node cbow_mean_lstm, HTCondor ID 941, status STATUS_SUBMITTED
-04/27/17 08:13:45 34951 seconds since last log event
-04/27/17 08:13:45 Pending DAG nodes:
-04/27/17 08:13:45   Node cbow_mean_lstm, HTCondor ID 941, status STATUS_SUBMITTED
-04/27/17 08:23:48 35554 seconds since last log event
-04/27/17 08:23:48 Pending DAG nodes:
-04/27/17 08:23:48   Node cbow_mean_lstm, HTCondor ID 941, status STATUS_SUBMITTED
-04/27/17 08:33:51 36157 seconds since last log event
-04/27/17 08:33:51 Pending DAG nodes:
-04/27/17 08:33:51   Node cbow_mean_lstm, HTCondor ID 941, status STATUS_SUBMITTED
-04/27/17 08:43:52 36758 seconds since last log event
-04/27/17 08:43:52 Pending DAG nodes:
-04/27/17 08:43:52   Node cbow_mean_lstm, HTCondor ID 941, status STATUS_SUBMITTED
-04/27/17 08:53:55 37361 seconds since last log event
-04/27/17 08:53:55 Pending DAG nodes:
-04/27/17 08:53:55   Node cbow_mean_lstm, HTCondor ID 941, status STATUS_SUBMITTED
-04/27/17 09:03:57 37963 seconds since last log event
-04/27/17 09:03:57 Pending DAG nodes:
-04/27/17 09:03:57   Node cbow_mean_lstm, HTCondor ID 941, status STATUS_SUBMITTED
-04/27/17 09:14:00 38566 seconds since last log event
-04/27/17 09:14:00 Pending DAG nodes:
-04/27/17 09:14:00   Node cbow_mean_lstm, HTCondor ID 941, status STATUS_SUBMITTED
-04/27/17 09:24:01 39167 seconds since last log event
-04/27/17 09:24:01 Pending DAG nodes:
-04/27/17 09:24:01   Node cbow_mean_lstm, HTCondor ID 941, status STATUS_SUBMITTED
-04/27/17 09:34:04 39770 seconds since last log event
-04/27/17 09:34:04 Pending DAG nodes:
-04/27/17 09:34:04   Node cbow_mean_lstm, HTCondor ID 941, status STATUS_SUBMITTED
-04/27/17 09:44:07 40373 seconds since last log event
-04/27/17 09:44:07 Pending DAG nodes:
-04/27/17 09:44:07   Node cbow_mean_lstm, HTCondor ID 941, status STATUS_SUBMITTED
-04/27/17 09:54:09 40975 seconds since last log event
-04/27/17 09:54:09 Pending DAG nodes:
-04/27/17 09:54:09   Node cbow_mean_lstm, HTCondor ID 941, status STATUS_SUBMITTED
-04/27/17 10:04:11 41577 seconds since last log event
-04/27/17 10:04:11 Pending DAG nodes:
-04/27/17 10:04:11   Node cbow_mean_lstm, HTCondor ID 941, status STATUS_SUBMITTED
-04/27/17 10:14:14 42180 seconds since last log event
-04/27/17 10:14:14 Pending DAG nodes:
-04/27/17 10:14:14   Node cbow_mean_lstm, HTCondor ID 941, status STATUS_SUBMITTED
-04/27/17 10:24:16 42782 seconds since last log event
-04/27/17 10:24:16 Pending DAG nodes:
-04/27/17 10:24:16   Node cbow_mean_lstm, HTCondor ID 941, status STATUS_SUBMITTED
-04/27/17 10:34:18 43384 seconds since last log event
-04/27/17 10:34:18 Pending DAG nodes:
-04/27/17 10:34:18   Node cbow_mean_lstm, HTCondor ID 941, status STATUS_SUBMITTED
-04/27/17 10:44:20 43986 seconds since last log event
-04/27/17 10:44:20 Pending DAG nodes:
-04/27/17 10:44:20   Node cbow_mean_lstm, HTCondor ID 941, status STATUS_SUBMITTED
-04/27/17 10:54:23 44589 seconds since last log event
-04/27/17 10:54:23 Pending DAG nodes:
-04/27/17 10:54:23   Node cbow_mean_lstm, HTCondor ID 941, status STATUS_SUBMITTED
-04/27/17 10:59:54 Currently monitoring 1 HTCondor log file(s)
-04/27/17 10:59:54 Event: ULOG_JOB_SUSPENDED for HTCondor Node cbow_mean_lstm (941.0.0) {04/27/17 10:59:52}
-04/27/17 10:59:54 Number of idle job procs: 1
-04/27/17 11:01:20 Currently monitoring 1 HTCondor log file(s)
-04/27/17 11:01:20 Event: ULOG_JOB_UNSUSPENDED for HTCondor Node cbow_mean_lstm (941.0.0) {04/27/17 11:01:18}
-04/27/17 11:01:20 Number of idle job procs: 0
+05/01/17 10:13:35 ******************************************************
+05/01/17 10:13:35 ** condor_scheduniv_exec.971.0 (CONDOR_DAGMAN) STARTING UP
+05/01/17 10:13:35 ** /usr/bin/condor_dagman
+05/01/17 10:13:35 ** SubsystemInfo: name=DAGMAN type=DAGMAN(10) class=DAEMON(1)
+05/01/17 10:13:35 ** Configuration: subsystem:DAGMAN local:<NONE> class:DAEMON
+05/01/17 10:13:35 ** $CondorVersion: 8.6.2 Apr 23 2017 BuildID: 404257 $
+05/01/17 10:13:35 ** $CondorPlatform: x86_64_RedHat7 $
+05/01/17 10:13:35 ** PID = 26444
+05/01/17 10:13:35 ** Log last touched time unavailable (No such file or directory)
+05/01/17 10:13:35 ******************************************************
+05/01/17 10:13:35 Using config source: /etc/condor/condor_config
+05/01/17 10:13:35 Using local config sources: 
+05/01/17 10:13:35    /etc/condor/config.d/00esat.config
+05/01/17 10:13:35    /etc/condor/config.d/01java.config
+05/01/17 10:13:35    /etc/condor/config.d/80optout_users.config
+05/01/17 10:13:35    /etc/condor/condor_config.local
+05/01/17 10:13:35 config Macros = 166, Sorted = 166, StringBytes = 6029, TablesBytes = 6048
+05/01/17 10:13:35 CLASSAD_CACHING is ENABLED
+05/01/17 10:13:35 Daemon Log is logging: D_ALWAYS D_ERROR
+05/01/17 10:13:35 DaemonCore: No command port requested.
+05/01/17 10:13:35 DAGMAN_USE_STRICT setting: 1
+05/01/17 10:13:35 DAGMAN_VERBOSITY setting: 3
+05/01/17 10:13:35 DAGMAN_DEBUG_CACHE_SIZE setting: 5242880
+05/01/17 10:13:35 DAGMAN_DEBUG_CACHE_ENABLE setting: False
+05/01/17 10:13:35 DAGMAN_SUBMIT_DELAY setting: 0
+05/01/17 10:13:35 DAGMAN_MAX_SUBMIT_ATTEMPTS setting: 6
+05/01/17 10:13:35 DAGMAN_STARTUP_CYCLE_DETECT setting: False
+05/01/17 10:13:35 DAGMAN_MAX_SUBMITS_PER_INTERVAL setting: 5
+05/01/17 10:13:35 DAGMAN_USER_LOG_SCAN_INTERVAL setting: 5
+05/01/17 10:13:35 DAGMAN_DEFAULT_PRIORITY setting: 0
+05/01/17 10:13:35 DAGMAN_SUPPRESS_NOTIFICATION setting: True
+05/01/17 10:13:35 allow_events (DAGMAN_ALLOW_EVENTS) setting: 114
+05/01/17 10:13:35 DAGMAN_RETRY_SUBMIT_FIRST setting: True
+05/01/17 10:13:35 DAGMAN_RETRY_NODE_FIRST setting: False
+05/01/17 10:13:35 DAGMAN_MAX_JOBS_IDLE setting: 1000
+05/01/17 10:13:35 DAGMAN_MAX_JOBS_SUBMITTED setting: 0
+05/01/17 10:13:35 DAGMAN_MAX_PRE_SCRIPTS setting: 20
+05/01/17 10:13:35 DAGMAN_MAX_POST_SCRIPTS setting: 20
+05/01/17 10:13:35 DAGMAN_MUNGE_NODE_NAMES setting: True
+05/01/17 10:13:35 DAGMAN_PROHIBIT_MULTI_JOBS setting: False
+05/01/17 10:13:35 DAGMAN_SUBMIT_DEPTH_FIRST setting: False
+05/01/17 10:13:35 DAGMAN_ALWAYS_RUN_POST setting: False
+05/01/17 10:13:35 DAGMAN_ABORT_DUPLICATES setting: True
+05/01/17 10:13:35 DAGMAN_ABORT_ON_SCARY_SUBMIT setting: True
+05/01/17 10:13:35 DAGMAN_PENDING_REPORT_INTERVAL setting: 600
+05/01/17 10:13:35 DAGMAN_AUTO_RESCUE setting: True
+05/01/17 10:13:35 DAGMAN_MAX_RESCUE_NUM setting: 100
+05/01/17 10:13:35 DAGMAN_WRITE_PARTIAL_RESCUE setting: True
+05/01/17 10:13:35 DAGMAN_DEFAULT_NODE_LOG setting: @(DAG_DIR)/@(DAG_FILE).nodes.log
+05/01/17 10:13:35 DAGMAN_GENERATE_SUBDAG_SUBMITS setting: True
+05/01/17 10:13:35 DAGMAN_MAX_JOB_HOLDS setting: 100
+05/01/17 10:13:35 DAGMAN_HOLD_CLAIM_TIME setting: 20
+05/01/17 10:13:35 ALL_DEBUG setting: 
+05/01/17 10:13:35 DAGMAN_DEBUG setting: 
+05/01/17 10:13:35 DAGMAN_SUPPRESS_JOB_LOGS setting: False
+05/01/17 10:13:35 DAGMAN_REMOVE_NODE_JOBS setting: True
+05/01/17 10:13:35 argv[0] == "condor_scheduniv_exec.971.0"
+05/01/17 10:13:35 argv[1] == "-Lockfile"
+05/01/17 10:13:35 argv[2] == "ds_cbow_mean_lstm.dag.lock"
+05/01/17 10:13:35 argv[3] == "-AutoRescue"
+05/01/17 10:13:35 argv[4] == "1"
+05/01/17 10:13:35 argv[5] == "-DoRescueFrom"
+05/01/17 10:13:35 argv[6] == "0"
+05/01/17 10:13:35 argv[7] == "-Dag"
+05/01/17 10:13:35 argv[8] == "ds_cbow_mean_lstm.dag"
+05/01/17 10:13:35 argv[9] == "-Suppress_notification"
+05/01/17 10:13:35 argv[10] == "-CsdVersion"
+05/01/17 10:13:35 argv[11] == "$CondorVersion: 8.6.2 Apr 23 2017 BuildID: 404257 $"
+05/01/17 10:13:35 argv[12] == "-Dagman"
+05/01/17 10:13:35 argv[13] == "/usr/bin/condor_dagman"
+05/01/17 10:13:35 Workflow batch-name: <ds_cbow_mean_lstm.dag+971>
+05/01/17 10:13:35 Workflow accounting_group: <>
+05/01/17 10:13:35 Workflow accounting_group_user: <>
+05/01/17 10:13:35 Warning: failed to get attribute DAGNodeName
+05/01/17 10:13:35 DAGMAN_LOG_ON_NFS_IS_ERROR setting: False
+05/01/17 10:13:35 Default node log file is: </esat/spchtemp/scratch/robbe/SpeechHub/untied_models_smaller/python/jobdag/./ds_cbow_mean_lstm.dag.nodes.log>
+05/01/17 10:13:35 DAG Lockfile will be written to ds_cbow_mean_lstm.dag.lock
+05/01/17 10:13:35 DAG Input file is ds_cbow_mean_lstm.dag
+05/01/17 10:13:35 Parsing 1 dagfiles
+05/01/17 10:13:35 Parsing ds_cbow_mean_lstm.dag ...
+05/01/17 10:13:35 Dag contains 2 total jobs
+05/01/17 10:13:35 Sleeping for 3 seconds to ensure ProcessId uniqueness
+05/01/17 10:13:38 Bootstrapping...
+05/01/17 10:13:38 Number of pre-completed nodes: 0
+05/01/17 10:13:38 MultiLogFiles: truncating log file /esat/spchtemp/scratch/robbe/SpeechHub/untied_models_smaller/python/jobdag/./ds_cbow_mean_lstm.dag.nodes.log
+05/01/17 10:13:38 DAG status: 0 (DAG_STATUS_OK)
+05/01/17 10:13:38 Of 2 nodes total:
+05/01/17 10:13:38  Done     Pre   Queued    Post   Ready   Un-Ready   Failed
+05/01/17 10:13:38   ===     ===      ===     ===     ===        ===      ===
+05/01/17 10:13:38     0       0        0       0       1          1        0
+05/01/17 10:13:38 0 job proc(s) currently held
+05/01/17 10:13:38 Registering condor_event_timer...
+05/01/17 10:13:39 Submitting HTCondor Node cbow_mean_lstm job(s)...
+05/01/17 10:13:39 Adding a DAGMan workflow log /esat/spchtemp/scratch/robbe/SpeechHub/untied_models_smaller/python/jobdag/./ds_cbow_mean_lstm.dag.nodes.log
+05/01/17 10:13:39 Masking the events recorded in the DAGMAN workflow log
+05/01/17 10:13:39 Mask for workflow log is 0,1,2,4,5,7,9,10,11,12,13,16,17,24,27
+05/01/17 10:13:39 submitting: /usr/bin/condor_submit -a dag_node_name' '=' 'cbow_mean_lstm -a +DAGManJobId' '=' '971 -a DAGManJobId' '=' '971 -batch-name ds_cbow_mean_lstm.dag+971 -a submit_event_notes' '=' 'DAG' 'Node:' 'cbow_mean_lstm -a dagman_log' '=' '/esat/spchtemp/scratch/robbe/SpeechHub/untied_models_smaller/python/jobdag/./ds_cbow_mean_lstm.dag.nodes.log -a +DAGManNodesMask' '=' '"0,1,2,4,5,7,9,10,11,12,13,16,17,24,27" -a data_set' '=' 'ds -a test_name' '=' 'cbow_mean_lstm -a num_run' '=' '0 -a combination' '=' 'mean -a DAG_STATUS' '=' '0 -a FAILED_COUNT' '=' '0 -a +KeepClaimIdle' '=' '20 -a notification' '=' 'never -a +DAGParentNodeNames' '=' '"" jobdag/cbow_lstm.job
+05/01/17 10:13:40 From submit: Submitting job(s).
+05/01/17 10:13:40 From submit: 1 job(s) submitted to cluster 973.
+05/01/17 10:13:40 	assigned HTCondor ID (973.0.0)
+05/01/17 10:13:40 Just submitted 1 job this cycle...
+05/01/17 10:13:40 Currently monitoring 1 HTCondor log file(s)
+05/01/17 10:13:40 Reassigning the id of job cbow_mean_lstm from (973.0.0) to (973.0.0)
+05/01/17 10:13:40 Event: ULOG_SUBMIT for HTCondor Node cbow_mean_lstm (973.0.0) {05/01/17 10:13:40}
+05/01/17 10:13:40 Number of idle job procs: 1
+05/01/17 10:13:40 DAG status: 0 (DAG_STATUS_OK)
+05/01/17 10:13:40 Of 2 nodes total:
+05/01/17 10:13:40  Done     Pre   Queued    Post   Ready   Un-Ready   Failed
+05/01/17 10:13:40   ===     ===      ===     ===     ===        ===      ===
+05/01/17 10:13:40     0       0        1       0       0          1        0
+05/01/17 10:13:40 0 job proc(s) currently held
+05/01/17 10:13:55 Currently monitoring 1 HTCondor log file(s)
+05/01/17 10:13:55 Event: ULOG_EXECUTE for HTCondor Node cbow_mean_lstm (973.0.0) {05/01/17 10:13:54}
+05/01/17 10:13:55 Number of idle job procs: 0
+05/01/17 10:23:57 602 seconds since last log event
+05/01/17 10:23:57 Pending DAG nodes:
+05/01/17 10:23:57   Node cbow_mean_lstm, HTCondor ID 973, status STATUS_SUBMITTED
+05/01/17 10:29:54 Currently monitoring 1 HTCondor log file(s)
+05/01/17 10:29:54 Event: ULOG_JOB_SUSPENDED for HTCondor Node cbow_mean_lstm (973.0.0) {05/01/17 10:29:53}
+05/01/17 10:29:54 Number of idle job procs: 1
+05/01/17 10:36:15 Currently monitoring 1 HTCondor log file(s)
+05/01/17 10:36:15 Event: ULOG_JOB_UNSUSPENDED for HTCondor Node cbow_mean_lstm (973.0.0) {05/01/17 10:36:14}
+05/01/17 10:36:15 Number of idle job procs: 0
+05/01/17 10:38:35 Currently monitoring 1 HTCondor log file(s)
+05/01/17 10:38:35 Event: ULOG_JOB_SUSPENDED for HTCondor Node cbow_mean_lstm (973.0.0) {05/01/17 10:38:34}
+05/01/17 10:38:35 Number of idle job procs: 1
+05/01/17 10:44:32 Currently monitoring 1 HTCondor log file(s)
+05/01/17 10:44:32 Event: ULOG_JOB_UNSUSPENDED for HTCondor Node cbow_mean_lstm (973.0.0) {05/01/17 10:44:29}
+05/01/17 10:44:32 Number of idle job procs: 0
+05/01/17 10:54:18 Currently monitoring 1 HTCondor log file(s)
+05/01/17 10:54:18 Event: ULOG_JOB_SUSPENDED for HTCondor Node cbow_mean_lstm (973.0.0) {05/01/17 10:54:15}
+05/01/17 10:54:18 Number of idle job procs: 1
+05/01/17 11:04:20 602 seconds since last log event
+05/01/17 11:04:20 Pending DAG nodes:
+05/01/17 11:04:20   Node cbow_mean_lstm, HTCondor ID 973, status STATUS_SUBMITTED
+05/01/17 11:09:21 Currently monitoring 1 HTCondor log file(s)
+05/01/17 11:09:21 Event: ULOG_JOB_UNSUSPENDED for HTCondor Node cbow_mean_lstm (973.0.0) {05/01/17 11:09:17}
+05/01/17 11:09:21 Number of idle job procs: 0
+05/01/17 11:09:21 Event: ULOG_JOB_EVICTED for HTCondor Node cbow_mean_lstm (973.0.0) {05/01/17 11:09:17}
+05/01/17 11:09:21 Number of idle job procs: 1
+05/01/17 11:19:24 603 seconds since last log event
+05/01/17 11:19:24 Pending DAG nodes:
+05/01/17 11:19:24   Node cbow_mean_lstm, HTCondor ID 973, status STATUS_SUBMITTED
+05/01/17 11:29:25 1204 seconds since last log event
+05/01/17 11:29:25 Pending DAG nodes:
+05/01/17 11:29:25   Node cbow_mean_lstm, HTCondor ID 973, status STATUS_SUBMITTED
+05/01/17 11:39:27 1806 seconds since last log event
+05/01/17 11:39:27 Pending DAG nodes:
+05/01/17 11:39:27   Node cbow_mean_lstm, HTCondor ID 973, status STATUS_SUBMITTED
+05/01/17 11:49:29 2408 seconds since last log event
+05/01/17 11:49:29 Pending DAG nodes:
+05/01/17 11:49:29   Node cbow_mean_lstm, HTCondor ID 973, status STATUS_SUBMITTED
+05/01/17 11:55:05 Currently monitoring 1 HTCondor log file(s)
+05/01/17 11:55:05 Event: ULOG_EXECUTE for HTCondor Node cbow_mean_lstm (973.0.0) {05/01/17 11:55:01}
+05/01/17 11:55:05 Number of idle job procs: 0
+05/01/17 11:55:30 Currently monitoring 1 HTCondor log file(s)
+05/01/17 11:55:30 Event: ULOG_JOB_SUSPENDED for HTCondor Node cbow_mean_lstm (973.0.0) {05/01/17 11:55:26}
+05/01/17 11:55:30 Number of idle job procs: 1
+05/01/17 12:01:22 Currently monitoring 1 HTCondor log file(s)
+05/01/17 12:01:22 Event: ULOG_JOB_UNSUSPENDED for HTCondor Node cbow_mean_lstm (973.0.0) {05/01/17 12:01:17}
+05/01/17 12:01:22 Number of idle job procs: 0
+05/01/17 12:11:24 602 seconds since last log event
+05/01/17 12:11:24 Pending DAG nodes:
+05/01/17 12:11:24   Node cbow_mean_lstm, HTCondor ID 973, status STATUS_SUBMITTED
+05/01/17 12:21:25 1203 seconds since last log event
+05/01/17 12:21:25 Pending DAG nodes:
+05/01/17 12:21:25   Node cbow_mean_lstm, HTCondor ID 973, status STATUS_SUBMITTED
+05/01/17 12:31:27 1805 seconds since last log event
+05/01/17 12:31:27 Pending DAG nodes:
+05/01/17 12:31:27   Node cbow_mean_lstm, HTCondor ID 973, status STATUS_SUBMITTED
+05/01/17 12:41:29 2407 seconds since last log event
+05/01/17 12:41:29 Pending DAG nodes:
+05/01/17 12:41:29   Node cbow_mean_lstm, HTCondor ID 973, status STATUS_SUBMITTED
+05/01/17 12:51:31 3009 seconds since last log event
+05/01/17 12:51:31 Pending DAG nodes:
+05/01/17 12:51:31   Node cbow_mean_lstm, HTCondor ID 973, status STATUS_SUBMITTED
+05/01/17 13:01:33 3611 seconds since last log event
+05/01/17 13:01:33 Pending DAG nodes:
+05/01/17 13:01:33   Node cbow_mean_lstm, HTCondor ID 973, status STATUS_SUBMITTED
+05/01/17 13:11:35 4213 seconds since last log event
+05/01/17 13:11:35 Pending DAG nodes:
+05/01/17 13:11:35   Node cbow_mean_lstm, HTCondor ID 973, status STATUS_SUBMITTED
+05/01/17 13:21:37 4815 seconds since last log event
+05/01/17 13:21:37 Pending DAG nodes:
+05/01/17 13:21:37   Node cbow_mean_lstm, HTCondor ID 973, status STATUS_SUBMITTED
+05/01/17 13:31:39 5417 seconds since last log event
+05/01/17 13:31:39 Pending DAG nodes:
+05/01/17 13:31:39   Node cbow_mean_lstm, HTCondor ID 973, status STATUS_SUBMITTED
+05/01/17 13:41:42 6020 seconds since last log event
+05/01/17 13:41:42 Pending DAG nodes:
+05/01/17 13:41:42   Node cbow_mean_lstm, HTCondor ID 973, status STATUS_SUBMITTED
+05/01/17 13:51:44 6622 seconds since last log event
+05/01/17 13:51:44 Pending DAG nodes:
+05/01/17 13:51:44   Node cbow_mean_lstm, HTCondor ID 973, status STATUS_SUBMITTED
+05/01/17 14:01:46 7224 seconds since last log event
+05/01/17 14:01:46 Pending DAG nodes:
+05/01/17 14:01:46   Node cbow_mean_lstm, HTCondor ID 973, status STATUS_SUBMITTED
+05/01/17 14:03:47 Currently monitoring 1 HTCondor log file(s)
+05/01/17 14:03:47 Event: ULOG_JOB_SUSPENDED for HTCondor Node cbow_mean_lstm (973.0.0) {05/01/17 14:03:45}
+05/01/17 14:03:47 Number of idle job procs: 1
+05/01/17 14:13:48 601 seconds since last log event
+05/01/17 14:13:48 Pending DAG nodes:
+05/01/17 14:13:48   Node cbow_mean_lstm, HTCondor ID 973, status STATUS_SUBMITTED
+05/01/17 14:14:43 Currently monitoring 1 HTCondor log file(s)
+05/01/17 14:14:43 Event: ULOG_JOB_UNSUSPENDED for HTCondor Node cbow_mean_lstm (973.0.0) {05/01/17 14:14:41}
+05/01/17 14:14:43 Number of idle job procs: 0
+05/01/17 14:24:45 602 seconds since last log event
+05/01/17 14:24:45 Pending DAG nodes:
+05/01/17 14:24:45   Node cbow_mean_lstm, HTCondor ID 973, status STATUS_SUBMITTED
+05/01/17 14:34:47 1204 seconds since last log event
+05/01/17 14:34:47 Pending DAG nodes:
+05/01/17 14:34:47   Node cbow_mean_lstm, HTCondor ID 973, status STATUS_SUBMITTED
+05/01/17 14:38:08 Currently monitoring 1 HTCondor log file(s)
+05/01/17 14:38:08 Event: ULOG_JOB_SUSPENDED for HTCondor Node cbow_mean_lstm (973.0.0) {05/01/17 14:38:03}
+05/01/17 14:38:08 Number of idle job procs: 1
+05/01/17 14:43:49 Currently monitoring 1 HTCondor log file(s)
+05/01/17 14:43:49 Event: ULOG_JOB_UNSUSPENDED for HTCondor Node cbow_mean_lstm (973.0.0) {05/01/17 14:43:49}
+05/01/17 14:43:49 Number of idle job procs: 0
+05/01/17 14:53:52 603 seconds since last log event
+05/01/17 14:53:52 Pending DAG nodes:
+05/01/17 14:53:52   Node cbow_mean_lstm, HTCondor ID 973, status STATUS_SUBMITTED
+05/01/17 15:03:54 1205 seconds since last log event
+05/01/17 15:03:54 Pending DAG nodes:
+05/01/17 15:03:54   Node cbow_mean_lstm, HTCondor ID 973, status STATUS_SUBMITTED
+05/01/17 15:13:57 1808 seconds since last log event
+05/01/17 15:13:57 Pending DAG nodes:
+05/01/17 15:13:57   Node cbow_mean_lstm, HTCondor ID 973, status STATUS_SUBMITTED
+05/01/17 15:23:59 2410 seconds since last log event
+05/01/17 15:23:59 Pending DAG nodes:
+05/01/17 15:23:59   Node cbow_mean_lstm, HTCondor ID 973, status STATUS_SUBMITTED
+05/01/17 15:34:01 3012 seconds since last log event
+05/01/17 15:34:01 Pending DAG nodes:
+05/01/17 15:34:01   Node cbow_mean_lstm, HTCondor ID 973, status STATUS_SUBMITTED
+05/01/17 15:44:03 3614 seconds since last log event
+05/01/17 15:44:03 Pending DAG nodes:
+05/01/17 15:44:03   Node cbow_mean_lstm, HTCondor ID 973, status STATUS_SUBMITTED
+05/01/17 15:54:06 4217 seconds since last log event
+05/01/17 15:54:06 Pending DAG nodes:
+05/01/17 15:54:06   Node cbow_mean_lstm, HTCondor ID 973, status STATUS_SUBMITTED
+05/01/17 16:04:08 4819 seconds since last log event
+05/01/17 16:04:08 Pending DAG nodes:
+05/01/17 16:04:08   Node cbow_mean_lstm, HTCondor ID 973, status STATUS_SUBMITTED
+05/01/17 16:14:10 5421 seconds since last log event
+05/01/17 16:14:10 Pending DAG nodes:
+05/01/17 16:14:10   Node cbow_mean_lstm, HTCondor ID 973, status STATUS_SUBMITTED
+05/01/17 16:24:13 6024 seconds since last log event
+05/01/17 16:24:13 Pending DAG nodes:
+05/01/17 16:24:13   Node cbow_mean_lstm, HTCondor ID 973, status STATUS_SUBMITTED
+05/01/17 16:34:15 6626 seconds since last log event
+05/01/17 16:34:15 Pending DAG nodes:
+05/01/17 16:34:15   Node cbow_mean_lstm, HTCondor ID 973, status STATUS_SUBMITTED
+05/01/17 16:44:18 7229 seconds since last log event
+05/01/17 16:44:18 Pending DAG nodes:
+05/01/17 16:44:18   Node cbow_mean_lstm, HTCondor ID 973, status STATUS_SUBMITTED
+05/01/17 16:54:20 7831 seconds since last log event
+05/01/17 16:54:20 Pending DAG nodes:
+05/01/17 16:54:20   Node cbow_mean_lstm, HTCondor ID 973, status STATUS_SUBMITTED
+05/01/17 17:04:22 8433 seconds since last log event
+05/01/17 17:04:22 Pending DAG nodes:
+05/01/17 17:04:22   Node cbow_mean_lstm, HTCondor ID 973, status STATUS_SUBMITTED
+05/01/17 17:14:23 9034 seconds since last log event
+05/01/17 17:14:23 Pending DAG nodes:
+05/01/17 17:14:23   Node cbow_mean_lstm, HTCondor ID 973, status STATUS_SUBMITTED
+05/01/17 17:24:26 9637 seconds since last log event
+05/01/17 17:24:26 Pending DAG nodes:
+05/01/17 17:24:26   Node cbow_mean_lstm, HTCondor ID 973, status STATUS_SUBMITTED
+05/01/17 17:34:28 10239 seconds since last log event
+05/01/17 17:34:28 Pending DAG nodes:
+05/01/17 17:34:28   Node cbow_mean_lstm, HTCondor ID 973, status STATUS_SUBMITTED
+05/01/17 17:44:29 10840 seconds since last log event
+05/01/17 17:44:29 Pending DAG nodes:
+05/01/17 17:44:29   Node cbow_mean_lstm, HTCondor ID 973, status STATUS_SUBMITTED
+05/01/17 17:54:32 11443 seconds since last log event
+05/01/17 17:54:32 Pending DAG nodes:
+05/01/17 17:54:32   Node cbow_mean_lstm, HTCondor ID 973, status STATUS_SUBMITTED
+05/01/17 18:04:33 12044 seconds since last log event
+05/01/17 18:04:33 Pending DAG nodes:
+05/01/17 18:04:33   Node cbow_mean_lstm, HTCondor ID 973, status STATUS_SUBMITTED
+05/01/17 18:14:36 12647 seconds since last log event
+05/01/17 18:14:36 Pending DAG nodes:
+05/01/17 18:14:36   Node cbow_mean_lstm, HTCondor ID 973, status STATUS_SUBMITTED
+05/01/17 18:19:43 Currently monitoring 1 HTCondor log file(s)
+05/01/17 18:19:43 Event: ULOG_JOB_SUSPENDED for HTCondor Node cbow_mean_lstm (973.0.0) {05/01/17 18:19:40}
+05/01/17 18:19:43 Number of idle job procs: 1
+05/01/17 18:21:33 Currently monitoring 1 HTCondor log file(s)
+05/01/17 18:21:33 Event: ULOG_JOB_UNSUSPENDED for HTCondor Node cbow_mean_lstm (973.0.0) {05/01/17 18:21:30}
+05/01/17 18:21:33 Number of idle job procs: 0
+05/01/17 18:31:36 603 seconds since last log event
+05/01/17 18:31:36 Pending DAG nodes:
+05/01/17 18:31:36   Node cbow_mean_lstm, HTCondor ID 973, status STATUS_SUBMITTED
+05/01/17 18:41:38 1205 seconds since last log event
+05/01/17 18:41:38 Pending DAG nodes:
+05/01/17 18:41:38   Node cbow_mean_lstm, HTCondor ID 973, status STATUS_SUBMITTED
+05/01/17 18:51:40 1807 seconds since last log event
+05/01/17 18:51:40 Pending DAG nodes:
+05/01/17 18:51:40   Node cbow_mean_lstm, HTCondor ID 973, status STATUS_SUBMITTED
+05/01/17 19:01:42 2409 seconds since last log event
+05/01/17 19:01:42 Pending DAG nodes:
+05/01/17 19:01:42   Node cbow_mean_lstm, HTCondor ID 973, status STATUS_SUBMITTED
+05/01/17 19:11:44 3011 seconds since last log event
+05/01/17 19:11:44 Pending DAG nodes:
+05/01/17 19:11:44   Node cbow_mean_lstm, HTCondor ID 973, status STATUS_SUBMITTED
+05/01/17 19:21:46 3613 seconds since last log event
+05/01/17 19:21:46 Pending DAG nodes:
+05/01/17 19:21:46   Node cbow_mean_lstm, HTCondor ID 973, status STATUS_SUBMITTED
+05/01/17 19:31:48 4215 seconds since last log event
+05/01/17 19:31:48 Pending DAG nodes:
+05/01/17 19:31:48   Node cbow_mean_lstm, HTCondor ID 973, status STATUS_SUBMITTED
+05/01/17 19:41:50 4817 seconds since last log event
+05/01/17 19:41:50 Pending DAG nodes:
+05/01/17 19:41:50   Node cbow_mean_lstm, HTCondor ID 973, status STATUS_SUBMITTED
+05/01/17 19:51:52 5419 seconds since last log event
+05/01/17 19:51:52 Pending DAG nodes:
+05/01/17 19:51:52   Node cbow_mean_lstm, HTCondor ID 973, status STATUS_SUBMITTED
+05/01/17 20:01:54 6021 seconds since last log event
+05/01/17 20:01:54 Pending DAG nodes:
+05/01/17 20:01:54   Node cbow_mean_lstm, HTCondor ID 973, status STATUS_SUBMITTED
+05/01/17 20:11:56 6623 seconds since last log event
+05/01/17 20:11:56 Pending DAG nodes:
+05/01/17 20:11:56   Node cbow_mean_lstm, HTCondor ID 973, status STATUS_SUBMITTED
+05/01/17 20:21:57 7224 seconds since last log event
+05/01/17 20:21:57 Pending DAG nodes:
+05/01/17 20:21:57   Node cbow_mean_lstm, HTCondor ID 973, status STATUS_SUBMITTED
+05/01/17 20:31:58 7825 seconds since last log event
+05/01/17 20:31:58 Pending DAG nodes:
+05/01/17 20:31:58   Node cbow_mean_lstm, HTCondor ID 973, status STATUS_SUBMITTED
+05/01/17 20:41:00 Currently monitoring 1 HTCondor log file(s)
+05/01/17 20:41:00 Event: ULOG_JOB_TERMINATED for HTCondor Node cbow_mean_lstm (973.0.0) {05/01/17 20:40:57}
+05/01/17 20:41:00 Number of idle job procs: 0
+05/01/17 20:41:00 Node cbow_mean_lstm job proc (973.0.0) completed successfully.
+05/01/17 20:41:00 Node cbow_mean_lstm job completed
+05/01/17 20:41:00 DAG status: 0 (DAG_STATUS_OK)
+05/01/17 20:41:00 Of 2 nodes total:
+05/01/17 20:41:00  Done     Pre   Queued    Post   Ready   Un-Ready   Failed
+05/01/17 20:41:00   ===     ===      ===     ===     ===        ===      ===
+05/01/17 20:41:00     1       0        0       0       1          0        0
+05/01/17 20:41:00 0 job proc(s) currently held
+05/01/17 20:41:06 Submitting HTCondor Node cbow_mean_lstm_test job(s)...
+05/01/17 20:41:06 Adding a DAGMan workflow log /esat/spchtemp/scratch/robbe/SpeechHub/untied_models_smaller/python/jobdag/./ds_cbow_mean_lstm.dag.nodes.log
+05/01/17 20:41:06 Masking the events recorded in the DAGMAN workflow log
+05/01/17 20:41:06 Mask for workflow log is 0,1,2,4,5,7,9,10,11,12,13,16,17,24,27
+05/01/17 20:41:06 submitting: /usr/bin/condor_submit -a dag_node_name' '=' 'cbow_mean_lstm_test -a +DAGManJobId' '=' '971 -a DAGManJobId' '=' '971 -batch-name ds_cbow_mean_lstm.dag+971 -a submit_event_notes' '=' 'DAG' 'Node:' 'cbow_mean_lstm_test -a dagman_log' '=' '/esat/spchtemp/scratch/robbe/SpeechHub/untied_models_smaller/python/jobdag/./ds_cbow_mean_lstm.dag.nodes.log -a +DAGManNodesMask' '=' '"0,1,2,4,5,7,9,10,11,12,13,16,17,24,27" -a data_set' '=' 'ds -a test_name' '=' 'cbow_mean_lstm -a num_run' '=' '0 -a DAG_STATUS' '=' '0 -a FAILED_COUNT' '=' '0 -a notification' '=' 'never -a +DAGParentNodeNames' '=' '"cbow_mean_lstm" jobdag/cbow_lstm_test.job
+05/01/17 20:41:06 From submit: Submitting job(s).
+05/01/17 20:41:06 From submit: 1 job(s) submitted to cluster 991.
+05/01/17 20:41:06 	assigned HTCondor ID (991.0.0)
+05/01/17 20:41:06 Just submitted 1 job this cycle...
+05/01/17 20:41:06 Currently monitoring 1 HTCondor log file(s)
+05/01/17 20:41:06 Reassigning the id of job cbow_mean_lstm_test from (991.0.0) to (991.0.0)
+05/01/17 20:41:06 Event: ULOG_SUBMIT for HTCondor Node cbow_mean_lstm_test (991.0.0) {05/01/17 20:41:06}
+05/01/17 20:41:06 Number of idle job procs: 1
+05/01/17 20:41:06 DAG status: 0 (DAG_STATUS_OK)
+05/01/17 20:41:06 Of 2 nodes total:
+05/01/17 20:41:06  Done     Pre   Queued    Post   Ready   Un-Ready   Failed
+05/01/17 20:41:06   ===     ===      ===     ===     ===        ===      ===
+05/01/17 20:41:06     1       0        1       0       0          0        0
+05/01/17 20:41:06 0 job proc(s) currently held
+05/01/17 20:41:26 Currently monitoring 1 HTCondor log file(s)
+05/01/17 20:41:26 Event: ULOG_EXECUTE for HTCondor Node cbow_mean_lstm_test (991.0.0) {05/01/17 20:41:25}
+05/01/17 20:41:26 Number of idle job procs: 0
+05/01/17 20:42:31 Currently monitoring 1 HTCondor log file(s)
+05/01/17 20:42:31 Event: ULOG_JOB_SUSPENDED for HTCondor Node cbow_mean_lstm_test (991.0.0) {05/01/17 20:42:27}
+05/01/17 20:42:31 Number of idle job procs: 1
+05/01/17 20:47:32 Currently monitoring 1 HTCondor log file(s)
+05/01/17 20:47:32 Event: ULOG_JOB_UNSUSPENDED for HTCondor Node cbow_mean_lstm_test (991.0.0) {05/01/17 20:47:29}
+05/01/17 20:47:32 Number of idle job procs: 0
+05/01/17 20:48:58 Currently monitoring 1 HTCondor log file(s)
+05/01/17 20:48:58 Event: ULOG_JOB_TERMINATED for HTCondor Node cbow_mean_lstm_test (991.0.0) {05/01/17 20:48:55}
+05/01/17 20:48:58 Number of idle job procs: 0
+05/01/17 20:48:58 Node cbow_mean_lstm_test job proc (991.0.0) completed successfully.
+05/01/17 20:48:58 Node cbow_mean_lstm_test job completed
+05/01/17 20:48:58 DAG status: 0 (DAG_STATUS_OK)
+05/01/17 20:48:58 Of 2 nodes total:
+05/01/17 20:48:58  Done     Pre   Queued    Post   Ready   Un-Ready   Failed
+05/01/17 20:48:58   ===     ===      ===     ===     ===        ===      ===
+05/01/17 20:48:58     2       0        0       0       0          0        0
+05/01/17 20:48:58 0 job proc(s) currently held
+05/01/17 20:48:58 All jobs Completed!
+05/01/17 20:48:58 Note: 0 total job deferrals because of -MaxJobs limit (0)
+05/01/17 20:48:58 Note: 0 total job deferrals because of -MaxIdle limit (1000)
+05/01/17 20:48:58 Note: 0 total job deferrals because of node category throttles
+05/01/17 20:48:58 Note: 0 total PRE script deferrals because of -MaxPre limit (20) or DEFER
+05/01/17 20:48:58 Note: 0 total POST script deferrals because of -MaxPost limit (20) or DEFER
+05/01/17 20:48:58 DAG status: 0 (DAG_STATUS_OK)
+05/01/17 20:48:58 Of 2 nodes total:
+05/01/17 20:48:58  Done     Pre   Queued    Post   Ready   Un-Ready   Failed
+05/01/17 20:48:58   ===     ===      ===     ===     ===        ===      ===
+05/01/17 20:48:58     2       0        0       0       0          0        0
+05/01/17 20:48:58 0 job proc(s) currently held
+05/01/17 20:48:58 Wrote metrics file ds_cbow_mean_lstm.dag.metrics.
+05/01/17 20:48:58 Metrics not sent because of PEGASUS_METRICS or CONDOR_DEVELOPERS setting.
+05/01/17 20:48:58 **** condor_scheduniv_exec.971.0 (condor_DAGMAN) pid 26444 EXITING WITH STATUS 0
