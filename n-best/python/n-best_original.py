@@ -286,7 +286,7 @@ def main(_):
                         test_perplexity=  run_epoch(session, mtest)
                 print("hypothesis %d with PPL %.3f" % (k,test_perplexity))
 
-                ppl.append(test_perplexity)
+                ppl.append(-test_perplexity)
 
             vals = np.array(ppl) + np.array(accoustic_score)	
             sort_index = np.argsort(vals)[::-1]
