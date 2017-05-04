@@ -54,7 +54,7 @@ flags.DEFINE_integer("embedded_size_cbow", 128, "embedded_size_cbow")
 flags.DEFINE_integer("batch_size", 50, "batch_size")
 flags.DEFINE_integer("num_steps", 50, "num_steps")
 flags.DEFINE_integer("num_run", 0, "num_run")
-flags.DEFINE_string("test_name","cbow_test_sotf","test_name")
+flags.DEFINE_string("test_name","cbow_test_soft","test_name")
 flags.DEFINE_string("data_path",input_path,"data_path")
 flags.DEFINE_string("save_path",output_path,"save_path")
 flags.DEFINE_string("use_fp16",False,"train blabla")
@@ -292,6 +292,8 @@ def run_epoch(session, model, eval_op=None, verbose=False, epoch_nb = 0, pos_epo
         fetches["eval_op"] = eval_op
 
     for step in range(pos_epoch, model.input.epoch_size):
+        print(step)
+        print(model.input.epoch_size)
         batch_data, batch_history, batch_history_tfidf, batch_labels, batch_seq_len = model.input.next_batch(model.num_steps)
         feed_dict = {}
         feed_dict[model.data] = batch_data
