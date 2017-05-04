@@ -1,10 +1,11 @@
+# imports
 from __future__ import absolute_import
 from __future__ import division
 from __future__ import print_function
 import os
+import sys
 import time
 import numpy as np
-import sys
 
 if 'LD_LIBRARY_PATH' not in os.environ:
         os.environ['LD_LIBRARY_PATH'] = '/usr/local/cuda/lib64:/usr/local/cuda-7.5/lib64:/usr/local/cuda-8.0/lib64:/users/start2014/r0385169/.local/cudnn'
@@ -16,38 +17,36 @@ if 'LD_LIBRARY_PATH' not in os.environ:
                 sys.exit(1)
 
 
+
 import tensorflow as tf
 import reader
+import fnmatch
+import shutil
 from gensim import corpora, models
 
-##### paths
 
 python_path = os.path.abspath(os.getcwd())
 general_path = os.path.split(python_path)[0]
-input_path = os.path.join(os.path.split(os.path.split(python_path)[0])[0],'input')
+input_path = os.path.join(os.path.split(os.path.split(python_path)[0])[0],'input_n_best/original_n-best')
+data_path = os.path.join(os.path.split(os.path.split(python_path)[0])[0],'input')
 output_path = os.path.join(general_path,'output')
 
-##### flags
+# set data and save path
 
 flags = tf.flags
 logging = tf.logging
 
 flags.DEFINE_integer("num_run", 0, "num_run")
 flags.DEFINE_string("test_name","extended_topic_1","test_name")
-flags.DEFINE_string("eval_name",'ds.testshort.txt',"eval_name")
-flags.DEFINE_integer("top_k",7,"top_k")
-flags.DEFINE_integer("topic_k",4,"topic_k")
 
-flags.DEFINE_string("loss_function","full_softmax","loss_function")
+flags.DEFINE_string("name","n-best-extended_topic_1","name")
 
-flags.DEFINE_string("data_path",input_path,"data_path")
-flags.DEFINE_string("save_path",output_path,"save_path")
-flags.DEFINE_string("use_fp16",False,"train blabla")
-
+flags.DEFINE_string("input_path", input_path, "data_path")
+flags.DEFINE_string("data_path", data_path, "data_path")
+flags.DEFINE_string("save_path", output_path, "save_path")
+flags.DEFINE_bool("use_fp16", False, "train using 16-bit floats instead of 32bit floats")
 
 FLAGS = flags.FLAGS
-
-##### classes and functions 
 
 def data_type():
     return tf.float16 if FLAGS.use_fp16 else tf.float32
@@ -112,42 +111,14 @@ class ds_extended_topic_1_model(object):
         
         self._cost, self._nb_words_in_batch = get_loss_function(output_reg, output_lda, output_int, softmax_w_reg, softmax_w_lda, softmax_w_int, softmax_b_reg, softmax_b_lda, softmax_b_int, labels, topic_matrix, input_continuous, is_training)
 
-        cost = self._cost / (self._nb_words_in_batch + 1e-32)
         
         self._final_state_reg = state_reg
         self._final_state_lda = state_lda
         self._final_state_int = state_int
-
-        self._temp1,self._temp2,self._temp3 = get_N_most_probable_words(output_reg, output_lda, output_int, softmax_w_reg, softmax_w_lda, softmax_w_int, softmax_b_reg, softmax_b_lda, softmax_b_int, labels, topic_matrix, data, input_continuous)
-        _,_,self._temp4 = get_probability(output_reg, output_lda, output_int, softmax_w_reg, softmax_w_lda, softmax_w_int, softmax_b_reg, softmax_b_lda, softmax_b_int, labels, topic_matrix, data, input_continuous)
-        _,_,self._temp5 = get_N_most_probable_topics(output_lda, softmax_w_lda, softmax_b_lda, labels, data, input_continuous)
-
-        if not is_training:
-            return
         
     def assign_lr(self, session, lr_value):
         session.run(self._lr_update, feed_dict={self._new_lr: lr_value})
         
-    @property
-    def temp1(self):
-        return self._temp1
-    
-    @property
-    def temp2(self):
-        return self._temp2
-
-    @property
-    def temp3(self):
-        return self._temp3
-
-    @property
-    def temp4(self):
-        return self._temp4
-        
-    @property
-    def temp5(self):
-        return self._temp5
-
     @property
     def nb_words_in_batch(self):
         return self._nb_words_in_batch    
@@ -230,80 +201,6 @@ def get_optimizer(lr):
         return tf.train.AdamOptimizer()
     return 0
     
-def get_N_most_probable_words(output_reg, output_lda, output_int, softmax_w_reg, softmax_w_lda, softmax_w_int, softmax_b_reg, softmax_b_lda, softmax_b_int, targets, topic_matrix, data, model):
-    targets = tf.reshape(targets, [-1])
-    data = tf.reshape(data, [-1])
-    mask = tf.not_equal(targets,[model.pad_id]) 
-    mask2 = tf.reshape(tf.where(mask),[-1])
-    targets = tf.gather(targets, mask2)
-    data = tf.gather(data, mask2)
-    output_reg = tf.gather(output_reg, mask2)
-    output_lda = tf.gather(output_lda, mask2) 
-    output_int = tf.gather(output_int, mask2) 
-    
-    if FLAGS.loss_function == "full_softmax":        
-        logits_reg = tf.matmul(output_reg, softmax_w_reg) + softmax_b_reg
-        probs_reg = tf.nn.softmax(logits_reg) 
-        
-        logits_lda = tf.matmul(output_lda, softmax_w_lda) + softmax_b_lda
-        probs_topic = tf.nn.softmax(logits_lda) 
-        probs_lda = tf.matmul(probs_topic,topic_matrix)
-        
-        logits_int = tf.matmul(output_int, softmax_w_int) + softmax_b_int
-        ints = tf.nn.softmax(logits_int) 
-        
-        probs = tf.slice(ints,[0,0],[-1,1]) * probs_reg + tf.slice(ints,[0,1],[-1,1]) * probs_lda
-        
-        _, indeces = tf.nn.top_k(probs, k=FLAGS.top_k, sorted=True)
-                
-        return data, targets, indeces
-        
-def get_N_most_probable_topics(output_lda, softmax_w_lda, softmax_b_lda, targets, data, model):
-    targets = tf.reshape(targets, [-1])
-    data = tf.reshape(data, [-1])
-    mask = tf.not_equal(targets,[model.pad_id]) 
-    mask2 = tf.reshape(tf.where(mask),[-1])
-    targets = tf.gather(targets, mask2)
-    data = tf.gather(data, mask2)
-    output_lda = tf.gather(output_lda, mask2) 
-    
-    if FLAGS.loss_function == "full_softmax":        
-        logits_lda = tf.matmul(output_lda, softmax_w_lda) + softmax_b_lda
-        probs_topic = tf.nn.softmax(logits_lda) 
-        
-        _, indeces = tf.nn.top_k(probs_topic, k=FLAGS.topic_k, sorted=True)
-                
-        return data, targets, indeces
-    
-def get_probability(output_reg, output_lda, output_int, softmax_w_reg, softmax_w_lda, softmax_w_int, softmax_b_reg, softmax_b_lda, softmax_b_int, targets, topic_matrix, data, model):
-    targets = tf.reshape(targets, [-1])
-    data = tf.reshape(data, [-1])
-    mask = tf.not_equal(targets,[model.pad_id])
-    mask2  = tf.reshape(tf.where(mask),[-1])
-    targets = tf.gather(targets, mask2)
-    data = tf.gather(data, mask2)
-    output_reg = tf.gather(output_reg, mask2)
-    output_lda = tf.gather(output_lda, mask2) 
-    output_int = tf.gather(output_int, mask2) 
-        
-    if FLAGS.loss_function == "full_softmax":        
-        logits_reg = tf.matmul(output_reg, softmax_w_reg) + softmax_b_reg
-        probs_reg = tf.nn.softmax(logits_reg) 
-        
-        logits_lda = tf.matmul(output_lda, softmax_w_lda) + softmax_b_lda
-        probs_topic = tf.nn.softmax(logits_lda) 
-        probs_lda = tf.matmul(probs_topic,topic_matrix)
-        
-        logits_int = tf.matmul(output_int, softmax_w_int) + softmax_b_int
-        ints = tf.nn.softmax(logits_int) 
-        
-        probs = tf.slice(ints,[0,0],[-1,1]) * probs_reg + tf.slice(ints,[0,1],[-1,1]) * probs_lda
-                
-        idx = tf.reshape(targets, [-1])
-        idx_flattened = tf.range(0, tf.shape(probs)[0]) * tf.shape(probs)[1] + idx
-        probability = tf.gather(tf.reshape(probs, [-1]), idx_flattened)  # use flattened indices
-
-        return data, targets, probability
 
 def get_loss_function(output_reg, output_lda, output_int, softmax_w_reg, softmax_w_lda, softmax_w_int, softmax_b_reg, softmax_b_lda, softmax_b_int, targets, topic_matrix, model, is_training):
     targets = tf.reshape(targets, [-1])
@@ -314,26 +211,25 @@ def get_loss_function(output_reg, output_lda, output_int, softmax_w_reg, softmax
     output_lda = tf.gather(output_lda, mask2) 
     output_int = tf.gather(output_int, mask2) 
     nb_words_in_batch = tf.reduce_sum(tf.cast(mask,dtype=tf.float32))
+              
+    logits_reg = tf.matmul(output_reg, softmax_w_reg) + softmax_b_reg
+    probs_reg = tf.nn.softmax(logits_reg) 
         
-    if FLAGS.loss_function == "full_softmax":        
-        logits_reg = tf.matmul(output_reg, softmax_w_reg) + softmax_b_reg
-        probs_reg = tf.nn.softmax(logits_reg) 
-        
-        logits_lda = tf.matmul(output_lda, softmax_w_lda) + softmax_b_lda
-        probs_topic = tf.nn.softmax(logits_lda) 
-        probs_lda = tf.matmul(probs_topic,topic_matrix)
+    logits_lda = tf.matmul(output_lda, softmax_w_lda) + softmax_b_lda
+    probs_topic = tf.nn.softmax(logits_lda) 
+    probs_lda = tf.matmul(probs_topic,topic_matrix)
         
         
-        logits_int = tf.matmul(output_int, softmax_w_int) + softmax_b_int
-        ints = tf.nn.softmax(logits_int) 
+    logits_int = tf.matmul(output_int, softmax_w_int) + softmax_b_int
+    ints = tf.nn.softmax(logits_int) 
         
-        probs = tf.slice(ints,[0,0],[-1,1]) * probs_reg + tf.slice(ints,[0,1],[-1,1]) * probs_lda
+    probs = tf.slice(ints,[0,0],[-1,1]) * probs_reg + tf.slice(ints,[0,1],[-1,1]) * probs_lda
                 
-        idx = tf.reshape(targets, [-1])
-        idx_flattened = tf.range(0, tf.shape(probs)[0]) * tf.shape(probs)[1] + idx
-        y = tf.gather(tf.reshape(probs, [-1]), idx_flattened)  # use flattened indices
-        loss = -tf.log(y)
-        return tf.reduce_sum(loss), nb_words_in_batch
+    idx = tf.reshape(targets, [-1])
+    idx_flattened = tf.range(0, tf.shape(probs)[0]) * tf.shape(probs)[1] + idx
+    y = tf.gather(tf.reshape(probs, [-1]), idx_flattened)  # use flattened indices
+    loss = -tf.log(y)
+    return tf.reduce_sum(loss), nb_words_in_batch
 
 def run_test_epoch(session, model, epoch_nb = 0):
     """Runs the model on the given data."""
@@ -343,90 +239,81 @@ def run_test_epoch(session, model, epoch_nb = 0):
     state_reg = session.run(model.initial_state_reg)
     state_lda = session.run(model.initial_state_lda)
     state_int = session.run(model.initial_state_int)
-    processed_words = 0
+
     
-    reverse_dict = {v: k for k, v in model.input_continuous.word_to_id.iteritems()}
-    reverse_dict[model.input_continuous.pad_id] = 'PAD'
+    fetches = {"cost": model.cost, 'nb_words_in_batch': model.nb_words_in_batch, "final_state_reg": model.final_state_reg,"final_state_lda": model.final_state_lda, "final_state_int": model.final_state_int}
+
+    for step in range(model.input_continuous.epoch_size):
+        batch_data, batch_labels = model.input_continuous.next_batch()
+        batch_seq_len = np.ones(model.input_continuous.batch_size)*model.input_continuous.num_steps
+        feed_dict = {}
+        feed_dict[model.data] = batch_data
+        feed_dict[model.labels] = batch_labels
+        feed_dict[model.seq_len] = batch_seq_len
+        
+        for i, (c, h) in enumerate(model.initial_state_lda):
+            feed_dict[c] = state_lda[i].c
+            feed_dict[h] = state_lda[i].h
+
+        for i, (c, h) in enumerate(model.initial_state_reg):
+            feed_dict[c] = state_reg[i].c
+            feed_dict[h] = state_reg[i].h
     
-    fetches = {"cost": model.cost, 'nb_words_in_batch': model.nb_words_in_batch, "final_state_reg": model.final_state_reg,"final_state_lda": model.final_state_lda, "final_state_int": model.final_state_int, "temp1" :model.temp1, "temp2" :model.temp2, "temp3" :model.temp3, "temp4" :model.temp4, "temp5" :model.temp5}
+        for i, (c, h) in enumerate(model.initial_state_int):
+            feed_dict[c] = state_int[i].c
+            feed_dict[h] = state_int[i].h
 
-    if (os.path.exists((FLAGS.save_path + '/' + FLAGS.test_name + '_' + str(FLAGS.num_run)+ '/eval' +'.txt'))):
-        os.remove(FLAGS.save_path + '/' + FLAGS.test_name + '_' + str(FLAGS.num_run)+ '/eval' +'.txt')
+        vals = session.run(fetches, feed_dict)
+        cost = vals["cost"]
+        state_lda = vals["final_state_lda"]
+        state_int = vals["final_state_int"]
+        nb_words_in_batch = vals["nb_words_in_batch"]
 
-    with open((FLAGS.save_path + '/' + FLAGS.test_name + '_' + str(FLAGS.num_run) + '/eval' +'.txt'), "w") as f, open((FLAGS.save_path + '/' + FLAGS.test_name + '_' + str(FLAGS.num_run) + '/topic' +'.txt'), "w") as g:
-        for step in range(model.input_continuous.epoch_size):
-            batch_data, batch_labels = model.input_continuous.next_batch()
-            batch_seq_len = np.ones(model.input_continuous.batch_size)*model.input_continuous.num_steps
-            feed_dict = {}
-            feed_dict[model.data] = batch_data
-            feed_dict[model.labels] = batch_labels
-            feed_dict[model.seq_len] = batch_seq_len
-
-            for i, (c, h) in enumerate(model.initial_state_lda):
-                feed_dict[c] = state_lda[i].c
-                feed_dict[h] = state_lda[i].h
-
-            for i, (c, h) in enumerate(model.initial_state_reg):
-                feed_dict[c] = state_reg[i].c
-                feed_dict[h] = state_reg[i].h
-    
-            for i, (c, h) in enumerate(model.initial_state_int):
-                feed_dict[c] = state_int[i].c
-                feed_dict[h] = state_int[i].h
-
-            vals = session.run(fetches, feed_dict)
-            cost = vals["cost"]
-            state_lda = vals["final_state_lda"]
-            state_int = vals["final_state_int"]
-            nb_words_in_batch = vals["nb_words_in_batch"]
-
-            if batch_labels[0,-1] == model.input_continuous.eos_id:
-                state_reg = session.run(model.initial_state_reg)
-            else:
-                state_reg = vals["final_state_reg"]
-
-            data = vals["temp1"]
-            labels = vals["temp2"]
-            top_k = vals["temp3"]
-            prob = vals['temp4']
-            topic_k = vals['temp5']
-            for i in xrange(len(data)):
-                f.write("{:<15}".format(reverse_dict[data[i]].encode('utf-8')))
-                f.write(" | ")
-                f.write("{:<15}".format(reverse_dict[labels[i]].encode('utf-8')))
-                f.write(" | ")
-                f.write("{:<15}".format(prob[i]))
-                f.write(" -> ")
-                f.write("{:<15}".format(('%e'% np.exp(-prob[i]))))
-                f.write(" | ")
-                for j in xrange(len(top_k[i])):
-                    f.write("{:<15}".format(reverse_dict[top_k[i][j]].encode('utf-8')))
-                f.write("\n")
-                
-                g.write("{:<15}".format(reverse_dict[data[i]].encode('utf-8')))
-                g.write(" | ")
-                g.write("{:<15}".format(reverse_dict[labels[i]].encode('utf-8')))
-                g.write(" | ")
-                for j in xrange(len(topic_k[i])):
-                    g.write("{:<15}".format('topic ' + str(topic_k[i][j])))
-                g.write("\n")
-
-            costs += cost
-            iters += nb_words_in_batch
-            processed_words += sum(batch_seq_len)
-    
-            if step % (model.input_continuous.epoch_size // 10) == 0:
-                print("%.3f perplexity: %.3f speed: %.0f wps" % (step * 1.0 / model.input_continuous.epoch_size, np.exp(costs / iters),
-    						 processed_words / (time.time() - start_time))) 
+        if batch_labels[0,-1] == model.input_continuous.eos_id:
+            state_reg = session.run(model.initial_state_reg)
+        else:
+            state_reg = vals["final_state_reg"]
+            
+        costs += cost
+        iters += nb_words_in_batch
+        
     return np.exp(costs/iters)    
- 
-def main(_):
-    print('Eval job started')
     
-    lda_path = os.path.join(FLAGS.data_path, "lda_512_10.ds")
+def find_n_best_lists(n_best):
+    n_best_files = os.listdir(n_best)
+    n_best_files.sort()
+    fv_files = []
+    fv_files_amount = []
+    for file in n_best_files:
+        if not file.split('.')[0] in fv_files:
+	   fv_files.append(file.split('.')[0])
+	   fv_files_amount.append(int(file.split('.')[2]))
+        else:
+	   if fv_files_amount[-1] < int(file.split('.')[2]):
+	       fv_files_amount[-1] = int(file.split('.')[2])
+    
+    return fv_files, fv_files_amount
+
+def remove(path):
+    """ param <path> could either be relative or absolute. """
+    if os.path.isfile(path):
+        os.remove(path)  # remove the file
+    elif os.path.isdir(path):
+        shutil.rmtree(path)  # remove dir and all contains
+    else:
+        raise ValueError("file {} is not a file or dir.".format(path))
+	
+
+def main(_):
+    print('N-best list rescoring started')
+    
+    lda_path = os.path.join(FLAGS.data_path, "lda_515_10.ds")
     lda = models.LdaModel.load(lda_path) 
     dict_path = os.path.join(FLAGS.data_path, "dictionary.ds")
     dictionary = corpora.Dictionary.load(dict_path)
+    word_to_id = dict()
+    for (wordid,word) in dictionary.iteritems():
+            word_to_id[word] = wordid   
     vocab_size = len(dictionary.items())
  
     nb_topics = lda.num_topics
@@ -447,22 +334,95 @@ def main(_):
     for i in range(0,len(param_np)):
         if param_np[i][0] in param1:
             eval_config[param_np[i][0]] = int(param_np[i][1])
-    
-    with tf.Graph().as_default():
-        topic_matrix = tf.constant(topic_array,dtype=tf.float32)
+            
+    output_dir = os.path.join(FLAGS.save_path, FLAGS.name)
+    if not os.path.exists(output_dir):
+        os.mkdir(output_dir)
+    else:
+        remove(output_dir)
+        os.mkdir(output_dir)
         
-        with tf.name_scope("test"):
-            eval_data = reader.ds_data_continuous(eval_config['batch_size'], eval_config['num_steps'], FLAGS.data_path, FLAGS.eval_name)
-            with tf.variable_scope("model"):
-                mtest =  ds_extended_topic_1_model(is_training=False, config=eval_config, input_sentence = None, input_continuous = eval_data, topic_matrix = topic_matrix, initializer_reg = None, initializer_lda = None, initializer_int = None)
-    
-        #conf = tf.ConfigProto()
-        #conf.gpu_options.allow_growth=True
 
-        sv = tf.train.Supervisor(summary_writer=None,save_model_secs=300, logdir=FLAGS.save_path + '/' + FLAGS.test_name + '_' + str(FLAGS.num_run))
-        with sv.managed_session() as session:
-            test_perplexity=  run_test_epoch(session, mtest)
-            print("Test Perplexity: %.3f" % test_perplexity)
+    fv_files, fv_files_amount = find_n_best_lists(FLAGS.input_path)
+    for i in range(len(fv_files)):
+        print(fv_files[i])
+        best_sentence_history = []
+        for j in range(fv_files_amount[i]+1):
+            name_file = fv_files[i] + '.0.' + str(j) + '.10000-best.txt'
+            output_file = os.path.join(output_dir, name_file)
+            if not os.path.exists(os.path.join(output_dir,'hypothesis_files' + str(j))):
+                os.mkdir(os.path.join(output_dir,'hypothesis_files' + str(j)))
+            else:
+                remove(os.path.join(output_dir,'hypothesis_files' + str(j)))
+                os.mkdir(os.path.join(output_dir,'hypothesis_files' + str(j)))
+
+            input_file = os.path.join(FLAGS.input_path, name_file)
+            sentences = []
+            #read all sentence hypotheses	
+            with open(input_file,'r') as f:
+                for k in range(10): 
+                    line = f.readline().decode('utf-8')
+                    if line == '':
+                        break
+                    sentences.append(line)	
+	
+            #make sentence files that later needs to be grades
+            accoustic_score = [float(sentence.split()[0]) for sentence in sentences]	
+            
+            for k in range(len(sentences)):
+                sen = sentences[k].split()
+                new_sen = []
+                for l in range(len(sen)): 
+                    if sen[l] in word_to_id.keys():
+                        new_sen.append(sen[l].encode('utf-8'))
+                new_sen = ' '.join(new_sen)
+                
+                with open(os.path.join(output_dir,'hypothesis_files' + str(j) + '/hypothesis'+str(k)+'.txt'),'w') as g:
+                    for best_sen in best_sentence_history: g.write(best_sen +'\n')
+                    g.write(new_sen) 	
+            
+            #compute perplexity
+            ppl = []
+            for k in range(len(sentences)):
+                eval_name = 'hypothesis'+str(k)+'.txt'
+                
+                with tf.Graph().as_default():
+                    topic_matrix = tf.constant(topic_array,dtype=tf.float32)
+
+                    with tf.name_scope("test"):
+                        eval_data = reader.ds_data_continuous(eval_config['batch_size'], eval_config['num_steps'], FLAGS.data_path, FLAGS.data_path,os.path.join(output_dir,'hypothesis_files' + str(j)), eval_name)
+                        with tf.variable_scope("model"):
+                            mtest =  ds_extended_topic_1_model(is_training=False, config=eval_config, input_sentence = None, input_continuous = eval_data, topic_matrix = topic_matrix, initializer_reg = None, initializer_lda = None, initializer_int = None)
+    
+                    sv = tf.train.Supervisor(summary_writer=None, save_model_secs=0, logdir=FLAGS.save_path + '/' + FLAGS.test_name + '_' + str(FLAGS.num_run))
+                    with sv.managed_session() as session:
+                        test_perplexity=  run_test_epoch(session, mtest)
+                print("hypothesis %d with PPL %.3f" % (k,test_perplexity))
+
+                ppl.append(-test_perplexity)
+
+            vals = np.array(ppl) + np.array(accoustic_score)	
+            sort_index = np.argsort(vals)[::-1]
+            
+            #best sentence:
+            sen = sentences[sort_index[0]].split()
+            new_sen = []
+            for k in range(len(sen)): 
+                if sen[k] in word_to_id.keys():
+                    new_sen.append(sen[k].encode('utf-8'))
+            new_sen = ' '.join(new_sen)
+            best_sentence_history.append(new_sen)
+
+            sentences2 = []
+            for k in sort_index:
+                sen = sentences[k].split()
+                sen[1] = str(ppl[k])
+                sen = ' '.join(sen)
+                sentences2.append(sen.encode('utf-8'))
+            
+            with open(output_file,'w') as h:
+                for sentence in sentences2: h.write(sentence +'\n')
+
     
     print('done')
                     
