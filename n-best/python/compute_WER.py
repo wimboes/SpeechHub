@@ -1,6 +1,7 @@
 import argparse
 import os
 import shutil
+import fnmatch
 
 ##### flags
 
@@ -34,7 +35,7 @@ if (os.path.exists(out_folder)):
 else:
     os.mkdir(out_folder)
 
-n_best_files = os.listdir(n_best)
+n_best_files = [file for file in os.listdir(n_best) if fnmatch.fnmatch(file, 'fv*')]
 n_best_files.sort()
 fv_files = []
 fv_files_amount = []
