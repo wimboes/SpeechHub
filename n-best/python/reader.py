@@ -16,16 +16,16 @@ class ds_data_sentence(object):
     def __init__(self, batch_size, dict_path, data_path, name):
         path = os.path.join(data_path, name)
         
-	self._sentences = [line.decode('utf-8') for line in open(path)]
-	
-	amount_sentences = len(self._sentences)
+        self._sentences = [line.decode('utf-8') for line in open(path)]
+        
+        amount_sentences = len(self._sentences)
         self._longest_sentence = max(len(line.split()) for line in self._sentences)
         self._epoch_size = amount_sentences//batch_size
-	self.batch_size = batch_size
-	if batch_size !=1:
-	    sys.exit("Not possible with this batch size")
-
-	dict_path = os.path.join(dict_path, "dictionary.ds")
+        self.batch_size = batch_size
+        if batch_size !=1:
+            sys.exit("Not possible with this batch size")
+            
+        dict_path = os.path.join(dict_path, "dictionary.ds")
         dictionary = corpora.Dictionary.load(dict_path)
         self._word_to_id = dict()
         for (wordid,word) in dictionary.iteritems():
@@ -45,9 +45,9 @@ class ds_data_sentence(object):
         batch_labels = self.pad_id*np.ones((self.batch_size,max_seq_len))
         seq_len = np.zeros(self.batch_size)
         
-        sentences = [self._sentences[self.batch_id]]
-	i = 0 
-	new_sentence = sentences[i].split()
+        sentences = [self._sentences[self.batch_id]]      
+        i = 0 
+        new_sentence = sentences[i].split()
         new_sentence = [self._word_to_id[word] for word in new_sentence]
         seqlen = len(new_sentence)-1
         seq_len[i] = min(seqlen, max_seq_len)
@@ -103,68 +103,16 @@ class ds_data_sentence(object):
         
 class ds_data_continuous(object):
     def __init__(self, batch_size, num_steps, dict_path, data_path, name):
-        self.batch_size = batch_size
-        
-        #reading data
         path = os.path.join(data_path, name)
-        self.directory = os.path.join(data_path, name + '_batch_files_continuous_' + str(batch_size) + '_' + str(num_steps))
-        info_file = os.path.join(self.directory, 'info.txt')
-        if not (os.path.exists(info_file)):
-            print("Creating directory %s" % self.directory)
-            if not (os.path.exists(self.directory)): 
-                os.mkdir(self.directory)
-            amount_words = sum(1 for line in open(path) for word in line.split())
-            amount_sentences = sum(1 for line in open(path))
-            print('OK1')
-            self._epoch_size = (amount_words-amount_sentences)//(num_steps*batch_size)
-            self.batch_size = batch_size
-            self.num_steps = num_steps
-            with open(info_file, 'w') as i_f:
-                i_f.write('batch_size: ' + str(batch_size) + '\n')
-                i_f.write('num_steps: ' + str(num_steps) + '\n')
-                i_f.write('amount_words: ' + str(amount_words) + '\n')
-                i_f.write('amount_sentences: ' + str(amount_sentences) + '\n')
-            create_new_batch_files = True
-	else:
-            with open(info_file,"r") as i_f:
-                batch_size_previous = int(i_f.readline().split()[1])
-                num_steps_previous = int(i_f.readline().split()[1])
-                amount_words = int(i_f.readline().split()[1])
-                amount_sentences = int(i_f.readline().split()[1])               
-            if (batch_size_previous != batch_size) or (num_steps_previous != num_steps):
-                os.remove(info_file)
-                create_new_batch_files = True
-            else:
-                create_new_batch_files = False                     
-        self._epoch_size = (amount_words-amount_sentences)//(num_steps*batch_size)
         self.batch_size = batch_size
         self.num_steps = num_steps
+        if (batch_size !=1) or (num_steps !=1):
+            sys.exit("Not possible with this batch size")        
         
-        #creating batch_files that will later be read
-        if create_new_batch_files:
-            filelist = [ f for f in os.listdir(self.directory)]
-            for f in filelist:
-                os.remove(os.path.join(self.directory,f))
-            with open(path, "r") as f:
-		print('OK2')
-                words = [lines.decode('utf-8').split()[:-1] for lines in f]
-                print('OK3')
-		words = [item for sentence in words for item in sentence]
-		words.append('<s>')
-            	print('OK4')
-            for i in xrange(self._epoch_size):
-                batch_file = os.path.join(self.directory, 'batch' + str(i) + '.txt')
-                with open(batch_file, 'w') as bf:
-                    for j in xrange(batch_size):
-                        new_text_piece = words[i*num_steps+j*self._epoch_size*num_steps:(i+1)*num_steps+1+j*self._epoch_size*num_steps]
-                        new_text_piece_decoded = ' '.join([k.encode('utf-8') for k in new_text_piece])                          
-                        bf.write(new_text_piece_decoded +'\n')
-            with open(info_file, 'w') as i_f:
-                i_f.write('batch_size: ' + str(batch_size) + '\n')
-                i_f.write('num_steps: ' + str(num_steps) + '\n')
-                i_f.write('amount_words: ' + str(amount_words) + '\n')
-                i_f.write('amount_sentences: ' + str(amount_sentences) + '\n')
-            print('creating batch_files done')
+        
+        self._words = [lines.decode('utf-8').split()[:-1] for lines in open(path)]
+        self._epoch_size = len(self._words)
+        self._words.append('<s>')
             
         #reading word_to_id
         dict_path = os.path.join(dict_path, "dictionary.ds")
@@ -183,17 +131,9 @@ class ds_data_continuous(object):
     def next_batch(self):
         if self.batch_id == self.epoch_size:
             self.batch_id = 0
-        batch_data = self.pad_id*np.ones((self.batch_size,self.num_steps))
-        batch_labels = self.pad_id*np.ones((self.batch_size,self.num_steps))
-        
-        with open(os.path.join(self.directory, 'batch' + str(self.batch_id) + '.txt'), 'r') as f:
-            sentences = [lines.decode('utf-8') for lines in f]
-        for i in xrange(self.batch_size):
-            new_sentence = sentences[i].split()
-            new_sentence = [self._word_to_id[word] for word in new_sentence]
-            
-            batch_data[i,:] = new_sentence[0:self.num_steps]
-            batch_labels[i,:] = map(lambda x:x if x!= self._bos_id else self._eos_id,new_sentence[1:self.num_steps+1])
+        batch_data = np.array(self.word_to_id[self._word[self.batch_id]])
+        batch_labels =  map(lambda x:x if x!= self._bos_id else self._eos_id,self.word_to_id[self._word[self.batch_id+1]])
+          
         self.batch_id += 1 
         return batch_data, batch_labels
         
@@ -237,58 +177,19 @@ class ds_data_continuous(object):
 
 class ds_data_sentence_with_history(object):
     def __init__(self, batch_size, history_size,dict_path, data_path, name):
-        self.batch_size = batch_size
-	self.history_size = history_size        
+        self.history_size = history_size        
 
         #reading data
         path = os.path.join(data_path, name)
-        self.directory = os.path.join(data_path, name + '_batch_files_sentence_' + str(batch_size))
-        info_file = os.path.join(self.directory, 'info.txt')
-        if not (os.path.exists(info_file)):
-            print("Creating directory %s" % self.directory)
-            if not (os.path.exists(self.directory)): 
-                os.mkdir(self.directory)
-            amount_sentences = sum(1 for line in open(path))
-            self._epoch_size = amount_sentences//batch_size
-            self._longest_sentence = max(len(line.split()) for line in open(path)) - 1
-            self.batch_size = batch_size
-            with open(info_file, 'w') as i_f:
-                i_f.write('batch_size: ' + str(batch_size) + '\n')
-                i_f.write('amount_sentences: ' + str(amount_sentences) + '\n')
-                i_f.write('longest_sentence: ' + str(self._longest_sentence) + '\n')
-                self._longest_sentence = max(len(line.split()) for line in open(path))
-            create_new_batch_files = True
-        else:
-            with open(info_file,"r") as i_f:
-                batch_size_previous = int(i_f.readline().split()[1])
-                amount_sentences = int(i_f.readline().split()[1])
-                self._longest_sentence = int(i_f.readline().split()[1])
-            if batch_size_previous != batch_size:
-                os.remove(info_file)
-                create_new_batch_files = True
-            else:
-                create_new_batch_files = False                     
+        
+        self._sentences = [line.decode('utf-8') for line in open(path)]
+        
+        amount_sentences = len(self._sentences)
+        self._longest_sentence = max(len(line.split()) for line in self._sentences)
         self._epoch_size = amount_sentences//batch_size
         self.batch_size = batch_size
-        
-        #creating batch_files that will later be read
-        if create_new_batch_files:
-            filelist = [ f for f in os.listdir(self.directory)]
-            for f in filelist:
-                os.remove(os.path.join(self.directory,f))
-            with open(path, "r") as f:
-                sentences = [lines.decode('utf-8') for lines in f]
-            for i in xrange(self._epoch_size):
-                batch_file = os.path.join(self.directory, 'batch' + str(i) + '.txt')
-                with open(batch_file, 'w') as bf:
-                    for j in xrange(batch_size):
-                        new_sentence = sentences[i + j*self._epoch_size]
-                        bf.write(new_sentence.encode('utf-8'))
-            with open(info_file, 'w') as i_f:
-                i_f.write('batch_size: ' + str(batch_size) + '\n')
-                i_f.write('amount_sentences: ' + str(amount_sentences) + '\n')
-                i_f.write('longest_sentence: ' + str(self._longest_sentence) + '\n')
-            print('creating batch_files done')
+        if batch_size !=1:
+            sys.exit("Not possible with this batch size")
             
         #reading word_to_id
         dict_path = os.path.join(dict_path, "dictionary.ds")
@@ -304,6 +205,8 @@ class ds_data_sentence_with_history(object):
         
         tfidf_path = os.path.join(data_path,"tfidf.ds")
         self._tfidf = models.TfidfModel.load(tfidf_path)
+        self._idfs = self._tfidf.idfs
+        self._idfs[self._pad_id] = 0
 
         
         self.batch_id = 0
@@ -319,26 +222,23 @@ class ds_data_sentence_with_history(object):
         batch_labels = self.pad_id*np.ones((self.batch_size,max_seq_len))
         seq_len = np.zeros(self.batch_size)
         
-        with open(os.path.join(self.directory, 'batch' + str(self.batch_id) + '.txt'), 'r') as f:
-            sentences = [lines.decode('utf-8') for lines in f]
-        for i in xrange(self.batch_size):
-            new_sentence = sentences[i].split()
-            new_sentence = [self._word_to_id[word] for word in new_sentence]
-            seqlen = len(new_sentence) - 1
-            seq_len[i] = min(seqlen, max_seq_len)
-
-            batch_data[i,0:min(seqlen, max_seq_len)] = new_sentence[0:min(seqlen, max_seq_len)]
-            history_data[i,-max_seq_len+1:] = batch_data[i,0:-1]
-            count_pairs = collections.Counter(history_data[i]).items()    
-            dict_tfidf = dict(self._tfidf[count_pairs])          
+        sentences = [self._sentences[self.batch_id]]
+        i = 0
+        new_sentence = sentences[i].split()
+        new_sentence = [self._word_to_id[word] for word in new_sentence]
+        seqlen = len(new_sentence) - 1
+        seq_len[i] = min(seqlen, max_seq_len)
+        
+        batch_data[i,0:min(seqlen, max_seq_len)] = new_sentence[0:min(seqlen, max_seq_len)]
+        history_data[i,-max_seq_len+1:] = batch_data[i,0:-1]   
             
-            history_tfidf[i,:] = [dict_tfidf[id] if id in dict_tfidf.keys() else 0 for id in history_data[i,:]]
-            if seqlen >= self.history_size:
-                self.history[i] = np.array(new_sentence[-self.history_size-1:-1])
-            else:
-                self.history[i] = np.concatenate((self.history[i,seqlen:],np.array(new_sentence[:-1])))
-            new_sentence.append(self.pad_id)
-            batch_labels[i,0:min(seqlen, max_seq_len)] = new_sentence[1:min(seqlen, max_seq_len)+1]
+        history_tfidf[i,:] = [self._idfs[id] for id in history_data[i,:]]
+        if seqlen >= self.history_size:
+            self.history[i] = np.array(new_sentence[-self.history_size-1:-1])
+        else:
+            self.history[i] = np.concatenate((self.history[i,seqlen:],np.array(new_sentence[:-1])))
+        new_sentence.append(self.pad_id)
+        batch_labels[i,0:min(seqlen, max_seq_len)] = new_sentence[1:min(seqlen, max_seq_len)+1]
         self.batch_id += 1 
         
         return batch_data, history_data, history_tfidf, batch_labels, seq_len

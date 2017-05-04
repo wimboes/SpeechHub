@@ -144,7 +144,6 @@ def run_epoch(session, model, eval_op=None, verbose=False, epoch_nb = 0):
     fetches = {"cost": model.cost,"nb_words_in_batch": model.nb_words_in_batch, "final_state": model.final_state}
 
     for step in range(model.input.epoch_size):
-        print(model.input.epoch_size)
         batch_data, batch_labels, batch_seq_len = model.input.next_batch(model.num_steps)
         feed_dict = {}
         feed_dict[model.data] = batch_data
@@ -161,8 +160,6 @@ def run_epoch(session, model, eval_op=None, verbose=False, epoch_nb = 0):
         
         costs += cost
         iters += nb_words_in_batch 
-        print(costs)
-        print(nb_words_in_batch)
     
     return np.exp(costs/iters)
 
@@ -178,24 +175,8 @@ def find_n_best_lists(n_best):
         else:
 	   if fv_files_amount[-1] < int(file.split('.')[2]):
 	       fv_files_amount[-1] = int(file.split('.')[2])
-
-
-#    n_best_list = ' /users/spraak/jpeleman/lexsub/asr/comp-k/vl/fv'+str(n_best_list_nr)+'/sri/fv'+str(n_best_list_nr)+'_meddest/nbest/(.)+-best.txt'
     
-#    possible_files = []
-#    for path, subdirs, files in os.walk('/users/spraak/jpeleman/lexsub/asr/comp-k/vl/'):
-#	for file in files:	
-#		if fnmatch.fnmatch(file, 'fv*-best.txt'):
-#        		possible_files.append(os.path.join(path,file))
-    
-#    examined_files = []
-#    for i in range(n_best_list_nr, n_best_list_nr + amount_n_best_list):
-#	for file in possible_files:
-#	    if fnmatch.fnmatch(file, '*fv' + str(i) + '*'):
-#	        examined_files.append(file)
-#    examined_files.sort()
-    
-    return fv_files[0:2], fv_files_amount[0:2]
+    return fv_files, fv_files_amount
 
 def remove(path):
     """ param <path> could either be relative or absolute. """
@@ -252,7 +233,11 @@ def main(_):
             sentences = []
             #read all sentence hypotheses	
             with open(input_file,'r') as f:
-                for k in range(5): sentences.append(f.readline().decode('utf-8'))	
+                for k in range(10): 
+                    line = f.readline().decode('utf-8')
+                    if line == '':
+                        break
+                    sentences.append(line)	
 	
             #make sentence files that later needs to be grades
             accoustic_score = [float(sentence.split()[0]) for sentence in sentences]	
