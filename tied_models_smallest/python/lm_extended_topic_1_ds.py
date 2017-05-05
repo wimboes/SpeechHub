@@ -38,15 +38,15 @@ logging = tf.logging
 
 flags.DEFINE_float("init_scale_reg", 0.05, "init_scale_reg")
 flags.DEFINE_integer("num_layers_reg", 1, "num_layers_reg")
-flags.DEFINE_integer("hidden_size_reg", 250, "hidden_size_reg")
+flags.DEFINE_integer("hidden_size_reg", 128, "hidden_size_reg")
 flags.DEFINE_float("keep_prob_reg", 0.5, "keep_prob_reg")
-flags.DEFINE_integer("embedded_size_reg", 128, "embedded_size_reg")
+flags.DEFINE_integer("embedded_size_reg", 64, "embedded_size_reg")
 
 ### lda
 
 flags.DEFINE_float("init_scale_lda", 0.05, "init_scale_lda")
 flags.DEFINE_integer("num_layers_lda", 1, "num_layers_lda")
-flags.DEFINE_integer("hidden_size_lda", 250, "hidden_size_lda")
+flags.DEFINE_integer("hidden_size_lda", 128, "hidden_size_lda")
 flags.DEFINE_float("keep_prob_lda", 0.5, "keep_prob_lda")
 flags.DEFINE_integer("embedded_size_lda", 1, "embedded_size_lda")
 
@@ -54,7 +54,7 @@ flags.DEFINE_integer("embedded_size_lda", 1, "embedded_size_lda")
 
 flags.DEFINE_float("init_scale_int", 0.05, "init_scale_int")
 flags.DEFINE_integer("num_layers_int", 1, "num_layers_int")
-flags.DEFINE_integer("hidden_size_int", 100, "hidden_size_int")
+flags.DEFINE_integer("hidden_size_int", 50, "hidden_size_int")
 flags.DEFINE_float("keep_prob_int", 0.5, "keep_prob_int")
 
 ### general

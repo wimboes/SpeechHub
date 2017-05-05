@@ -41,12 +41,12 @@ flags.DEFINE_float("max_grad_norm", 5, "max_grad_norm")
 flags.DEFINE_integer("num_layers", 1, "num_layers")
 flags.DEFINE_integer("num_history", 80, "num_history")
 flags.DEFINE_float("cbow_exp_decay", 0.9, "cbow_exp_decay")
-flags.DEFINE_integer("hidden_size", 256, "hidden_size")
+flags.DEFINE_integer("hidden_size", 128, "hidden_size")
 flags.DEFINE_integer("max_epoch", 3, "max_epoch")
 flags.DEFINE_integer("max_max_epoch", 3, "max_max_epoch")
 flags.DEFINE_float("keep_prob", 0.5, "keep_prob")
 flags.DEFINE_float("lr_decay", 0.8, "lr_decay")
-flags.DEFINE_integer("embedded_size_reg", 128, "embedded_size_reg")
+flags.DEFINE_integer("embedded_size_reg", 64, "embedded_size_reg")
 flags.DEFINE_integer("embedded_size_cbow", 1, "embedded_size_cbow")
 
 ### general
@@ -90,7 +90,7 @@ class ds_cbow_sentence_model(object):
 
 	if FLAGS.pretrained == "yes":
             input_path = os.path.join(os.path.split(os.path.split(python_path)[0])[0],'input')
-	    embedding_np= np.load(os.path.join(input_path,"embedding_128.npy"))	
+	    embedding_np= np.load(os.path.join(input_path,"embedding_64.npy"))	
 	    with tf.device("/cpu:0"):
                 embedding_reg = tf.get_variable("embedding_reg", [vocab_size+1, config.embedded_size_reg], initializer=tf.constant_initializer(embedding_np),  dtype=data_type())
                 embedding_cbow = tf.get_variable("embedding_cbow", [vocab_size+1, config.embedded_size_cbow], dtype=data_type())
