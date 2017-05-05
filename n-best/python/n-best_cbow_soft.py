@@ -30,7 +30,6 @@ general_path = os.path.split(python_path)[0]
 input_path = os.path.join(os.path.split(os.path.split(python_path)[0])[0],'input_n_best/original_n-best')
 data_path = os.path.join(os.path.split(os.path.split(python_path)[0])[0],'input')
 output_path = os.path.join(general_path,'output')
-model_path = os.path.join(os.path.split(os.path.split(python_path)[0])[0],'untied_models/output')
 
 # set data and save path
 
@@ -44,7 +43,7 @@ flags.DEFINE_string("name","n-best-cbow_mean_soft","name")
 
 flags.DEFINE_string("input_path", input_path, "data_path")
 flags.DEFINE_string("data_path", data_path, "data_path")
-flags.DEFINE_string("model_path", model_path, "model_path")
+flags.DEFINE_string("model_name", "untied_models", "model_name")
 flags.DEFINE_string("save_path", output_path, "save_path")
 flags.DEFINE_bool("use_fp16", False, "train using 16-bit floats instead of 32bit floats")
 
@@ -242,6 +241,7 @@ def remove(path):
 
 def main(_):
     print('N-best list rescoring started')
+    model_path = os.path.join(os.path.split(os.path.split(python_path)[0])[0],FLAGS.model_name +'/output')
 
     dict_path = os.path.join(FLAGS.data_path, "dictionary.ds")
     dictionary = corpora.Dictionary.load(dict_path)
