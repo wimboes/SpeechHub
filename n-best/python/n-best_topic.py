@@ -30,6 +30,7 @@ general_path = os.path.split(python_path)[0]
 input_path = os.path.join(os.path.split(os.path.split(python_path)[0])[0],'input_n_best/original_n-best')
 data_path = os.path.join(os.path.split(os.path.split(python_path)[0])[0],'input')
 output_path = os.path.join(general_path,'output')
+model_path = os.path.join(os.path.split(os.path.split(python_path)[0])[0],'untied_models/output')
 
 # set data and save path
 
@@ -42,6 +43,7 @@ flags.DEFINE_string("test_name","topic","test_name")
 flags.DEFINE_string("name","n-best-topic","name")
 
 flags.DEFINE_string("input_path", input_path, "data_path")
+flags.DEFINE_string("model_path", model_path, "model_path")
 flags.DEFINE_string("data_path", data_path, "data_path")
 flags.DEFINE_string("save_path", output_path, "save_path")
 flags.DEFINE_bool("use_fp16", False, "train using 16-bit floats instead of 32bit floats")
@@ -306,7 +308,7 @@ def main(_):
         for i in xrange(vocab_size):
             topic_array[topic_nb,current_topic[i][0]] = current_topic[i][1]
     
-    param_np = np.load((FLAGS.save_path + '/' + FLAGS.test_name + '_' + str(FLAGS.num_run)+ '/results' +'.npz'))
+    param_np = np.load((FLAGS.model_path + '/' + FLAGS.test_name + '_' + str(FLAGS.num_run)+ '/results' +'.npz'))
     param_np = param_np['param_train_np']
     
     param1 =  ['num_layers_reg','num_layers_lda','hidden_size_lda', 'hidden_size_reg', 'embedded_size_reg', 'embedded_size_lda']
@@ -377,7 +379,7 @@ def main(_):
                         with tf.variable_scope("model"):
                             mtest =  ds_topic_model(is_training=False, config=eval_config, input_sentence = None, input_continuous = eval_data, topic_matrix = topic_matrix, initializer_reg = None, initializer_lda = None)
 			
-                    sv = tf.train.Supervisor(summary_writer=None, save_model_secs=0, logdir=FLAGS.save_path + '/' + FLAGS.test_name + '_' + str(FLAGS.num_run))
+                    sv = tf.train.Supervisor(summary_writer=None, model_model_secs=0, logdir=FLAGS.save_path + '/' + FLAGS.test_name + '_' + str(FLAGS.num_run))
                     with sv.managed_session() as session:
                         test_perplexity=  run_test_epoch(session, mtest)
                 print("hypothesis %d with PPL %.3f" % (k,test_perplexity))
