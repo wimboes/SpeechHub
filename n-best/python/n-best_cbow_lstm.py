@@ -105,13 +105,6 @@ class ds_cbow_sentence_model(object):
                 outputs_cbow.append(comb_)
             output_cbow_lstm = tf.reshape(tf.concat(1, outputs_cbow), [batch_size,num_steps, config['embedded_size_cbow']])
 
-            normed_embedding_cbow = tf.nn.l2_normalize(embedding_cbow, dim=1)
-            normed_array = tf.nn.l2_normalize(output_cbow_lstm, dim=1)
-
-            cosine_similarity = tf.matmul(tf.squeeze(normed_array), tf.transpose(normed_embedding_cbow, [1, 0]))
-            _, closest_ids = tf.nn.top_k(cosine_similarity, k=FLAGS.neighborhood, sorted=True)
-            self._temp5 = closest_ids
-
 
         with tf.variable_scope('lstm_lstm'):
 
@@ -360,6 +353,8 @@ def main(_):
             
             with open(output_file,'w') as h:
                 for sentence in sentences2: h.write(sentence +'\n')
+                    
+    os.system('python compute_WER.py  --n_best ' +  output_dir + ' --name ' + FLAGS.name + '_WER')
 
     
     print('done')

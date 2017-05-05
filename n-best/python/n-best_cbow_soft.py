@@ -104,14 +104,6 @@ class ds_cbow_sentence_model(object):
    
                 outputs_cbow.append(comb_)
             output_cbow_soft = tf.reshape(tf.concat(1, outputs_cbow), [-1, config['embedded_size_cbow']])
-            #self._temp5 = output_cbow_soft
-            
-            normed_embedding_cbow = tf.nn.l2_normalize(embedding_cbow, dim=1)
-            normed_array = tf.nn.l2_normalize(output_cbow_soft, dim=1)
-
-            cosine_similarity = tf.matmul(tf.squeeze(normed_array), tf.transpose(normed_embedding_cbow, [1, 0]))
-            _, closest_ids = tf.nn.top_k(cosine_similarity, k=FLAGS.neighborhood, sorted=True)
-            self._temp5 = closest_ids
 
         with tf.variable_scope('lstm_soft') as lstm_soft:
             
@@ -234,7 +226,7 @@ def find_n_best_lists(n_best):
 	   if fv_files_amount[-1] < int(file.split('.')[2]):
 	       fv_files_amount[-1] = int(file.split('.')[2])
     
-    return fv_files, fv_files_amount
+    return fv_files[4:5], fv_files_amount[4:5]
 
 def remove(path):
     """ param <path> could either be relative or absolute. """
@@ -358,6 +350,8 @@ def main(_):
             
             with open(output_file,'w') as h:
                 for sentence in sentences2: h.write(sentence +'\n')
+    
+    os.system('python compute_WER.py  --n_best ' +  output_dir + ' --name ' + FLAGS.name + '_WER')
 
     
     print('done')

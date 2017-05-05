@@ -61,3 +61,4 @@ with open(os.path.join(out_folder, 'reference.txt'), 'w') as reference, open(os.
 
 os.system('/users/spraak/spchprog/SPRAAK/v1.2/bin/Linux_x86_64/spr_scoreres -ref ' + os.path.join(out_folder, 'reference.txt') + ' -tst ' +  os.path.join(out_folder, 'recognized.txt') + ' -PAR -nr ' + os.path.join(out_folder, 'WER.txt'))
 		
+os.system('/users/spraak/spchprog/SPRAAK/v1.2/bin/Linux_x86_64/spr_scoreres -ref ' + os.path.join(out_folder, 'reference.txt') + ' -tst ' +  os.path.join(out_folder, 'recognized.txt') + ' -PAR')

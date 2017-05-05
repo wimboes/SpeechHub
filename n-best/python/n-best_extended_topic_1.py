@@ -233,7 +233,6 @@ def get_loss_function(output_reg, output_lda, output_int, softmax_w_reg, softmax
 
 def run_test_epoch(session, model, epoch_nb = 0):
     """Runs the model on the given data."""
-    start_time = time.time()
     costs = 0.0
     iters = 0
     state_reg = session.run(model.initial_state_reg)
@@ -276,6 +275,7 @@ def run_test_epoch(session, model, epoch_nb = 0):
             
         costs += cost
         iters += nb_words_in_batch
+        print(cost)
         
     return np.exp(costs/iters)    
     
@@ -307,7 +307,7 @@ def remove(path):
 def main(_):
     print('N-best list rescoring started')
     
-    lda_path = os.path.join(FLAGS.data_path, "lda_515_10.ds")
+    lda_path = os.path.join(FLAGS.data_path, "lda_512_10.ds")
     lda = models.LdaModel.load(lda_path) 
     dict_path = os.path.join(FLAGS.data_path, "dictionary.ds")
     dictionary = corpora.Dictionary.load(dict_path)
@@ -390,7 +390,7 @@ def main(_):
                     topic_matrix = tf.constant(topic_array,dtype=tf.float32)
 
                     with tf.name_scope("test"):
-                        eval_data = reader.ds_data_continuous(eval_config['batch_size'], eval_config['num_steps'], FLAGS.data_path, FLAGS.data_path,os.path.join(output_dir,'hypothesis_files' + str(j)), eval_name)
+                        eval_data = reader.ds_data_continuous(eval_config['batch_size'], eval_config['num_steps'], FLAGS.data_path,os.path.join(output_dir,'hypothesis_files' + str(j)), eval_name)
                         with tf.variable_scope("model"):
                             mtest =  ds_extended_topic_1_model(is_training=False, config=eval_config, input_sentence = None, input_continuous = eval_data, topic_matrix = topic_matrix, initializer_reg = None, initializer_lda = None, initializer_int = None)
     
@@ -423,6 +423,7 @@ def main(_):
             with open(output_file,'w') as h:
                 for sentence in sentences2: h.write(sentence +'\n')
 
+    os.system('python compute_WER.py  --n_best ' +  output_dir + ' --name ' + FLAGS.name + '_WER')
     
     print('done')
                     

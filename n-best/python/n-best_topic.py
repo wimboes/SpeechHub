@@ -257,6 +257,7 @@ def run_test_epoch(session, model, epoch_nb = 0):
             state_reg = vals["final_state_reg"]
 
         costs += cost
+        print(cost)
         iters += nb_words_in_batch
 
     return np.exp(costs/iters)    
@@ -289,7 +290,7 @@ def remove(path):
 def main(_):
     print('N-best list rescoring started')
     
-    lda_path = os.path.join(FLAGS.data_path, "lda_515_10.ds")
+    lda_path = os.path.join(FLAGS.data_path, "lda_512_10.ds")
     lda = models.LdaModel.load(lda_path) 
     dict_path = os.path.join(FLAGS.data_path, "dictionary.ds")
     dictionary = corpora.Dictionary.load(dict_path)
@@ -404,7 +405,8 @@ def main(_):
             
             with open(output_file,'w') as h:
                 for sentence in sentences2: h.write(sentence +'\n')
-
+    
+    os.system('python compute_WER.py  --n_best ' +  output_dir + ' --name ' + FLAGS.name + '_WER')
     
     print('done')
                     

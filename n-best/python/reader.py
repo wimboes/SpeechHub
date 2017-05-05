@@ -111,6 +111,7 @@ class ds_data_continuous(object):
         
         
         self._words = [lines.decode('utf-8').split()[:-1] for lines in open(path)]
+        self._words = [item for sublist in self._words for item in sublist]
         self._epoch_size = len(self._words)
         self._words.append('<s>')
             
@@ -131,9 +132,8 @@ class ds_data_continuous(object):
     def next_batch(self):
         if self.batch_id == self.epoch_size:
             self.batch_id = 0
-        batch_data = np.array(self.word_to_id[self._word[self.batch_id]])
-        batch_labels =  map(lambda x:x if x!= self._bos_id else self._eos_id,self.word_to_id[self._word[self.batch_id+1]])
-          
+        batch_data = np.array([[self.word_to_id[self._words[self.batch_id]]]])
+        batch_labels = np.array([map(lambda x:x if x!= self._bos_id else self._eos_id,[self.word_to_id[self._words[self.batch_id+1]]])])
         self.batch_id += 1 
         return batch_data, batch_labels
         
@@ -192,8 +192,8 @@ class ds_data_sentence_with_history(object):
             sys.exit("Not possible with this batch size")
             
         #reading word_to_id
-        dict_path = os.path.join(dict_path, "dictionary.ds")
-        dictionary = corpora.Dictionary.load(dict_path)
+        dict_path_ = os.path.join(dict_path, "dictionary.ds")
+        dictionary = corpora.Dictionary.load(dict_path_)
         self._word_to_id = dict()
         for (wordid,word) in dictionary.iteritems():
             self._word_to_id[word] = wordid
@@ -203,7 +203,7 @@ class ds_data_sentence_with_history(object):
         self._eos_id = self._word_to_id['</s>']
         self._pad_id = len(self._word_to_id)
         
-        tfidf_path = os.path.join(data_path,"tfidf.ds")
+        tfidf_path = os.path.join(dict_path,"tfidf.ds")
         self._tfidf = models.TfidfModel.load(tfidf_path)
         self._idfs = self._tfidf.idfs
         self._idfs[self._pad_id] = 0
