@@ -1,0 +1,21 @@
+Universe         = vanilla
+RequestCpus     = 1
+RequestMemory    = 2G
++RequestWalltime = 518400
+
+request_GPUs = 1
+requirements = (CUDAGlobalMemoryMb >= 2000) && (CUDACapability >= 3.5) && (machine != "spchcl18.esat.kuleuven.be") &&  (Machine =!= LastRemoteHost)
+
+NiceUser = true
+Notification = Error
+initialdir = .
+
+executable = /users/start2014/r0385169/bin/python
+arguments = "transform_$(data_set).py"
+
+Log          = jobdag/$(data_set)_transform.log
+Output       = jobdag/$(data_set)_transform.out
+Error        = jobdag/$(data_set)_transform.err
+
+Queue
+
