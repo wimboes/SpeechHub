@@ -1,0 +1,7 @@
+JOB cbow_tfidf_soft jobdag/cbow_soft.job DIR ./..
+JOB cbow_tfidf_soft_test jobdag/cbow_soft_test.job DIR ./..
+ 
+VARS cbow_tfidf_soft data_set="ds" test_name="cbow_tfidf_soft" num_run="0" combination="tfidf" 
+VARS cbow_tfidf_soft_test data_set="ds" test_name="cbow_tfidf_soft" num_run="0"
+
+PARENT cbow_tfidf_soft CHILD cbow_tfidf_soft_test
