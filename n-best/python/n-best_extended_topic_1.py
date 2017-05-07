@@ -4,7 +4,6 @@ from __future__ import division
 from __future__ import print_function
 import os
 import sys
-import time
 import numpy as np
 
 if 'LD_LIBRARY_PATH' not in os.environ:
@@ -20,7 +19,6 @@ if 'LD_LIBRARY_PATH' not in os.environ:
 
 import tensorflow as tf
 import reader
-import fnmatch
 import shutil
 from gensim import corpora, models
 
@@ -43,7 +41,7 @@ flags.DEFINE_string("test_name","extended_topic_1","test_name")
 flags.DEFINE_string("name","n-best-extended_topic_1","name")
 
 flags.DEFINE_string("input_path", input_path, "data_path")
-flags.DEFINE_string("model_name", "untied_models", "model_name")
+flags.DEFINE_string("model_name", "n-best", "model_name")
 flags.DEFINE_string("data_path", data_path, "data_path")
 flags.DEFINE_string("save_path", output_path, "save_path")
 flags.DEFINE_bool("use_fp16", False, "train using 16-bit floats instead of 32bit floats")
@@ -233,7 +231,7 @@ def get_loss_function(output_reg, output_lda, output_int, softmax_w_reg, softmax
     loss = -tf.log(y)
     return tf.reduce_sum(loss), nb_words_in_batch
 
-def run_test_epoch(session, model, epoch_nb = 0):
+def run_test_epoch(session, model, times, epoch_nb = 0):
     """Runs the model on the given data."""
     costs = 0.0
     iters = 0
@@ -244,7 +242,7 @@ def run_test_epoch(session, model, epoch_nb = 0):
     
     fetches = {"cost": model.cost, 'nb_words_in_batch': model.nb_words_in_batch, "final_state_reg": model.final_state_reg,"final_state_lda": model.final_state_lda, "final_state_int": model.final_state_int}
 
-    for step in range(model.input_continuous.epoch_size):
+    for step in range(times):
         batch_data, batch_labels = model.input_continuous.next_batch()
         batch_seq_len = np.ones(model.input_continuous.batch_size)*model.input_continuous.num_steps
         feed_dict = {}
@@ -304,7 +302,6 @@ def remove(path):
     else:
         raise ValueError("file {} is not a file or dir.".format(path))
 	
-
 def main(_):
     print('N-best list rescoring started')
     model_path = os.path.join(os.path.split(os.path.split(python_path)[0])[0],FLAGS.model_name +'/output')
@@ -317,6 +314,8 @@ def main(_):
     for (wordid,word) in dictionary.iteritems():
             word_to_id[word] = wordid   
     vocab_size = len(dictionary.items())
+    word_to_id_set = set(word_to_id.keys())
+
  
     nb_topics = lda.num_topics
     topic_array = np.zeros((nb_topics, vocab_size))
@@ -336,7 +335,7 @@ def main(_):
     for i in range(0,len(param_np)):
         if param_np[i][0] in param1:
             eval_config[param_np[i][0]] = int(param_np[i][1])
-            
+    
     output_dir = os.path.join(FLAGS.save_path, FLAGS.name)
     if not os.path.exists(output_dir):
         os.mkdir(output_dir)
@@ -349,20 +348,16 @@ def main(_):
     for i in range(len(fv_files)):
         print(fv_files[i])
         best_sentence_history = []
+        best_sentence_history_len = 0
         for j in range(fv_files_amount[i]+1):
             name_file = fv_files[i] + '.0.' + str(j) + '.10000-best.txt'
             output_file = os.path.join(output_dir, name_file)
-            if not os.path.exists(os.path.join(output_dir,'hypothesis_files' + str(j))):
-                os.mkdir(os.path.join(output_dir,'hypothesis_files' + str(j)))
-            else:
-                remove(os.path.join(output_dir,'hypothesis_files' + str(j)))
-                os.mkdir(os.path.join(output_dir,'hypothesis_files' + str(j)))
 
             input_file = os.path.join(FLAGS.input_path, name_file)
             sentences = []
             #read all sentence hypotheses	
             with open(input_file,'r') as f:
-                for k in range(10): 
+                for k in range(1000): 
                     line = f.readline().decode('utf-8')
                     if line == '':
                         break
@@ -371,37 +366,37 @@ def main(_):
             #make sentence files that later needs to be grades
             accoustic_score = [float(sentence.split()[0]) for sentence in sentences]	
             
-            for k in range(len(sentences)):
-                sen = sentences[k].split()
-                new_sen = []
-                for l in range(len(sen)): 
-                    if sen[l] in word_to_id.keys():
-                        new_sen.append(sen[l].encode('utf-8'))
-                new_sen = ' '.join(new_sen)
-                
-                with open(os.path.join(output_dir,'hypothesis_files' + str(j) + '/hypothesis'+str(k)+'.txt'),'w') as g:
+            len_sentences = [0]
+            with open(os.path.join(output_dir,'hypothesis_file' + str(j) +'.txt'),'w') as g:
+                for k in range(len(sentences)):
+                    sen = sentences[k].split()
+                    new_sen = []
+                    for l in range(len(sen)): 
+                        if sen[l] in word_to_id_set:
+                            new_sen.append(sen[l].encode('utf-8'))
+                    len_sentences.append(len_sentences[-1] + best_sentence_history_len + len(new_sen) - 1)     #setence level           
+                    new_sen = ' '.join(new_sen)
                     for best_sen in best_sentence_history: g.write(best_sen +'\n')
-                    g.write(new_sen) 	
+                    g.write(new_sen +'\n') 	
             
             #compute perplexity
             ppl = []
-            for k in range(len(sentences)):
-                eval_name = 'hypothesis'+str(k)+'.txt'
-                
-                with tf.Graph().as_default():
-                    topic_matrix = tf.constant(topic_array,dtype=tf.float32)
+            with tf.Graph().as_default():
+                topic_matrix = tf.constant(topic_array,dtype=tf.float32)
+                    
+                with tf.name_scope("test"):
+                    eval_data = reader.ds_data_continuous(eval_config['batch_size'], eval_config['num_steps'], FLAGS.data_path,output_dir,'hypothesis_file' + str(j) +'.txt')
+                    with tf.variable_scope("model"):
+                        mtest =  ds_extended_topic_1_model(is_training=False, config=eval_config, input_sentence = None, input_continuous = eval_data, topic_matrix = topic_matrix, initializer_reg = None, initializer_lda = None, initializer_int = None)
 
-                    with tf.name_scope("test"):
-                        eval_data = reader.ds_data_continuous(eval_config['batch_size'], eval_config['num_steps'], FLAGS.data_path,os.path.join(output_dir,'hypothesis_files' + str(j)), eval_name)
-                        with tf.variable_scope("model"):
-                            mtest =  ds_extended_topic_1_model(is_training=False, config=eval_config, input_sentence = None, input_continuous = eval_data, topic_matrix = topic_matrix, initializer_reg = None, initializer_lda = None, initializer_int = None)
-    
-                    sv = tf.train.Supervisor(summary_writer=None, save_model_secs=0, logdir=model_path + '/' + FLAGS.test_name + '_' + str(FLAGS.num_run))
-                    with sv.managed_session() as session:
-                        test_perplexity=  run_test_epoch(session, mtest)
-                print("hypothesis %d with PPL %.3f" % (k,test_perplexity))
+                sv = tf.train.Supervisor(summary_writer=None, save_model_secs=0, logdir=model_path + '/' + FLAGS.test_name + '_' + str(FLAGS.num_run))
+                with sv.managed_session() as session:
+                    for k in range(len(sentences)):  
+                        test_perplexity=  run_test_epoch(session, mtest, len_sentences[k+1]-len_sentences[k])
+                        ppl.append(-test_perplexity)
+                        print("hypothesis %d with PPL %.3f" % (k,test_perplexity))
 
-                ppl.append(-test_perplexity)
+
 
             vals = np.array(ppl) + np.array(accoustic_score)	
             sort_index = np.argsort(vals)[::-1]
@@ -412,8 +407,10 @@ def main(_):
             for k in range(len(sen)): 
                 if sen[k] in word_to_id.keys():
                     new_sen.append(sen[k].encode('utf-8'))
+            best_sentence_history_len += len(new_sen) -1
             new_sen = ' '.join(new_sen)
             best_sentence_history.append(new_sen)
+
 
             sentences2 = []
             for k in sort_index:
@@ -424,7 +421,7 @@ def main(_):
             
             with open(output_file,'w') as h:
                 for sentence in sentences2: h.write(sentence +'\n')
-
+                    
     os.system('python compute_WER.py  --n_best ' +  output_dir + ' --name ' + FLAGS.name + '_WER')
     
     print('done')

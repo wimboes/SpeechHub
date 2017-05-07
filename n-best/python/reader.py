@@ -261,6 +261,9 @@ class ds_data_sentence_with_history(object):
     def assign_batch_id(self, value):
         self.batch_id = value
         
+    def reset_history(self):
+        self.history = self.pad_id*np.ones((self.batch_size,self.history_size))
+        
     @property
     def unk_id(self):
         return self._unk_id

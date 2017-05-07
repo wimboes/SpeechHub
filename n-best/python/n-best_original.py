@@ -22,7 +22,7 @@ import tensorflow as tf
 import reader
 import fnmatch
 import shutil
-from gensim import corpora, models
+from gensim import corpora
 
 
 python_path = os.path.abspath(os.getcwd())
@@ -43,7 +43,7 @@ flags.DEFINE_string("test_name","original","test_name")
 flags.DEFINE_string("name","n-best-baseline","name")
 
 flags.DEFINE_string("input_path", input_path, "data_path")
-flags.DEFINE_string("model_name", "untied_models", "model_name")
+flags.DEFINE_string("model_name", "n-best", "model_name")
 flags.DEFINE_string("data_path", data_path, "data_path")
 flags.DEFINE_string("save_path", output_path, "save_path")
 flags.DEFINE_bool("use_fp16", False, "train using 16-bit floats instead of 32bit floats")
@@ -138,14 +138,14 @@ def get_loss_function(output, softmax_w, softmax_b, targets, data, is_training):
     loss = tf.nn.sparse_softmax_cross_entropy_with_logits(logits, targets, name=None)
     return tf.reduce_sum(loss), nb_words_in_batch
 
-def run_epoch(session, model, eval_op=None, verbose=False, epoch_nb = 0):
+def run_epoch(session, model, times, eval_op=None, verbose=False, epoch_nb = 0):
     costs = 0.0
     iters = 0
     state = session.run(model.initial_state)
 
     fetches = {"cost": model.cost,"nb_words_in_batch": model.nb_words_in_batch, "final_state": model.final_state}
 
-    for step in range(model.input.epoch_size):
+    for step in range(times):
         batch_data, batch_labels, batch_seq_len = model.input.next_batch(model.num_steps)
         feed_dict = {}
         feed_dict[model.data] = batch_data
@@ -198,7 +198,8 @@ def main(_):
     dictionary = corpora.Dictionary.load(dict_path)
     word_to_id = dict()
     for (wordid,word) in dictionary.iteritems():
-            word_to_id[word] = wordid   
+            word_to_id[word] = wordid
+    word_to_id_set = set(word_to_id.keys())
 
     param_np = np.load((model_path + '/' + FLAGS.test_name + '_' + str(FLAGS.num_run)+ '/results' +'.npz'))
     param_np = param_np['param_train_np']
@@ -223,20 +224,16 @@ def main(_):
     for i in range(len(fv_files)):
         print(fv_files[i])
         best_sentence_history = []
+        best_sentence_history_len = 0
         for j in range(fv_files_amount[i]+1):
             name_file = fv_files[i] + '.0.' + str(j) + '.10000-best.txt'
             output_file = os.path.join(output_dir, name_file)
-            if not os.path.exists(os.path.join(output_dir,'hypothesis_files' + str(j))):
-                os.mkdir(os.path.join(output_dir,'hypothesis_files' + str(j)))
-            else:
-                remove(os.path.join(output_dir,'hypothesis_files' + str(j)))
-                os.mkdir(os.path.join(output_dir,'hypothesis_files' + str(j)))
 
             input_file = os.path.join(FLAGS.input_path, name_file)
             sentences = []
-            #read all sentence hypotheses	
-            with open(input_file,'r') as f:
-                for k in range(10): 
+            read all sentence hypotheses	
+            with open(input_file,'r') as f:         
+                for k in range(1000): 
                     line = f.readline().decode('utf-8')
                     if line == '':
                         break
@@ -245,37 +242,35 @@ def main(_):
             #make sentence files that later needs to be grades
             accoustic_score = [float(sentence.split()[0]) for sentence in sentences]	
             
-            for k in range(len(sentences)):
-                sen = sentences[k].split()
-                new_sen = []
-                for l in range(len(sen)): 
-                    if sen[l] in word_to_id.keys():
-                        new_sen.append(sen[l].encode('utf-8'))
-                new_sen = ' '.join(new_sen)
-                
-                with open(os.path.join(output_dir,'hypothesis_files' + str(j) + '/hypothesis'+str(k)+'.txt'),'w') as g:
+            len_sentences = [0]
+            with open(os.path.join(output_dir,'hypothesis_file' + str(j) +'.txt'),'w') as g:
+                for k in range(len(sentences)):
+                    sen = sentences[k].split()
+                    new_sen = []
+                    for l in range(len(sen)): 
+                        if sen[l] in word_to_id_set:
+                            new_sen.append(sen[l].encode('utf-8'))
+                    len_sentences.append(len_sentences[-1] + best_sentence_history_len + 1)     #setence level           
+                    new_sen = ' '.join(new_sen)
                     for best_sen in best_sentence_history: g.write(best_sen +'\n')
-                    g.write(new_sen) 	
+                    g.write(new_sen +'\n') 	
             
             #compute perplexity
             ppl = []
-            for k in range(len(sentences)):
-                eval_name = 'hypothesis'+str(k)+'.txt'
-                
-                with tf.Graph().as_default():
-                    with tf.name_scope("test"):
-                        eval_data = reader.ds_data_sentence(eval_config['batch_size'], FLAGS.data_path, os.path.join(output_dir,'hypothesis_files' + str(j)), eval_name)
-                        eval_config['num_steps'] = eval_data.longest_sentence
-                        print(eval_config)
-                        with tf.variable_scope("model"):
-                            mtest = ds_original_model(is_training=False, config=eval_config, input_=eval_data)
-			
+            with tf.Graph().as_default():
+                with tf.name_scope("test"):
+                    eval_data = reader.ds_data_sentence(eval_config['batch_size'], FLAGS.data_path, output_dir,'hypothesis_file' + str(j) +'.txt')
+                    eval_config['num_steps'] = eval_data.longest_sentence
+                    with tf.variable_scope("model"):
+                        mtest = ds_original_model(is_training=False, config=eval_config, input_=eval_data)
                     sv = tf.train.Supervisor(summary_writer=None, save_model_secs=0, logdir=model_path + '/' + FLAGS.test_name + '_' + str(FLAGS.num_run))
                     with sv.managed_session() as session:
-                        test_perplexity=  run_epoch(session, mtest)
-                print("hypothesis %d with PPL %.3f" % (k,test_perplexity))
+                        for k in range(len(sentences)):  
+                            test_perplexity=  run_epoch(session, mtest, len_sentences[k+1]-len_sentences[k])
+                            ppl.append(-test_perplexity)
+                            print("hypothesis %d with PPL %.3f" % (k,test_perplexity))
 
-                ppl.append(-test_perplexity)
+
 
             vals = np.array(ppl) + np.array(accoustic_score)	
             sort_index = np.argsort(vals)[::-1]
@@ -288,6 +283,7 @@ def main(_):
                     new_sen.append(sen[k].encode('utf-8'))
             new_sen = ' '.join(new_sen)
             best_sentence_history.append(new_sen)
+            best_sentence_history_len += 1
 
             sentences2 = []
             for k in sort_index:
