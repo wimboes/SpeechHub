@@ -1,0 +1,773 @@
+05/05/17 10:10:53 ******************************************************
+05/05/17 10:10:53 ** condor_scheduniv_exec.1036.0 (CONDOR_DAGMAN) STARTING UP
+05/05/17 10:10:53 ** /usr/bin/condor_dagman
+05/05/17 10:10:53 ** SubsystemInfo: name=DAGMAN type=DAGMAN(10) class=DAEMON(1)
+05/05/17 10:10:53 ** Configuration: subsystem:DAGMAN local:<NONE> class:DAEMON
+05/05/17 10:10:53 ** $CondorVersion: 8.6.2 Apr 23 2017 BuildID: 404257 $
+05/05/17 10:10:53 ** $CondorPlatform: x86_64_RedHat7 $
+05/05/17 10:10:53 ** PID = 24609
+05/05/17 10:10:53 ** Log last touched time unavailable (No such file or directory)
+05/05/17 10:10:53 ******************************************************
+05/05/17 10:10:53 Using config source: /etc/condor/condor_config
+05/05/17 10:10:53 Using local config sources: 
+05/05/17 10:10:53    /etc/condor/config.d/00esat.config
+05/05/17 10:10:53    /etc/condor/config.d/01java.config
+05/05/17 10:10:53    /etc/condor/config.d/80optout_users.config
+05/05/17 10:10:53    /etc/condor/condor_config.local
+05/05/17 10:10:53 config Macros = 166, Sorted = 166, StringBytes = 6025, TablesBytes = 6048
+05/05/17 10:10:53 CLASSAD_CACHING is ENABLED
+05/05/17 10:10:53 Daemon Log is logging: D_ALWAYS D_ERROR
+05/05/17 10:10:53 DaemonCore: No command port requested.
+05/05/17 10:10:53 DAGMAN_USE_STRICT setting: 1
+05/05/17 10:10:53 DAGMAN_VERBOSITY setting: 3
+05/05/17 10:10:53 DAGMAN_DEBUG_CACHE_SIZE setting: 5242880
+05/05/17 10:10:53 DAGMAN_DEBUG_CACHE_ENABLE setting: False
+05/05/17 10:10:53 DAGMAN_SUBMIT_DELAY setting: 0
+05/05/17 10:10:53 DAGMAN_MAX_SUBMIT_ATTEMPTS setting: 6
+05/05/17 10:10:53 DAGMAN_STARTUP_CYCLE_DETECT setting: False
+05/05/17 10:10:53 DAGMAN_MAX_SUBMITS_PER_INTERVAL setting: 5
+05/05/17 10:10:53 DAGMAN_USER_LOG_SCAN_INTERVAL setting: 5
+05/05/17 10:10:53 DAGMAN_DEFAULT_PRIORITY setting: 0
+05/05/17 10:10:53 DAGMAN_SUPPRESS_NOTIFICATION setting: True
+05/05/17 10:10:53 allow_events (DAGMAN_ALLOW_EVENTS) setting: 114
+05/05/17 10:10:53 DAGMAN_RETRY_SUBMIT_FIRST setting: True
+05/05/17 10:10:53 DAGMAN_RETRY_NODE_FIRST setting: False
+05/05/17 10:10:53 DAGMAN_MAX_JOBS_IDLE setting: 1000
+05/05/17 10:10:53 DAGMAN_MAX_JOBS_SUBMITTED setting: 0
+05/05/17 10:10:53 DAGMAN_MAX_PRE_SCRIPTS setting: 20
+05/05/17 10:10:53 DAGMAN_MAX_POST_SCRIPTS setting: 20
+05/05/17 10:10:53 DAGMAN_MUNGE_NODE_NAMES setting: True
+05/05/17 10:10:53 DAGMAN_PROHIBIT_MULTI_JOBS setting: False
+05/05/17 10:10:53 DAGMAN_SUBMIT_DEPTH_FIRST setting: False
+05/05/17 10:10:53 DAGMAN_ALWAYS_RUN_POST setting: False
+05/05/17 10:10:53 DAGMAN_ABORT_DUPLICATES setting: True
+05/05/17 10:10:53 DAGMAN_ABORT_ON_SCARY_SUBMIT setting: True
+05/05/17 10:10:53 DAGMAN_PENDING_REPORT_INTERVAL setting: 600
+05/05/17 10:10:53 DAGMAN_AUTO_RESCUE setting: True
+05/05/17 10:10:53 DAGMAN_MAX_RESCUE_NUM setting: 100
+05/05/17 10:10:53 DAGMAN_WRITE_PARTIAL_RESCUE setting: True
+05/05/17 10:10:53 DAGMAN_DEFAULT_NODE_LOG setting: @(DAG_DIR)/@(DAG_FILE).nodes.log
+05/05/17 10:10:53 DAGMAN_GENERATE_SUBDAG_SUBMITS setting: True
+05/05/17 10:10:53 DAGMAN_MAX_JOB_HOLDS setting: 100
+05/05/17 10:10:53 DAGMAN_HOLD_CLAIM_TIME setting: 20
+05/05/17 10:10:53 ALL_DEBUG setting: 
+05/05/17 10:10:53 DAGMAN_DEBUG setting: 
+05/05/17 10:10:53 DAGMAN_SUPPRESS_JOB_LOGS setting: False
+05/05/17 10:10:53 DAGMAN_REMOVE_NODE_JOBS setting: True
+05/05/17 10:10:53 argv[0] == "condor_scheduniv_exec.1036.0"
+05/05/17 10:10:53 argv[1] == "-Lockfile"
+05/05/17 10:10:53 argv[2] == "ds_original.dag.lock"
+05/05/17 10:10:53 argv[3] == "-AutoRescue"
+05/05/17 10:10:53 argv[4] == "1"
+05/05/17 10:10:53 argv[5] == "-DoRescueFrom"
+05/05/17 10:10:53 argv[6] == "0"
+05/05/17 10:10:53 argv[7] == "-Dag"
+05/05/17 10:10:53 argv[8] == "ds_original.dag"
+05/05/17 10:10:53 argv[9] == "-Suppress_notification"
+05/05/17 10:10:53 argv[10] == "-CsdVersion"
+05/05/17 10:10:53 argv[11] == "$CondorVersion: 8.6.2 Apr 23 2017 BuildID: 404257 $"
+05/05/17 10:10:53 argv[12] == "-Dagman"
+05/05/17 10:10:53 argv[13] == "/usr/bin/condor_dagman"
+05/05/17 10:10:53 Workflow batch-name: <ds_original.dag+1036>
+05/05/17 10:10:53 Workflow accounting_group: <>
+05/05/17 10:10:53 Workflow accounting_group_user: <>
+05/05/17 10:10:53 Warning: failed to get attribute DAGNodeName
+05/05/17 10:10:53 DAGMAN_LOG_ON_NFS_IS_ERROR setting: False
+05/05/17 10:10:53 Default node log file is: </esat/spchtemp/scratch/robbe/SpeechHub/untied_models_smallest/python/jobdag/./ds_original.dag.nodes.log>
+05/05/17 10:10:53 DAG Lockfile will be written to ds_original.dag.lock
+05/05/17 10:10:53 DAG Input file is ds_original.dag
+05/05/17 10:10:53 Parsing 1 dagfiles
+05/05/17 10:10:53 Parsing ds_original.dag ...
+05/05/17 10:10:53 Dag contains 2 total jobs
+05/05/17 10:10:53 Sleeping for 3 seconds to ensure ProcessId uniqueness
+05/05/17 10:10:56 Bootstrapping...
+05/05/17 10:10:56 Number of pre-completed nodes: 0
+05/05/17 10:10:56 MultiLogFiles: truncating log file /esat/spchtemp/scratch/robbe/SpeechHub/untied_models_smallest/python/jobdag/./ds_original.dag.nodes.log
+05/05/17 10:10:56 DAG status: 0 (DAG_STATUS_OK)
+05/05/17 10:10:56 Of 2 nodes total:
+05/05/17 10:10:56  Done     Pre   Queued    Post   Ready   Un-Ready   Failed
+05/05/17 10:10:56   ===     ===      ===     ===     ===        ===      ===
+05/05/17 10:10:56     0       0        0       0       1          1        0
+05/05/17 10:10:56 0 job proc(s) currently held
+05/05/17 10:10:56 Registering condor_event_timer...
+05/05/17 10:10:57 Submitting HTCondor Node original job(s)...
+05/05/17 10:10:57 Adding a DAGMan workflow log /esat/spchtemp/scratch/robbe/SpeechHub/untied_models_smallest/python/jobdag/./ds_original.dag.nodes.log
+05/05/17 10:10:57 Masking the events recorded in the DAGMAN workflow log
+05/05/17 10:10:57 Mask for workflow log is 0,1,2,4,5,7,9,10,11,12,13,16,17,24,27
+05/05/17 10:10:57 submitting: /usr/bin/condor_submit -a dag_node_name' '=' 'original -a +DAGManJobId' '=' '1036 -a DAGManJobId' '=' '1036 -batch-name ds_original.dag+1036 -a submit_event_notes' '=' 'DAG' 'Node:' 'original -a dagman_log' '=' '/esat/spchtemp/scratch/robbe/SpeechHub/untied_models_smallest/python/jobdag/./ds_original.dag.nodes.log -a +DAGManNodesMask' '=' '"0,1,2,4,5,7,9,10,11,12,13,16,17,24,27" -a data_set' '=' 'ds -a test_name' '=' 'original -a num_run' '=' '0 -a DAG_STATUS' '=' '0 -a FAILED_COUNT' '=' '0 -a +KeepClaimIdle' '=' '20 -a notification' '=' 'never -a +DAGParentNodeNames' '=' '"" jobdag/original.job
+05/05/17 10:10:57 From submit: Submitting job(s).
+05/05/17 10:10:57 From submit: 1 job(s) submitted to cluster 1037.
+05/05/17 10:10:57 	assigned HTCondor ID (1037.0.0)
+05/05/17 10:10:57 Just submitted 1 job this cycle...
+05/05/17 10:10:57 Currently monitoring 1 HTCondor log file(s)
+05/05/17 10:10:57 Reassigning the id of job original from (1037.0.0) to (1037.0.0)
+05/05/17 10:10:57 Event: ULOG_SUBMIT for HTCondor Node original (1037.0.0) {05/05/17 10:10:57}
+05/05/17 10:10:57 Number of idle job procs: 1
+05/05/17 10:10:57 DAG status: 0 (DAG_STATUS_OK)
+05/05/17 10:10:57 Of 2 nodes total:
+05/05/17 10:10:57  Done     Pre   Queued    Post   Ready   Un-Ready   Failed
+05/05/17 10:10:57   ===     ===      ===     ===     ===        ===      ===
+05/05/17 10:10:57     0       0        1       0       0          1        0
+05/05/17 10:10:57 0 job proc(s) currently held
+05/05/17 10:21:00 603 seconds since last log event
+05/05/17 10:21:00 Pending DAG nodes:
+05/05/17 10:21:00   Node original, HTCondor ID 1037, status STATUS_SUBMITTED
+05/05/17 10:31:02 1205 seconds since last log event
+05/05/17 10:31:02 Pending DAG nodes:
+05/05/17 10:31:02   Node original, HTCondor ID 1037, status STATUS_SUBMITTED
+05/05/17 10:41:05 1808 seconds since last log event
+05/05/17 10:41:05 Pending DAG nodes:
+05/05/17 10:41:05   Node original, HTCondor ID 1037, status STATUS_SUBMITTED
+05/05/17 10:51:07 2410 seconds since last log event
+05/05/17 10:51:07 Pending DAG nodes:
+05/05/17 10:51:07   Node original, HTCondor ID 1037, status STATUS_SUBMITTED
+05/05/17 11:01:10 3013 seconds since last log event
+05/05/17 11:01:10 Pending DAG nodes:
+05/05/17 11:01:10   Node original, HTCondor ID 1037, status STATUS_SUBMITTED
+05/05/17 11:11:13 3616 seconds since last log event
+05/05/17 11:11:13 Pending DAG nodes:
+05/05/17 11:11:13   Node original, HTCondor ID 1037, status STATUS_SUBMITTED
+05/05/17 11:21:15 4218 seconds since last log event
+05/05/17 11:21:15 Pending DAG nodes:
+05/05/17 11:21:15   Node original, HTCondor ID 1037, status STATUS_SUBMITTED
+05/05/17 11:29:27 Currently monitoring 1 HTCondor log file(s)
+05/05/17 11:29:27 Event: ULOG_EXECUTE for HTCondor Node original (1037.0.0) {05/05/17 11:29:26}
+05/05/17 11:29:27 Number of idle job procs: 0
+05/05/17 11:39:29 602 seconds since last log event
+05/05/17 11:39:29 Pending DAG nodes:
+05/05/17 11:39:29   Node original, HTCondor ID 1037, status STATUS_SUBMITTED
+05/05/17 11:49:31 1204 seconds since last log event
+05/05/17 11:49:31 Pending DAG nodes:
+05/05/17 11:49:31   Node original, HTCondor ID 1037, status STATUS_SUBMITTED
+05/05/17 11:59:33 1806 seconds since last log event
+05/05/17 11:59:33 Pending DAG nodes:
+05/05/17 11:59:33   Node original, HTCondor ID 1037, status STATUS_SUBMITTED
+05/05/17 12:09:35 2408 seconds since last log event
+05/05/17 12:09:35 Pending DAG nodes:
+05/05/17 12:09:35   Node original, HTCondor ID 1037, status STATUS_SUBMITTED
+05/05/17 12:19:37 3010 seconds since last log event
+05/05/17 12:19:37 Pending DAG nodes:
+05/05/17 12:19:37   Node original, HTCondor ID 1037, status STATUS_SUBMITTED
+05/05/17 12:29:39 3612 seconds since last log event
+05/05/17 12:29:39 Pending DAG nodes:
+05/05/17 12:29:39   Node original, HTCondor ID 1037, status STATUS_SUBMITTED
+05/05/17 12:39:42 4215 seconds since last log event
+05/05/17 12:39:42 Pending DAG nodes:
+05/05/17 12:39:42   Node original, HTCondor ID 1037, status STATUS_SUBMITTED
+05/05/17 12:49:44 4817 seconds since last log event
+05/05/17 12:49:44 Pending DAG nodes:
+05/05/17 12:49:44   Node original, HTCondor ID 1037, status STATUS_SUBMITTED
+05/05/17 12:59:47 5420 seconds since last log event
+05/05/17 12:59:47 Pending DAG nodes:
+05/05/17 12:59:47   Node original, HTCondor ID 1037, status STATUS_SUBMITTED
+05/05/17 13:09:49 6022 seconds since last log event
+05/05/17 13:09:49 Pending DAG nodes:
+05/05/17 13:09:49   Node original, HTCondor ID 1037, status STATUS_SUBMITTED
+05/05/17 13:19:51 6624 seconds since last log event
+05/05/17 13:19:51 Pending DAG nodes:
+05/05/17 13:19:51   Node original, HTCondor ID 1037, status STATUS_SUBMITTED
+05/05/17 13:29:53 7226 seconds since last log event
+05/05/17 13:29:53 Pending DAG nodes:
+05/05/17 13:29:53   Node original, HTCondor ID 1037, status STATUS_SUBMITTED
+05/05/17 13:39:55 7828 seconds since last log event
+05/05/17 13:39:55 Pending DAG nodes:
+05/05/17 13:39:55   Node original, HTCondor ID 1037, status STATUS_SUBMITTED
+05/05/17 13:49:57 8430 seconds since last log event
+05/05/17 13:49:57 Pending DAG nodes:
+05/05/17 13:49:57   Node original, HTCondor ID 1037, status STATUS_SUBMITTED
+05/05/17 13:59:58 9031 seconds since last log event
+05/05/17 13:59:58 Pending DAG nodes:
+05/05/17 13:59:58   Node original, HTCondor ID 1037, status STATUS_SUBMITTED
+05/05/17 14:10:01 9634 seconds since last log event
+05/05/17 14:10:01 Pending DAG nodes:
+05/05/17 14:10:01   Node original, HTCondor ID 1037, status STATUS_SUBMITTED
+05/05/17 14:20:03 10236 seconds since last log event
+05/05/17 14:20:03 Pending DAG nodes:
+05/05/17 14:20:03   Node original, HTCondor ID 1037, status STATUS_SUBMITTED
+05/05/17 14:30:06 10839 seconds since last log event
+05/05/17 14:30:06 Pending DAG nodes:
+05/05/17 14:30:06   Node original, HTCondor ID 1037, status STATUS_SUBMITTED
+05/05/17 14:40:07 11440 seconds since last log event
+05/05/17 14:40:07 Pending DAG nodes:
+05/05/17 14:40:07   Node original, HTCondor ID 1037, status STATUS_SUBMITTED
+05/05/17 14:50:09 12042 seconds since last log event
+05/05/17 14:50:09 Pending DAG nodes:
+05/05/17 14:50:09   Node original, HTCondor ID 1037, status STATUS_SUBMITTED
+05/05/17 15:00:10 12643 seconds since last log event
+05/05/17 15:00:10 Pending DAG nodes:
+05/05/17 15:00:10   Node original, HTCondor ID 1037, status STATUS_SUBMITTED
+05/05/17 15:10:12 13245 seconds since last log event
+05/05/17 15:10:12 Pending DAG nodes:
+05/05/17 15:10:12   Node original, HTCondor ID 1037, status STATUS_SUBMITTED
+05/05/17 15:20:14 13847 seconds since last log event
+05/05/17 15:20:14 Pending DAG nodes:
+05/05/17 15:20:14   Node original, HTCondor ID 1037, status STATUS_SUBMITTED
+05/05/17 15:30:16 14449 seconds since last log event
+05/05/17 15:30:16 Pending DAG nodes:
+05/05/17 15:30:16   Node original, HTCondor ID 1037, status STATUS_SUBMITTED
+05/05/17 15:40:18 15051 seconds since last log event
+05/05/17 15:40:18 Pending DAG nodes:
+05/05/17 15:40:18   Node original, HTCondor ID 1037, status STATUS_SUBMITTED
+05/05/17 15:42:08 Currently monitoring 1 HTCondor log file(s)
+05/05/17 15:42:08 Event: ULOG_JOB_TERMINATED for HTCondor Node original (1037.0.0) {05/05/17 15:42:04}
+05/05/17 15:42:08 Number of idle job procs: 0
+05/05/17 15:42:08 Node original job proc (1037.0.0) completed successfully.
+05/05/17 15:42:08 Node original job completed
+05/05/17 15:42:08 DAG status: 0 (DAG_STATUS_OK)
+05/05/17 15:42:08 Of 2 nodes total:
+05/05/17 15:42:08  Done     Pre   Queued    Post   Ready   Un-Ready   Failed
+05/05/17 15:42:08   ===     ===      ===     ===     ===        ===      ===
+05/05/17 15:42:08     1       0        0       0       1          0        0
+05/05/17 15:42:08 0 job proc(s) currently held
+05/05/17 15:42:13 Submitting HTCondor Node original_test job(s)...
+05/05/17 15:42:13 Adding a DAGMan workflow log /esat/spchtemp/scratch/robbe/SpeechHub/untied_models_smallest/python/jobdag/./ds_original.dag.nodes.log
+05/05/17 15:42:13 Masking the events recorded in the DAGMAN workflow log
+05/05/17 15:42:13 Mask for workflow log is 0,1,2,4,5,7,9,10,11,12,13,16,17,24,27
+05/05/17 15:42:13 submitting: /usr/bin/condor_submit -a dag_node_name' '=' 'original_test -a +DAGManJobId' '=' '1036 -a DAGManJobId' '=' '1036 -batch-name ds_original.dag+1036 -a submit_event_notes' '=' 'DAG' 'Node:' 'original_test -a dagman_log' '=' '/esat/spchtemp/scratch/robbe/SpeechHub/untied_models_smallest/python/jobdag/./ds_original.dag.nodes.log -a +DAGManNodesMask' '=' '"0,1,2,4,5,7,9,10,11,12,13,16,17,24,27" -a data_set' '=' 'ds -a test_name' '=' 'original -a num_run' '=' '0 -a DAG_STATUS' '=' '0 -a FAILED_COUNT' '=' '0 -a notification' '=' 'never -a +DAGParentNodeNames' '=' '"original" jobdag/original_test.job
+05/05/17 15:42:13 From submit: Submitting job(s).
+05/05/17 15:42:13 From submit: 1 job(s) submitted to cluster 1055.
+05/05/17 15:42:13 	assigned HTCondor ID (1055.0.0)
+05/05/17 15:42:13 Just submitted 1 job this cycle...
+05/05/17 15:42:13 Currently monitoring 1 HTCondor log file(s)
+05/05/17 15:42:13 Reassigning the id of job original_test from (1055.0.0) to (1055.0.0)
+05/05/17 15:42:13 Event: ULOG_SUBMIT for HTCondor Node original_test (1055.0.0) {05/05/17 15:42:13}
+05/05/17 15:42:13 Number of idle job procs: 1
+05/05/17 15:42:13 DAG status: 0 (DAG_STATUS_OK)
+05/05/17 15:42:13 Of 2 nodes total:
+05/05/17 15:42:13  Done     Pre   Queued    Post   Ready   Un-Ready   Failed
+05/05/17 15:42:13   ===     ===      ===     ===     ===        ===      ===
+05/05/17 15:42:13     1       0        1       0       0          0        0
+05/05/17 15:42:13 0 job proc(s) currently held
+05/05/17 15:52:16 603 seconds since last log event
+05/05/17 15:52:16 Pending DAG nodes:
+05/05/17 15:52:16   Node original_test, HTCondor ID 1055, status STATUS_SUBMITTED
+05/05/17 16:02:18 1205 seconds since last log event
+05/05/17 16:02:18 Pending DAG nodes:
+05/05/17 16:02:18   Node original_test, HTCondor ID 1055, status STATUS_SUBMITTED
+05/05/17 16:12:20 1807 seconds since last log event
+05/05/17 16:12:20 Pending DAG nodes:
+05/05/17 16:12:20   Node original_test, HTCondor ID 1055, status STATUS_SUBMITTED
+05/05/17 16:22:22 2409 seconds since last log event
+05/05/17 16:22:22 Pending DAG nodes:
+05/05/17 16:22:22   Node original_test, HTCondor ID 1055, status STATUS_SUBMITTED
+05/05/17 16:32:24 3011 seconds since last log event
+05/05/17 16:32:24 Pending DAG nodes:
+05/05/17 16:32:24   Node original_test, HTCondor ID 1055, status STATUS_SUBMITTED
+05/05/17 16:42:26 3613 seconds since last log event
+05/05/17 16:42:26 Pending DAG nodes:
+05/05/17 16:42:26   Node original_test, HTCondor ID 1055, status STATUS_SUBMITTED
+05/05/17 16:52:28 4215 seconds since last log event
+05/05/17 16:52:28 Pending DAG nodes:
+05/05/17 16:52:28   Node original_test, HTCondor ID 1055, status STATUS_SUBMITTED
+05/05/17 17:02:30 4817 seconds since last log event
+05/05/17 17:02:30 Pending DAG nodes:
+05/05/17 17:02:30   Node original_test, HTCondor ID 1055, status STATUS_SUBMITTED
+05/05/17 17:12:32 5419 seconds since last log event
+05/05/17 17:12:32 Pending DAG nodes:
+05/05/17 17:12:32   Node original_test, HTCondor ID 1055, status STATUS_SUBMITTED
+05/05/17 17:22:34 6021 seconds since last log event
+05/05/17 17:22:34 Pending DAG nodes:
+05/05/17 17:22:34   Node original_test, HTCondor ID 1055, status STATUS_SUBMITTED
+05/05/17 17:32:36 6623 seconds since last log event
+05/05/17 17:32:36 Pending DAG nodes:
+05/05/17 17:32:36   Node original_test, HTCondor ID 1055, status STATUS_SUBMITTED
+05/05/17 17:42:38 7225 seconds since last log event
+05/05/17 17:42:38 Pending DAG nodes:
+05/05/17 17:42:38   Node original_test, HTCondor ID 1055, status STATUS_SUBMITTED
+05/05/17 17:52:40 7827 seconds since last log event
+05/05/17 17:52:40 Pending DAG nodes:
+05/05/17 17:52:40   Node original_test, HTCondor ID 1055, status STATUS_SUBMITTED
+05/05/17 18:02:42 8429 seconds since last log event
+05/05/17 18:02:42 Pending DAG nodes:
+05/05/17 18:02:42   Node original_test, HTCondor ID 1055, status STATUS_SUBMITTED
+05/05/17 18:12:44 9031 seconds since last log event
+05/05/17 18:12:44 Pending DAG nodes:
+05/05/17 18:12:44   Node original_test, HTCondor ID 1055, status STATUS_SUBMITTED
+05/05/17 18:22:46 9633 seconds since last log event
+05/05/17 18:22:46 Pending DAG nodes:
+05/05/17 18:22:46   Node original_test, HTCondor ID 1055, status STATUS_SUBMITTED
+05/05/17 18:32:49 10236 seconds since last log event
+05/05/17 18:32:49 Pending DAG nodes:
+05/05/17 18:32:49   Node original_test, HTCondor ID 1055, status STATUS_SUBMITTED
+05/05/17 18:42:50 10837 seconds since last log event
+05/05/17 18:42:50 Pending DAG nodes:
+05/05/17 18:42:50   Node original_test, HTCondor ID 1055, status STATUS_SUBMITTED
+05/05/17 18:52:52 11439 seconds since last log event
+05/05/17 18:52:52 Pending DAG nodes:
+05/05/17 18:52:52   Node original_test, HTCondor ID 1055, status STATUS_SUBMITTED
+05/05/17 19:02:54 12041 seconds since last log event
+05/05/17 19:02:54 Pending DAG nodes:
+05/05/17 19:02:54   Node original_test, HTCondor ID 1055, status STATUS_SUBMITTED
+05/05/17 19:12:56 12643 seconds since last log event
+05/05/17 19:12:56 Pending DAG nodes:
+05/05/17 19:12:56   Node original_test, HTCondor ID 1055, status STATUS_SUBMITTED
+05/05/17 19:22:57 13244 seconds since last log event
+05/05/17 19:22:57 Pending DAG nodes:
+05/05/17 19:22:57   Node original_test, HTCondor ID 1055, status STATUS_SUBMITTED
+05/05/17 19:33:00 13847 seconds since last log event
+05/05/17 19:33:00 Pending DAG nodes:
+05/05/17 19:33:00   Node original_test, HTCondor ID 1055, status STATUS_SUBMITTED
+05/05/17 19:43:02 14449 seconds since last log event
+05/05/17 19:43:02 Pending DAG nodes:
+05/05/17 19:43:02   Node original_test, HTCondor ID 1055, status STATUS_SUBMITTED
+05/05/17 19:53:04 15051 seconds since last log event
+05/05/17 19:53:04 Pending DAG nodes:
+05/05/17 19:53:04   Node original_test, HTCondor ID 1055, status STATUS_SUBMITTED
+05/05/17 20:03:06 15653 seconds since last log event
+05/05/17 20:03:06 Pending DAG nodes:
+05/05/17 20:03:06   Node original_test, HTCondor ID 1055, status STATUS_SUBMITTED
+05/05/17 20:13:09 16256 seconds since last log event
+05/05/17 20:13:09 Pending DAG nodes:
+05/05/17 20:13:09   Node original_test, HTCondor ID 1055, status STATUS_SUBMITTED
+05/05/17 20:23:11 16858 seconds since last log event
+05/05/17 20:23:11 Pending DAG nodes:
+05/05/17 20:23:11   Node original_test, HTCondor ID 1055, status STATUS_SUBMITTED
+05/05/17 20:33:12 17459 seconds since last log event
+05/05/17 20:33:12 Pending DAG nodes:
+05/05/17 20:33:12   Node original_test, HTCondor ID 1055, status STATUS_SUBMITTED
+05/05/17 20:43:14 18061 seconds since last log event
+05/05/17 20:43:14 Pending DAG nodes:
+05/05/17 20:43:14   Node original_test, HTCondor ID 1055, status STATUS_SUBMITTED
+05/05/17 20:53:16 18663 seconds since last log event
+05/05/17 20:53:16 Pending DAG nodes:
+05/05/17 20:53:16   Node original_test, HTCondor ID 1055, status STATUS_SUBMITTED
+05/05/17 21:03:19 19266 seconds since last log event
+05/05/17 21:03:19 Pending DAG nodes:
+05/05/17 21:03:19   Node original_test, HTCondor ID 1055, status STATUS_SUBMITTED
+05/05/17 21:13:21 19868 seconds since last log event
+05/05/17 21:13:21 Pending DAG nodes:
+05/05/17 21:13:21   Node original_test, HTCondor ID 1055, status STATUS_SUBMITTED
+05/05/17 21:23:23 20470 seconds since last log event
+05/05/17 21:23:23 Pending DAG nodes:
+05/05/17 21:23:23   Node original_test, HTCondor ID 1055, status STATUS_SUBMITTED
+05/05/17 21:33:25 21072 seconds since last log event
+05/05/17 21:33:25 Pending DAG nodes:
+05/05/17 21:33:25   Node original_test, HTCondor ID 1055, status STATUS_SUBMITTED
+05/05/17 21:43:27 21674 seconds since last log event
+05/05/17 21:43:27 Pending DAG nodes:
+05/05/17 21:43:27   Node original_test, HTCondor ID 1055, status STATUS_SUBMITTED
+05/05/17 21:53:29 22276 seconds since last log event
+05/05/17 21:53:29 Pending DAG nodes:
+05/05/17 21:53:29   Node original_test, HTCondor ID 1055, status STATUS_SUBMITTED
+05/05/17 22:03:30 22877 seconds since last log event
+05/05/17 22:03:30 Pending DAG nodes:
+05/05/17 22:03:30   Node original_test, HTCondor ID 1055, status STATUS_SUBMITTED
+05/05/17 22:13:33 23480 seconds since last log event
+05/05/17 22:13:33 Pending DAG nodes:
+05/05/17 22:13:33   Node original_test, HTCondor ID 1055, status STATUS_SUBMITTED
+05/05/17 22:23:34 24081 seconds since last log event
+05/05/17 22:23:34 Pending DAG nodes:
+05/05/17 22:23:34   Node original_test, HTCondor ID 1055, status STATUS_SUBMITTED
+05/05/17 22:33:37 24684 seconds since last log event
+05/05/17 22:33:37 Pending DAG nodes:
+05/05/17 22:33:37   Node original_test, HTCondor ID 1055, status STATUS_SUBMITTED
+05/05/17 22:43:39 25286 seconds since last log event
+05/05/17 22:43:39 Pending DAG nodes:
+05/05/17 22:43:39   Node original_test, HTCondor ID 1055, status STATUS_SUBMITTED
+05/05/17 22:53:40 25887 seconds since last log event
+05/05/17 22:53:40 Pending DAG nodes:
+05/05/17 22:53:40   Node original_test, HTCondor ID 1055, status STATUS_SUBMITTED
+05/05/17 23:03:42 26489 seconds since last log event
+05/05/17 23:03:42 Pending DAG nodes:
+05/05/17 23:03:42   Node original_test, HTCondor ID 1055, status STATUS_SUBMITTED
+05/05/17 23:13:45 27092 seconds since last log event
+05/05/17 23:13:45 Pending DAG nodes:
+05/05/17 23:13:45   Node original_test, HTCondor ID 1055, status STATUS_SUBMITTED
+05/05/17 23:23:46 27693 seconds since last log event
+05/05/17 23:23:46 Pending DAG nodes:
+05/05/17 23:23:46   Node original_test, HTCondor ID 1055, status STATUS_SUBMITTED
+05/05/17 23:33:48 28295 seconds since last log event
+05/05/17 23:33:48 Pending DAG nodes:
+05/05/17 23:33:48   Node original_test, HTCondor ID 1055, status STATUS_SUBMITTED
+05/05/17 23:43:51 28898 seconds since last log event
+05/05/17 23:43:51 Pending DAG nodes:
+05/05/17 23:43:51   Node original_test, HTCondor ID 1055, status STATUS_SUBMITTED
+05/05/17 23:53:53 29500 seconds since last log event
+05/05/17 23:53:53 Pending DAG nodes:
+05/05/17 23:53:53   Node original_test, HTCondor ID 1055, status STATUS_SUBMITTED
+05/06/17 00:03:55 30102 seconds since last log event
+05/06/17 00:03:55 Pending DAG nodes:
+05/06/17 00:03:55   Node original_test, HTCondor ID 1055, status STATUS_SUBMITTED
+05/06/17 00:13:56 30703 seconds since last log event
+05/06/17 00:13:56 Pending DAG nodes:
+05/06/17 00:13:56   Node original_test, HTCondor ID 1055, status STATUS_SUBMITTED
+05/06/17 00:23:59 31306 seconds since last log event
+05/06/17 00:23:59 Pending DAG nodes:
+05/06/17 00:23:59   Node original_test, HTCondor ID 1055, status STATUS_SUBMITTED
+05/06/17 00:34:01 31908 seconds since last log event
+05/06/17 00:34:01 Pending DAG nodes:
+05/06/17 00:34:01   Node original_test, HTCondor ID 1055, status STATUS_SUBMITTED
+05/06/17 00:44:03 32510 seconds since last log event
+05/06/17 00:44:03 Pending DAG nodes:
+05/06/17 00:44:03   Node original_test, HTCondor ID 1055, status STATUS_SUBMITTED
+05/06/17 00:54:05 33112 seconds since last log event
+05/06/17 00:54:05 Pending DAG nodes:
+05/06/17 00:54:05   Node original_test, HTCondor ID 1055, status STATUS_SUBMITTED
+05/06/17 01:04:08 33715 seconds since last log event
+05/06/17 01:04:08 Pending DAG nodes:
+05/06/17 01:04:08   Node original_test, HTCondor ID 1055, status STATUS_SUBMITTED
+05/06/17 01:14:10 34317 seconds since last log event
+05/06/17 01:14:10 Pending DAG nodes:
+05/06/17 01:14:10   Node original_test, HTCondor ID 1055, status STATUS_SUBMITTED
+05/06/17 01:24:12 34919 seconds since last log event
+05/06/17 01:24:12 Pending DAG nodes:
+05/06/17 01:24:12   Node original_test, HTCondor ID 1055, status STATUS_SUBMITTED
+05/06/17 01:34:14 35521 seconds since last log event
+05/06/17 01:34:14 Pending DAG nodes:
+05/06/17 01:34:14   Node original_test, HTCondor ID 1055, status STATUS_SUBMITTED
+05/06/17 01:44:16 36123 seconds since last log event
+05/06/17 01:44:16 Pending DAG nodes:
+05/06/17 01:44:16   Node original_test, HTCondor ID 1055, status STATUS_SUBMITTED
+05/06/17 01:54:18 36725 seconds since last log event
+05/06/17 01:54:18 Pending DAG nodes:
+05/06/17 01:54:18   Node original_test, HTCondor ID 1055, status STATUS_SUBMITTED
+05/06/17 02:04:20 37327 seconds since last log event
+05/06/17 02:04:20 Pending DAG nodes:
+05/06/17 02:04:20   Node original_test, HTCondor ID 1055, status STATUS_SUBMITTED
+05/06/17 02:14:20 37927 seconds since last log event
+05/06/17 02:14:20 Pending DAG nodes:
+05/06/17 02:14:20   Node original_test, HTCondor ID 1055, status STATUS_SUBMITTED
+05/06/17 02:24:23 38530 seconds since last log event
+05/06/17 02:24:23 Pending DAG nodes:
+05/06/17 02:24:23   Node original_test, HTCondor ID 1055, status STATUS_SUBMITTED
+05/06/17 02:34:25 39132 seconds since last log event
+05/06/17 02:34:25 Pending DAG nodes:
+05/06/17 02:34:25   Node original_test, HTCondor ID 1055, status STATUS_SUBMITTED
+05/06/17 02:44:27 39734 seconds since last log event
+05/06/17 02:44:27 Pending DAG nodes:
+05/06/17 02:44:27   Node original_test, HTCondor ID 1055, status STATUS_SUBMITTED
+05/06/17 02:54:29 40336 seconds since last log event
+05/06/17 02:54:29 Pending DAG nodes:
+05/06/17 02:54:29   Node original_test, HTCondor ID 1055, status STATUS_SUBMITTED
+05/06/17 03:04:31 40938 seconds since last log event
+05/06/17 03:04:31 Pending DAG nodes:
+05/06/17 03:04:31   Node original_test, HTCondor ID 1055, status STATUS_SUBMITTED
+05/06/17 03:14:34 41541 seconds since last log event
+05/06/17 03:14:34 Pending DAG nodes:
+05/06/17 03:14:34   Node original_test, HTCondor ID 1055, status STATUS_SUBMITTED
+05/06/17 03:24:36 42143 seconds since last log event
+05/06/17 03:24:36 Pending DAG nodes:
+05/06/17 03:24:36   Node original_test, HTCondor ID 1055, status STATUS_SUBMITTED
+05/06/17 03:34:38 42745 seconds since last log event
+05/06/17 03:34:38 Pending DAG nodes:
+05/06/17 03:34:38   Node original_test, HTCondor ID 1055, status STATUS_SUBMITTED
+05/06/17 03:44:40 43347 seconds since last log event
+05/06/17 03:44:40 Pending DAG nodes:
+05/06/17 03:44:40   Node original_test, HTCondor ID 1055, status STATUS_SUBMITTED
+05/06/17 03:54:42 43949 seconds since last log event
+05/06/17 03:54:42 Pending DAG nodes:
+05/06/17 03:54:42   Node original_test, HTCondor ID 1055, status STATUS_SUBMITTED
+05/06/17 04:04:44 44551 seconds since last log event
+05/06/17 04:04:44 Pending DAG nodes:
+05/06/17 04:04:44   Node original_test, HTCondor ID 1055, status STATUS_SUBMITTED
+05/06/17 04:14:46 45153 seconds since last log event
+05/06/17 04:14:46 Pending DAG nodes:
+05/06/17 04:14:46   Node original_test, HTCondor ID 1055, status STATUS_SUBMITTED
+05/06/17 04:24:48 45755 seconds since last log event
+05/06/17 04:24:48 Pending DAG nodes:
+05/06/17 04:24:48   Node original_test, HTCondor ID 1055, status STATUS_SUBMITTED
+05/06/17 04:34:49 46356 seconds since last log event
+05/06/17 04:34:49 Pending DAG nodes:
+05/06/17 04:34:49   Node original_test, HTCondor ID 1055, status STATUS_SUBMITTED
+05/06/17 04:44:51 46958 seconds since last log event
+05/06/17 04:44:51 Pending DAG nodes:
+05/06/17 04:44:51   Node original_test, HTCondor ID 1055, status STATUS_SUBMITTED
+05/06/17 04:54:53 47560 seconds since last log event
+05/06/17 04:54:53 Pending DAG nodes:
+05/06/17 04:54:53   Node original_test, HTCondor ID 1055, status STATUS_SUBMITTED
+05/06/17 05:04:55 48162 seconds since last log event
+05/06/17 05:04:55 Pending DAG nodes:
+05/06/17 05:04:55   Node original_test, HTCondor ID 1055, status STATUS_SUBMITTED
+05/06/17 05:14:58 48765 seconds since last log event
+05/06/17 05:14:58 Pending DAG nodes:
+05/06/17 05:14:58   Node original_test, HTCondor ID 1055, status STATUS_SUBMITTED
+05/06/17 05:25:00 49367 seconds since last log event
+05/06/17 05:25:00 Pending DAG nodes:
+05/06/17 05:25:00   Node original_test, HTCondor ID 1055, status STATUS_SUBMITTED
+05/06/17 05:35:01 49968 seconds since last log event
+05/06/17 05:35:01 Pending DAG nodes:
+05/06/17 05:35:01   Node original_test, HTCondor ID 1055, status STATUS_SUBMITTED
+05/06/17 05:45:03 50570 seconds since last log event
+05/06/17 05:45:03 Pending DAG nodes:
+05/06/17 05:45:03   Node original_test, HTCondor ID 1055, status STATUS_SUBMITTED
+05/06/17 05:55:06 51173 seconds since last log event
+05/06/17 05:55:06 Pending DAG nodes:
+05/06/17 05:55:06   Node original_test, HTCondor ID 1055, status STATUS_SUBMITTED
+05/06/17 06:05:08 51775 seconds since last log event
+05/06/17 06:05:08 Pending DAG nodes:
+05/06/17 06:05:08   Node original_test, HTCondor ID 1055, status STATUS_SUBMITTED
+05/06/17 06:15:10 52377 seconds since last log event
+05/06/17 06:15:10 Pending DAG nodes:
+05/06/17 06:15:10   Node original_test, HTCondor ID 1055, status STATUS_SUBMITTED
+05/06/17 06:25:12 52979 seconds since last log event
+05/06/17 06:25:12 Pending DAG nodes:
+05/06/17 06:25:12   Node original_test, HTCondor ID 1055, status STATUS_SUBMITTED
+05/06/17 06:35:14 53581 seconds since last log event
+05/06/17 06:35:14 Pending DAG nodes:
+05/06/17 06:35:14   Node original_test, HTCondor ID 1055, status STATUS_SUBMITTED
+05/06/17 06:45:17 54184 seconds since last log event
+05/06/17 06:45:17 Pending DAG nodes:
+05/06/17 06:45:17   Node original_test, HTCondor ID 1055, status STATUS_SUBMITTED
+05/06/17 06:55:19 54786 seconds since last log event
+05/06/17 06:55:19 Pending DAG nodes:
+05/06/17 06:55:19   Node original_test, HTCondor ID 1055, status STATUS_SUBMITTED
+05/06/17 07:05:21 55388 seconds since last log event
+05/06/17 07:05:21 Pending DAG nodes:
+05/06/17 07:05:21   Node original_test, HTCondor ID 1055, status STATUS_SUBMITTED
+05/06/17 07:15:23 55990 seconds since last log event
+05/06/17 07:15:23 Pending DAG nodes:
+05/06/17 07:15:23   Node original_test, HTCondor ID 1055, status STATUS_SUBMITTED
+05/06/17 07:25:25 56592 seconds since last log event
+05/06/17 07:25:25 Pending DAG nodes:
+05/06/17 07:25:25   Node original_test, HTCondor ID 1055, status STATUS_SUBMITTED
+05/06/17 07:35:27 57194 seconds since last log event
+05/06/17 07:35:27 Pending DAG nodes:
+05/06/17 07:35:27   Node original_test, HTCondor ID 1055, status STATUS_SUBMITTED
+05/06/17 07:45:28 57795 seconds since last log event
+05/06/17 07:45:28 Pending DAG nodes:
+05/06/17 07:45:28   Node original_test, HTCondor ID 1055, status STATUS_SUBMITTED
+05/06/17 07:55:31 58398 seconds since last log event
+05/06/17 07:55:31 Pending DAG nodes:
+05/06/17 07:55:31   Node original_test, HTCondor ID 1055, status STATUS_SUBMITTED
+05/06/17 08:05:33 59000 seconds since last log event
+05/06/17 08:05:33 Pending DAG nodes:
+05/06/17 08:05:33   Node original_test, HTCondor ID 1055, status STATUS_SUBMITTED
+05/06/17 08:15:35 59602 seconds since last log event
+05/06/17 08:15:35 Pending DAG nodes:
+05/06/17 08:15:35   Node original_test, HTCondor ID 1055, status STATUS_SUBMITTED
+05/06/17 08:25:37 60204 seconds since last log event
+05/06/17 08:25:37 Pending DAG nodes:
+05/06/17 08:25:37   Node original_test, HTCondor ID 1055, status STATUS_SUBMITTED
+05/06/17 08:35:39 60806 seconds since last log event
+05/06/17 08:35:39 Pending DAG nodes:
+05/06/17 08:35:39   Node original_test, HTCondor ID 1055, status STATUS_SUBMITTED
+05/06/17 08:45:41 61408 seconds since last log event
+05/06/17 08:45:41 Pending DAG nodes:
+05/06/17 08:45:41   Node original_test, HTCondor ID 1055, status STATUS_SUBMITTED
+05/06/17 08:55:44 62011 seconds since last log event
+05/06/17 08:55:44 Pending DAG nodes:
+05/06/17 08:55:44   Node original_test, HTCondor ID 1055, status STATUS_SUBMITTED
+05/06/17 09:05:46 62613 seconds since last log event
+05/06/17 09:05:46 Pending DAG nodes:
+05/06/17 09:05:46   Node original_test, HTCondor ID 1055, status STATUS_SUBMITTED
+05/06/17 09:15:48 63215 seconds since last log event
+05/06/17 09:15:48 Pending DAG nodes:
+05/06/17 09:15:48   Node original_test, HTCondor ID 1055, status STATUS_SUBMITTED
+05/06/17 09:25:50 63817 seconds since last log event
+05/06/17 09:25:50 Pending DAG nodes:
+05/06/17 09:25:50   Node original_test, HTCondor ID 1055, status STATUS_SUBMITTED
+05/06/17 09:35:53 64420 seconds since last log event
+05/06/17 09:35:53 Pending DAG nodes:
+05/06/17 09:35:53   Node original_test, HTCondor ID 1055, status STATUS_SUBMITTED
+05/06/17 09:45:55 65022 seconds since last log event
+05/06/17 09:45:55 Pending DAG nodes:
+05/06/17 09:45:55   Node original_test, HTCondor ID 1055, status STATUS_SUBMITTED
+05/06/17 09:55:57 65624 seconds since last log event
+05/06/17 09:55:57 Pending DAG nodes:
+05/06/17 09:55:57   Node original_test, HTCondor ID 1055, status STATUS_SUBMITTED
+05/06/17 10:05:59 66226 seconds since last log event
+05/06/17 10:05:59 Pending DAG nodes:
+05/06/17 10:05:59   Node original_test, HTCondor ID 1055, status STATUS_SUBMITTED
+05/06/17 10:16:01 66828 seconds since last log event
+05/06/17 10:16:01 Pending DAG nodes:
+05/06/17 10:16:01   Node original_test, HTCondor ID 1055, status STATUS_SUBMITTED
+05/06/17 10:26:02 67429 seconds since last log event
+05/06/17 10:26:02 Pending DAG nodes:
+05/06/17 10:26:02   Node original_test, HTCondor ID 1055, status STATUS_SUBMITTED
+05/06/17 10:36:05 68032 seconds since last log event
+05/06/17 10:36:05 Pending DAG nodes:
+05/06/17 10:36:05   Node original_test, HTCondor ID 1055, status STATUS_SUBMITTED
+05/06/17 10:46:07 68634 seconds since last log event
+05/06/17 10:46:07 Pending DAG nodes:
+05/06/17 10:46:07   Node original_test, HTCondor ID 1055, status STATUS_SUBMITTED
+05/06/17 10:56:09 69236 seconds since last log event
+05/06/17 10:56:09 Pending DAG nodes:
+05/06/17 10:56:09   Node original_test, HTCondor ID 1055, status STATUS_SUBMITTED
+05/06/17 11:06:11 69838 seconds since last log event
+05/06/17 11:06:11 Pending DAG nodes:
+05/06/17 11:06:11   Node original_test, HTCondor ID 1055, status STATUS_SUBMITTED
+05/06/17 11:16:13 70440 seconds since last log event
+05/06/17 11:16:13 Pending DAG nodes:
+05/06/17 11:16:13   Node original_test, HTCondor ID 1055, status STATUS_SUBMITTED
+05/06/17 11:26:16 71043 seconds since last log event
+05/06/17 11:26:16 Pending DAG nodes:
+05/06/17 11:26:16   Node original_test, HTCondor ID 1055, status STATUS_SUBMITTED
+05/06/17 11:36:18 71645 seconds since last log event
+05/06/17 11:36:18 Pending DAG nodes:
+05/06/17 11:36:18   Node original_test, HTCondor ID 1055, status STATUS_SUBMITTED
+05/06/17 11:46:20 72247 seconds since last log event
+05/06/17 11:46:20 Pending DAG nodes:
+05/06/17 11:46:20   Node original_test, HTCondor ID 1055, status STATUS_SUBMITTED
+05/06/17 11:56:22 72849 seconds since last log event
+05/06/17 11:56:22 Pending DAG nodes:
+05/06/17 11:56:22   Node original_test, HTCondor ID 1055, status STATUS_SUBMITTED
+05/06/17 12:06:24 73451 seconds since last log event
+05/06/17 12:06:24 Pending DAG nodes:
+05/06/17 12:06:24   Node original_test, HTCondor ID 1055, status STATUS_SUBMITTED
+05/06/17 12:16:26 74053 seconds since last log event
+05/06/17 12:16:26 Pending DAG nodes:
+05/06/17 12:16:26   Node original_test, HTCondor ID 1055, status STATUS_SUBMITTED
+05/06/17 12:26:28 74655 seconds since last log event
+05/06/17 12:26:28 Pending DAG nodes:
+05/06/17 12:26:28   Node original_test, HTCondor ID 1055, status STATUS_SUBMITTED
+05/06/17 12:36:30 75257 seconds since last log event
+05/06/17 12:36:30 Pending DAG nodes:
+05/06/17 12:36:30   Node original_test, HTCondor ID 1055, status STATUS_SUBMITTED
+05/06/17 12:46:32 75859 seconds since last log event
+05/06/17 12:46:32 Pending DAG nodes:
+05/06/17 12:46:32   Node original_test, HTCondor ID 1055, status STATUS_SUBMITTED
+05/06/17 12:56:34 76461 seconds since last log event
+05/06/17 12:56:34 Pending DAG nodes:
+05/06/17 12:56:34   Node original_test, HTCondor ID 1055, status STATUS_SUBMITTED
+05/06/17 13:06:36 77063 seconds since last log event
+05/06/17 13:06:36 Pending DAG nodes:
+05/06/17 13:06:36   Node original_test, HTCondor ID 1055, status STATUS_SUBMITTED
+05/06/17 13:16:38 77665 seconds since last log event
+05/06/17 13:16:38 Pending DAG nodes:
+05/06/17 13:16:38   Node original_test, HTCondor ID 1055, status STATUS_SUBMITTED
+05/06/17 13:26:40 78267 seconds since last log event
+05/06/17 13:26:40 Pending DAG nodes:
+05/06/17 13:26:40   Node original_test, HTCondor ID 1055, status STATUS_SUBMITTED
+05/06/17 13:36:42 78869 seconds since last log event
+05/06/17 13:36:42 Pending DAG nodes:
+05/06/17 13:36:42   Node original_test, HTCondor ID 1055, status STATUS_SUBMITTED
+05/06/17 13:46:44 79471 seconds since last log event
+05/06/17 13:46:44 Pending DAG nodes:
+05/06/17 13:46:44   Node original_test, HTCondor ID 1055, status STATUS_SUBMITTED
+05/06/17 13:56:47 80074 seconds since last log event
+05/06/17 13:56:47 Pending DAG nodes:
+05/06/17 13:56:47   Node original_test, HTCondor ID 1055, status STATUS_SUBMITTED
+05/06/17 14:06:49 80676 seconds since last log event
+05/06/17 14:06:49 Pending DAG nodes:
+05/06/17 14:06:49   Node original_test, HTCondor ID 1055, status STATUS_SUBMITTED
+05/06/17 14:16:51 81278 seconds since last log event
+05/06/17 14:16:51 Pending DAG nodes:
+05/06/17 14:16:51   Node original_test, HTCondor ID 1055, status STATUS_SUBMITTED
+05/06/17 14:26:54 81881 seconds since last log event
+05/06/17 14:26:54 Pending DAG nodes:
+05/06/17 14:26:54   Node original_test, HTCondor ID 1055, status STATUS_SUBMITTED
+05/06/17 14:36:56 82483 seconds since last log event
+05/06/17 14:36:56 Pending DAG nodes:
+05/06/17 14:36:56   Node original_test, HTCondor ID 1055, status STATUS_SUBMITTED
+05/06/17 14:46:58 83085 seconds since last log event
+05/06/17 14:46:58 Pending DAG nodes:
+05/06/17 14:46:58   Node original_test, HTCondor ID 1055, status STATUS_SUBMITTED
+05/06/17 14:57:00 83687 seconds since last log event
+05/06/17 14:57:00 Pending DAG nodes:
+05/06/17 14:57:00   Node original_test, HTCondor ID 1055, status STATUS_SUBMITTED
+05/06/17 15:07:02 84289 seconds since last log event
+05/06/17 15:07:02 Pending DAG nodes:
+05/06/17 15:07:02   Node original_test, HTCondor ID 1055, status STATUS_SUBMITTED
+05/06/17 15:17:04 84891 seconds since last log event
+05/06/17 15:17:04 Pending DAG nodes:
+05/06/17 15:17:04   Node original_test, HTCondor ID 1055, status STATUS_SUBMITTED
+05/06/17 15:27:06 85493 seconds since last log event
+05/06/17 15:27:06 Pending DAG nodes:
+05/06/17 15:27:06   Node original_test, HTCondor ID 1055, status STATUS_SUBMITTED
+05/06/17 15:37:08 86095 seconds since last log event
+05/06/17 15:37:08 Pending DAG nodes:
+05/06/17 15:37:08   Node original_test, HTCondor ID 1055, status STATUS_SUBMITTED
+05/06/17 15:47:08 86695 seconds since last log event
+05/06/17 15:47:08 Pending DAG nodes:
+05/06/17 15:47:08   Node original_test, HTCondor ID 1055, status STATUS_SUBMITTED
+05/06/17 15:57:10 87297 seconds since last log event
+05/06/17 15:57:10 Pending DAG nodes:
+05/06/17 15:57:10   Node original_test, HTCondor ID 1055, status STATUS_SUBMITTED
+05/06/17 16:07:13 87900 seconds since last log event
+05/06/17 16:07:13 Pending DAG nodes:
+05/06/17 16:07:13   Node original_test, HTCondor ID 1055, status STATUS_SUBMITTED
+05/06/17 16:17:15 88502 seconds since last log event
+05/06/17 16:17:15 Pending DAG nodes:
+05/06/17 16:17:15   Node original_test, HTCondor ID 1055, status STATUS_SUBMITTED
+05/06/17 16:27:17 89104 seconds since last log event
+05/06/17 16:27:17 Pending DAG nodes:
+05/06/17 16:27:17   Node original_test, HTCondor ID 1055, status STATUS_SUBMITTED
+05/06/17 16:37:19 89706 seconds since last log event
+05/06/17 16:37:19 Pending DAG nodes:
+05/06/17 16:37:19   Node original_test, HTCondor ID 1055, status STATUS_SUBMITTED
+05/06/17 16:47:21 90308 seconds since last log event
+05/06/17 16:47:21 Pending DAG nodes:
+05/06/17 16:47:21   Node original_test, HTCondor ID 1055, status STATUS_SUBMITTED
+05/06/17 16:57:23 90910 seconds since last log event
+05/06/17 16:57:23 Pending DAG nodes:
+05/06/17 16:57:23   Node original_test, HTCondor ID 1055, status STATUS_SUBMITTED
+05/06/17 17:07:25 91512 seconds since last log event
+05/06/17 17:07:25 Pending DAG nodes:
+05/06/17 17:07:25   Node original_test, HTCondor ID 1055, status STATUS_SUBMITTED
+05/06/17 17:17:27 92114 seconds since last log event
+05/06/17 17:17:27 Pending DAG nodes:
+05/06/17 17:17:27   Node original_test, HTCondor ID 1055, status STATUS_SUBMITTED
+05/06/17 17:27:30 92717 seconds since last log event
+05/06/17 17:27:30 Pending DAG nodes:
+05/06/17 17:27:30   Node original_test, HTCondor ID 1055, status STATUS_SUBMITTED
+05/06/17 17:37:32 93319 seconds since last log event
+05/06/17 17:37:32 Pending DAG nodes:
+05/06/17 17:37:32   Node original_test, HTCondor ID 1055, status STATUS_SUBMITTED
+05/06/17 17:47:34 93921 seconds since last log event
+05/06/17 17:47:34 Pending DAG nodes:
+05/06/17 17:47:34   Node original_test, HTCondor ID 1055, status STATUS_SUBMITTED
+05/06/17 17:57:36 94523 seconds since last log event
+05/06/17 17:57:36 Pending DAG nodes:
+05/06/17 17:57:36   Node original_test, HTCondor ID 1055, status STATUS_SUBMITTED
+05/06/17 18:07:38 95125 seconds since last log event
+05/06/17 18:07:38 Pending DAG nodes:
+05/06/17 18:07:38   Node original_test, HTCondor ID 1055, status STATUS_SUBMITTED
+05/06/17 18:17:41 95728 seconds since last log event
+05/06/17 18:17:41 Pending DAG nodes:
+05/06/17 18:17:41   Node original_test, HTCondor ID 1055, status STATUS_SUBMITTED
+05/06/17 18:27:43 96330 seconds since last log event
+05/06/17 18:27:43 Pending DAG nodes:
+05/06/17 18:27:43   Node original_test, HTCondor ID 1055, status STATUS_SUBMITTED
+05/06/17 18:37:45 96932 seconds since last log event
+05/06/17 18:37:45 Pending DAG nodes:
+05/06/17 18:37:45   Node original_test, HTCondor ID 1055, status STATUS_SUBMITTED
+05/06/17 18:47:46 97533 seconds since last log event
+05/06/17 18:47:46 Pending DAG nodes:
+05/06/17 18:47:46   Node original_test, HTCondor ID 1055, status STATUS_SUBMITTED
+05/06/17 18:57:49 98136 seconds since last log event
+05/06/17 18:57:49 Pending DAG nodes:
+05/06/17 18:57:49   Node original_test, HTCondor ID 1055, status STATUS_SUBMITTED
+05/06/17 19:07:51 98738 seconds since last log event
+05/06/17 19:07:51 Pending DAG nodes:
+05/06/17 19:07:51   Node original_test, HTCondor ID 1055, status STATUS_SUBMITTED
+05/06/17 19:17:54 99341 seconds since last log event
+05/06/17 19:17:54 Pending DAG nodes:
+05/06/17 19:17:54   Node original_test, HTCondor ID 1055, status STATUS_SUBMITTED
+05/06/17 19:27:56 99943 seconds since last log event
+05/06/17 19:27:56 Pending DAG nodes:
+05/06/17 19:27:56   Node original_test, HTCondor ID 1055, status STATUS_SUBMITTED
+05/06/17 19:37:58 100545 seconds since last log event
+05/06/17 19:37:58 Pending DAG nodes:
+05/06/17 19:37:58   Node original_test, HTCondor ID 1055, status STATUS_SUBMITTED
+05/06/17 19:48:00 101147 seconds since last log event
+05/06/17 19:48:00 Pending DAG nodes:
+05/06/17 19:48:00   Node original_test, HTCondor ID 1055, status STATUS_SUBMITTED
+05/06/17 19:49:36 Currently monitoring 1 HTCondor log file(s)
+05/06/17 19:49:36 Event: ULOG_EXECUTE for HTCondor Node original_test (1055.0.0) {05/06/17 19:49:35}
+05/06/17 19:49:36 Number of idle job procs: 0
+05/06/17 19:49:51 Currently monitoring 1 HTCondor log file(s)
+05/06/17 19:49:51 Event: ULOG_JOB_TERMINATED for HTCondor Node original_test (1055.0.0) {05/06/17 19:49:51}
+05/06/17 19:49:51 Number of idle job procs: 0
+05/06/17 19:49:51 Node original_test job proc (1055.0.0) completed successfully.
+05/06/17 19:49:51 Node original_test job completed
+05/06/17 19:49:51 DAG status: 0 (DAG_STATUS_OK)
+05/06/17 19:49:51 Of 2 nodes total:
+05/06/17 19:49:51  Done     Pre   Queued    Post   Ready   Un-Ready   Failed
+05/06/17 19:49:51   ===     ===      ===     ===     ===        ===      ===
+05/06/17 19:49:51     2       0        0       0       0          0        0
+05/06/17 19:49:51 0 job proc(s) currently held
+05/06/17 19:49:51 All jobs Completed!
+05/06/17 19:49:51 Note: 0 total job deferrals because of -MaxJobs limit (0)
+05/06/17 19:49:51 Note: 0 total job deferrals because of -MaxIdle limit (1000)
+05/06/17 19:49:51 Note: 0 total job deferrals because of node category throttles
+05/06/17 19:49:51 Note: 0 total PRE script deferrals because of -MaxPre limit (20) or DEFER
+05/06/17 19:49:51 Note: 0 total POST script deferrals because of -MaxPost limit (20) or DEFER
+05/06/17 19:49:51 DAG status: 0 (DAG_STATUS_OK)
+05/06/17 19:49:51 Of 2 nodes total:
+05/06/17 19:49:51  Done     Pre   Queued    Post   Ready   Un-Ready   Failed
+05/06/17 19:49:51   ===     ===      ===     ===     ===        ===      ===
+05/06/17 19:49:51     2       0        0       0       0          0        0
+05/06/17 19:49:51 0 job proc(s) currently held
+05/06/17 19:49:51 Wrote metrics file ds_original.dag.metrics.
+05/06/17 19:49:51 Metrics not sent because of PEGASUS_METRICS or CONDOR_DEVELOPERS setting.
+05/06/17 19:49:51 **** condor_scheduniv_exec.1036.0 (condor_DAGMAN) pid 24609 EXITING WITH STATUS 0

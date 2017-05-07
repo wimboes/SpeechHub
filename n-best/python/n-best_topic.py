@@ -258,7 +258,6 @@ def run_test_epoch(session, model, epoch_nb = 0):
             state_reg = vals["final_state_reg"]
 
         costs += cost
-        print(cost)
         iters += nb_words_in_batch
 
     return np.exp(costs/iters)    
@@ -308,7 +307,7 @@ def main(_):
         for i in xrange(vocab_size):
             topic_array[topic_nb,current_topic[i][0]] = current_topic[i][1]
     
-    param_np = np.load((FLAGS.model_path + '/' + FLAGS.test_name + '_' + str(FLAGS.num_run)+ '/results' +'.npz'))
+    param_np = np.load((model_path + '/' + FLAGS.test_name + '_' + str(FLAGS.num_run)+ '/results' +'.npz'))
     param_np = param_np['param_train_np']
     
     param1 =  ['num_layers_reg','num_layers_lda','hidden_size_lda', 'hidden_size_reg', 'embedded_size_reg', 'embedded_size_lda']
@@ -379,7 +378,7 @@ def main(_):
                         with tf.variable_scope("model"):
                             mtest =  ds_topic_model(is_training=False, config=eval_config, input_sentence = None, input_continuous = eval_data, topic_matrix = topic_matrix, initializer_reg = None, initializer_lda = None)
 			
-                    sv = tf.train.Supervisor(summary_writer=None, model_model_secs=0, logdir=FLAGS.save_path + '/' + FLAGS.test_name + '_' + str(FLAGS.num_run))
+                    sv = tf.train.Supervisor(summary_writer=None, save_model_secs=0, logdir=model_path + '/' + FLAGS.test_name + '_' + str(FLAGS.num_run))
                     with sv.managed_session() as session:
                         test_perplexity=  run_test_epoch(session, mtest)
                 print("hypothesis %d with PPL %.3f" % (k,test_perplexity))

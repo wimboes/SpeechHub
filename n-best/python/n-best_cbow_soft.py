@@ -249,7 +249,7 @@ def main(_):
     for (wordid,word) in dictionary.iteritems():
             word_to_id[word] = wordid   
 
-    param_np = np.load((FLAGS.model_path + '/' + FLAGS.test_name + '_' + str(FLAGS.num_run)+ '/results' +'.npz'))
+    param_np = np.load((model_path + '/' + FLAGS.test_name + '_' + str(FLAGS.num_run)+ '/results' +'.npz'))
     param_np = param_np['param_train_np']
     
     param1 =  ['num_layers', 'hidden_size', 'embedded_size_reg', 'embedded_size_cbow', 'num_history']
@@ -324,7 +324,7 @@ def main(_):
                         with tf.variable_scope("model"):
                             mtest = ds_cbow_sentence_model(is_training=False, config=eval_config, input_=eval_data)
 			
-                    sv = tf.train.Supervisor(summary_writer=None, save_model_secs=0, logdir=FLAGS.model_path + '/' + FLAGS.test_name + '_' + str(FLAGS.num_run))
+                    sv = tf.train.Supervisor(summary_writer=None, save_model_secs=0, logdir=model_path + '/' + FLAGS.test_name + '_' + str(FLAGS.num_run))
                     with sv.managed_session() as session:
                         test_perplexity=  run_epoch(session, mtest)
                 print("hypothesis %d with PPL %.3f" % (k,test_perplexity))
