@@ -13,7 +13,7 @@ ap = argparse.ArgumentParser()
 ap.add_argument('--ref', default = os.path.join(data_path, 'reference') , type=str)
 ap.add_argument('--n_best', default=os.path.join(data_path, 'original_n-best'), type=str)
 ap.add_argument('--out', default=os.path.join(os.path.split(python_path)[0], 'output'), type=str)
-ap.add_argument('--name', default='original_n_best', type=str)
+ap.add_argument('--name', default='WER_2_gram_n_best', type=str)
 
 opts = ap.parse_args()
 ref = opts.ref
