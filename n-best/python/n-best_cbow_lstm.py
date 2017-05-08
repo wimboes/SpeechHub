@@ -268,7 +268,7 @@ def main(_):
         elif param_np[i][0] in param3:
             eval_config[param_np[i][0]] = param_np[i][1] 
     
-    output_dir = os.path.join(FLAGS.save_path, FLAGS.name)
+    output_dir = os.path.join(FLAGS.save_path, FLAGS.model_name, FLAGS.name)
     if not os.path.exists(output_dir):
         os.mkdir(output_dir)
     else:

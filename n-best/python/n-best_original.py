@@ -40,7 +40,7 @@ logging = tf.logging
 flags.DEFINE_integer("num_run", 0, "num_run")
 flags.DEFINE_string("test_name","original","test_name")
 
-flags.DEFINE_string("name","n-best-baseline","name")
+flags.DEFINE_string("name","n-best-original","name")
 
 flags.DEFINE_string("input_path", input_path, "data_path")
 flags.DEFINE_string("model_name", "n-best", "model_name")
@@ -212,7 +212,7 @@ def main(_):
         if param_np[i][0] in param:
             eval_config[param_np[i][0]] = int(param_np[i][1])
     
-    output_dir = os.path.join(FLAGS.save_path, FLAGS.name)
+    output_dir = os.path.join(FLAGS.save_path, FLAGS.model_name, FLAGS.name)
     if not os.path.exists(output_dir):
         os.mkdir(output_dir)
     else:
@@ -231,7 +231,7 @@ def main(_):
 
             input_file = os.path.join(FLAGS.input_path, name_file)
             sentences = []
-            read all sentence hypotheses	
+            #read all sentence hypotheses	
             with open(input_file,'r') as f:         
                 for k in range(1000): 
                     line = f.readline().decode('utf-8')
