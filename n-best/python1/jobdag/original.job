@@ -1,0 +1,21 @@
+Universe         = vanilla
+RequestCpus     = 1
+RequestMemory    = 8G
++RequestWalltime = 518400
+
+request_GPUs = 1
+requirements = (CUDAGlobalMemoryMb >= 4000) && (CUDACapability >= 3.5) && (machine != "spchcl18.esat.kuleuven.be") &&  (Machine =!= LastRemoteHost)
+
+Notification = Error
+initialdir = .
+
+executable = /users/start2014/r0385169/bin/python
+arguments = "n-best_original.py --test_name=$(test_name) --num_run=$(num_run) --model_name=$(model_name) --name=$(name)"
+
+Log          = jobdag/$(model_name)_$(test_name)_$(num_run).log
+Output       = jobdag/$(model_name)_$(test_name)_$(num_run).out
+Error        = jobdag/$(model_name)_$(test_name)_$(num_run).err
+
+Queue
+
+

@@ -340,7 +340,7 @@ def main(_):
             sentences = []
             #read all sentence hypotheses	
             with open(input_file,'r') as f:
-                for k in range(1000): 
+                for k in range(100): 
                     line = f.readline().decode('utf-8')
                     if line == '':
                         break
