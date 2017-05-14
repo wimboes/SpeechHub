@@ -13,15 +13,15 @@ print(word_axis)
 
 plt.rc('text', usetex=True)
 plt.rc('font', family='serif')
-plt.plot(word_axis +1, interpolation[:, topic_id],'y', label = 'topic ' + str(topic_id) + ': weer') # np.arange(np.shape(interpolation)[0])
-plt.plot(word_axis +1, interpolation[:, 86],'g', label = 'topic ' + str(86)+ ': wielrennen')
-plt.plot(word_axis +1, interpolation[:, 363],'b', label = 'topic ' + str(363) + ': voetbal')
-plt.legend(bbox_to_anchor=(0., 1.02, 1., .102), loc=3, ncol=3, mode="expand", borderaxespad=0., fontsize = 13)
+plt.plot(word_axis +1, interpolation[:, topic_id],'y', label = 'weer') # np.arange(np.shape(interpolation)[0])
+plt.plot(word_axis +1, interpolation[:, 86],'g', label = 'wielrennen')
+plt.plot(word_axis +1, interpolation[:, 363],'b', label = 'voetbal')
+plt.legend(bbox_to_anchor=(0., 1.02, 1., .102), loc=3, ncol=3, mode="expand", borderaxespad=0., fontsize = 22)
 
     
-plt.xlabel(r'Number of sentence in test data', fontsize = 14)
-plt.ylabel(r'Probability assigned to topic', fontsize = 14)
+plt.xlabel(r'Number of sentence in test data', fontsize = 22)
+plt.ylabel(r'Probability assigned to topic', fontsize = 22)
 
 
-plt.savefig('topic_demo.eps')
+plt.savefig('topics_from_extended_topic.eps')
 #plt.show()

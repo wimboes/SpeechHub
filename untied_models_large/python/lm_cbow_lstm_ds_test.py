@@ -34,10 +34,10 @@ flags = tf.flags
 logging = tf.logging
 
 flags.DEFINE_integer("num_run", 0, "num_run")
-flags.DEFINE_string("test_name","cbow_exp_lstm","test_name")
-flags.DEFINE_string("eval_name",'ds.testshort.txt',"eval_name")
+flags.DEFINE_string("test_name","cbow_tfidf_lstm","test_name")
+flags.DEFINE_string("eval_name",'ds.valid_with_topics.txt',"eval_name")
 flags.DEFINE_integer("top_k",7,"top_k")
-flags.DEFINE_integer("neighborhood",7,"neighborhood")
+flags.DEFINE_integer("neighborhood",1,"neighborhood")
 
 flags.DEFINE_string("loss_function","full_softmax","loss_function")
 
@@ -306,9 +306,10 @@ def run_epoch(session, model, cost=None, eval_op=None):
                 f.write("\n")
 
             domain_info = vals["temp5"]
+            hist = [reverse_dict[batch_history[0,i]].encode('utf-8') for i in range(len(batch_history[0]))]
             for i in xrange(len(data)):
-                g.write("{:<15}".format(reverse_dict[data[i]].encode('utf-8')))
-                g.write("| ")
+                g.write(" ".join(hist[i:i+80]))
+                g.write("\n \t| ")
                 for j in xrange(len(domain_info[i])):
                     g.write("{:<15}".format(reverse_dict[domain_info[i][j]].encode('utf-8')))
                 g.write("\n")   

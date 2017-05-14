@@ -39,7 +39,7 @@ logging = tf.logging
 
 flags.DEFINE_integer("num_run", 0, "num_run")
 flags.DEFINE_string("test_name","extended_topic_1","test_name")
-flags.DEFINE_string("eval_name",'ds.testshort.txt',"eval_name")
+flags.DEFINE_string("eval_name",'ds.valid_with_topics.txt',"eval_name")
 
 flags.DEFINE_string("loss_function","full_softmax","loss_function")
 

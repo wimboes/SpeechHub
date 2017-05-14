@@ -39,7 +39,7 @@ logging = tf.logging
 
 flags.DEFINE_integer("num_run", 0, "num_run")
 flags.DEFINE_string("test_name","extended_topic_1","test_name")
-flags.DEFINE_string("eval_name",'ds.testshort.txt',"eval_name")
+flags.DEFINE_string("eval_name",'ds.valid_with_topics.txt',"eval_name")
 
 flags.DEFINE_string("loss_function","full_softmax","loss_function")
 
@@ -246,14 +246,20 @@ def run_test_epoch(session, model, epoch_nb = 0):
     costs = 0.0
     iters = 0
     processed_words = 0
+    processed_sentences = 0
+    word_in_sentence = 0
+    pos = 0
     state_reg = session.run(model.initial_state_reg)
     state_lda = session.run(model.initial_state_lda)
     state_int = session.run(model.initial_state_int)
     save_np = np.array([[0,0,0,0]])
+    
+    word_axis = np.zeros((model.input_continuous.epoch_size))
+    interpolation = np.zeros(model.input_continuous.epoch_size)
 
     fetches = {"cost": model.cost,"nb_words_in_batch": model.nb_words_in_batch,"final_state_reg": model.final_state_reg,"final_state_lda": model.final_state_lda, "final_state_int": model.final_state_int, "temp": model.temp}
     
-    interpolation = np.zeros(model.input_continuous.epoch_size)
+
 
     for step in range(model.input_continuous.epoch_size):
         batch_data, batch_labels = model.input_continuous.next_batch()
@@ -282,10 +288,15 @@ def run_test_epoch(session, model, epoch_nb = 0):
         nb_words_in_batch = vals["nb_words_in_batch"]
         #print(vals['temp'])
         if vals['temp']:
+            word_in_sentence += 1
             interpolation[step] = vals['temp']
 
         if batch_labels[0,-1] == model.input_continuous.eos_id:
             state_reg = session.run(model.initial_state_reg)
+            word_axis[pos:pos+word_in_sentence] = processed_sentences + np.linspace(0,1,word_in_sentence+1)[:-1]
+            processed_sentences +=1
+            pos += word_in_sentence
+            word_in_sentence = 0
         else:
             state_reg = vals["final_state_reg"]
 
@@ -299,18 +310,18 @@ def run_test_epoch(session, model, epoch_nb = 0):
     
     plt.rc('text', usetex=True)
     plt.rc('font', family='serif')
-    plt.plot(np.arange(model.input_continuous.epoch_size), interpolation,'b', label = 'regular part')
-    plt.plot(np.arange(model.input_continuous.epoch_size), 1-interpolation,'r', label = 'lda part')
-    plt.legend(bbox_to_anchor=(0., 1.02, 1., .102), loc=3, ncol=2, mode="expand", borderaxespad=0.)
+    #plt.plot(word_axis +1, interpolation,'y', label = 'regular part')
+    plt.plot(word_axis +1, 1-interpolation,'b', label = 'lda part')
+    #plt.legend(bbox_to_anchor=(0., 1.02, 1., .102), loc=3, ncol=2, mode="expand", borderaxespad=0., fontsize = 22)
 
     
-    plt.xlabel(r'number of the word in test data')
-    plt.ylabel(r'interpolation factor')
+    plt.xlabel(r'Number of sentence in test data', fontsize = 20)
+    plt.ylabel(r'Interpolation weight for domain part', fontsize = 20)
     #plt.title(r"\TeX\ is Number "r"$\displaystyle\sum_{n=1}^\infty\frac{-e^{i\pi}}{2^n}$!", fontsize=16, color='gray')
     # Make room for the ridiculously large title.
     #plt.subplots_adjust(top=0.8)
 
-    plt.savefig('tex_demo')
+    plt.savefig('interpolation_factor.eps')
     return np.exp(costs/iters)
  
 def main(_):
