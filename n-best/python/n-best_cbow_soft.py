@@ -210,7 +210,7 @@ def run_epoch(session, model, times, cost=None, eval_op=None):
         costs += cost
         iters += nb_words_in_batch
     
-    return np.exp(costs/iters)
+    return -costs*np.log10(np.exp(1))
     
 def find_n_best_lists(n_best):
     n_best_files = os.listdir(n_best)
@@ -278,6 +278,7 @@ def main(_):
         print(fv_files[i])
         best_sentence_history = []
         best_sentence_history_len = 0
+        ppl_so_far = 0
         for j in range(fv_files_amount[i]+1):
             name_file = fv_files[i] + '.0.' + str(j) + '.10000-best.txt'
             output_file = os.path.join(output_dir, name_file)
@@ -322,8 +323,8 @@ def main(_):
                     with sv.managed_session() as session:
                         for k in range(len(sentences)):  
                             test_perplexity=  run_epoch(session, mtest, len_sentences[k+1]-len_sentences[k])
-                            ppl.append(-test_perplexity)
-                            print("hypothesis %d with PPL %.3f" % (k,test_perplexity))
+                            ppl.append(test_perplexity-ppl_so_far)
+                            #print("hypothesis %d with PPL %.3f" % (k,test_perplexity-ppl_so_far))
 
 
 
@@ -339,6 +340,7 @@ def main(_):
             new_sen = ' '.join(new_sen)
             best_sentence_history.append(new_sen)
             best_sentence_history_len += 1
+            ppl_so_far += ppl[sort_index[0]]
 
             sentences2 = []
             for k in sort_index:

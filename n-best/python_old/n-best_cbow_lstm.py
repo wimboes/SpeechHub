@@ -27,7 +27,7 @@ python_path = os.path.abspath(os.getcwd())
 general_path = os.path.split(python_path)[0]
 input_path = os.path.join(os.path.split(os.path.split(python_path)[0])[0],'input_n_best/original_n-best')
 data_path = os.path.join(os.path.split(os.path.split(python_path)[0])[0],'input')
-output_path = os.path.join(general_path,'output1')
+output_path = os.path.join(general_path,'output')
 
 # set data and save path
 
@@ -35,13 +35,13 @@ flags = tf.flags
 logging = tf.logging
 
 flags.DEFINE_integer("num_run", 0, "num_run")
-flags.DEFINE_string("test_name","cbow_exp_soft","test_name")
+flags.DEFINE_string("test_name","cbow_exp_lstm","test_name")
 
-flags.DEFINE_string("name","n-best-cbow_exp_soft","name")
+flags.DEFINE_string("name","n-best-cbow_exp_lstm","name")
 
 flags.DEFINE_string("input_path", input_path, "data_path")
-flags.DEFINE_string("data_path", data_path, "data_path")
 flags.DEFINE_string("model_name", "n-best", "model_name")
+flags.DEFINE_string("data_path", data_path, "data_path")
 flags.DEFINE_string("save_path", output_path, "save_path")
 flags.DEFINE_bool("use_fp16", False, "train using 16-bit floats instead of 32bit floats")
 
@@ -76,7 +76,7 @@ class ds_cbow_sentence_model(object):
             inputs_reg = tf.nn.embedding_lookup(embedding_reg, data)
             inputs_cbow = tf.nn.embedding_lookup(embedding_cbow, history)
 
-        with tf.variable_scope('cbow') as cbow:           
+        with tf.variable_scope('cbow'):           
             outputs_cbow = []
             for i in xrange(num_steps):
                 slice1 = tf.slice(history,[0,i],[batch_size,num_history])
@@ -94,38 +94,40 @@ class ds_cbow_sentence_model(object):
                     mask1 = tf.pack([mask]*config['embedded_size_cbow'],axis = 2)
                     out = mask1*slice2*exp_weights
                     comb_ = tf.reduce_sum(out,1)/(tf.reduce_sum(mask1*exp_weights,1) + 1e-32)
-
+                
                 if config['cbow_combination'] == "tfidf":
                     tfidf =  tf.slice(history_tfidf,[0,i],[batch_size,num_history])                   
                     out = slice2*tf.expand_dims(tf.cast(tfidf, dtype=data_type()), -1)
                     comb_ = tf.reduce_sum(out,1)/(tf.reduce_sum(tf.expand_dims(tf.cast(tfidf, dtype=data_type()), -1),1) + 1e-32)
-   
-   
+  
+    
                 outputs_cbow.append(comb_)
-            output_cbow_soft = tf.reshape(tf.concat(1, outputs_cbow), [-1, config['embedded_size_cbow']])
+            output_cbow_lstm = tf.reshape(tf.concat(1, outputs_cbow), [batch_size,num_steps, config['embedded_size_cbow']])
 
-        with tf.variable_scope('lstm_soft') as lstm_soft:
+
+        with tf.variable_scope('lstm_lstm'):
+
+            lstm_cell_lstm = tf.nn.rnn_cell.BasicLSTMCell(hidden_size, forget_bias=0.0, state_is_tuple=True)
+            cell_lstm = tf.nn.rnn_cell.MultiRNNCell([lstm_cell_lstm] * config['num_layers'], state_is_tuple=True)
+
+            self._initial_state_lstm = cell_lstm.zero_state(batch_size, data_type())
             
-            lstm_cell_soft = tf.nn.rnn_cell.BasicLSTMCell(hidden_size, forget_bias=0.0, state_is_tuple=True)
-            cell_soft = tf.nn.rnn_cell.MultiRNNCell([lstm_cell_soft] * config['num_layers'], state_is_tuple=True)
+            inputs_lstm = tf.concat(2,[inputs_reg, output_cbow_lstm])
+            outputs_lstm, state_lstm = tf.nn.dynamic_rnn(cell_lstm, inputs_lstm, initial_state=self._initial_state_lstm, dtype=data_type(), sequence_length=seq_len)
+            output_LSTM_lstm = tf.reshape(tf.concat(1, outputs_lstm), [-1, hidden_size])
+            output_lstm = output_LSTM_lstm
 
-            self._initial_state_soft = cell_soft.zero_state(batch_size, data_type())
-   
-            outputs_soft, state_soft = tf.nn.dynamic_rnn(cell_soft, inputs_reg, initial_state=self._initial_state_soft, dtype=data_type(), sequence_length=seq_len)
-            output_LSTM_soft = tf.reshape(tf.concat(1, outputs_soft), [-1, hidden_size])
-            output_soft = tf.concat(1,[output_LSTM_soft,output_cbow_soft])
-
-        softmax_w_soft = tf.get_variable("softmax_w_soft", [hidden_size+config['embedded_size_cbow'], vocab_size], dtype=data_type())
-        softmax_b_soft = tf.get_variable("softmax_b_soft", [vocab_size], dtype=data_type())            
-                      
+            
+        softmax_w_lstm = tf.get_variable("softmax_w_lstm", [hidden_size, vocab_size], dtype=data_type())
+        softmax_b_lstm = tf.get_variable("softmax_b_lstm", [vocab_size], dtype=data_type())            
           
-        self._cost, self._nb_words_in_batch = get_loss_function(output_soft, softmax_w_soft, softmax_b_soft, labels, input_, is_training)
 
-
+        self._cost, self._nb_words_in_batch = get_loss_function(output_lstm, softmax_w_lstm, softmax_b_lstm, labels, input_, is_training)
+        
     @property
     def nb_words_in_batch(self):
         return self._nb_words_in_batch    
-
+    
     @property
     def input(self):
         return self._input
@@ -169,7 +171,8 @@ class ds_cbow_sentence_model(object):
     @property
     def final_state(self):
         return self._final_state
-             
+
+
 def get_loss_function(output, softmax_w, softmax_b, targets, data, is_training):
     targets = tf.reshape(targets, [-1])
     if is_training:
