@@ -598,7 +598,7 @@ def main(_):
                     np.savez((FLAGS.save_path + '/' + FLAGS.test_name + '_' + str(FLAGS.num_run)+ '/results' +'.npz'), param_train_np = param_train_np, train_np = train_np[1:], valid_np=valid_np[1:], test_np = test_np)
                     
             elif FLAGS.mode == 'int':
-                interpol_values = np.linspace(0,1,num=50)
+                interpol_values = np.linspace(0,1,num=2)
                 interpol_best = 0
                 interpol_best_perplexity = 1e9
                 for interpol_value in interpol_values:
