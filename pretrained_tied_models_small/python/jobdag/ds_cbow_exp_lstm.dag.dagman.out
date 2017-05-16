@@ -1,350 +1,141 @@
-05/14/17 11:44:28 ******************************************************
-05/14/17 11:44:28 ** condor_scheduniv_exec.1250.0 (CONDOR_DAGMAN) STARTING UP
-05/14/17 11:44:28 ** /usr/bin/condor_dagman
-05/14/17 11:44:28 ** SubsystemInfo: name=DAGMAN type=DAGMAN(10) class=DAEMON(1)
-05/14/17 11:44:28 ** Configuration: subsystem:DAGMAN local:<NONE> class:DAEMON
-05/14/17 11:44:28 ** $CondorVersion: 8.6.2 Apr 23 2017 BuildID: 404257 $
-05/14/17 11:44:28 ** $CondorPlatform: x86_64_RedHat7 $
-05/14/17 11:44:28 ** PID = 9054
-05/14/17 11:44:28 ** Log last touched time unavailable (No such file or directory)
-05/14/17 11:44:28 ******************************************************
-05/14/17 11:44:28 Using config source: /etc/condor/condor_config
-05/14/17 11:44:28 Using local config sources: 
-05/14/17 11:44:28    /etc/condor/config.d/00esat.config
-05/14/17 11:44:28    /etc/condor/config.d/01java.config
-05/14/17 11:44:28    /etc/condor/config.d/80optout_users.config
-05/14/17 11:44:28    /etc/condor/condor_config.local
-05/14/17 11:44:28 config Macros = 166, Sorted = 166, StringBytes = 6034, TablesBytes = 6048
-05/14/17 11:44:28 CLASSAD_CACHING is ENABLED
-05/14/17 11:44:28 Daemon Log is logging: D_ALWAYS D_ERROR
-05/14/17 11:44:28 DaemonCore: No command port requested.
-05/14/17 11:44:28 DAGMAN_USE_STRICT setting: 1
-05/14/17 11:44:28 DAGMAN_VERBOSITY setting: 3
-05/14/17 11:44:28 DAGMAN_DEBUG_CACHE_SIZE setting: 5242880
-05/14/17 11:44:28 DAGMAN_DEBUG_CACHE_ENABLE setting: False
-05/14/17 11:44:28 DAGMAN_SUBMIT_DELAY setting: 0
-05/14/17 11:44:28 DAGMAN_MAX_SUBMIT_ATTEMPTS setting: 6
-05/14/17 11:44:28 DAGMAN_STARTUP_CYCLE_DETECT setting: False
-05/14/17 11:44:28 DAGMAN_MAX_SUBMITS_PER_INTERVAL setting: 5
-05/14/17 11:44:28 DAGMAN_USER_LOG_SCAN_INTERVAL setting: 5
-05/14/17 11:44:28 DAGMAN_DEFAULT_PRIORITY setting: 0
-05/14/17 11:44:28 DAGMAN_SUPPRESS_NOTIFICATION setting: True
-05/14/17 11:44:28 allow_events (DAGMAN_ALLOW_EVENTS) setting: 114
-05/14/17 11:44:28 DAGMAN_RETRY_SUBMIT_FIRST setting: True
-05/14/17 11:44:28 DAGMAN_RETRY_NODE_FIRST setting: False
-05/14/17 11:44:28 DAGMAN_MAX_JOBS_IDLE setting: 1000
-05/14/17 11:44:28 DAGMAN_MAX_JOBS_SUBMITTED setting: 0
-05/14/17 11:44:28 DAGMAN_MAX_PRE_SCRIPTS setting: 20
-05/14/17 11:44:28 DAGMAN_MAX_POST_SCRIPTS setting: 20
-05/14/17 11:44:28 DAGMAN_MUNGE_NODE_NAMES setting: True
-05/14/17 11:44:28 DAGMAN_PROHIBIT_MULTI_JOBS setting: False
-05/14/17 11:44:28 DAGMAN_SUBMIT_DEPTH_FIRST setting: False
-05/14/17 11:44:28 DAGMAN_ALWAYS_RUN_POST setting: False
-05/14/17 11:44:28 DAGMAN_ABORT_DUPLICATES setting: True
-05/14/17 11:44:28 DAGMAN_ABORT_ON_SCARY_SUBMIT setting: True
-05/14/17 11:44:28 DAGMAN_PENDING_REPORT_INTERVAL setting: 600
-05/14/17 11:44:28 DAGMAN_AUTO_RESCUE setting: True
-05/14/17 11:44:28 DAGMAN_MAX_RESCUE_NUM setting: 100
-05/14/17 11:44:28 DAGMAN_WRITE_PARTIAL_RESCUE setting: True
-05/14/17 11:44:28 DAGMAN_DEFAULT_NODE_LOG setting: @(DAG_DIR)/@(DAG_FILE).nodes.log
-05/14/17 11:44:28 DAGMAN_GENERATE_SUBDAG_SUBMITS setting: True
-05/14/17 11:44:28 DAGMAN_MAX_JOB_HOLDS setting: 100
-05/14/17 11:44:28 DAGMAN_HOLD_CLAIM_TIME setting: 20
-05/14/17 11:44:28 ALL_DEBUG setting: 
-05/14/17 11:44:28 DAGMAN_DEBUG setting: 
-05/14/17 11:44:28 DAGMAN_SUPPRESS_JOB_LOGS setting: False
-05/14/17 11:44:28 DAGMAN_REMOVE_NODE_JOBS setting: True
-05/14/17 11:44:28 argv[0] == "condor_scheduniv_exec.1250.0"
-05/14/17 11:44:28 argv[1] == "-Lockfile"
-05/14/17 11:44:28 argv[2] == "ds_cbow_exp_lstm.dag.lock"
-05/14/17 11:44:28 argv[3] == "-AutoRescue"
-05/14/17 11:44:28 argv[4] == "1"
-05/14/17 11:44:28 argv[5] == "-DoRescueFrom"
-05/14/17 11:44:28 argv[6] == "0"
-05/14/17 11:44:28 argv[7] == "-Dag"
-05/14/17 11:44:28 argv[8] == "ds_cbow_exp_lstm.dag"
-05/14/17 11:44:28 argv[9] == "-Suppress_notification"
-05/14/17 11:44:28 argv[10] == "-CsdVersion"
-05/14/17 11:44:28 argv[11] == "$CondorVersion: 8.6.2 Apr 23 2017 BuildID: 404257 $"
-05/14/17 11:44:28 argv[12] == "-Dagman"
-05/14/17 11:44:28 argv[13] == "/usr/bin/condor_dagman"
-05/14/17 11:44:28 Workflow batch-name: <ds_cbow_exp_lstm.dag+1250>
-05/14/17 11:44:28 Workflow accounting_group: <>
-05/14/17 11:44:28 Workflow accounting_group_user: <>
-05/14/17 11:44:28 Warning: failed to get attribute DAGNodeName
-05/14/17 11:44:28 DAGMAN_LOG_ON_NFS_IS_ERROR setting: False
-05/14/17 11:44:28 Default node log file is: </esat/spchtemp/scratch/robbe/SpeechHub/pretrained_tied_models_small/python/jobdag/./ds_cbow_exp_lstm.dag.nodes.log>
-05/14/17 11:44:28 DAG Lockfile will be written to ds_cbow_exp_lstm.dag.lock
-05/14/17 11:44:28 DAG Input file is ds_cbow_exp_lstm.dag
-05/14/17 11:44:28 Parsing 1 dagfiles
-05/14/17 11:44:28 Parsing ds_cbow_exp_lstm.dag ...
-05/14/17 11:44:28 Dag contains 2 total jobs
-05/14/17 11:44:28 Sleeping for 3 seconds to ensure ProcessId uniqueness
-05/14/17 11:44:31 Bootstrapping...
-05/14/17 11:44:31 Number of pre-completed nodes: 0
-05/14/17 11:44:31 MultiLogFiles: truncating log file /esat/spchtemp/scratch/robbe/SpeechHub/pretrained_tied_models_small/python/jobdag/./ds_cbow_exp_lstm.dag.nodes.log
-05/14/17 11:44:31 DAG status: 0 (DAG_STATUS_OK)
-05/14/17 11:44:31 Of 2 nodes total:
-05/14/17 11:44:31  Done     Pre   Queued    Post   Ready   Un-Ready   Failed
-05/14/17 11:44:31   ===     ===      ===     ===     ===        ===      ===
-05/14/17 11:44:31     0       0        0       0       1          1        0
-05/14/17 11:44:31 0 job proc(s) currently held
-05/14/17 11:44:31 Registering condor_event_timer...
-05/14/17 11:44:32 Submitting HTCondor Node cbow_exp_lstm job(s)...
-05/14/17 11:44:32 Adding a DAGMan workflow log /esat/spchtemp/scratch/robbe/SpeechHub/pretrained_tied_models_small/python/jobdag/./ds_cbow_exp_lstm.dag.nodes.log
-05/14/17 11:44:32 Masking the events recorded in the DAGMAN workflow log
-05/14/17 11:44:32 Mask for workflow log is 0,1,2,4,5,7,9,10,11,12,13,16,17,24,27
-05/14/17 11:44:32 submitting: /usr/bin/condor_submit -a dag_node_name' '=' 'cbow_exp_lstm -a +DAGManJobId' '=' '1250 -a DAGManJobId' '=' '1250 -batch-name ds_cbow_exp_lstm.dag+1250 -a submit_event_notes' '=' 'DAG' 'Node:' 'cbow_exp_lstm -a dagman_log' '=' '/esat/spchtemp/scratch/robbe/SpeechHub/pretrained_tied_models_small/python/jobdag/./ds_cbow_exp_lstm.dag.nodes.log -a +DAGManNodesMask' '=' '"0,1,2,4,5,7,9,10,11,12,13,16,17,24,27" -a data_set' '=' 'ds -a test_name' '=' 'cbow_exp_lstm -a num_run' '=' '0 -a combination' '=' 'exp -a DAG_STATUS' '=' '0 -a FAILED_COUNT' '=' '0 -a +KeepClaimIdle' '=' '20 -a notification' '=' 'never -a +DAGParentNodeNames' '=' '"" jobdag/cbow_lstm.job
-05/14/17 11:44:32 From submit: Submitting job(s).
-05/14/17 11:44:32 From submit: 1 job(s) submitted to cluster 1261.
-05/14/17 11:44:32 	assigned HTCondor ID (1261.0.0)
-05/14/17 11:44:32 Just submitted 1 job this cycle...
-05/14/17 11:44:32 Currently monitoring 1 HTCondor log file(s)
-05/14/17 11:44:32 Reassigning the id of job cbow_exp_lstm from (1261.0.0) to (1261.0.0)
-05/14/17 11:44:32 Event: ULOG_SUBMIT for HTCondor Node cbow_exp_lstm (1261.0.0) {05/14/17 11:44:32}
-05/14/17 11:44:32 Number of idle job procs: 1
-05/14/17 11:44:32 DAG status: 0 (DAG_STATUS_OK)
-05/14/17 11:44:32 Of 2 nodes total:
-05/14/17 11:44:32  Done     Pre   Queued    Post   Ready   Un-Ready   Failed
-05/14/17 11:44:32   ===     ===      ===     ===     ===        ===      ===
-05/14/17 11:44:32     0       0        1       0       0          1        0
-05/14/17 11:44:32 0 job proc(s) currently held
-05/14/17 11:54:35 603 seconds since last log event
-05/14/17 11:54:35 Pending DAG nodes:
-05/14/17 11:54:35   Node cbow_exp_lstm, HTCondor ID 1261, status STATUS_SUBMITTED
-05/14/17 12:04:38 1206 seconds since last log event
-05/14/17 12:04:38 Pending DAG nodes:
-05/14/17 12:04:38   Node cbow_exp_lstm, HTCondor ID 1261, status STATUS_SUBMITTED
-05/14/17 12:14:40 1808 seconds since last log event
-05/14/17 12:14:40 Pending DAG nodes:
-05/14/17 12:14:40   Node cbow_exp_lstm, HTCondor ID 1261, status STATUS_SUBMITTED
-05/14/17 12:24:42 2410 seconds since last log event
-05/14/17 12:24:42 Pending DAG nodes:
-05/14/17 12:24:42   Node cbow_exp_lstm, HTCondor ID 1261, status STATUS_SUBMITTED
-05/14/17 12:34:44 3012 seconds since last log event
-05/14/17 12:34:44 Pending DAG nodes:
-05/14/17 12:34:44   Node cbow_exp_lstm, HTCondor ID 1261, status STATUS_SUBMITTED
-05/14/17 12:44:47 3615 seconds since last log event
-05/14/17 12:44:47 Pending DAG nodes:
-05/14/17 12:44:47   Node cbow_exp_lstm, HTCondor ID 1261, status STATUS_SUBMITTED
-05/14/17 12:54:49 4217 seconds since last log event
-05/14/17 12:54:49 Pending DAG nodes:
-05/14/17 12:54:49   Node cbow_exp_lstm, HTCondor ID 1261, status STATUS_SUBMITTED
-05/14/17 13:04:52 4820 seconds since last log event
-05/14/17 13:04:52 Pending DAG nodes:
-05/14/17 13:04:52   Node cbow_exp_lstm, HTCondor ID 1261, status STATUS_SUBMITTED
-05/14/17 13:14:54 5422 seconds since last log event
-05/14/17 13:14:54 Pending DAG nodes:
-05/14/17 13:14:54   Node cbow_exp_lstm, HTCondor ID 1261, status STATUS_SUBMITTED
-05/14/17 13:24:55 6023 seconds since last log event
-05/14/17 13:24:55 Pending DAG nodes:
-05/14/17 13:24:55   Node cbow_exp_lstm, HTCondor ID 1261, status STATUS_SUBMITTED
-05/14/17 13:34:58 6626 seconds since last log event
-05/14/17 13:34:58 Pending DAG nodes:
-05/14/17 13:34:58   Node cbow_exp_lstm, HTCondor ID 1261, status STATUS_SUBMITTED
-05/14/17 13:45:00 7228 seconds since last log event
-05/14/17 13:45:00 Pending DAG nodes:
-05/14/17 13:45:00   Node cbow_exp_lstm, HTCondor ID 1261, status STATUS_SUBMITTED
-05/14/17 13:55:03 7831 seconds since last log event
-05/14/17 13:55:03 Pending DAG nodes:
-05/14/17 13:55:03   Node cbow_exp_lstm, HTCondor ID 1261, status STATUS_SUBMITTED
-05/14/17 14:05:05 8433 seconds since last log event
-05/14/17 14:05:05 Pending DAG nodes:
-05/14/17 14:05:05   Node cbow_exp_lstm, HTCondor ID 1261, status STATUS_SUBMITTED
-05/14/17 14:15:07 9035 seconds since last log event
-05/14/17 14:15:07 Pending DAG nodes:
-05/14/17 14:15:07   Node cbow_exp_lstm, HTCondor ID 1261, status STATUS_SUBMITTED
-05/14/17 14:25:09 9637 seconds since last log event
-05/14/17 14:25:09 Pending DAG nodes:
-05/14/17 14:25:09   Node cbow_exp_lstm, HTCondor ID 1261, status STATUS_SUBMITTED
-05/14/17 14:35:12 10240 seconds since last log event
-05/14/17 14:35:12 Pending DAG nodes:
-05/14/17 14:35:12   Node cbow_exp_lstm, HTCondor ID 1261, status STATUS_SUBMITTED
-05/14/17 14:45:14 10842 seconds since last log event
-05/14/17 14:45:14 Pending DAG nodes:
-05/14/17 14:45:14   Node cbow_exp_lstm, HTCondor ID 1261, status STATUS_SUBMITTED
-05/14/17 14:55:16 11444 seconds since last log event
-05/14/17 14:55:16 Pending DAG nodes:
-05/14/17 14:55:16   Node cbow_exp_lstm, HTCondor ID 1261, status STATUS_SUBMITTED
-05/14/17 15:05:19 12047 seconds since last log event
-05/14/17 15:05:19 Pending DAG nodes:
-05/14/17 15:05:19   Node cbow_exp_lstm, HTCondor ID 1261, status STATUS_SUBMITTED
-05/14/17 15:15:21 12649 seconds since last log event
-05/14/17 15:15:21 Pending DAG nodes:
-05/14/17 15:15:21   Node cbow_exp_lstm, HTCondor ID 1261, status STATUS_SUBMITTED
-05/14/17 15:25:24 13252 seconds since last log event
-05/14/17 15:25:24 Pending DAG nodes:
-05/14/17 15:25:24   Node cbow_exp_lstm, HTCondor ID 1261, status STATUS_SUBMITTED
-05/14/17 15:35:26 13854 seconds since last log event
-05/14/17 15:35:26 Pending DAG nodes:
-05/14/17 15:35:26   Node cbow_exp_lstm, HTCondor ID 1261, status STATUS_SUBMITTED
-05/14/17 15:45:29 14457 seconds since last log event
-05/14/17 15:45:29 Pending DAG nodes:
-05/14/17 15:45:29   Node cbow_exp_lstm, HTCondor ID 1261, status STATUS_SUBMITTED
-05/14/17 15:55:32 15060 seconds since last log event
-05/14/17 15:55:32 Pending DAG nodes:
-05/14/17 15:55:32   Node cbow_exp_lstm, HTCondor ID 1261, status STATUS_SUBMITTED
-05/14/17 16:05:34 15662 seconds since last log event
-05/14/17 16:05:34 Pending DAG nodes:
-05/14/17 16:05:34   Node cbow_exp_lstm, HTCondor ID 1261, status STATUS_SUBMITTED
-05/14/17 16:15:36 16264 seconds since last log event
-05/14/17 16:15:36 Pending DAG nodes:
-05/14/17 16:15:36   Node cbow_exp_lstm, HTCondor ID 1261, status STATUS_SUBMITTED
-05/14/17 16:25:38 16866 seconds since last log event
-05/14/17 16:25:38 Pending DAG nodes:
-05/14/17 16:25:38   Node cbow_exp_lstm, HTCondor ID 1261, status STATUS_SUBMITTED
-05/14/17 16:35:41 17469 seconds since last log event
-05/14/17 16:35:41 Pending DAG nodes:
-05/14/17 16:35:41   Node cbow_exp_lstm, HTCondor ID 1261, status STATUS_SUBMITTED
-05/14/17 16:45:43 18071 seconds since last log event
-05/14/17 16:45:43 Pending DAG nodes:
-05/14/17 16:45:43   Node cbow_exp_lstm, HTCondor ID 1261, status STATUS_SUBMITTED
-05/14/17 16:55:46 18674 seconds since last log event
-05/14/17 16:55:46 Pending DAG nodes:
-05/14/17 16:55:46   Node cbow_exp_lstm, HTCondor ID 1261, status STATUS_SUBMITTED
-05/14/17 17:05:48 19276 seconds since last log event
-05/14/17 17:05:48 Pending DAG nodes:
-05/14/17 17:05:48   Node cbow_exp_lstm, HTCondor ID 1261, status STATUS_SUBMITTED
-05/14/17 17:15:50 19878 seconds since last log event
-05/14/17 17:15:50 Pending DAG nodes:
-05/14/17 17:15:50   Node cbow_exp_lstm, HTCondor ID 1261, status STATUS_SUBMITTED
-05/14/17 17:25:52 20480 seconds since last log event
-05/14/17 17:25:52 Pending DAG nodes:
-05/14/17 17:25:52   Node cbow_exp_lstm, HTCondor ID 1261, status STATUS_SUBMITTED
-05/14/17 17:35:55 21083 seconds since last log event
-05/14/17 17:35:55 Pending DAG nodes:
-05/14/17 17:35:55   Node cbow_exp_lstm, HTCondor ID 1261, status STATUS_SUBMITTED
-05/14/17 17:45:58 21686 seconds since last log event
-05/14/17 17:45:58 Pending DAG nodes:
-05/14/17 17:45:58   Node cbow_exp_lstm, HTCondor ID 1261, status STATUS_SUBMITTED
-05/14/17 17:56:00 22288 seconds since last log event
-05/14/17 17:56:00 Pending DAG nodes:
-05/14/17 17:56:00   Node cbow_exp_lstm, HTCondor ID 1261, status STATUS_SUBMITTED
-05/14/17 18:06:02 22890 seconds since last log event
-05/14/17 18:06:02 Pending DAG nodes:
-05/14/17 18:06:02   Node cbow_exp_lstm, HTCondor ID 1261, status STATUS_SUBMITTED
-05/14/17 18:16:05 23493 seconds since last log event
-05/14/17 18:16:05 Pending DAG nodes:
-05/14/17 18:16:05   Node cbow_exp_lstm, HTCondor ID 1261, status STATUS_SUBMITTED
-05/14/17 18:26:07 24095 seconds since last log event
-05/14/17 18:26:07 Pending DAG nodes:
-05/14/17 18:26:07   Node cbow_exp_lstm, HTCondor ID 1261, status STATUS_SUBMITTED
-05/14/17 18:36:09 24697 seconds since last log event
-05/14/17 18:36:09 Pending DAG nodes:
-05/14/17 18:36:09   Node cbow_exp_lstm, HTCondor ID 1261, status STATUS_SUBMITTED
-05/14/17 18:46:11 25299 seconds since last log event
-05/14/17 18:46:11 Pending DAG nodes:
-05/14/17 18:46:11   Node cbow_exp_lstm, HTCondor ID 1261, status STATUS_SUBMITTED
-05/14/17 18:56:13 25901 seconds since last log event
-05/14/17 18:56:13 Pending DAG nodes:
-05/14/17 18:56:13   Node cbow_exp_lstm, HTCondor ID 1261, status STATUS_SUBMITTED
-05/14/17 19:06:14 26502 seconds since last log event
-05/14/17 19:06:14 Pending DAG nodes:
-05/14/17 19:06:14   Node cbow_exp_lstm, HTCondor ID 1261, status STATUS_SUBMITTED
-05/14/17 19:16:16 27104 seconds since last log event
-05/14/17 19:16:16 Pending DAG nodes:
-05/14/17 19:16:16   Node cbow_exp_lstm, HTCondor ID 1261, status STATUS_SUBMITTED
-05/14/17 19:26:18 27706 seconds since last log event
-05/14/17 19:26:18 Pending DAG nodes:
-05/14/17 19:26:18   Node cbow_exp_lstm, HTCondor ID 1261, status STATUS_SUBMITTED
-05/14/17 19:36:20 28308 seconds since last log event
-05/14/17 19:36:20 Pending DAG nodes:
-05/14/17 19:36:20   Node cbow_exp_lstm, HTCondor ID 1261, status STATUS_SUBMITTED
-05/14/17 19:46:22 28910 seconds since last log event
-05/14/17 19:46:22 Pending DAG nodes:
-05/14/17 19:46:22   Node cbow_exp_lstm, HTCondor ID 1261, status STATUS_SUBMITTED
-05/14/17 19:56:24 29512 seconds since last log event
-05/14/17 19:56:24 Pending DAG nodes:
-05/14/17 19:56:24   Node cbow_exp_lstm, HTCondor ID 1261, status STATUS_SUBMITTED
-05/14/17 20:06:26 30114 seconds since last log event
-05/14/17 20:06:26 Pending DAG nodes:
-05/14/17 20:06:26   Node cbow_exp_lstm, HTCondor ID 1261, status STATUS_SUBMITTED
-05/14/17 20:16:29 30717 seconds since last log event
-05/14/17 20:16:29 Pending DAG nodes:
-05/14/17 20:16:29   Node cbow_exp_lstm, HTCondor ID 1261, status STATUS_SUBMITTED
-05/14/17 20:26:32 31320 seconds since last log event
-05/14/17 20:26:32 Pending DAG nodes:
-05/14/17 20:26:32   Node cbow_exp_lstm, HTCondor ID 1261, status STATUS_SUBMITTED
-05/14/17 20:36:35 31923 seconds since last log event
-05/14/17 20:36:35 Pending DAG nodes:
-05/14/17 20:36:35   Node cbow_exp_lstm, HTCondor ID 1261, status STATUS_SUBMITTED
-05/14/17 20:46:38 32526 seconds since last log event
-05/14/17 20:46:38 Pending DAG nodes:
-05/14/17 20:46:38   Node cbow_exp_lstm, HTCondor ID 1261, status STATUS_SUBMITTED
-05/14/17 20:56:41 33129 seconds since last log event
-05/14/17 20:56:41 Pending DAG nodes:
-05/14/17 20:56:41   Node cbow_exp_lstm, HTCondor ID 1261, status STATUS_SUBMITTED
-05/14/17 21:06:44 33732 seconds since last log event
-05/14/17 21:06:44 Pending DAG nodes:
-05/14/17 21:06:44   Node cbow_exp_lstm, HTCondor ID 1261, status STATUS_SUBMITTED
-05/14/17 21:16:46 34334 seconds since last log event
-05/14/17 21:16:46 Pending DAG nodes:
-05/14/17 21:16:46   Node cbow_exp_lstm, HTCondor ID 1261, status STATUS_SUBMITTED
-05/14/17 21:26:49 34937 seconds since last log event
-05/14/17 21:26:49 Pending DAG nodes:
-05/14/17 21:26:49   Node cbow_exp_lstm, HTCondor ID 1261, status STATUS_SUBMITTED
-05/14/17 21:36:51 35539 seconds since last log event
-05/14/17 21:36:51 Pending DAG nodes:
-05/14/17 21:36:51   Node cbow_exp_lstm, HTCondor ID 1261, status STATUS_SUBMITTED
-05/14/17 21:46:54 36142 seconds since last log event
-05/14/17 21:46:54 Pending DAG nodes:
-05/14/17 21:46:54   Node cbow_exp_lstm, HTCondor ID 1261, status STATUS_SUBMITTED
-05/14/17 21:56:57 36745 seconds since last log event
-05/14/17 21:56:57 Pending DAG nodes:
-05/14/17 21:56:57   Node cbow_exp_lstm, HTCondor ID 1261, status STATUS_SUBMITTED
-05/14/17 22:06:59 37347 seconds since last log event
-05/14/17 22:06:59 Pending DAG nodes:
-05/14/17 22:06:59   Node cbow_exp_lstm, HTCondor ID 1261, status STATUS_SUBMITTED
-05/14/17 22:17:01 37949 seconds since last log event
-05/14/17 22:17:01 Pending DAG nodes:
-05/14/17 22:17:01   Node cbow_exp_lstm, HTCondor ID 1261, status STATUS_SUBMITTED
-05/14/17 22:27:03 38551 seconds since last log event
-05/14/17 22:27:03 Pending DAG nodes:
-05/14/17 22:27:03   Node cbow_exp_lstm, HTCondor ID 1261, status STATUS_SUBMITTED
-05/14/17 22:37:05 39153 seconds since last log event
-05/14/17 22:37:05 Pending DAG nodes:
-05/14/17 22:37:05   Node cbow_exp_lstm, HTCondor ID 1261, status STATUS_SUBMITTED
-05/14/17 22:47:08 39756 seconds since last log event
-05/14/17 22:47:08 Pending DAG nodes:
-05/14/17 22:47:08   Node cbow_exp_lstm, HTCondor ID 1261, status STATUS_SUBMITTED
-05/14/17 22:57:10 40358 seconds since last log event
-05/14/17 22:57:10 Pending DAG nodes:
-05/14/17 22:57:10   Node cbow_exp_lstm, HTCondor ID 1261, status STATUS_SUBMITTED
-05/14/17 23:07:13 40961 seconds since last log event
-05/14/17 23:07:13 Pending DAG nodes:
-05/14/17 23:07:13   Node cbow_exp_lstm, HTCondor ID 1261, status STATUS_SUBMITTED
-05/14/17 23:17:14 41562 seconds since last log event
-05/14/17 23:17:14 Pending DAG nodes:
-05/14/17 23:17:14   Node cbow_exp_lstm, HTCondor ID 1261, status STATUS_SUBMITTED
-05/14/17 23:27:16 42164 seconds since last log event
-05/14/17 23:27:17 Pending DAG nodes:
-05/14/17 23:27:17   Node cbow_exp_lstm, HTCondor ID 1261, status STATUS_SUBMITTED
-05/14/17 23:37:20 42768 seconds since last log event
-05/14/17 23:37:20 Pending DAG nodes:
-05/14/17 23:37:20   Node cbow_exp_lstm, HTCondor ID 1261, status STATUS_SUBMITTED
-05/14/17 23:47:22 43370 seconds since last log event
-05/14/17 23:47:22 Pending DAG nodes:
-05/14/17 23:47:22   Node cbow_exp_lstm, HTCondor ID 1261, status STATUS_SUBMITTED
-05/14/17 23:57:24 43972 seconds since last log event
-05/14/17 23:57:24 Pending DAG nodes:
-05/14/17 23:57:24   Node cbow_exp_lstm, HTCondor ID 1261, status STATUS_SUBMITTED
-05/15/17 00:03:36 Received SIGUSR1
-05/15/17 00:03:36 Aborting DAG...
-05/15/17 00:03:36 Writing Rescue DAG to ds_cbow_exp_lstm.dag.rescue001...
-05/15/17 00:03:36 Removing submitted jobs...
-05/15/17 00:03:36 Removing any/all submitted HTCondor jobs...
-05/15/17 00:03:36 Running: /usr/bin/condor_rm -const DAGManJobId' '=?=' '1250
-05/15/17 00:03:36 Note: 0 total job deferrals because of -MaxJobs limit (0)
-05/15/17 00:03:36 Note: 0 total job deferrals because of -MaxIdle limit (1000)
-05/15/17 00:03:36 Note: 0 total job deferrals because of node category throttles
-05/15/17 00:03:36 Note: 0 total PRE script deferrals because of -MaxPre limit (20) or DEFER
-05/15/17 00:03:36 Note: 0 total POST script deferrals because of -MaxPost limit (20) or DEFER
-05/15/17 00:03:36 DAG status: 4 (DAG_STATUS_RM)
-05/15/17 00:03:36 Of 2 nodes total:
-05/15/17 00:03:36  Done     Pre   Queued    Post   Ready   Un-Ready   Failed
-05/15/17 00:03:36   ===     ===      ===     ===     ===        ===      ===
-05/15/17 00:03:36     0       0        1       0       0          1        0
-05/15/17 00:03:36 0 job proc(s) currently held
-05/15/17 00:03:36 Wrote metrics file ds_cbow_exp_lstm.dag.metrics.
-05/15/17 00:03:36 Metrics not sent because of PEGASUS_METRICS or CONDOR_DEVELOPERS setting.
-05/15/17 00:03:36 **** condor_scheduniv_exec.1250.0 (condor_DAGMAN) pid 9054 EXITING WITH STATUS 2
+05/16/17 20:31:51 ******************************************************
+05/16/17 20:31:51 ** condor_scheduniv_exec.1323.0 (CONDOR_DAGMAN) STARTING UP
+05/16/17 20:31:51 ** /usr/bin/condor_dagman
+05/16/17 20:31:51 ** SubsystemInfo: name=DAGMAN type=DAGMAN(10) class=DAEMON(1)
+05/16/17 20:31:51 ** Configuration: subsystem:DAGMAN local:<NONE> class:DAEMON
+05/16/17 20:31:51 ** $CondorVersion: 8.6.2 Apr 23 2017 BuildID: 404257 $
+05/16/17 20:31:51 ** $CondorPlatform: x86_64_RedHat7 $
+05/16/17 20:31:51 ** PID = 19414
+05/16/17 20:31:51 ** Log last touched time unavailable (No such file or directory)
+05/16/17 20:31:51 ******************************************************
+05/16/17 20:31:51 Using config source: /etc/condor/condor_config
+05/16/17 20:31:51 Using local config sources: 
+05/16/17 20:31:51    /etc/condor/config.d/00esat.config
+05/16/17 20:31:51    /etc/condor/config.d/01java.config
+05/16/17 20:31:51    /etc/condor/config.d/80optout_users.config
+05/16/17 20:31:51    /etc/condor/condor_config.local
+05/16/17 20:31:51 config Macros = 166, Sorted = 166, StringBytes = 6036, TablesBytes = 6048
+05/16/17 20:31:51 CLASSAD_CACHING is ENABLED
+05/16/17 20:31:51 Daemon Log is logging: D_ALWAYS D_ERROR
+05/16/17 20:31:51 DaemonCore: No command port requested.
+05/16/17 20:31:51 DAGMAN_USE_STRICT setting: 1
+05/16/17 20:31:51 DAGMAN_VERBOSITY setting: 3
+05/16/17 20:31:51 DAGMAN_DEBUG_CACHE_SIZE setting: 5242880
+05/16/17 20:31:51 DAGMAN_DEBUG_CACHE_ENABLE setting: False
+05/16/17 20:31:51 DAGMAN_SUBMIT_DELAY setting: 0
+05/16/17 20:31:51 DAGMAN_MAX_SUBMIT_ATTEMPTS setting: 6
+05/16/17 20:31:51 DAGMAN_STARTUP_CYCLE_DETECT setting: False
+05/16/17 20:31:51 DAGMAN_MAX_SUBMITS_PER_INTERVAL setting: 5
+05/16/17 20:31:51 DAGMAN_USER_LOG_SCAN_INTERVAL setting: 5
+05/16/17 20:31:51 DAGMAN_DEFAULT_PRIORITY setting: 0
+05/16/17 20:31:51 DAGMAN_SUPPRESS_NOTIFICATION setting: True
+05/16/17 20:31:51 allow_events (DAGMAN_ALLOW_EVENTS) setting: 114
+05/16/17 20:31:51 DAGMAN_RETRY_SUBMIT_FIRST setting: True
+05/16/17 20:31:51 DAGMAN_RETRY_NODE_FIRST setting: False
+05/16/17 20:31:51 DAGMAN_MAX_JOBS_IDLE setting: 1000
+05/16/17 20:31:51 DAGMAN_MAX_JOBS_SUBMITTED setting: 0
+05/16/17 20:31:51 DAGMAN_MAX_PRE_SCRIPTS setting: 20
+05/16/17 20:31:51 DAGMAN_MAX_POST_SCRIPTS setting: 20
+05/16/17 20:31:51 DAGMAN_MUNGE_NODE_NAMES setting: True
+05/16/17 20:31:51 DAGMAN_PROHIBIT_MULTI_JOBS setting: False
+05/16/17 20:31:51 DAGMAN_SUBMIT_DEPTH_FIRST setting: False
+05/16/17 20:31:51 DAGMAN_ALWAYS_RUN_POST setting: False
+05/16/17 20:31:51 DAGMAN_ABORT_DUPLICATES setting: True
+05/16/17 20:31:51 DAGMAN_ABORT_ON_SCARY_SUBMIT setting: True
+05/16/17 20:31:51 DAGMAN_PENDING_REPORT_INTERVAL setting: 600
+05/16/17 20:31:51 DAGMAN_AUTO_RESCUE setting: True
+05/16/17 20:31:51 DAGMAN_MAX_RESCUE_NUM setting: 100
+05/16/17 20:31:51 DAGMAN_WRITE_PARTIAL_RESCUE setting: True
+05/16/17 20:31:51 DAGMAN_DEFAULT_NODE_LOG setting: @(DAG_DIR)/@(DAG_FILE).nodes.log
+05/16/17 20:31:51 DAGMAN_GENERATE_SUBDAG_SUBMITS setting: True
+05/16/17 20:31:51 DAGMAN_MAX_JOB_HOLDS setting: 100
+05/16/17 20:31:51 DAGMAN_HOLD_CLAIM_TIME setting: 20
+05/16/17 20:31:51 ALL_DEBUG setting: 
+05/16/17 20:31:51 DAGMAN_DEBUG setting: 
+05/16/17 20:31:51 DAGMAN_SUPPRESS_JOB_LOGS setting: False
+05/16/17 20:31:51 DAGMAN_REMOVE_NODE_JOBS setting: True
+05/16/17 20:31:51 argv[0] == "condor_scheduniv_exec.1323.0"
+05/16/17 20:31:51 argv[1] == "-Lockfile"
+05/16/17 20:31:51 argv[2] == "ds_cbow_exp_lstm.dag.lock"
+05/16/17 20:31:51 argv[3] == "-AutoRescue"
+05/16/17 20:31:51 argv[4] == "1"
+05/16/17 20:31:51 argv[5] == "-DoRescueFrom"
+05/16/17 20:31:51 argv[6] == "0"
+05/16/17 20:31:51 argv[7] == "-Dag"
+05/16/17 20:31:51 argv[8] == "ds_cbow_exp_lstm.dag"
+05/16/17 20:31:51 argv[9] == "-Suppress_notification"
+05/16/17 20:31:51 argv[10] == "-CsdVersion"
+05/16/17 20:31:51 argv[11] == "$CondorVersion: 8.6.2 Apr 23 2017 BuildID: 404257 $"
+05/16/17 20:31:51 argv[12] == "-Dagman"
+05/16/17 20:31:51 argv[13] == "/usr/bin/condor_dagman"
+05/16/17 20:31:51 Workflow batch-name: <ds_cbow_exp_lstm.dag+1323>
+05/16/17 20:31:51 Workflow accounting_group: <>
+05/16/17 20:31:51 Workflow accounting_group_user: <>
+05/16/17 20:31:51 Warning: failed to get attribute DAGNodeName
+05/16/17 20:31:51 DAGMAN_LOG_ON_NFS_IS_ERROR setting: False
+05/16/17 20:31:51 Default node log file is: </esat/spchtemp/scratch/robbe/SpeechHub/pretrained_tied_models_small/python/jobdag/./ds_cbow_exp_lstm.dag.nodes.log>
+05/16/17 20:31:51 DAG Lockfile will be written to ds_cbow_exp_lstm.dag.lock
+05/16/17 20:31:51 DAG Input file is ds_cbow_exp_lstm.dag
+05/16/17 20:31:51 Parsing 1 dagfiles
+05/16/17 20:31:51 Parsing ds_cbow_exp_lstm.dag ...
+05/16/17 20:31:51 Dag contains 2 total jobs
+05/16/17 20:31:51 Sleeping for 3 seconds to ensure ProcessId uniqueness
+05/16/17 20:31:54 Bootstrapping...
+05/16/17 20:31:54 Number of pre-completed nodes: 0
+05/16/17 20:31:54 MultiLogFiles: truncating log file /esat/spchtemp/scratch/robbe/SpeechHub/pretrained_tied_models_small/python/jobdag/./ds_cbow_exp_lstm.dag.nodes.log
+05/16/17 20:31:54 DAG status: 0 (DAG_STATUS_OK)
+05/16/17 20:31:54 Of 2 nodes total:
+05/16/17 20:31:54  Done     Pre   Queued    Post   Ready   Un-Ready   Failed
+05/16/17 20:31:54   ===     ===      ===     ===     ===        ===      ===
+05/16/17 20:31:54     0       0        0       0       1          1        0
+05/16/17 20:31:54 0 job proc(s) currently held
+05/16/17 20:31:54 Registering condor_event_timer...
+05/16/17 20:31:55 Submitting HTCondor Node cbow_exp_lstm job(s)...
+05/16/17 20:31:55 Adding a DAGMan workflow log /esat/spchtemp/scratch/robbe/SpeechHub/pretrained_tied_models_small/python/jobdag/./ds_cbow_exp_lstm.dag.nodes.log
+05/16/17 20:31:55 Masking the events recorded in the DAGMAN workflow log
+05/16/17 20:31:55 Mask for workflow log is 0,1,2,4,5,7,9,10,11,12,13,16,17,24,27
+05/16/17 20:31:55 submitting: /usr/bin/condor_submit -a dag_node_name' '=' 'cbow_exp_lstm -a +DAGManJobId' '=' '1323 -a DAGManJobId' '=' '1323 -batch-name ds_cbow_exp_lstm.dag+1323 -a submit_event_notes' '=' 'DAG' 'Node:' 'cbow_exp_lstm -a dagman_log' '=' '/esat/spchtemp/scratch/robbe/SpeechHub/pretrained_tied_models_small/python/jobdag/./ds_cbow_exp_lstm.dag.nodes.log -a +DAGManNodesMask' '=' '"0,1,2,4,5,7,9,10,11,12,13,16,17,24,27" -a data_set' '=' 'ds -a test_name' '=' 'cbow_exp_lstm -a num_run' '=' '0 -a combination' '=' 'exp -a DAG_STATUS' '=' '0 -a FAILED_COUNT' '=' '0 -a +KeepClaimIdle' '=' '20 -a notification' '=' 'never -a +DAGParentNodeNames' '=' '"" jobdag/cbow_lstm.job
+05/16/17 20:31:55 From submit: Submitting job(s).
+05/16/17 20:31:55 From submit: 1 job(s) submitted to cluster 1327.
+05/16/17 20:31:55 	assigned HTCondor ID (1327.0.0)
+05/16/17 20:31:55 Just submitted 1 job this cycle...
+05/16/17 20:31:55 Currently monitoring 1 HTCondor log file(s)
+05/16/17 20:31:55 Reassigning the id of job cbow_exp_lstm from (1327.0.0) to (1327.0.0)
+05/16/17 20:31:55 Event: ULOG_SUBMIT for HTCondor Node cbow_exp_lstm (1327.0.0) {05/16/17 20:31:55}
+05/16/17 20:31:55 Number of idle job procs: 1
+05/16/17 20:31:55 DAG status: 0 (DAG_STATUS_OK)
+05/16/17 20:31:55 Of 2 nodes total:
+05/16/17 20:31:55  Done     Pre   Queued    Post   Ready   Un-Ready   Failed
+05/16/17 20:31:55   ===     ===      ===     ===     ===        ===      ===
+05/16/17 20:31:55     0       0        1       0       0          1        0
+05/16/17 20:31:55 0 job proc(s) currently held
+05/16/17 20:41:57 602 seconds since last log event
+05/16/17 20:41:57 Pending DAG nodes:
+05/16/17 20:41:57   Node cbow_exp_lstm, HTCondor ID 1327, status STATUS_SUBMITTED
+05/16/17 20:51:59 1204 seconds since last log event
+05/16/17 20:51:59 Pending DAG nodes:
+05/16/17 20:51:59   Node cbow_exp_lstm, HTCondor ID 1327, status STATUS_SUBMITTED
+05/16/17 21:02:00 1805 seconds since last log event
+05/16/17 21:02:00 Pending DAG nodes:
+05/16/17 21:02:00   Node cbow_exp_lstm, HTCondor ID 1327, status STATUS_SUBMITTED
+05/16/17 21:12:02 2407 seconds since last log event
+05/16/17 21:12:02 Pending DAG nodes:
+05/16/17 21:12:02   Node cbow_exp_lstm, HTCondor ID 1327, status STATUS_SUBMITTED
+05/16/17 21:22:04 3009 seconds since last log event
+05/16/17 21:22:04 Pending DAG nodes:
+05/16/17 21:22:04   Node cbow_exp_lstm, HTCondor ID 1327, status STATUS_SUBMITTED
+05/16/17 21:32:06 3611 seconds since last log event
+05/16/17 21:32:06 Pending DAG nodes:
+05/16/17 21:32:06   Node cbow_exp_lstm, HTCondor ID 1327, status STATUS_SUBMITTED
+05/16/17 21:42:08 4213 seconds since last log event
+05/16/17 21:42:08 Pending DAG nodes:
+05/16/17 21:42:08   Node cbow_exp_lstm, HTCondor ID 1327, status STATUS_SUBMITTED
+05/16/17 21:52:10 4815 seconds since last log event
+05/16/17 21:52:10 Pending DAG nodes:
+05/16/17 21:52:10   Node cbow_exp_lstm, HTCondor ID 1327, status STATUS_SUBMITTED
+05/16/17 22:02:12 5417 seconds since last log event
+05/16/17 22:02:12 Pending DAG nodes:
+05/16/17 22:02:12   Node cbow_exp_lstm, HTCondor ID 1327, status STATUS_SUBMITTED
+05/16/17 22:12:14 6019 seconds since last log event
+05/16/17 22:12:14 Pending DAG nodes:
+05/16/17 22:12:14   Node cbow_exp_lstm, HTCondor ID 1327, status STATUS_SUBMITTED

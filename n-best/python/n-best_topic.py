@@ -37,10 +37,10 @@ logging = tf.logging
 flags.DEFINE_integer("num_run", 0, "num_run")
 flags.DEFINE_string("test_name","topic","test_name")
 
-flags.DEFINE_string("name","n-best-topic","name")
+flags.DEFINE_string("name","tied_models_n_best_topic_large","name")
 
 flags.DEFINE_string("input_path", input_path, "data_path")
-flags.DEFINE_string("model_name", "n-best", "model_name")
+flags.DEFINE_string("model_name", "tied_models_large", "model_name")
 flags.DEFINE_string("data_path", data_path, "data_path")
 flags.DEFINE_string("save_path", output_path, "save_path")
 flags.DEFINE_bool("use_fp16", False, "train using 16-bit floats instead of 32bit floats")
@@ -69,7 +69,7 @@ class ds_topic_model(object):
             embedding_reg = tf.get_variable("embedding_reg", [vocab_size+1, config['embedded_size_reg']], dtype=data_type(), initializer = initializer_reg)
             inputs_reg = tf.nn.embedding_lookup(embedding_reg, data)
             embedding_lda = tf.get_variable("embedding_lda", [vocab_size+1, config['embedded_size_lda']], dtype=data_type(), initializer = initializer_lda)
-            inputs_lda = tf.nn.embedding_lookup(embedding_lda, data)
+            inputs_lda = tf.nn.embedding_lookup(embedding_reg, data)
 
 
         with tf.variable_scope('reg_lstm', initializer = initializer_reg) as reg_lstm:
@@ -311,13 +311,15 @@ def main(_):
     param_np = param_np['param_train_np']
     
     param1 =  ['num_layers_reg','num_layers_lda','hidden_size_lda', 'hidden_size_reg', 'embedded_size_reg', 'embedded_size_lda']
-    
+
     eval_config = {}
     eval_config['batch_size'] = 1
     eval_config['num_steps'] = 1
     for i in range(0,len(param_np)):
         if param_np[i][0] in param1:
             eval_config[param_np[i][0]] = int(param_np[i][1])
+
+    print(eval_config)
     
     output_dir = os.path.join(FLAGS.save_path, FLAGS.model_name, FLAGS.name)
     if not os.path.exists(output_dir):
