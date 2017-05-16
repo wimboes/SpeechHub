@@ -276,7 +276,7 @@ def run_test_epoch(session, model, times, epoch_nb = 0):
         costs += cost
         iters += nb_words_in_batch
         
-    return n-costs*np.log10(np.exp(1))    
+    return -costs*np.log10(np.exp(1))    
     
 def find_n_best_lists(n_best):
     n_best_files = os.listdir(n_best)
