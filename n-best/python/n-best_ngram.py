@@ -127,6 +127,7 @@ for i in range(len(fv_files)):
         with open(output_file,'w') as h:
             for sentence in sentences2: h.write(sentence +'\n')
 
+os.system('python compute_WER.py  --n_best ' +  output_dir + ' --name ' + name + '_WER')
     
 print('done')
 
