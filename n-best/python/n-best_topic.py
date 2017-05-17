@@ -69,7 +69,7 @@ class ds_topic_model(object):
             embedding_reg = tf.get_variable("embedding_reg", [vocab_size+1, config['embedded_size_reg']], dtype=data_type(), initializer = initializer_reg)
             inputs_reg = tf.nn.embedding_lookup(embedding_reg, data)
             embedding_lda = tf.get_variable("embedding_lda", [vocab_size+1, config['embedded_size_lda']], dtype=data_type(), initializer = initializer_lda)
-            inputs_lda = tf.nn.embedding_lookup(embedding_reg, data)
+            inputs_lda = tf.nn.embedding_lookup(embedding_lda, data)
 
 
         with tf.variable_scope('reg_lstm', initializer = initializer_reg) as reg_lstm:
