@@ -12,7 +12,7 @@ data_path = os.path.join(general_path,'input_n_best')
 ap = argparse.ArgumentParser()
 ap.add_argument('--ref', default = os.path.join(data_path, 'reference') , type=str)
 ap.add_argument('--n_best', default=os.path.join(data_path, 'original_n-best'), type=str)
-ap.add_argument('--out', default=os.path.join(os.path.split(python_path)[0], 'output'), type=str)
+ap.add_argument('--out', default=os.path.join(os.path.split(python_path)[0], 'output_old'), type=str)
 ap.add_argument('--name', default='WER_2_gram_n_best', type=str)
 
 opts = ap.parse_args()
@@ -46,6 +46,9 @@ for file in n_best_files:
     else:
 	if fv_files_amount[-1] < int(file.split('.')[2]):
 	    fv_files_amount[-1] = int(file.split('.')[2])
+print(fv_files)
+print(fv_files[240])
+print(fv_files.index('fv600966'))
 
 with open(os.path.join(out_folder, 'reference.txt'), 'w') as reference, open(os.path.join(out_folder, 'recognized.txt'), 'w') as recognized:
     for i in range(len(fv_files)):
