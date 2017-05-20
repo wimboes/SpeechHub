@@ -5,5 +5,5 @@
 #python n-best_cbow_lstm.py --test_name="cbow_mean_lstm" --num_run="0" --model_name="untied_models_medium" --name="untied_n_best_cbow_mean_lstm_medium"
 #python n-best_cbow_lstm.py --test_name="cbow_exp_lstm" --num_run="0" --model_name="untied_models_medium" --name="untied_n_best_cbow_exp_lstm_medium"
 #python n-best_cbow_lstm.py --test_name="cbow_tfidf_lstm" --num_run="0" --model_name="untied_models_medium" --name="untied_n_best_cbow_tfidf_lstm_medium"
-python n-best_topic_start_from.py --test_name="topic" --num_run="0" --model_name="untied_models_medium" --name="untied_n_best_topic_medium2"
-python n-best_extended_topic_1.py --test_name="extended_topic_1" --num_run="0" --model_name="untied_models_medium" --name="untied_n_best_textended_topic_1_medium"
+#python n-best_topic_start_from.py --test_name="topic" --num_run="0" --model_name="untied_models_medium" --name="untied_n_best_topic_medium2"
+python n-best_extended_topic_1_start_from.py --test_name="extended_topic_1" --num_run="0" --model_name="untied_models_medium" --name="untied_n_best_textended_topic_1_medium2"
