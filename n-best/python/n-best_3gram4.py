@@ -1,4 +1,3 @@
-# imports
 from __future__ import absolute_import
 from __future__ import division
 from __future__ import print_function
@@ -21,7 +20,7 @@ output_path = os.path.join(general_path,'output')
 # set data and save path
 
 
-name = "n-best-3gram4"
+name = "n-best-3gram5"
 
 save_path = output_path
 

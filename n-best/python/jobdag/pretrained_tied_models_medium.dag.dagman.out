@@ -1,214 +1,1059 @@
-05/19/17 10:26:44 ******************************************************
-05/19/17 10:26:44 ** condor_scheduniv_exec.1353.0 (CONDOR_DAGMAN) STARTING UP
-05/19/17 10:26:44 ** /usr/bin/condor_dagman
-05/19/17 10:26:44 ** SubsystemInfo: name=DAGMAN type=DAGMAN(10) class=DAEMON(1)
-05/19/17 10:26:44 ** Configuration: subsystem:DAGMAN local:<NONE> class:DAEMON
-05/19/17 10:26:44 ** $CondorVersion: 8.6.2 Apr 23 2017 BuildID: 404257 $
-05/19/17 10:26:44 ** $CondorPlatform: x86_64_RedHat7 $
-05/19/17 10:26:44 ** PID = 28643
-05/19/17 10:26:44 ** Log last touched time unavailable (No such file or directory)
-05/19/17 10:26:44 ******************************************************
-05/19/17 10:26:44 Using config source: /etc/condor/condor_config
-05/19/17 10:26:44 Using local config sources: 
-05/19/17 10:26:44    /etc/condor/config.d/00esat.config
-05/19/17 10:26:44    /etc/condor/config.d/01java.config
-05/19/17 10:26:44    /etc/condor/config.d/80optout_users.config
-05/19/17 10:26:44    /etc/condor/condor_config.local
-05/19/17 10:26:44 config Macros = 166, Sorted = 166, StringBytes = 6027, TablesBytes = 6048
-05/19/17 10:26:44 CLASSAD_CACHING is ENABLED
-05/19/17 10:26:44 Daemon Log is logging: D_ALWAYS D_ERROR
-05/19/17 10:26:44 DaemonCore: No command port requested.
-05/19/17 10:26:44 DAGMAN_USE_STRICT setting: 1
-05/19/17 10:26:44 DAGMAN_VERBOSITY setting: 3
-05/19/17 10:26:44 DAGMAN_DEBUG_CACHE_SIZE setting: 5242880
-05/19/17 10:26:44 DAGMAN_DEBUG_CACHE_ENABLE setting: False
-05/19/17 10:26:44 DAGMAN_SUBMIT_DELAY setting: 0
-05/19/17 10:26:44 DAGMAN_MAX_SUBMIT_ATTEMPTS setting: 6
-05/19/17 10:26:44 DAGMAN_STARTUP_CYCLE_DETECT setting: False
-05/19/17 10:26:44 DAGMAN_MAX_SUBMITS_PER_INTERVAL setting: 5
-05/19/17 10:26:44 DAGMAN_USER_LOG_SCAN_INTERVAL setting: 5
-05/19/17 10:26:44 DAGMAN_DEFAULT_PRIORITY setting: 0
-05/19/17 10:26:44 DAGMAN_SUPPRESS_NOTIFICATION setting: True
-05/19/17 10:26:44 allow_events (DAGMAN_ALLOW_EVENTS) setting: 114
-05/19/17 10:26:44 DAGMAN_RETRY_SUBMIT_FIRST setting: True
-05/19/17 10:26:44 DAGMAN_RETRY_NODE_FIRST setting: False
-05/19/17 10:26:44 DAGMAN_MAX_JOBS_IDLE setting: 1000
-05/19/17 10:26:44 DAGMAN_MAX_JOBS_SUBMITTED setting: 0
-05/19/17 10:26:44 DAGMAN_MAX_PRE_SCRIPTS setting: 20
-05/19/17 10:26:44 DAGMAN_MAX_POST_SCRIPTS setting: 20
-05/19/17 10:26:44 DAGMAN_MUNGE_NODE_NAMES setting: True
-05/19/17 10:26:44 DAGMAN_PROHIBIT_MULTI_JOBS setting: False
-05/19/17 10:26:44 DAGMAN_SUBMIT_DEPTH_FIRST setting: False
-05/19/17 10:26:44 DAGMAN_ALWAYS_RUN_POST setting: False
-05/19/17 10:26:44 DAGMAN_ABORT_DUPLICATES setting: True
-05/19/17 10:26:44 DAGMAN_ABORT_ON_SCARY_SUBMIT setting: True
-05/19/17 10:26:44 DAGMAN_PENDING_REPORT_INTERVAL setting: 600
-05/19/17 10:26:44 DAGMAN_AUTO_RESCUE setting: True
-05/19/17 10:26:44 DAGMAN_MAX_RESCUE_NUM setting: 100
-05/19/17 10:26:44 DAGMAN_WRITE_PARTIAL_RESCUE setting: True
-05/19/17 10:26:44 DAGMAN_DEFAULT_NODE_LOG setting: @(DAG_DIR)/@(DAG_FILE).nodes.log
-05/19/17 10:26:44 DAGMAN_GENERATE_SUBDAG_SUBMITS setting: True
-05/19/17 10:26:44 DAGMAN_MAX_JOB_HOLDS setting: 100
-05/19/17 10:26:44 DAGMAN_HOLD_CLAIM_TIME setting: 20
-05/19/17 10:26:44 ALL_DEBUG setting: 
-05/19/17 10:26:44 DAGMAN_DEBUG setting: 
-05/19/17 10:26:44 DAGMAN_SUPPRESS_JOB_LOGS setting: False
-05/19/17 10:26:44 DAGMAN_REMOVE_NODE_JOBS setting: True
-05/19/17 10:26:44 argv[0] == "condor_scheduniv_exec.1353.0"
-05/19/17 10:26:44 argv[1] == "-Lockfile"
-05/19/17 10:26:44 argv[2] == "pretrained_tied_models_medium.dag.lock"
-05/19/17 10:26:44 argv[3] == "-AutoRescue"
-05/19/17 10:26:44 argv[4] == "1"
-05/19/17 10:26:44 argv[5] == "-DoRescueFrom"
-05/19/17 10:26:44 argv[6] == "0"
-05/19/17 10:26:44 argv[7] == "-Dag"
-05/19/17 10:26:44 argv[8] == "pretrained_tied_models_medium.dag"
-05/19/17 10:26:44 argv[9] == "-Suppress_notification"
-05/19/17 10:26:44 argv[10] == "-CsdVersion"
-05/19/17 10:26:44 argv[11] == "$CondorVersion: 8.6.2 Apr 23 2017 BuildID: 404257 $"
-05/19/17 10:26:44 argv[12] == "-Dagman"
-05/19/17 10:26:44 argv[13] == "/usr/bin/condor_dagman"
-05/19/17 10:26:44 Workflow batch-name: <pretrained_tied_models_medium.dag+1353>
-05/19/17 10:26:44 Workflow accounting_group: <>
-05/19/17 10:26:44 Workflow accounting_group_user: <>
-05/19/17 10:26:44 Warning: failed to get attribute DAGNodeName
-05/19/17 10:26:44 DAGMAN_LOG_ON_NFS_IS_ERROR setting: False
-05/19/17 10:26:44 Default node log file is: </esat/spchtemp/scratch/robbe/SpeechHub/n-best/python/jobdag/./pretrained_tied_models_medium.dag.nodes.log>
-05/19/17 10:26:44 DAG Lockfile will be written to pretrained_tied_models_medium.dag.lock
-05/19/17 10:26:44 DAG Input file is pretrained_tied_models_medium.dag
-05/19/17 10:26:44 Parsing 1 dagfiles
-05/19/17 10:26:44 Parsing pretrained_tied_models_medium.dag ...
-05/19/17 10:26:44 Dag contains 2 total jobs
-05/19/17 10:26:44 Sleeping for 3 seconds to ensure ProcessId uniqueness
-05/19/17 10:26:47 Bootstrapping...
-05/19/17 10:26:47 Number of pre-completed nodes: 0
-05/19/17 10:26:47 MultiLogFiles: truncating log file /esat/spchtemp/scratch/robbe/SpeechHub/n-best/python/jobdag/./pretrained_tied_models_medium.dag.nodes.log
-05/19/17 10:26:47 DAG status: 0 (DAG_STATUS_OK)
-05/19/17 10:26:47 Of 2 nodes total:
-05/19/17 10:26:47  Done     Pre   Queued    Post   Ready   Un-Ready   Failed
-05/19/17 10:26:47   ===     ===      ===     ===     ===        ===      ===
-05/19/17 10:26:47     0       0        0       0       2          0        0
-05/19/17 10:26:47 0 job proc(s) currently held
-05/19/17 10:26:47 Registering condor_event_timer...
-05/19/17 10:26:48 Submitting HTCondor Node topic job(s)...
-05/19/17 10:26:48 Adding a DAGMan workflow log /esat/spchtemp/scratch/robbe/SpeechHub/n-best/python/jobdag/./pretrained_tied_models_medium.dag.nodes.log
-05/19/17 10:26:48 Masking the events recorded in the DAGMAN workflow log
-05/19/17 10:26:48 Mask for workflow log is 0,1,2,4,5,7,9,10,11,12,13,16,17,24,27
-05/19/17 10:26:48 submitting: /usr/bin/condor_submit -a dag_node_name' '=' 'topic -a +DAGManJobId' '=' '1353 -a DAGManJobId' '=' '1353 -batch-name pretrained_tied_models_medium.dag+1353 -a submit_event_notes' '=' 'DAG' 'Node:' 'topic -a dagman_log' '=' '/esat/spchtemp/scratch/robbe/SpeechHub/n-best/python/jobdag/./pretrained_tied_models_medium.dag.nodes.log -a +DAGManNodesMask' '=' '"0,1,2,4,5,7,9,10,11,12,13,16,17,24,27" -a test_name' '=' 'topic -a num_run' '=' '0 -a model_name' '=' 'pretrained_tied_models_medium -a name' '=' 'pretrained_tied_n_best_topic_medium -a DAG_STATUS' '=' '0 -a FAILED_COUNT' '=' '0 -a notification' '=' 'never -a +DAGParentNodeNames' '=' '"" jobdag/topic_tied.job
-05/19/17 10:26:48 From submit: Submitting job(s)
-05/19/17 10:26:48 From submit: ERROR: on Line 14 of submit file: 
-05/19/17 10:26:48 From submit: 
-05/19/17 10:26:48 From submit: ERROR: Failed to parse command file (line 14).
-05/19/17 10:26:48 failed while reading from pipe.
-05/19/17 10:26:48 Read so far: Submitting job(s)ERROR: on Line 14 of submit file: ERROR: Failed to parse command file (line 14).
-05/19/17 10:26:48 ERROR: submit attempt failed
-05/19/17 10:26:48 submit command was: /usr/bin/condor_submit -a dag_node_name' '=' 'topic -a +DAGManJobId' '=' '1353 -a DAGManJobId' '=' '1353 -batch-name pretrained_tied_models_medium.dag+1353 -a submit_event_notes' '=' 'DAG' 'Node:' 'topic -a dagman_log' '=' '/esat/spchtemp/scratch/robbe/SpeechHub/n-best/python/jobdag/./pretrained_tied_models_medium.dag.nodes.log -a +DAGManNodesMask' '=' '"0,1,2,4,5,7,9,10,11,12,13,16,17,24,27" -a test_name' '=' 'topic -a num_run' '=' '0 -a model_name' '=' 'pretrained_tied_models_medium -a name' '=' 'pretrained_tied_n_best_topic_medium -a DAG_STATUS' '=' '0 -a FAILED_COUNT' '=' '0 -a notification' '=' 'never -a +DAGParentNodeNames' '=' '"" jobdag/topic_tied.job
-05/19/17 10:26:48 Job submit try 1/6 failed, will try again in >= 1 second.
-05/19/17 10:26:48 DAG status: 0 (DAG_STATUS_OK)
-05/19/17 10:26:48 Of 2 nodes total:
-05/19/17 10:26:48  Done     Pre   Queued    Post   Ready   Un-Ready   Failed
-05/19/17 10:26:48   ===     ===      ===     ===     ===        ===      ===
-05/19/17 10:26:48     0       0        0       0       2          0        0
-05/19/17 10:26:48 0 job proc(s) currently held
-05/19/17 10:26:54 Submitting HTCondor Node topic job(s)...
-05/19/17 10:26:54 Adding a DAGMan workflow log /esat/spchtemp/scratch/robbe/SpeechHub/n-best/python/jobdag/./pretrained_tied_models_medium.dag.nodes.log
-05/19/17 10:26:54 Masking the events recorded in the DAGMAN workflow log
-05/19/17 10:26:54 Mask for workflow log is 0,1,2,4,5,7,9,10,11,12,13,16,17,24,27
-05/19/17 10:26:54 submitting: /usr/bin/condor_submit -a dag_node_name' '=' 'topic -a +DAGManJobId' '=' '1353 -a DAGManJobId' '=' '1353 -batch-name pretrained_tied_models_medium.dag+1353 -a submit_event_notes' '=' 'DAG' 'Node:' 'topic -a dagman_log' '=' '/esat/spchtemp/scratch/robbe/SpeechHub/n-best/python/jobdag/./pretrained_tied_models_medium.dag.nodes.log -a +DAGManNodesMask' '=' '"0,1,2,4,5,7,9,10,11,12,13,16,17,24,27" -a test_name' '=' 'topic -a num_run' '=' '0 -a model_name' '=' 'pretrained_tied_models_medium -a name' '=' 'pretrained_tied_n_best_topic_medium -a DAG_STATUS' '=' '0 -a FAILED_COUNT' '=' '0 -a notification' '=' 'never -a +DAGParentNodeNames' '=' '"" jobdag/topic_tied.job
-05/19/17 10:26:54 From submit: Submitting job(s)
-05/19/17 10:26:54 From submit: ERROR: on Line 14 of submit file: 
-05/19/17 10:26:54 From submit: 
-05/19/17 10:26:54 From submit: ERROR: Failed to parse command file (line 14).
-05/19/17 10:26:54 failed while reading from pipe.
-05/19/17 10:26:54 Read so far: Submitting job(s)ERROR: on Line 14 of submit file: ERROR: Failed to parse command file (line 14).
-05/19/17 10:26:54 ERROR: submit attempt failed
-05/19/17 10:26:54 submit command was: /usr/bin/condor_submit -a dag_node_name' '=' 'topic -a +DAGManJobId' '=' '1353 -a DAGManJobId' '=' '1353 -batch-name pretrained_tied_models_medium.dag+1353 -a submit_event_notes' '=' 'DAG' 'Node:' 'topic -a dagman_log' '=' '/esat/spchtemp/scratch/robbe/SpeechHub/n-best/python/jobdag/./pretrained_tied_models_medium.dag.nodes.log -a +DAGManNodesMask' '=' '"0,1,2,4,5,7,9,10,11,12,13,16,17,24,27" -a test_name' '=' 'topic -a num_run' '=' '0 -a model_name' '=' 'pretrained_tied_models_medium -a name' '=' 'pretrained_tied_n_best_topic_medium -a DAG_STATUS' '=' '0 -a FAILED_COUNT' '=' '0 -a notification' '=' 'never -a +DAGParentNodeNames' '=' '"" jobdag/topic_tied.job
-05/19/17 10:26:54 Job submit try 2/6 failed, will try again in >= 2 seconds.
-05/19/17 10:26:59 Submitting HTCondor Node topic job(s)...
-05/19/17 10:26:59 Adding a DAGMan workflow log /esat/spchtemp/scratch/robbe/SpeechHub/n-best/python/jobdag/./pretrained_tied_models_medium.dag.nodes.log
-05/19/17 10:26:59 Masking the events recorded in the DAGMAN workflow log
-05/19/17 10:26:59 Mask for workflow log is 0,1,2,4,5,7,9,10,11,12,13,16,17,24,27
-05/19/17 10:26:59 submitting: /usr/bin/condor_submit -a dag_node_name' '=' 'topic -a +DAGManJobId' '=' '1353 -a DAGManJobId' '=' '1353 -batch-name pretrained_tied_models_medium.dag+1353 -a submit_event_notes' '=' 'DAG' 'Node:' 'topic -a dagman_log' '=' '/esat/spchtemp/scratch/robbe/SpeechHub/n-best/python/jobdag/./pretrained_tied_models_medium.dag.nodes.log -a +DAGManNodesMask' '=' '"0,1,2,4,5,7,9,10,11,12,13,16,17,24,27" -a test_name' '=' 'topic -a num_run' '=' '0 -a model_name' '=' 'pretrained_tied_models_medium -a name' '=' 'pretrained_tied_n_best_topic_medium -a DAG_STATUS' '=' '0 -a FAILED_COUNT' '=' '0 -a notification' '=' 'never -a +DAGParentNodeNames' '=' '"" jobdag/topic_tied.job
-05/19/17 10:26:59 From submit: Submitting job(s)
-05/19/17 10:26:59 From submit: ERROR: on Line 14 of submit file: 
-05/19/17 10:26:59 From submit: 
-05/19/17 10:26:59 From submit: ERROR: Failed to parse command file (line 14).
-05/19/17 10:26:59 failed while reading from pipe.
-05/19/17 10:26:59 Read so far: Submitting job(s)ERROR: on Line 14 of submit file: ERROR: Failed to parse command file (line 14).
-05/19/17 10:26:59 ERROR: submit attempt failed
-05/19/17 10:26:59 submit command was: /usr/bin/condor_submit -a dag_node_name' '=' 'topic -a +DAGManJobId' '=' '1353 -a DAGManJobId' '=' '1353 -batch-name pretrained_tied_models_medium.dag+1353 -a submit_event_notes' '=' 'DAG' 'Node:' 'topic -a dagman_log' '=' '/esat/spchtemp/scratch/robbe/SpeechHub/n-best/python/jobdag/./pretrained_tied_models_medium.dag.nodes.log -a +DAGManNodesMask' '=' '"0,1,2,4,5,7,9,10,11,12,13,16,17,24,27" -a test_name' '=' 'topic -a num_run' '=' '0 -a model_name' '=' 'pretrained_tied_models_medium -a name' '=' 'pretrained_tied_n_best_topic_medium -a DAG_STATUS' '=' '0 -a FAILED_COUNT' '=' '0 -a notification' '=' 'never -a +DAGParentNodeNames' '=' '"" jobdag/topic_tied.job
-05/19/17 10:26:59 Job submit try 3/6 failed, will try again in >= 4 seconds.
-05/19/17 10:27:04 Submitting HTCondor Node topic job(s)...
-05/19/17 10:27:04 Adding a DAGMan workflow log /esat/spchtemp/scratch/robbe/SpeechHub/n-best/python/jobdag/./pretrained_tied_models_medium.dag.nodes.log
-05/19/17 10:27:04 Masking the events recorded in the DAGMAN workflow log
-05/19/17 10:27:04 Mask for workflow log is 0,1,2,4,5,7,9,10,11,12,13,16,17,24,27
-05/19/17 10:27:04 submitting: /usr/bin/condor_submit -a dag_node_name' '=' 'topic -a +DAGManJobId' '=' '1353 -a DAGManJobId' '=' '1353 -batch-name pretrained_tied_models_medium.dag+1353 -a submit_event_notes' '=' 'DAG' 'Node:' 'topic -a dagman_log' '=' '/esat/spchtemp/scratch/robbe/SpeechHub/n-best/python/jobdag/./pretrained_tied_models_medium.dag.nodes.log -a +DAGManNodesMask' '=' '"0,1,2,4,5,7,9,10,11,12,13,16,17,24,27" -a test_name' '=' 'topic -a num_run' '=' '0 -a model_name' '=' 'pretrained_tied_models_medium -a name' '=' 'pretrained_tied_n_best_topic_medium -a DAG_STATUS' '=' '0 -a FAILED_COUNT' '=' '0 -a notification' '=' 'never -a +DAGParentNodeNames' '=' '"" jobdag/topic_tied.job
-05/19/17 10:27:04 From submit: Submitting job(s)
-05/19/17 10:27:04 From submit: ERROR: on Line 14 of submit file: 
-05/19/17 10:27:04 From submit: 
-05/19/17 10:27:04 From submit: ERROR: Failed to parse command file (line 14).
-05/19/17 10:27:04 failed while reading from pipe.
-05/19/17 10:27:04 Read so far: Submitting job(s)ERROR: on Line 14 of submit file: ERROR: Failed to parse command file (line 14).
-05/19/17 10:27:04 ERROR: submit attempt failed
-05/19/17 10:27:04 submit command was: /usr/bin/condor_submit -a dag_node_name' '=' 'topic -a +DAGManJobId' '=' '1353 -a DAGManJobId' '=' '1353 -batch-name pretrained_tied_models_medium.dag+1353 -a submit_event_notes' '=' 'DAG' 'Node:' 'topic -a dagman_log' '=' '/esat/spchtemp/scratch/robbe/SpeechHub/n-best/python/jobdag/./pretrained_tied_models_medium.dag.nodes.log -a +DAGManNodesMask' '=' '"0,1,2,4,5,7,9,10,11,12,13,16,17,24,27" -a test_name' '=' 'topic -a num_run' '=' '0 -a model_name' '=' 'pretrained_tied_models_medium -a name' '=' 'pretrained_tied_n_best_topic_medium -a DAG_STATUS' '=' '0 -a FAILED_COUNT' '=' '0 -a notification' '=' 'never -a +DAGParentNodeNames' '=' '"" jobdag/topic_tied.job
-05/19/17 10:27:04 Job submit try 4/6 failed, will try again in >= 8 seconds.
-05/19/17 10:27:15 Submitting HTCondor Node topic job(s)...
-05/19/17 10:27:15 Adding a DAGMan workflow log /esat/spchtemp/scratch/robbe/SpeechHub/n-best/python/jobdag/./pretrained_tied_models_medium.dag.nodes.log
-05/19/17 10:27:15 Masking the events recorded in the DAGMAN workflow log
-05/19/17 10:27:15 Mask for workflow log is 0,1,2,4,5,7,9,10,11,12,13,16,17,24,27
-05/19/17 10:27:15 submitting: /usr/bin/condor_submit -a dag_node_name' '=' 'topic -a +DAGManJobId' '=' '1353 -a DAGManJobId' '=' '1353 -batch-name pretrained_tied_models_medium.dag+1353 -a submit_event_notes' '=' 'DAG' 'Node:' 'topic -a dagman_log' '=' '/esat/spchtemp/scratch/robbe/SpeechHub/n-best/python/jobdag/./pretrained_tied_models_medium.dag.nodes.log -a +DAGManNodesMask' '=' '"0,1,2,4,5,7,9,10,11,12,13,16,17,24,27" -a test_name' '=' 'topic -a num_run' '=' '0 -a model_name' '=' 'pretrained_tied_models_medium -a name' '=' 'pretrained_tied_n_best_topic_medium -a DAG_STATUS' '=' '0 -a FAILED_COUNT' '=' '0 -a notification' '=' 'never -a +DAGParentNodeNames' '=' '"" jobdag/topic_tied.job
-05/19/17 10:27:15 From submit: Submitting job(s)
-05/19/17 10:27:15 From submit: ERROR: on Line 14 of submit file: 
-05/19/17 10:27:15 From submit: 
-05/19/17 10:27:15 From submit: ERROR: Failed to parse command file (line 14).
-05/19/17 10:27:15 failed while reading from pipe.
-05/19/17 10:27:15 Read so far: Submitting job(s)ERROR: on Line 14 of submit file: ERROR: Failed to parse command file (line 14).
-05/19/17 10:27:15 ERROR: submit attempt failed
-05/19/17 10:27:15 submit command was: /usr/bin/condor_submit -a dag_node_name' '=' 'topic -a +DAGManJobId' '=' '1353 -a DAGManJobId' '=' '1353 -batch-name pretrained_tied_models_medium.dag+1353 -a submit_event_notes' '=' 'DAG' 'Node:' 'topic -a dagman_log' '=' '/esat/spchtemp/scratch/robbe/SpeechHub/n-best/python/jobdag/./pretrained_tied_models_medium.dag.nodes.log -a +DAGManNodesMask' '=' '"0,1,2,4,5,7,9,10,11,12,13,16,17,24,27" -a test_name' '=' 'topic -a num_run' '=' '0 -a model_name' '=' 'pretrained_tied_models_medium -a name' '=' 'pretrained_tied_n_best_topic_medium -a DAG_STATUS' '=' '0 -a FAILED_COUNT' '=' '0 -a notification' '=' 'never -a +DAGParentNodeNames' '=' '"" jobdag/topic_tied.job
-05/19/17 10:27:15 Job submit try 5/6 failed, will try again in >= 16 seconds.
-05/19/17 10:27:32 Submitting HTCondor Node topic job(s)...
-05/19/17 10:27:32 Adding a DAGMan workflow log /esat/spchtemp/scratch/robbe/SpeechHub/n-best/python/jobdag/./pretrained_tied_models_medium.dag.nodes.log
-05/19/17 10:27:32 Masking the events recorded in the DAGMAN workflow log
-05/19/17 10:27:32 Mask for workflow log is 0,1,2,4,5,7,9,10,11,12,13,16,17,24,27
-05/19/17 10:27:32 submitting: /usr/bin/condor_submit -a dag_node_name' '=' 'topic -a +DAGManJobId' '=' '1353 -a DAGManJobId' '=' '1353 -batch-name pretrained_tied_models_medium.dag+1353 -a submit_event_notes' '=' 'DAG' 'Node:' 'topic -a dagman_log' '=' '/esat/spchtemp/scratch/robbe/SpeechHub/n-best/python/jobdag/./pretrained_tied_models_medium.dag.nodes.log -a +DAGManNodesMask' '=' '"0,1,2,4,5,7,9,10,11,12,13,16,17,24,27" -a test_name' '=' 'topic -a num_run' '=' '0 -a model_name' '=' 'pretrained_tied_models_medium -a name' '=' 'pretrained_tied_n_best_topic_medium -a DAG_STATUS' '=' '0 -a FAILED_COUNT' '=' '0 -a notification' '=' 'never -a +DAGParentNodeNames' '=' '"" jobdag/topic_tied.job
-05/19/17 10:27:32 From submit: Submitting job(s)
-05/19/17 10:27:32 From submit: ERROR: on Line 14 of submit file: 
-05/19/17 10:27:32 From submit: 
-05/19/17 10:27:32 From submit: ERROR: Failed to parse command file (line 14).
-05/19/17 10:27:32 failed while reading from pipe.
-05/19/17 10:27:32 Read so far: Submitting job(s)ERROR: on Line 14 of submit file: ERROR: Failed to parse command file (line 14).
-05/19/17 10:27:32 ERROR: submit attempt failed
-05/19/17 10:27:32 submit command was: /usr/bin/condor_submit -a dag_node_name' '=' 'topic -a +DAGManJobId' '=' '1353 -a DAGManJobId' '=' '1353 -batch-name pretrained_tied_models_medium.dag+1353 -a submit_event_notes' '=' 'DAG' 'Node:' 'topic -a dagman_log' '=' '/esat/spchtemp/scratch/robbe/SpeechHub/n-best/python/jobdag/./pretrained_tied_models_medium.dag.nodes.log -a +DAGManNodesMask' '=' '"0,1,2,4,5,7,9,10,11,12,13,16,17,24,27" -a test_name' '=' 'topic -a num_run' '=' '0 -a model_name' '=' 'pretrained_tied_models_medium -a name' '=' 'pretrained_tied_n_best_topic_medium -a DAG_STATUS' '=' '0 -a FAILED_COUNT' '=' '0 -a notification' '=' 'never -a +DAGParentNodeNames' '=' '"" jobdag/topic_tied.job
-05/19/17 10:27:32 Job submit failed after 6 tries.
-05/19/17 10:27:32 Shortcutting node topic retries because of submit failure(s)
-05/19/17 10:27:32 DAG status: 2 (DAG_STATUS_NODE_FAILED)
-05/19/17 10:27:32 Of 2 nodes total:
-05/19/17 10:27:32  Done     Pre   Queued    Post   Ready   Un-Ready   Failed
-05/19/17 10:27:32   ===     ===      ===     ===     ===        ===      ===
-05/19/17 10:27:32     0       0        0       0       1          0        1
-05/19/17 10:27:32 0 job proc(s) currently held
-05/19/17 10:27:37 Submitting HTCondor Node extended_topic_1 job(s)...
-05/19/17 10:27:37 Adding a DAGMan workflow log /esat/spchtemp/scratch/robbe/SpeechHub/n-best/python/jobdag/./pretrained_tied_models_medium.dag.nodes.log
-05/19/17 10:27:37 Masking the events recorded in the DAGMAN workflow log
-05/19/17 10:27:37 Mask for workflow log is 0,1,2,4,5,7,9,10,11,12,13,16,17,24,27
-05/19/17 10:27:37 submitting: /usr/bin/condor_submit -a dag_node_name' '=' 'extended_topic_1 -a +DAGManJobId' '=' '1353 -a DAGManJobId' '=' '1353 -batch-name pretrained_tied_models_medium.dag+1353 -a submit_event_notes' '=' 'DAG' 'Node:' 'extended_topic_1 -a dagman_log' '=' '/esat/spchtemp/scratch/robbe/SpeechHub/n-best/python/jobdag/./pretrained_tied_models_medium.dag.nodes.log -a +DAGManNodesMask' '=' '"0,1,2,4,5,7,9,10,11,12,13,16,17,24,27" -a test_name' '=' 'extended_topic_1 -a num_run' '=' '0 -a model_name' '=' 'pretrained_tied_models_medium -a name' '=' 'pretrained_tied_n_best_textended_topic_1_medium -a DAG_STATUS' '=' '2 -a FAILED_COUNT' '=' '1 -a notification' '=' 'never -a +DAGParentNodeNames' '=' '"" jobdag/extended_topic_1_tied.job
-05/19/17 10:27:37 From submit: Submitting job(s).
-05/19/17 10:27:37 From submit: 1 job(s) submitted to cluster 1358.
-05/19/17 10:27:37 	assigned HTCondor ID (1358.0.0)
-05/19/17 10:27:37 Just submitted 1 job this cycle...
-05/19/17 10:27:37 Currently monitoring 1 HTCondor log file(s)
-05/19/17 10:27:37 Reassigning the id of job extended_topic_1 from (1358.0.0) to (1358.0.0)
-05/19/17 10:27:37 Event: ULOG_SUBMIT for HTCondor Node extended_topic_1 (1358.0.0) {05/19/17 10:27:37}
-05/19/17 10:27:37 Number of idle job procs: 1
-05/19/17 10:27:37 DAG status: 2 (DAG_STATUS_NODE_FAILED)
-05/19/17 10:27:37 Of 2 nodes total:
-05/19/17 10:27:37  Done     Pre   Queued    Post   Ready   Un-Ready   Failed
-05/19/17 10:27:37   ===     ===      ===     ===     ===        ===      ===
-05/19/17 10:27:37     0       0        1       0       0          0        1
-05/19/17 10:27:37 0 job proc(s) currently held
-05/19/17 10:37:39 602 seconds since last log event
-05/19/17 10:37:39 Pending DAG nodes:
-05/19/17 10:37:39   Node extended_topic_1, HTCondor ID 1358, status STATUS_SUBMITTED
-05/19/17 10:47:41 1204 seconds since last log event
-05/19/17 10:47:41 Pending DAG nodes:
-05/19/17 10:47:41   Node extended_topic_1, HTCondor ID 1358, status STATUS_SUBMITTED
+05/19/17 18:14:32 ******************************************************
+05/19/17 18:14:32 ** condor_scheduniv_exec.1360.0 (CONDOR_DAGMAN) STARTING UP
+05/19/17 18:14:32 ** /usr/bin/condor_dagman
+05/19/17 18:14:32 ** SubsystemInfo: name=DAGMAN type=DAGMAN(10) class=DAEMON(1)
+05/19/17 18:14:32 ** Configuration: subsystem:DAGMAN local:<NONE> class:DAEMON
+05/19/17 18:14:32 ** $CondorVersion: 8.6.2 Apr 23 2017 BuildID: 404257 $
+05/19/17 18:14:32 ** $CondorPlatform: x86_64_RedHat7 $
+05/19/17 18:14:32 ** PID = 13206
+05/19/17 18:14:32 ** Log last touched time unavailable (No such file or directory)
+05/19/17 18:14:32 ******************************************************
+05/19/17 18:14:32 Using config source: /etc/condor/condor_config
+05/19/17 18:14:32 Using local config sources: 
+05/19/17 18:14:32    /etc/condor/config.d/00esat.config
+05/19/17 18:14:32    /etc/condor/config.d/01java.config
+05/19/17 18:14:32    /etc/condor/config.d/80optout_users.config
+05/19/17 18:14:32    /etc/condor/condor_config.local
+05/19/17 18:14:32 config Macros = 166, Sorted = 166, StringBytes = 6027, TablesBytes = 6048
+05/19/17 18:14:32 CLASSAD_CACHING is ENABLED
+05/19/17 18:14:32 Daemon Log is logging: D_ALWAYS D_ERROR
+05/19/17 18:14:32 DaemonCore: No command port requested.
+05/19/17 18:14:32 DAGMAN_USE_STRICT setting: 1
+05/19/17 18:14:32 DAGMAN_VERBOSITY setting: 3
+05/19/17 18:14:32 DAGMAN_DEBUG_CACHE_SIZE setting: 5242880
+05/19/17 18:14:32 DAGMAN_DEBUG_CACHE_ENABLE setting: False
+05/19/17 18:14:32 DAGMAN_SUBMIT_DELAY setting: 0
+05/19/17 18:14:32 DAGMAN_MAX_SUBMIT_ATTEMPTS setting: 6
+05/19/17 18:14:32 DAGMAN_STARTUP_CYCLE_DETECT setting: False
+05/19/17 18:14:32 DAGMAN_MAX_SUBMITS_PER_INTERVAL setting: 5
+05/19/17 18:14:32 DAGMAN_USER_LOG_SCAN_INTERVAL setting: 5
+05/19/17 18:14:32 DAGMAN_DEFAULT_PRIORITY setting: 0
+05/19/17 18:14:32 DAGMAN_SUPPRESS_NOTIFICATION setting: True
+05/19/17 18:14:32 allow_events (DAGMAN_ALLOW_EVENTS) setting: 114
+05/19/17 18:14:32 DAGMAN_RETRY_SUBMIT_FIRST setting: True
+05/19/17 18:14:32 DAGMAN_RETRY_NODE_FIRST setting: False
+05/19/17 18:14:32 DAGMAN_MAX_JOBS_IDLE setting: 1000
+05/19/17 18:14:32 DAGMAN_MAX_JOBS_SUBMITTED setting: 0
+05/19/17 18:14:32 DAGMAN_MAX_PRE_SCRIPTS setting: 20
+05/19/17 18:14:32 DAGMAN_MAX_POST_SCRIPTS setting: 20
+05/19/17 18:14:32 DAGMAN_MUNGE_NODE_NAMES setting: True
+05/19/17 18:14:32 DAGMAN_PROHIBIT_MULTI_JOBS setting: False
+05/19/17 18:14:32 DAGMAN_SUBMIT_DEPTH_FIRST setting: False
+05/19/17 18:14:32 DAGMAN_ALWAYS_RUN_POST setting: False
+05/19/17 18:14:32 DAGMAN_ABORT_DUPLICATES setting: True
+05/19/17 18:14:32 DAGMAN_ABORT_ON_SCARY_SUBMIT setting: True
+05/19/17 18:14:32 DAGMAN_PENDING_REPORT_INTERVAL setting: 600
+05/19/17 18:14:32 DAGMAN_AUTO_RESCUE setting: True
+05/19/17 18:14:32 DAGMAN_MAX_RESCUE_NUM setting: 100
+05/19/17 18:14:32 DAGMAN_WRITE_PARTIAL_RESCUE setting: True
+05/19/17 18:14:32 DAGMAN_DEFAULT_NODE_LOG setting: @(DAG_DIR)/@(DAG_FILE).nodes.log
+05/19/17 18:14:32 DAGMAN_GENERATE_SUBDAG_SUBMITS setting: True
+05/19/17 18:14:32 DAGMAN_MAX_JOB_HOLDS setting: 100
+05/19/17 18:14:32 DAGMAN_HOLD_CLAIM_TIME setting: 20
+05/19/17 18:14:32 ALL_DEBUG setting: 
+05/19/17 18:14:32 DAGMAN_DEBUG setting: 
+05/19/17 18:14:32 DAGMAN_SUPPRESS_JOB_LOGS setting: False
+05/19/17 18:14:32 DAGMAN_REMOVE_NODE_JOBS setting: True
+05/19/17 18:14:32 argv[0] == "condor_scheduniv_exec.1360.0"
+05/19/17 18:14:32 argv[1] == "-Lockfile"
+05/19/17 18:14:32 argv[2] == "pretrained_tied_models_medium.dag.lock"
+05/19/17 18:14:32 argv[3] == "-AutoRescue"
+05/19/17 18:14:32 argv[4] == "1"
+05/19/17 18:14:32 argv[5] == "-DoRescueFrom"
+05/19/17 18:14:32 argv[6] == "0"
+05/19/17 18:14:32 argv[7] == "-Dag"
+05/19/17 18:14:32 argv[8] == "pretrained_tied_models_medium.dag"
+05/19/17 18:14:32 argv[9] == "-Suppress_notification"
+05/19/17 18:14:32 argv[10] == "-CsdVersion"
+05/19/17 18:14:32 argv[11] == "$CondorVersion: 8.6.2 Apr 23 2017 BuildID: 404257 $"
+05/19/17 18:14:32 argv[12] == "-Dagman"
+05/19/17 18:14:32 argv[13] == "/usr/bin/condor_dagman"
+05/19/17 18:14:32 Workflow batch-name: <pretrained_tied_models_medium.dag+1360>
+05/19/17 18:14:32 Workflow accounting_group: <>
+05/19/17 18:14:32 Workflow accounting_group_user: <>
+05/19/17 18:14:32 Warning: failed to get attribute DAGNodeName
+05/19/17 18:14:32 DAGMAN_LOG_ON_NFS_IS_ERROR setting: False
+05/19/17 18:14:32 Default node log file is: </esat/spchtemp/scratch/robbe/SpeechHub/n-best/python/jobdag/./pretrained_tied_models_medium.dag.nodes.log>
+05/19/17 18:14:32 DAG Lockfile will be written to pretrained_tied_models_medium.dag.lock
+05/19/17 18:14:32 DAG Input file is pretrained_tied_models_medium.dag
+05/19/17 18:14:32 Parsing 1 dagfiles
+05/19/17 18:14:32 Parsing pretrained_tied_models_medium.dag ...
+05/19/17 18:14:32 Dag contains 2 total jobs
+05/19/17 18:14:32 Sleeping for 3 seconds to ensure ProcessId uniqueness
+05/19/17 18:14:35 Bootstrapping...
+05/19/17 18:14:35 Number of pre-completed nodes: 0
+05/19/17 18:14:35 MultiLogFiles: truncating log file /esat/spchtemp/scratch/robbe/SpeechHub/n-best/python/jobdag/./pretrained_tied_models_medium.dag.nodes.log
+05/19/17 18:14:35 DAG status: 0 (DAG_STATUS_OK)
+05/19/17 18:14:35 Of 2 nodes total:
+05/19/17 18:14:35  Done     Pre   Queued    Post   Ready   Un-Ready   Failed
+05/19/17 18:14:35   ===     ===      ===     ===     ===        ===      ===
+05/19/17 18:14:35     0       0        0       0       2          0        0
+05/19/17 18:14:35 0 job proc(s) currently held
+05/19/17 18:14:35 Registering condor_event_timer...
+05/19/17 18:14:36 Submitting HTCondor Node topic job(s)...
+05/19/17 18:14:36 Adding a DAGMan workflow log /esat/spchtemp/scratch/robbe/SpeechHub/n-best/python/jobdag/./pretrained_tied_models_medium.dag.nodes.log
+05/19/17 18:14:36 Masking the events recorded in the DAGMAN workflow log
+05/19/17 18:14:36 Mask for workflow log is 0,1,2,4,5,7,9,10,11,12,13,16,17,24,27
+05/19/17 18:14:36 submitting: /usr/bin/condor_submit -a dag_node_name' '=' 'topic -a +DAGManJobId' '=' '1360 -a DAGManJobId' '=' '1360 -batch-name pretrained_tied_models_medium.dag+1360 -a submit_event_notes' '=' 'DAG' 'Node:' 'topic -a dagman_log' '=' '/esat/spchtemp/scratch/robbe/SpeechHub/n-best/python/jobdag/./pretrained_tied_models_medium.dag.nodes.log -a +DAGManNodesMask' '=' '"0,1,2,4,5,7,9,10,11,12,13,16,17,24,27" -a test_name' '=' 'topic -a num_run' '=' '0 -a model_name' '=' 'pretrained_tied_models_medium -a name' '=' 'pretrained_tied_n_best_topic_medium -a DAG_STATUS' '=' '0 -a FAILED_COUNT' '=' '0 -a notification' '=' 'never -a +DAGParentNodeNames' '=' '"" jobdag/topic_tied.job
+05/19/17 18:14:36 From submit: Submitting job(s).
+05/19/17 18:14:36 From submit: 1 job(s) submitted to cluster 1361.
+05/19/17 18:14:36 	assigned HTCondor ID (1361.0.0)
+05/19/17 18:14:36 Submitting HTCondor Node extended_topic_1 job(s)...
+05/19/17 18:14:36 Adding a DAGMan workflow log /esat/spchtemp/scratch/robbe/SpeechHub/n-best/python/jobdag/./pretrained_tied_models_medium.dag.nodes.log
+05/19/17 18:14:36 Masking the events recorded in the DAGMAN workflow log
+05/19/17 18:14:36 Mask for workflow log is 0,1,2,4,5,7,9,10,11,12,13,16,17,24,27
+05/19/17 18:14:36 submitting: /usr/bin/condor_submit -a dag_node_name' '=' 'extended_topic_1 -a +DAGManJobId' '=' '1360 -a DAGManJobId' '=' '1360 -batch-name pretrained_tied_models_medium.dag+1360 -a submit_event_notes' '=' 'DAG' 'Node:' 'extended_topic_1 -a dagman_log' '=' '/esat/spchtemp/scratch/robbe/SpeechHub/n-best/python/jobdag/./pretrained_tied_models_medium.dag.nodes.log -a +DAGManNodesMask' '=' '"0,1,2,4,5,7,9,10,11,12,13,16,17,24,27" -a test_name' '=' 'extended_topic_1 -a num_run' '=' '0 -a model_name' '=' 'pretrained_tied_models_medium -a name' '=' 'pretrained_tied_n_best_textended_topic_1_medium -a DAG_STATUS' '=' '0 -a FAILED_COUNT' '=' '0 -a notification' '=' 'never -a +DAGParentNodeNames' '=' '"" jobdag/extended_topic_1_tied.job
+05/19/17 18:14:37 From submit: Submitting job(s).
+05/19/17 18:14:37 From submit: 1 job(s) submitted to cluster 1362.
+05/19/17 18:14:37 	assigned HTCondor ID (1362.0.0)
+05/19/17 18:14:37 Just submitted 2 jobs this cycle...
+05/19/17 18:14:37 Currently monitoring 1 HTCondor log file(s)
+05/19/17 18:14:37 Reassigning the id of job topic from (1361.0.0) to (1361.0.0)
+05/19/17 18:14:37 Event: ULOG_SUBMIT for HTCondor Node topic (1361.0.0) {05/19/17 18:14:36}
+05/19/17 18:14:37 Number of idle job procs: 1
+05/19/17 18:14:37 Reassigning the id of job extended_topic_1 from (1362.0.0) to (1362.0.0)
+05/19/17 18:14:37 Event: ULOG_SUBMIT for HTCondor Node extended_topic_1 (1362.0.0) {05/19/17 18:14:37}
+05/19/17 18:14:37 Number of idle job procs: 2
+05/19/17 18:14:37 DAG status: 0 (DAG_STATUS_OK)
+05/19/17 18:14:37 Of 2 nodes total:
+05/19/17 18:14:37  Done     Pre   Queued    Post   Ready   Un-Ready   Failed
+05/19/17 18:14:37   ===     ===      ===     ===     ===        ===      ===
+05/19/17 18:14:37     0       0        2       0       0          0        0
+05/19/17 18:14:37 0 job proc(s) currently held
+05/19/17 18:24:39 602 seconds since last log event
+05/19/17 18:24:39 Pending DAG nodes:
+05/19/17 18:24:39   Node topic, HTCondor ID 1361, status STATUS_SUBMITTED
+05/19/17 18:24:39   Node extended_topic_1, HTCondor ID 1362, status STATUS_SUBMITTED
+05/19/17 18:34:42 1205 seconds since last log event
+05/19/17 18:34:42 Pending DAG nodes:
+05/19/17 18:34:42   Node topic, HTCondor ID 1361, status STATUS_SUBMITTED
+05/19/17 18:34:42   Node extended_topic_1, HTCondor ID 1362, status STATUS_SUBMITTED
+05/19/17 18:44:44 1807 seconds since last log event
+05/19/17 18:44:44 Pending DAG nodes:
+05/19/17 18:44:44   Node topic, HTCondor ID 1361, status STATUS_SUBMITTED
+05/19/17 18:44:44   Node extended_topic_1, HTCondor ID 1362, status STATUS_SUBMITTED
+05/19/17 18:54:47 2410 seconds since last log event
+05/19/17 18:54:47 Pending DAG nodes:
+05/19/17 18:54:47   Node topic, HTCondor ID 1361, status STATUS_SUBMITTED
+05/19/17 18:54:47   Node extended_topic_1, HTCondor ID 1362, status STATUS_SUBMITTED
+05/19/17 19:04:50 3013 seconds since last log event
+05/19/17 19:04:50 Pending DAG nodes:
+05/19/17 19:04:50   Node topic, HTCondor ID 1361, status STATUS_SUBMITTED
+05/19/17 19:04:50   Node extended_topic_1, HTCondor ID 1362, status STATUS_SUBMITTED
+05/19/17 19:14:51 3614 seconds since last log event
+05/19/17 19:14:51 Pending DAG nodes:
+05/19/17 19:14:51   Node topic, HTCondor ID 1361, status STATUS_SUBMITTED
+05/19/17 19:14:51   Node extended_topic_1, HTCondor ID 1362, status STATUS_SUBMITTED
+05/19/17 19:24:53 4216 seconds since last log event
+05/19/17 19:24:53 Pending DAG nodes:
+05/19/17 19:24:53   Node topic, HTCondor ID 1361, status STATUS_SUBMITTED
+05/19/17 19:24:53   Node extended_topic_1, HTCondor ID 1362, status STATUS_SUBMITTED
+05/19/17 19:34:55 4818 seconds since last log event
+05/19/17 19:34:55 Pending DAG nodes:
+05/19/17 19:34:55   Node topic, HTCondor ID 1361, status STATUS_SUBMITTED
+05/19/17 19:34:55   Node extended_topic_1, HTCondor ID 1362, status STATUS_SUBMITTED
+05/19/17 19:44:56 5419 seconds since last log event
+05/19/17 19:44:56 Pending DAG nodes:
+05/19/17 19:44:56   Node topic, HTCondor ID 1361, status STATUS_SUBMITTED
+05/19/17 19:44:56   Node extended_topic_1, HTCondor ID 1362, status STATUS_SUBMITTED
+05/19/17 19:54:58 6021 seconds since last log event
+05/19/17 19:54:58 Pending DAG nodes:
+05/19/17 19:54:58   Node topic, HTCondor ID 1361, status STATUS_SUBMITTED
+05/19/17 19:54:58   Node extended_topic_1, HTCondor ID 1362, status STATUS_SUBMITTED
+05/19/17 20:05:00 6623 seconds since last log event
+05/19/17 20:05:00 Pending DAG nodes:
+05/19/17 20:05:00   Node topic, HTCondor ID 1361, status STATUS_SUBMITTED
+05/19/17 20:05:00   Node extended_topic_1, HTCondor ID 1362, status STATUS_SUBMITTED
+05/19/17 20:15:01 7224 seconds since last log event
+05/19/17 20:15:01 Pending DAG nodes:
+05/19/17 20:15:01   Node topic, HTCondor ID 1361, status STATUS_SUBMITTED
+05/19/17 20:15:01   Node extended_topic_1, HTCondor ID 1362, status STATUS_SUBMITTED
+05/19/17 20:25:03 7826 seconds since last log event
+05/19/17 20:25:03 Pending DAG nodes:
+05/19/17 20:25:03   Node topic, HTCondor ID 1361, status STATUS_SUBMITTED
+05/19/17 20:25:03   Node extended_topic_1, HTCondor ID 1362, status STATUS_SUBMITTED
+05/19/17 20:35:05 8428 seconds since last log event
+05/19/17 20:35:05 Pending DAG nodes:
+05/19/17 20:35:05   Node topic, HTCondor ID 1361, status STATUS_SUBMITTED
+05/19/17 20:35:05   Node extended_topic_1, HTCondor ID 1362, status STATUS_SUBMITTED
+05/19/17 20:45:06 9029 seconds since last log event
+05/19/17 20:45:06 Pending DAG nodes:
+05/19/17 20:45:06   Node topic, HTCondor ID 1361, status STATUS_SUBMITTED
+05/19/17 20:45:06   Node extended_topic_1, HTCondor ID 1362, status STATUS_SUBMITTED
+05/19/17 20:55:08 9631 seconds since last log event
+05/19/17 20:55:08 Pending DAG nodes:
+05/19/17 20:55:08   Node topic, HTCondor ID 1361, status STATUS_SUBMITTED
+05/19/17 20:55:08   Node extended_topic_1, HTCondor ID 1362, status STATUS_SUBMITTED
+05/19/17 21:05:09 10232 seconds since last log event
+05/19/17 21:05:09 Pending DAG nodes:
+05/19/17 21:05:09   Node topic, HTCondor ID 1361, status STATUS_SUBMITTED
+05/19/17 21:05:09   Node extended_topic_1, HTCondor ID 1362, status STATUS_SUBMITTED
+05/19/17 21:15:11 10834 seconds since last log event
+05/19/17 21:15:11 Pending DAG nodes:
+05/19/17 21:15:11   Node topic, HTCondor ID 1361, status STATUS_SUBMITTED
+05/19/17 21:15:11   Node extended_topic_1, HTCondor ID 1362, status STATUS_SUBMITTED
+05/19/17 21:25:12 11435 seconds since last log event
+05/19/17 21:25:12 Pending DAG nodes:
+05/19/17 21:25:12   Node topic, HTCondor ID 1361, status STATUS_SUBMITTED
+05/19/17 21:25:12   Node extended_topic_1, HTCondor ID 1362, status STATUS_SUBMITTED
+05/19/17 21:35:13 12036 seconds since last log event
+05/19/17 21:35:13 Pending DAG nodes:
+05/19/17 21:35:13   Node topic, HTCondor ID 1361, status STATUS_SUBMITTED
+05/19/17 21:35:13   Node extended_topic_1, HTCondor ID 1362, status STATUS_SUBMITTED
+05/19/17 21:45:15 12638 seconds since last log event
+05/19/17 21:45:15 Pending DAG nodes:
+05/19/17 21:45:15   Node topic, HTCondor ID 1361, status STATUS_SUBMITTED
+05/19/17 21:45:15   Node extended_topic_1, HTCondor ID 1362, status STATUS_SUBMITTED
+05/19/17 21:55:17 13240 seconds since last log event
+05/19/17 21:55:17 Pending DAG nodes:
+05/19/17 21:55:17   Node topic, HTCondor ID 1361, status STATUS_SUBMITTED
+05/19/17 21:55:17   Node extended_topic_1, HTCondor ID 1362, status STATUS_SUBMITTED
+05/19/17 22:05:18 13841 seconds since last log event
+05/19/17 22:05:18 Pending DAG nodes:
+05/19/17 22:05:18   Node topic, HTCondor ID 1361, status STATUS_SUBMITTED
+05/19/17 22:05:18   Node extended_topic_1, HTCondor ID 1362, status STATUS_SUBMITTED
+05/19/17 22:15:19 14442 seconds since last log event
+05/19/17 22:15:19 Pending DAG nodes:
+05/19/17 22:15:19   Node topic, HTCondor ID 1361, status STATUS_SUBMITTED
+05/19/17 22:15:19   Node extended_topic_1, HTCondor ID 1362, status STATUS_SUBMITTED
+05/19/17 22:25:19 15042 seconds since last log event
+05/19/17 22:25:19 Pending DAG nodes:
+05/19/17 22:25:19   Node topic, HTCondor ID 1361, status STATUS_SUBMITTED
+05/19/17 22:25:19   Node extended_topic_1, HTCondor ID 1362, status STATUS_SUBMITTED
+05/19/17 22:35:20 15643 seconds since last log event
+05/19/17 22:35:20 Pending DAG nodes:
+05/19/17 22:35:20   Node topic, HTCondor ID 1361, status STATUS_SUBMITTED
+05/19/17 22:35:20   Node extended_topic_1, HTCondor ID 1362, status STATUS_SUBMITTED
+05/19/17 22:45:22 16245 seconds since last log event
+05/19/17 22:45:22 Pending DAG nodes:
+05/19/17 22:45:22   Node topic, HTCondor ID 1361, status STATUS_SUBMITTED
+05/19/17 22:45:22   Node extended_topic_1, HTCondor ID 1362, status STATUS_SUBMITTED
+05/19/17 22:55:24 16847 seconds since last log event
+05/19/17 22:55:24 Pending DAG nodes:
+05/19/17 22:55:24   Node topic, HTCondor ID 1361, status STATUS_SUBMITTED
+05/19/17 22:55:24   Node extended_topic_1, HTCondor ID 1362, status STATUS_SUBMITTED
+05/19/17 23:05:25 17448 seconds since last log event
+05/19/17 23:05:25 Pending DAG nodes:
+05/19/17 23:05:25   Node topic, HTCondor ID 1361, status STATUS_SUBMITTED
+05/19/17 23:05:25   Node extended_topic_1, HTCondor ID 1362, status STATUS_SUBMITTED
+05/19/17 23:15:27 18050 seconds since last log event
+05/19/17 23:15:27 Pending DAG nodes:
+05/19/17 23:15:27   Node topic, HTCondor ID 1361, status STATUS_SUBMITTED
+05/19/17 23:15:27   Node extended_topic_1, HTCondor ID 1362, status STATUS_SUBMITTED
+05/19/17 23:25:29 18652 seconds since last log event
+05/19/17 23:25:29 Pending DAG nodes:
+05/19/17 23:25:29   Node topic, HTCondor ID 1361, status STATUS_SUBMITTED
+05/19/17 23:25:29   Node extended_topic_1, HTCondor ID 1362, status STATUS_SUBMITTED
+05/19/17 23:35:29 19252 seconds since last log event
+05/19/17 23:35:29 Pending DAG nodes:
+05/19/17 23:35:29   Node topic, HTCondor ID 1361, status STATUS_SUBMITTED
+05/19/17 23:35:29   Node extended_topic_1, HTCondor ID 1362, status STATUS_SUBMITTED
+05/19/17 23:45:31 19854 seconds since last log event
+05/19/17 23:45:31 Pending DAG nodes:
+05/19/17 23:45:31   Node topic, HTCondor ID 1361, status STATUS_SUBMITTED
+05/19/17 23:45:31   Node extended_topic_1, HTCondor ID 1362, status STATUS_SUBMITTED
+05/19/17 23:55:32 20455 seconds since last log event
+05/19/17 23:55:32 Pending DAG nodes:
+05/19/17 23:55:32   Node topic, HTCondor ID 1361, status STATUS_SUBMITTED
+05/19/17 23:55:32   Node extended_topic_1, HTCondor ID 1362, status STATUS_SUBMITTED
+05/20/17 00:05:34 21057 seconds since last log event
+05/20/17 00:05:34 Pending DAG nodes:
+05/20/17 00:05:34   Node topic, HTCondor ID 1361, status STATUS_SUBMITTED
+05/20/17 00:05:34   Node extended_topic_1, HTCondor ID 1362, status STATUS_SUBMITTED
+05/20/17 00:15:36 21659 seconds since last log event
+05/20/17 00:15:36 Pending DAG nodes:
+05/20/17 00:15:36   Node topic, HTCondor ID 1361, status STATUS_SUBMITTED
+05/20/17 00:15:36   Node extended_topic_1, HTCondor ID 1362, status STATUS_SUBMITTED
+05/20/17 00:25:37 22260 seconds since last log event
+05/20/17 00:25:37 Pending DAG nodes:
+05/20/17 00:25:37   Node topic, HTCondor ID 1361, status STATUS_SUBMITTED
+05/20/17 00:25:37   Node extended_topic_1, HTCondor ID 1362, status STATUS_SUBMITTED
+05/20/17 00:35:39 22862 seconds since last log event
+05/20/17 00:35:39 Pending DAG nodes:
+05/20/17 00:35:39   Node topic, HTCondor ID 1361, status STATUS_SUBMITTED
+05/20/17 00:35:39   Node extended_topic_1, HTCondor ID 1362, status STATUS_SUBMITTED
+05/20/17 00:45:40 23463 seconds since last log event
+05/20/17 00:45:40 Pending DAG nodes:
+05/20/17 00:45:40   Node topic, HTCondor ID 1361, status STATUS_SUBMITTED
+05/20/17 00:45:40   Node extended_topic_1, HTCondor ID 1362, status STATUS_SUBMITTED
+05/20/17 00:55:42 24065 seconds since last log event
+05/20/17 00:55:42 Pending DAG nodes:
+05/20/17 00:55:42   Node topic, HTCondor ID 1361, status STATUS_SUBMITTED
+05/20/17 00:55:42   Node extended_topic_1, HTCondor ID 1362, status STATUS_SUBMITTED
+05/20/17 01:05:44 24667 seconds since last log event
+05/20/17 01:05:44 Pending DAG nodes:
+05/20/17 01:05:44   Node topic, HTCondor ID 1361, status STATUS_SUBMITTED
+05/20/17 01:05:44   Node extended_topic_1, HTCondor ID 1362, status STATUS_SUBMITTED
+05/20/17 01:15:46 25269 seconds since last log event
+05/20/17 01:15:46 Pending DAG nodes:
+05/20/17 01:15:46   Node topic, HTCondor ID 1361, status STATUS_SUBMITTED
+05/20/17 01:15:46   Node extended_topic_1, HTCondor ID 1362, status STATUS_SUBMITTED
+05/20/17 01:25:47 25870 seconds since last log event
+05/20/17 01:25:47 Pending DAG nodes:
+05/20/17 01:25:47   Node topic, HTCondor ID 1361, status STATUS_SUBMITTED
+05/20/17 01:25:47   Node extended_topic_1, HTCondor ID 1362, status STATUS_SUBMITTED
+05/20/17 01:35:49 26472 seconds since last log event
+05/20/17 01:35:49 Pending DAG nodes:
+05/20/17 01:35:49   Node topic, HTCondor ID 1361, status STATUS_SUBMITTED
+05/20/17 01:35:49   Node extended_topic_1, HTCondor ID 1362, status STATUS_SUBMITTED
+05/20/17 01:45:50 27073 seconds since last log event
+05/20/17 01:45:50 Pending DAG nodes:
+05/20/17 01:45:50   Node topic, HTCondor ID 1361, status STATUS_SUBMITTED
+05/20/17 01:45:50   Node extended_topic_1, HTCondor ID 1362, status STATUS_SUBMITTED
+05/20/17 01:55:51 27674 seconds since last log event
+05/20/17 01:55:51 Pending DAG nodes:
+05/20/17 01:55:51   Node topic, HTCondor ID 1361, status STATUS_SUBMITTED
+05/20/17 01:55:51   Node extended_topic_1, HTCondor ID 1362, status STATUS_SUBMITTED
+05/20/17 02:05:52 28275 seconds since last log event
+05/20/17 02:05:52 Pending DAG nodes:
+05/20/17 02:05:52   Node topic, HTCondor ID 1361, status STATUS_SUBMITTED
+05/20/17 02:05:52   Node extended_topic_1, HTCondor ID 1362, status STATUS_SUBMITTED
+05/20/17 02:15:53 28876 seconds since last log event
+05/20/17 02:15:53 Pending DAG nodes:
+05/20/17 02:15:53   Node topic, HTCondor ID 1361, status STATUS_SUBMITTED
+05/20/17 02:15:53   Node extended_topic_1, HTCondor ID 1362, status STATUS_SUBMITTED
+05/20/17 02:25:54 29477 seconds since last log event
+05/20/17 02:25:54 Pending DAG nodes:
+05/20/17 02:25:54   Node topic, HTCondor ID 1361, status STATUS_SUBMITTED
+05/20/17 02:25:54   Node extended_topic_1, HTCondor ID 1362, status STATUS_SUBMITTED
+05/20/17 02:35:56 30079 seconds since last log event
+05/20/17 02:35:56 Pending DAG nodes:
+05/20/17 02:35:56   Node topic, HTCondor ID 1361, status STATUS_SUBMITTED
+05/20/17 02:35:56   Node extended_topic_1, HTCondor ID 1362, status STATUS_SUBMITTED
+05/20/17 02:45:58 30681 seconds since last log event
+05/20/17 02:45:58 Pending DAG nodes:
+05/20/17 02:45:58   Node topic, HTCondor ID 1361, status STATUS_SUBMITTED
+05/20/17 02:45:58   Node extended_topic_1, HTCondor ID 1362, status STATUS_SUBMITTED
+05/20/17 02:55:59 31282 seconds since last log event
+05/20/17 02:55:59 Pending DAG nodes:
+05/20/17 02:55:59   Node topic, HTCondor ID 1361, status STATUS_SUBMITTED
+05/20/17 02:55:59   Node extended_topic_1, HTCondor ID 1362, status STATUS_SUBMITTED
+05/20/17 03:06:01 31884 seconds since last log event
+05/20/17 03:06:01 Pending DAG nodes:
+05/20/17 03:06:01   Node topic, HTCondor ID 1361, status STATUS_SUBMITTED
+05/20/17 03:06:01   Node extended_topic_1, HTCondor ID 1362, status STATUS_SUBMITTED
+05/20/17 03:16:03 32486 seconds since last log event
+05/20/17 03:16:03 Pending DAG nodes:
+05/20/17 03:16:03   Node topic, HTCondor ID 1361, status STATUS_SUBMITTED
+05/20/17 03:16:03   Node extended_topic_1, HTCondor ID 1362, status STATUS_SUBMITTED
+05/20/17 03:26:05 33088 seconds since last log event
+05/20/17 03:26:05 Pending DAG nodes:
+05/20/17 03:26:05   Node topic, HTCondor ID 1361, status STATUS_SUBMITTED
+05/20/17 03:26:05   Node extended_topic_1, HTCondor ID 1362, status STATUS_SUBMITTED
+05/20/17 03:36:06 33689 seconds since last log event
+05/20/17 03:36:06 Pending DAG nodes:
+05/20/17 03:36:06   Node topic, HTCondor ID 1361, status STATUS_SUBMITTED
+05/20/17 03:36:06   Node extended_topic_1, HTCondor ID 1362, status STATUS_SUBMITTED
+05/20/17 03:46:08 34291 seconds since last log event
+05/20/17 03:46:08 Pending DAG nodes:
+05/20/17 03:46:08   Node topic, HTCondor ID 1361, status STATUS_SUBMITTED
+05/20/17 03:46:08   Node extended_topic_1, HTCondor ID 1362, status STATUS_SUBMITTED
+05/20/17 03:56:10 34893 seconds since last log event
+05/20/17 03:56:10 Pending DAG nodes:
+05/20/17 03:56:10   Node topic, HTCondor ID 1361, status STATUS_SUBMITTED
+05/20/17 03:56:10   Node extended_topic_1, HTCondor ID 1362, status STATUS_SUBMITTED
+05/20/17 04:06:11 35494 seconds since last log event
+05/20/17 04:06:11 Pending DAG nodes:
+05/20/17 04:06:11   Node topic, HTCondor ID 1361, status STATUS_SUBMITTED
+05/20/17 04:06:11   Node extended_topic_1, HTCondor ID 1362, status STATUS_SUBMITTED
+05/20/17 04:16:13 36096 seconds since last log event
+05/20/17 04:16:13 Pending DAG nodes:
+05/20/17 04:16:13   Node topic, HTCondor ID 1361, status STATUS_SUBMITTED
+05/20/17 04:16:13   Node extended_topic_1, HTCondor ID 1362, status STATUS_SUBMITTED
+05/20/17 04:26:15 36698 seconds since last log event
+05/20/17 04:26:15 Pending DAG nodes:
+05/20/17 04:26:15   Node topic, HTCondor ID 1361, status STATUS_SUBMITTED
+05/20/17 04:26:15   Node extended_topic_1, HTCondor ID 1362, status STATUS_SUBMITTED
+05/20/17 04:36:17 37300 seconds since last log event
+05/20/17 04:36:17 Pending DAG nodes:
+05/20/17 04:36:17   Node topic, HTCondor ID 1361, status STATUS_SUBMITTED
+05/20/17 04:36:17   Node extended_topic_1, HTCondor ID 1362, status STATUS_SUBMITTED
+05/20/17 04:46:18 37901 seconds since last log event
+05/20/17 04:46:18 Pending DAG nodes:
+05/20/17 04:46:18   Node topic, HTCondor ID 1361, status STATUS_SUBMITTED
+05/20/17 04:46:18   Node extended_topic_1, HTCondor ID 1362, status STATUS_SUBMITTED
+05/20/17 04:56:19 38502 seconds since last log event
+05/20/17 04:56:19 Pending DAG nodes:
+05/20/17 04:56:19   Node topic, HTCondor ID 1361, status STATUS_SUBMITTED
+05/20/17 04:56:19   Node extended_topic_1, HTCondor ID 1362, status STATUS_SUBMITTED
+05/20/17 05:06:20 39103 seconds since last log event
+05/20/17 05:06:20 Pending DAG nodes:
+05/20/17 05:06:20   Node topic, HTCondor ID 1361, status STATUS_SUBMITTED
+05/20/17 05:06:20   Node extended_topic_1, HTCondor ID 1362, status STATUS_SUBMITTED
+05/20/17 05:16:22 39705 seconds since last log event
+05/20/17 05:16:22 Pending DAG nodes:
+05/20/17 05:16:22   Node topic, HTCondor ID 1361, status STATUS_SUBMITTED
+05/20/17 05:16:22   Node extended_topic_1, HTCondor ID 1362, status STATUS_SUBMITTED
+05/20/17 05:26:23 40306 seconds since last log event
+05/20/17 05:26:23 Pending DAG nodes:
+05/20/17 05:26:23   Node topic, HTCondor ID 1361, status STATUS_SUBMITTED
+05/20/17 05:26:23   Node extended_topic_1, HTCondor ID 1362, status STATUS_SUBMITTED
+05/20/17 05:36:25 40908 seconds since last log event
+05/20/17 05:36:25 Pending DAG nodes:
+05/20/17 05:36:25   Node topic, HTCondor ID 1361, status STATUS_SUBMITTED
+05/20/17 05:36:25   Node extended_topic_1, HTCondor ID 1362, status STATUS_SUBMITTED
+05/20/17 05:46:27 41510 seconds since last log event
+05/20/17 05:46:27 Pending DAG nodes:
+05/20/17 05:46:27   Node topic, HTCondor ID 1361, status STATUS_SUBMITTED
+05/20/17 05:46:27   Node extended_topic_1, HTCondor ID 1362, status STATUS_SUBMITTED
+05/20/17 05:56:28 42111 seconds since last log event
+05/20/17 05:56:28 Pending DAG nodes:
+05/20/17 05:56:28   Node topic, HTCondor ID 1361, status STATUS_SUBMITTED
+05/20/17 05:56:28   Node extended_topic_1, HTCondor ID 1362, status STATUS_SUBMITTED
+05/20/17 06:06:29 42712 seconds since last log event
+05/20/17 06:06:29 Pending DAG nodes:
+05/20/17 06:06:29   Node topic, HTCondor ID 1361, status STATUS_SUBMITTED
+05/20/17 06:06:29   Node extended_topic_1, HTCondor ID 1362, status STATUS_SUBMITTED
+05/20/17 06:16:31 43314 seconds since last log event
+05/20/17 06:16:31 Pending DAG nodes:
+05/20/17 06:16:31   Node topic, HTCondor ID 1361, status STATUS_SUBMITTED
+05/20/17 06:16:31   Node extended_topic_1, HTCondor ID 1362, status STATUS_SUBMITTED
+05/20/17 06:26:33 43916 seconds since last log event
+05/20/17 06:26:33 Pending DAG nodes:
+05/20/17 06:26:33   Node topic, HTCondor ID 1361, status STATUS_SUBMITTED
+05/20/17 06:26:33   Node extended_topic_1, HTCondor ID 1362, status STATUS_SUBMITTED
+05/20/17 06:36:34 44517 seconds since last log event
+05/20/17 06:36:34 Pending DAG nodes:
+05/20/17 06:36:34   Node topic, HTCondor ID 1361, status STATUS_SUBMITTED
+05/20/17 06:36:34   Node extended_topic_1, HTCondor ID 1362, status STATUS_SUBMITTED
+05/20/17 06:46:36 45119 seconds since last log event
+05/20/17 06:46:36 Pending DAG nodes:
+05/20/17 06:46:36   Node topic, HTCondor ID 1361, status STATUS_SUBMITTED
+05/20/17 06:46:36   Node extended_topic_1, HTCondor ID 1362, status STATUS_SUBMITTED
+05/20/17 06:56:38 45721 seconds since last log event
+05/20/17 06:56:38 Pending DAG nodes:
+05/20/17 06:56:38   Node topic, HTCondor ID 1361, status STATUS_SUBMITTED
+05/20/17 06:56:38   Node extended_topic_1, HTCondor ID 1362, status STATUS_SUBMITTED
+05/20/17 07:06:39 46322 seconds since last log event
+05/20/17 07:06:39 Pending DAG nodes:
+05/20/17 07:06:39   Node topic, HTCondor ID 1361, status STATUS_SUBMITTED
+05/20/17 07:06:39   Node extended_topic_1, HTCondor ID 1362, status STATUS_SUBMITTED
+05/20/17 07:16:40 46923 seconds since last log event
+05/20/17 07:16:40 Pending DAG nodes:
+05/20/17 07:16:40   Node topic, HTCondor ID 1361, status STATUS_SUBMITTED
+05/20/17 07:16:40   Node extended_topic_1, HTCondor ID 1362, status STATUS_SUBMITTED
+05/20/17 07:26:42 47525 seconds since last log event
+05/20/17 07:26:42 Pending DAG nodes:
+05/20/17 07:26:42   Node topic, HTCondor ID 1361, status STATUS_SUBMITTED
+05/20/17 07:26:42   Node extended_topic_1, HTCondor ID 1362, status STATUS_SUBMITTED
+05/20/17 07:36:43 48126 seconds since last log event
+05/20/17 07:36:43 Pending DAG nodes:
+05/20/17 07:36:43   Node topic, HTCondor ID 1361, status STATUS_SUBMITTED
+05/20/17 07:36:43   Node extended_topic_1, HTCondor ID 1362, status STATUS_SUBMITTED
+05/20/17 07:46:45 48728 seconds since last log event
+05/20/17 07:46:45 Pending DAG nodes:
+05/20/17 07:46:45   Node topic, HTCondor ID 1361, status STATUS_SUBMITTED
+05/20/17 07:46:45   Node extended_topic_1, HTCondor ID 1362, status STATUS_SUBMITTED
+05/20/17 07:56:45 49328 seconds since last log event
+05/20/17 07:56:45 Pending DAG nodes:
+05/20/17 07:56:45   Node topic, HTCondor ID 1361, status STATUS_SUBMITTED
+05/20/17 07:56:45   Node extended_topic_1, HTCondor ID 1362, status STATUS_SUBMITTED
+05/20/17 08:06:47 49930 seconds since last log event
+05/20/17 08:06:47 Pending DAG nodes:
+05/20/17 08:06:47   Node topic, HTCondor ID 1361, status STATUS_SUBMITTED
+05/20/17 08:06:47   Node extended_topic_1, HTCondor ID 1362, status STATUS_SUBMITTED
+05/20/17 08:16:48 50531 seconds since last log event
+05/20/17 08:16:48 Pending DAG nodes:
+05/20/17 08:16:48   Node topic, HTCondor ID 1361, status STATUS_SUBMITTED
+05/20/17 08:16:48   Node extended_topic_1, HTCondor ID 1362, status STATUS_SUBMITTED
+05/20/17 08:26:50 51133 seconds since last log event
+05/20/17 08:26:50 Pending DAG nodes:
+05/20/17 08:26:50   Node topic, HTCondor ID 1361, status STATUS_SUBMITTED
+05/20/17 08:26:50   Node extended_topic_1, HTCondor ID 1362, status STATUS_SUBMITTED
+05/20/17 08:36:51 51734 seconds since last log event
+05/20/17 08:36:51 Pending DAG nodes:
+05/20/17 08:36:51   Node topic, HTCondor ID 1361, status STATUS_SUBMITTED
+05/20/17 08:36:51   Node extended_topic_1, HTCondor ID 1362, status STATUS_SUBMITTED
+05/20/17 08:46:52 52335 seconds since last log event
+05/20/17 08:46:52 Pending DAG nodes:
+05/20/17 08:46:52   Node topic, HTCondor ID 1361, status STATUS_SUBMITTED
+05/20/17 08:46:52   Node extended_topic_1, HTCondor ID 1362, status STATUS_SUBMITTED
+05/20/17 08:56:53 52936 seconds since last log event
+05/20/17 08:56:54 Pending DAG nodes:
+05/20/17 08:56:54   Node topic, HTCondor ID 1361, status STATUS_SUBMITTED
+05/20/17 08:56:54   Node extended_topic_1, HTCondor ID 1362, status STATUS_SUBMITTED
+05/20/17 09:06:55 53538 seconds since last log event
+05/20/17 09:06:55 Pending DAG nodes:
+05/20/17 09:06:55   Node topic, HTCondor ID 1361, status STATUS_SUBMITTED
+05/20/17 09:06:55   Node extended_topic_1, HTCondor ID 1362, status STATUS_SUBMITTED
+05/20/17 09:16:57 54140 seconds since last log event
+05/20/17 09:16:57 Pending DAG nodes:
+05/20/17 09:16:57   Node topic, HTCondor ID 1361, status STATUS_SUBMITTED
+05/20/17 09:16:57   Node extended_topic_1, HTCondor ID 1362, status STATUS_SUBMITTED
+05/20/17 09:26:58 54741 seconds since last log event
+05/20/17 09:26:58 Pending DAG nodes:
+05/20/17 09:26:58   Node topic, HTCondor ID 1361, status STATUS_SUBMITTED
+05/20/17 09:26:58   Node extended_topic_1, HTCondor ID 1362, status STATUS_SUBMITTED
+05/20/17 09:37:00 55343 seconds since last log event
+05/20/17 09:37:00 Pending DAG nodes:
+05/20/17 09:37:00   Node topic, HTCondor ID 1361, status STATUS_SUBMITTED
+05/20/17 09:37:00   Node extended_topic_1, HTCondor ID 1362, status STATUS_SUBMITTED
+05/20/17 09:47:01 55944 seconds since last log event
+05/20/17 09:47:01 Pending DAG nodes:
+05/20/17 09:47:01   Node topic, HTCondor ID 1361, status STATUS_SUBMITTED
+05/20/17 09:47:01   Node extended_topic_1, HTCondor ID 1362, status STATUS_SUBMITTED
+05/20/17 09:57:03 56546 seconds since last log event
+05/20/17 09:57:03 Pending DAG nodes:
+05/20/17 09:57:03   Node topic, HTCondor ID 1361, status STATUS_SUBMITTED
+05/20/17 09:57:03   Node extended_topic_1, HTCondor ID 1362, status STATUS_SUBMITTED
+05/20/17 10:07:04 57147 seconds since last log event
+05/20/17 10:07:04 Pending DAG nodes:
+05/20/17 10:07:04   Node topic, HTCondor ID 1361, status STATUS_SUBMITTED
+05/20/17 10:07:04   Node extended_topic_1, HTCondor ID 1362, status STATUS_SUBMITTED
+05/20/17 10:17:06 57749 seconds since last log event
+05/20/17 10:17:06 Pending DAG nodes:
+05/20/17 10:17:06   Node topic, HTCondor ID 1361, status STATUS_SUBMITTED
+05/20/17 10:17:06   Node extended_topic_1, HTCondor ID 1362, status STATUS_SUBMITTED
+05/20/17 10:27:08 58351 seconds since last log event
+05/20/17 10:27:08 Pending DAG nodes:
+05/20/17 10:27:08   Node topic, HTCondor ID 1361, status STATUS_SUBMITTED
+05/20/17 10:27:08   Node extended_topic_1, HTCondor ID 1362, status STATUS_SUBMITTED
+05/20/17 10:37:09 58952 seconds since last log event
+05/20/17 10:37:09 Pending DAG nodes:
+05/20/17 10:37:09   Node topic, HTCondor ID 1361, status STATUS_SUBMITTED
+05/20/17 10:37:09   Node extended_topic_1, HTCondor ID 1362, status STATUS_SUBMITTED
+05/20/17 10:47:11 59554 seconds since last log event
+05/20/17 10:47:11 Pending DAG nodes:
+05/20/17 10:47:11   Node topic, HTCondor ID 1361, status STATUS_SUBMITTED
+05/20/17 10:47:11   Node extended_topic_1, HTCondor ID 1362, status STATUS_SUBMITTED
+05/20/17 10:57:13 60156 seconds since last log event
+05/20/17 10:57:13 Pending DAG nodes:
+05/20/17 10:57:13   Node topic, HTCondor ID 1361, status STATUS_SUBMITTED
+05/20/17 10:57:13   Node extended_topic_1, HTCondor ID 1362, status STATUS_SUBMITTED
+05/20/17 11:07:14 60757 seconds since last log event
+05/20/17 11:07:14 Pending DAG nodes:
+05/20/17 11:07:14   Node topic, HTCondor ID 1361, status STATUS_SUBMITTED
+05/20/17 11:07:14   Node extended_topic_1, HTCondor ID 1362, status STATUS_SUBMITTED
+05/20/17 11:17:16 61359 seconds since last log event
+05/20/17 11:17:16 Pending DAG nodes:
+05/20/17 11:17:16   Node topic, HTCondor ID 1361, status STATUS_SUBMITTED
+05/20/17 11:17:16   Node extended_topic_1, HTCondor ID 1362, status STATUS_SUBMITTED
+05/20/17 11:27:18 61961 seconds since last log event
+05/20/17 11:27:18 Pending DAG nodes:
+05/20/17 11:27:18   Node topic, HTCondor ID 1361, status STATUS_SUBMITTED
+05/20/17 11:27:18   Node extended_topic_1, HTCondor ID 1362, status STATUS_SUBMITTED
+05/20/17 11:37:20 62563 seconds since last log event
+05/20/17 11:37:20 Pending DAG nodes:
+05/20/17 11:37:20   Node topic, HTCondor ID 1361, status STATUS_SUBMITTED
+05/20/17 11:37:20   Node extended_topic_1, HTCondor ID 1362, status STATUS_SUBMITTED
+05/20/17 11:47:24 63167 seconds since last log event
+05/20/17 11:47:24 Pending DAG nodes:
+05/20/17 11:47:24   Node topic, HTCondor ID 1361, status STATUS_SUBMITTED
+05/20/17 11:47:24   Node extended_topic_1, HTCondor ID 1362, status STATUS_SUBMITTED
+05/20/17 11:57:27 63770 seconds since last log event
+05/20/17 11:57:27 Pending DAG nodes:
+05/20/17 11:57:27   Node topic, HTCondor ID 1361, status STATUS_SUBMITTED
+05/20/17 11:57:27   Node extended_topic_1, HTCondor ID 1362, status STATUS_SUBMITTED
+05/20/17 12:07:30 64373 seconds since last log event
+05/20/17 12:07:30 Pending DAG nodes:
+05/20/17 12:07:30   Node topic, HTCondor ID 1361, status STATUS_SUBMITTED
+05/20/17 12:07:30   Node extended_topic_1, HTCondor ID 1362, status STATUS_SUBMITTED
+05/20/17 12:17:33 64976 seconds since last log event
+05/20/17 12:17:33 Pending DAG nodes:
+05/20/17 12:17:33   Node topic, HTCondor ID 1361, status STATUS_SUBMITTED
+05/20/17 12:17:33   Node extended_topic_1, HTCondor ID 1362, status STATUS_SUBMITTED
+05/20/17 12:27:35 65578 seconds since last log event
+05/20/17 12:27:35 Pending DAG nodes:
+05/20/17 12:27:35   Node topic, HTCondor ID 1361, status STATUS_SUBMITTED
+05/20/17 12:27:35   Node extended_topic_1, HTCondor ID 1362, status STATUS_SUBMITTED
+05/20/17 12:37:38 66181 seconds since last log event
+05/20/17 12:37:38 Pending DAG nodes:
+05/20/17 12:37:38   Node topic, HTCondor ID 1361, status STATUS_SUBMITTED
+05/20/17 12:37:38   Node extended_topic_1, HTCondor ID 1362, status STATUS_SUBMITTED
+05/20/17 12:47:40 66783 seconds since last log event
+05/20/17 12:47:40 Pending DAG nodes:
+05/20/17 12:47:40   Node topic, HTCondor ID 1361, status STATUS_SUBMITTED
+05/20/17 12:47:40   Node extended_topic_1, HTCondor ID 1362, status STATUS_SUBMITTED
+05/20/17 12:57:41 67384 seconds since last log event
+05/20/17 12:57:41 Pending DAG nodes:
+05/20/17 12:57:41   Node topic, HTCondor ID 1361, status STATUS_SUBMITTED
+05/20/17 12:57:41   Node extended_topic_1, HTCondor ID 1362, status STATUS_SUBMITTED
+05/20/17 13:07:43 67986 seconds since last log event
+05/20/17 13:07:43 Pending DAG nodes:
+05/20/17 13:07:43   Node topic, HTCondor ID 1361, status STATUS_SUBMITTED
+05/20/17 13:07:43   Node extended_topic_1, HTCondor ID 1362, status STATUS_SUBMITTED
+05/20/17 13:17:45 68588 seconds since last log event
+05/20/17 13:17:45 Pending DAG nodes:
+05/20/17 13:17:45   Node topic, HTCondor ID 1361, status STATUS_SUBMITTED
+05/20/17 13:17:45   Node extended_topic_1, HTCondor ID 1362, status STATUS_SUBMITTED
+05/20/17 13:27:46 69189 seconds since last log event
+05/20/17 13:27:46 Pending DAG nodes:
+05/20/17 13:27:46   Node topic, HTCondor ID 1361, status STATUS_SUBMITTED
+05/20/17 13:27:46   Node extended_topic_1, HTCondor ID 1362, status STATUS_SUBMITTED
+05/20/17 13:37:48 69791 seconds since last log event
+05/20/17 13:37:48 Pending DAG nodes:
+05/20/17 13:37:48   Node topic, HTCondor ID 1361, status STATUS_SUBMITTED
+05/20/17 13:37:48   Node extended_topic_1, HTCondor ID 1362, status STATUS_SUBMITTED
+05/20/17 13:47:50 70393 seconds since last log event
+05/20/17 13:47:50 Pending DAG nodes:
+05/20/17 13:47:50   Node topic, HTCondor ID 1361, status STATUS_SUBMITTED
+05/20/17 13:47:50   Node extended_topic_1, HTCondor ID 1362, status STATUS_SUBMITTED
+05/20/17 13:57:52 70995 seconds since last log event
+05/20/17 13:57:52 Pending DAG nodes:
+05/20/17 13:57:52   Node topic, HTCondor ID 1361, status STATUS_SUBMITTED
+05/20/17 13:57:52   Node extended_topic_1, HTCondor ID 1362, status STATUS_SUBMITTED
+05/20/17 14:07:53 71596 seconds since last log event
+05/20/17 14:07:53 Pending DAG nodes:
+05/20/17 14:07:53   Node topic, HTCondor ID 1361, status STATUS_SUBMITTED
+05/20/17 14:07:53   Node extended_topic_1, HTCondor ID 1362, status STATUS_SUBMITTED
+05/20/17 14:17:55 72198 seconds since last log event
+05/20/17 14:17:55 Pending DAG nodes:
+05/20/17 14:17:55   Node topic, HTCondor ID 1361, status STATUS_SUBMITTED
+05/20/17 14:17:55   Node extended_topic_1, HTCondor ID 1362, status STATUS_SUBMITTED
+05/20/17 14:27:56 72799 seconds since last log event
+05/20/17 14:27:56 Pending DAG nodes:
+05/20/17 14:27:56   Node topic, HTCondor ID 1361, status STATUS_SUBMITTED
+05/20/17 14:27:56   Node extended_topic_1, HTCondor ID 1362, status STATUS_SUBMITTED
+05/20/17 14:37:58 73401 seconds since last log event
+05/20/17 14:37:58 Pending DAG nodes:
+05/20/17 14:37:58   Node topic, HTCondor ID 1361, status STATUS_SUBMITTED
+05/20/17 14:37:58   Node extended_topic_1, HTCondor ID 1362, status STATUS_SUBMITTED
+05/20/17 14:47:59 74002 seconds since last log event
+05/20/17 14:47:59 Pending DAG nodes:
+05/20/17 14:47:59   Node topic, HTCondor ID 1361, status STATUS_SUBMITTED
+05/20/17 14:47:59   Node extended_topic_1, HTCondor ID 1362, status STATUS_SUBMITTED
+05/20/17 14:58:01 74604 seconds since last log event
+05/20/17 14:58:01 Pending DAG nodes:
+05/20/17 14:58:01   Node topic, HTCondor ID 1361, status STATUS_SUBMITTED
+05/20/17 14:58:01   Node extended_topic_1, HTCondor ID 1362, status STATUS_SUBMITTED
+05/20/17 15:08:03 75206 seconds since last log event
+05/20/17 15:08:03 Pending DAG nodes:
+05/20/17 15:08:03   Node topic, HTCondor ID 1361, status STATUS_SUBMITTED
+05/20/17 15:08:03   Node extended_topic_1, HTCondor ID 1362, status STATUS_SUBMITTED
+05/20/17 15:18:04 75807 seconds since last log event
+05/20/17 15:18:04 Pending DAG nodes:
+05/20/17 15:18:04   Node topic, HTCondor ID 1361, status STATUS_SUBMITTED
+05/20/17 15:18:04   Node extended_topic_1, HTCondor ID 1362, status STATUS_SUBMITTED
+05/20/17 15:28:06 76409 seconds since last log event
+05/20/17 15:28:06 Pending DAG nodes:
+05/20/17 15:28:06   Node topic, HTCondor ID 1361, status STATUS_SUBMITTED
+05/20/17 15:28:06   Node extended_topic_1, HTCondor ID 1362, status STATUS_SUBMITTED
+05/20/17 15:38:07 77010 seconds since last log event
+05/20/17 15:38:07 Pending DAG nodes:
+05/20/17 15:38:07   Node topic, HTCondor ID 1361, status STATUS_SUBMITTED
+05/20/17 15:38:07   Node extended_topic_1, HTCondor ID 1362, status STATUS_SUBMITTED
+05/20/17 15:48:09 77612 seconds since last log event
+05/20/17 15:48:09 Pending DAG nodes:
+05/20/17 15:48:09   Node topic, HTCondor ID 1361, status STATUS_SUBMITTED
+05/20/17 15:48:09   Node extended_topic_1, HTCondor ID 1362, status STATUS_SUBMITTED
+05/20/17 15:58:10 78213 seconds since last log event
+05/20/17 15:58:10 Pending DAG nodes:
+05/20/17 15:58:10   Node topic, HTCondor ID 1361, status STATUS_SUBMITTED
+05/20/17 15:58:10   Node extended_topic_1, HTCondor ID 1362, status STATUS_SUBMITTED
+05/20/17 16:08:11 78814 seconds since last log event
+05/20/17 16:08:11 Pending DAG nodes:
+05/20/17 16:08:11   Node topic, HTCondor ID 1361, status STATUS_SUBMITTED
+05/20/17 16:08:11   Node extended_topic_1, HTCondor ID 1362, status STATUS_SUBMITTED
+05/20/17 16:18:13 79416 seconds since last log event
+05/20/17 16:18:13 Pending DAG nodes:
+05/20/17 16:18:13   Node topic, HTCondor ID 1361, status STATUS_SUBMITTED
+05/20/17 16:18:13   Node extended_topic_1, HTCondor ID 1362, status STATUS_SUBMITTED
+05/20/17 16:28:15 80018 seconds since last log event
+05/20/17 16:28:15 Pending DAG nodes:
+05/20/17 16:28:15   Node topic, HTCondor ID 1361, status STATUS_SUBMITTED
+05/20/17 16:28:15   Node extended_topic_1, HTCondor ID 1362, status STATUS_SUBMITTED
+05/20/17 16:38:16 80619 seconds since last log event
+05/20/17 16:38:16 Pending DAG nodes:
+05/20/17 16:38:16   Node topic, HTCondor ID 1361, status STATUS_SUBMITTED
+05/20/17 16:38:16   Node extended_topic_1, HTCondor ID 1362, status STATUS_SUBMITTED
+05/20/17 16:48:18 81221 seconds since last log event
+05/20/17 16:48:18 Pending DAG nodes:
+05/20/17 16:48:18   Node topic, HTCondor ID 1361, status STATUS_SUBMITTED
+05/20/17 16:48:18   Node extended_topic_1, HTCondor ID 1362, status STATUS_SUBMITTED
+05/20/17 16:58:18 81821 seconds since last log event
+05/20/17 16:58:18 Pending DAG nodes:
+05/20/17 16:58:18   Node topic, HTCondor ID 1361, status STATUS_SUBMITTED
+05/20/17 16:58:18   Node extended_topic_1, HTCondor ID 1362, status STATUS_SUBMITTED
+05/20/17 17:08:20 82423 seconds since last log event
+05/20/17 17:08:20 Pending DAG nodes:
+05/20/17 17:08:20   Node topic, HTCondor ID 1361, status STATUS_SUBMITTED
+05/20/17 17:08:20   Node extended_topic_1, HTCondor ID 1362, status STATUS_SUBMITTED
+05/20/17 17:18:22 83025 seconds since last log event
+05/20/17 17:18:22 Pending DAG nodes:
+05/20/17 17:18:22   Node topic, HTCondor ID 1361, status STATUS_SUBMITTED
+05/20/17 17:18:22   Node extended_topic_1, HTCondor ID 1362, status STATUS_SUBMITTED
+05/20/17 17:28:24 83627 seconds since last log event
+05/20/17 17:28:24 Pending DAG nodes:
+05/20/17 17:28:24   Node topic, HTCondor ID 1361, status STATUS_SUBMITTED
+05/20/17 17:28:24   Node extended_topic_1, HTCondor ID 1362, status STATUS_SUBMITTED
+05/20/17 17:38:25 84228 seconds since last log event
+05/20/17 17:38:25 Pending DAG nodes:
+05/20/17 17:38:25   Node topic, HTCondor ID 1361, status STATUS_SUBMITTED
+05/20/17 17:38:25   Node extended_topic_1, HTCondor ID 1362, status STATUS_SUBMITTED
+05/20/17 17:48:27 84830 seconds since last log event
+05/20/17 17:48:27 Pending DAG nodes:
+05/20/17 17:48:27   Node topic, HTCondor ID 1361, status STATUS_SUBMITTED
+05/20/17 17:48:27   Node extended_topic_1, HTCondor ID 1362, status STATUS_SUBMITTED
+05/20/17 17:58:28 85431 seconds since last log event
+05/20/17 17:58:28 Pending DAG nodes:
+05/20/17 17:58:28   Node topic, HTCondor ID 1361, status STATUS_SUBMITTED
+05/20/17 17:58:28   Node extended_topic_1, HTCondor ID 1362, status STATUS_SUBMITTED
+05/20/17 18:08:30 86033 seconds since last log event
+05/20/17 18:08:30 Pending DAG nodes:
+05/20/17 18:08:30   Node topic, HTCondor ID 1361, status STATUS_SUBMITTED
+05/20/17 18:08:30   Node extended_topic_1, HTCondor ID 1362, status STATUS_SUBMITTED
+05/20/17 18:18:32 86635 seconds since last log event
+05/20/17 18:18:32 Pending DAG nodes:
+05/20/17 18:18:32   Node topic, HTCondor ID 1361, status STATUS_SUBMITTED
+05/20/17 18:18:32   Node extended_topic_1, HTCondor ID 1362, status STATUS_SUBMITTED
+05/20/17 18:28:33 87236 seconds since last log event
+05/20/17 18:28:33 Pending DAG nodes:
+05/20/17 18:28:33   Node topic, HTCondor ID 1361, status STATUS_SUBMITTED
+05/20/17 18:28:33   Node extended_topic_1, HTCondor ID 1362, status STATUS_SUBMITTED
+05/20/17 18:38:35 87838 seconds since last log event
+05/20/17 18:38:35 Pending DAG nodes:
+05/20/17 18:38:35   Node topic, HTCondor ID 1361, status STATUS_SUBMITTED
+05/20/17 18:38:35   Node extended_topic_1, HTCondor ID 1362, status STATUS_SUBMITTED
+05/20/17 18:48:37 88440 seconds since last log event
+05/20/17 18:48:37 Pending DAG nodes:
+05/20/17 18:48:37   Node topic, HTCondor ID 1361, status STATUS_SUBMITTED
+05/20/17 18:48:37   Node extended_topic_1, HTCondor ID 1362, status STATUS_SUBMITTED
+05/20/17 18:58:37 89040 seconds since last log event
+05/20/17 18:58:37 Pending DAG nodes:
+05/20/17 18:58:37   Node topic, HTCondor ID 1361, status STATUS_SUBMITTED
+05/20/17 18:58:37   Node extended_topic_1, HTCondor ID 1362, status STATUS_SUBMITTED
+05/20/17 19:08:39 89642 seconds since last log event
+05/20/17 19:08:39 Pending DAG nodes:
+05/20/17 19:08:39   Node topic, HTCondor ID 1361, status STATUS_SUBMITTED
+05/20/17 19:08:39   Node extended_topic_1, HTCondor ID 1362, status STATUS_SUBMITTED
+05/20/17 19:18:41 90244 seconds since last log event
+05/20/17 19:18:41 Pending DAG nodes:
+05/20/17 19:18:41   Node topic, HTCondor ID 1361, status STATUS_SUBMITTED
+05/20/17 19:18:41   Node extended_topic_1, HTCondor ID 1362, status STATUS_SUBMITTED
+05/20/17 19:28:42 90845 seconds since last log event
+05/20/17 19:28:42 Pending DAG nodes:
+05/20/17 19:28:42   Node topic, HTCondor ID 1361, status STATUS_SUBMITTED
+05/20/17 19:28:42   Node extended_topic_1, HTCondor ID 1362, status STATUS_SUBMITTED
+05/20/17 19:38:44 91447 seconds since last log event
+05/20/17 19:38:44 Pending DAG nodes:
+05/20/17 19:38:44   Node topic, HTCondor ID 1361, status STATUS_SUBMITTED
+05/20/17 19:38:44   Node extended_topic_1, HTCondor ID 1362, status STATUS_SUBMITTED
+05/20/17 19:48:45 92048 seconds since last log event
+05/20/17 19:48:45 Pending DAG nodes:
+05/20/17 19:48:45   Node topic, HTCondor ID 1361, status STATUS_SUBMITTED
+05/20/17 19:48:45   Node extended_topic_1, HTCondor ID 1362, status STATUS_SUBMITTED
+05/20/17 19:58:47 92650 seconds since last log event
+05/20/17 19:58:47 Pending DAG nodes:
+05/20/17 19:58:47   Node topic, HTCondor ID 1361, status STATUS_SUBMITTED
+05/20/17 19:58:47   Node extended_topic_1, HTCondor ID 1362, status STATUS_SUBMITTED
+05/20/17 20:08:49 93252 seconds since last log event
+05/20/17 20:08:49 Pending DAG nodes:
+05/20/17 20:08:49   Node topic, HTCondor ID 1361, status STATUS_SUBMITTED
+05/20/17 20:08:49   Node extended_topic_1, HTCondor ID 1362, status STATUS_SUBMITTED
+05/20/17 20:18:51 93854 seconds since last log event
+05/20/17 20:18:51 Pending DAG nodes:
+05/20/17 20:18:51   Node topic, HTCondor ID 1361, status STATUS_SUBMITTED
+05/20/17 20:18:51   Node extended_topic_1, HTCondor ID 1362, status STATUS_SUBMITTED
+05/20/17 20:28:53 94456 seconds since last log event
+05/20/17 20:28:53 Pending DAG nodes:
+05/20/17 20:28:53   Node topic, HTCondor ID 1361, status STATUS_SUBMITTED
+05/20/17 20:28:53   Node extended_topic_1, HTCondor ID 1362, status STATUS_SUBMITTED
+05/20/17 20:38:55 95058 seconds since last log event
+05/20/17 20:38:55 Pending DAG nodes:
+05/20/17 20:38:55   Node topic, HTCondor ID 1361, status STATUS_SUBMITTED
+05/20/17 20:38:55   Node extended_topic_1, HTCondor ID 1362, status STATUS_SUBMITTED
+05/20/17 20:48:57 95660 seconds since last log event
+05/20/17 20:48:57 Pending DAG nodes:
+05/20/17 20:48:57   Node topic, HTCondor ID 1361, status STATUS_SUBMITTED
+05/20/17 20:48:57   Node extended_topic_1, HTCondor ID 1362, status STATUS_SUBMITTED
+05/20/17 20:58:59 96262 seconds since last log event
+05/20/17 20:58:59 Pending DAG nodes:
+05/20/17 20:58:59   Node topic, HTCondor ID 1361, status STATUS_SUBMITTED
+05/20/17 20:58:59   Node extended_topic_1, HTCondor ID 1362, status STATUS_SUBMITTED
+05/20/17 21:09:01 96864 seconds since last log event
+05/20/17 21:09:01 Pending DAG nodes:
+05/20/17 21:09:01   Node topic, HTCondor ID 1361, status STATUS_SUBMITTED
+05/20/17 21:09:01   Node extended_topic_1, HTCondor ID 1362, status STATUS_SUBMITTED
+05/20/17 21:19:03 97466 seconds since last log event
+05/20/17 21:19:03 Pending DAG nodes:
+05/20/17 21:19:03   Node topic, HTCondor ID 1361, status STATUS_SUBMITTED
+05/20/17 21:19:03   Node extended_topic_1, HTCondor ID 1362, status STATUS_SUBMITTED
+05/20/17 21:29:04 98067 seconds since last log event
+05/20/17 21:29:04 Pending DAG nodes:
+05/20/17 21:29:04   Node topic, HTCondor ID 1361, status STATUS_SUBMITTED
+05/20/17 21:29:04   Node extended_topic_1, HTCondor ID 1362, status STATUS_SUBMITTED
+05/20/17 21:39:06 98669 seconds since last log event
+05/20/17 21:39:06 Pending DAG nodes:
+05/20/17 21:39:06   Node topic, HTCondor ID 1361, status STATUS_SUBMITTED
+05/20/17 21:39:06   Node extended_topic_1, HTCondor ID 1362, status STATUS_SUBMITTED
+05/20/17 21:49:07 99270 seconds since last log event
+05/20/17 21:49:07 Pending DAG nodes:
+05/20/17 21:49:07   Node topic, HTCondor ID 1361, status STATUS_SUBMITTED
+05/20/17 21:49:07   Node extended_topic_1, HTCondor ID 1362, status STATUS_SUBMITTED
+05/20/17 21:59:09 99872 seconds since last log event
+05/20/17 21:59:09 Pending DAG nodes:
+05/20/17 21:59:09   Node topic, HTCondor ID 1361, status STATUS_SUBMITTED
+05/20/17 21:59:09   Node extended_topic_1, HTCondor ID 1362, status STATUS_SUBMITTED
+05/20/17 22:09:11 100474 seconds since last log event
+05/20/17 22:09:11 Pending DAG nodes:
+05/20/17 22:09:11   Node topic, HTCondor ID 1361, status STATUS_SUBMITTED
+05/20/17 22:09:11   Node extended_topic_1, HTCondor ID 1362, status STATUS_SUBMITTED
+05/20/17 22:19:13 101076 seconds since last log event
+05/20/17 22:19:13 Pending DAG nodes:
+05/20/17 22:19:13   Node topic, HTCondor ID 1361, status STATUS_SUBMITTED
+05/20/17 22:19:13   Node extended_topic_1, HTCondor ID 1362, status STATUS_SUBMITTED
+05/20/17 22:29:14 101677 seconds since last log event
+05/20/17 22:29:14 Pending DAG nodes:
+05/20/17 22:29:14   Node topic, HTCondor ID 1361, status STATUS_SUBMITTED
+05/20/17 22:29:14   Node extended_topic_1, HTCondor ID 1362, status STATUS_SUBMITTED
+05/20/17 22:39:16 102279 seconds since last log event
+05/20/17 22:39:16 Pending DAG nodes:
+05/20/17 22:39:16   Node topic, HTCondor ID 1361, status STATUS_SUBMITTED
+05/20/17 22:39:16   Node extended_topic_1, HTCondor ID 1362, status STATUS_SUBMITTED
+05/20/17 22:49:18 102881 seconds since last log event
+05/20/17 22:49:18 Pending DAG nodes:
+05/20/17 22:49:18   Node topic, HTCondor ID 1361, status STATUS_SUBMITTED
+05/20/17 22:49:18   Node extended_topic_1, HTCondor ID 1362, status STATUS_SUBMITTED
+05/20/17 22:59:20 103483 seconds since last log event
+05/20/17 22:59:20 Pending DAG nodes:
+05/20/17 22:59:20   Node topic, HTCondor ID 1361, status STATUS_SUBMITTED
+05/20/17 22:59:20   Node extended_topic_1, HTCondor ID 1362, status STATUS_SUBMITTED
+05/20/17 23:09:22 104085 seconds since last log event
+05/20/17 23:09:22 Pending DAG nodes:
+05/20/17 23:09:22   Node topic, HTCondor ID 1361, status STATUS_SUBMITTED
+05/20/17 23:09:22   Node extended_topic_1, HTCondor ID 1362, status STATUS_SUBMITTED
+05/20/17 23:19:24 104687 seconds since last log event
+05/20/17 23:19:24 Pending DAG nodes:
+05/20/17 23:19:24   Node topic, HTCondor ID 1361, status STATUS_SUBMITTED
+05/20/17 23:19:24   Node extended_topic_1, HTCondor ID 1362, status STATUS_SUBMITTED
+05/20/17 23:29:26 105289 seconds since last log event
+05/20/17 23:29:26 Pending DAG nodes:
+05/20/17 23:29:26   Node topic, HTCondor ID 1361, status STATUS_SUBMITTED
+05/20/17 23:29:26   Node extended_topic_1, HTCondor ID 1362, status STATUS_SUBMITTED
+05/20/17 23:39:27 105890 seconds since last log event
+05/20/17 23:39:27 Pending DAG nodes:
+05/20/17 23:39:27   Node topic, HTCondor ID 1361, status STATUS_SUBMITTED
+05/20/17 23:39:27   Node extended_topic_1, HTCondor ID 1362, status STATUS_SUBMITTED
+05/20/17 23:49:29 106492 seconds since last log event
+05/20/17 23:49:29 Pending DAG nodes:
+05/20/17 23:49:29   Node topic, HTCondor ID 1361, status STATUS_SUBMITTED
+05/20/17 23:49:29   Node extended_topic_1, HTCondor ID 1362, status STATUS_SUBMITTED
+05/20/17 23:59:31 107094 seconds since last log event
+05/20/17 23:59:31 Pending DAG nodes:
+05/20/17 23:59:31   Node topic, HTCondor ID 1361, status STATUS_SUBMITTED
+05/20/17 23:59:31   Node extended_topic_1, HTCondor ID 1362, status STATUS_SUBMITTED
+05/21/17 00:09:33 107696 seconds since last log event
+05/21/17 00:09:33 Pending DAG nodes:
+05/21/17 00:09:33   Node topic, HTCondor ID 1361, status STATUS_SUBMITTED
+05/21/17 00:09:33   Node extended_topic_1, HTCondor ID 1362, status STATUS_SUBMITTED
+05/21/17 00:19:35 108298 seconds since last log event
+05/21/17 00:19:35 Pending DAG nodes:
+05/21/17 00:19:35   Node topic, HTCondor ID 1361, status STATUS_SUBMITTED
+05/21/17 00:19:35   Node extended_topic_1, HTCondor ID 1362, status STATUS_SUBMITTED
+05/21/17 00:29:36 108899 seconds since last log event
+05/21/17 00:29:36 Pending DAG nodes:
+05/21/17 00:29:36   Node topic, HTCondor ID 1361, status STATUS_SUBMITTED
+05/21/17 00:29:36   Node extended_topic_1, HTCondor ID 1362, status STATUS_SUBMITTED
+05/21/17 00:39:38 109501 seconds since last log event
+05/21/17 00:39:38 Pending DAG nodes:
+05/21/17 00:39:38   Node topic, HTCondor ID 1361, status STATUS_SUBMITTED
+05/21/17 00:39:38   Node extended_topic_1, HTCondor ID 1362, status STATUS_SUBMITTED
+05/21/17 00:49:39 110102 seconds since last log event
+05/21/17 00:49:39 Pending DAG nodes:
+05/21/17 00:49:39   Node topic, HTCondor ID 1361, status STATUS_SUBMITTED
+05/21/17 00:49:39   Node extended_topic_1, HTCondor ID 1362, status STATUS_SUBMITTED
+05/21/17 00:59:41 110704 seconds since last log event
+05/21/17 00:59:41 Pending DAG nodes:
+05/21/17 00:59:41   Node topic, HTCondor ID 1361, status STATUS_SUBMITTED
+05/21/17 00:59:41   Node extended_topic_1, HTCondor ID 1362, status STATUS_SUBMITTED
+05/21/17 01:09:43 111306 seconds since last log event
+05/21/17 01:09:43 Pending DAG nodes:
+05/21/17 01:09:43   Node topic, HTCondor ID 1361, status STATUS_SUBMITTED
+05/21/17 01:09:43   Node extended_topic_1, HTCondor ID 1362, status STATUS_SUBMITTED
+05/21/17 01:19:45 111908 seconds since last log event
+05/21/17 01:19:45 Pending DAG nodes:
+05/21/17 01:19:45   Node topic, HTCondor ID 1361, status STATUS_SUBMITTED
+05/21/17 01:19:45   Node extended_topic_1, HTCondor ID 1362, status STATUS_SUBMITTED
+05/21/17 01:29:47 112510 seconds since last log event
+05/21/17 01:29:47 Pending DAG nodes:
+05/21/17 01:29:47   Node topic, HTCondor ID 1361, status STATUS_SUBMITTED
+05/21/17 01:29:47   Node extended_topic_1, HTCondor ID 1362, status STATUS_SUBMITTED
+05/21/17 01:39:49 113112 seconds since last log event
+05/21/17 01:39:49 Pending DAG nodes:
+05/21/17 01:39:49   Node topic, HTCondor ID 1361, status STATUS_SUBMITTED
+05/21/17 01:39:49   Node extended_topic_1, HTCondor ID 1362, status STATUS_SUBMITTED
+05/21/17 01:47:15 Currently monitoring 1 HTCondor log file(s)
+05/21/17 01:47:15 Event: ULOG_EXECUTE for HTCondor Node topic (1361.0.0) {05/21/17 01:47:10}
+05/21/17 01:47:15 Number of idle job procs: 1
+05/21/17 01:47:15 Event: ULOG_EXECUTE for HTCondor Node extended_topic_1 (1362.0.0) {05/21/17 01:47:13}
+05/21/17 01:47:15 Number of idle job procs: 0
+05/21/17 01:57:17 602 seconds since last log event
+05/21/17 01:57:17 Pending DAG nodes:
+05/21/17 01:57:17   Node topic, HTCondor ID 1361, status STATUS_SUBMITTED
+05/21/17 01:57:17   Node extended_topic_1, HTCondor ID 1362, status STATUS_SUBMITTED
+05/21/17 02:07:19 1204 seconds since last log event
+05/21/17 02:07:19 Pending DAG nodes:
+05/21/17 02:07:19   Node topic, HTCondor ID 1361, status STATUS_SUBMITTED
+05/21/17 02:07:19   Node extended_topic_1, HTCondor ID 1362, status STATUS_SUBMITTED
+05/21/17 02:17:20 1805 seconds since last log event
+05/21/17 02:17:20 Pending DAG nodes:
+05/21/17 02:17:20   Node topic, HTCondor ID 1361, status STATUS_SUBMITTED
+05/21/17 02:17:20   Node extended_topic_1, HTCondor ID 1362, status STATUS_SUBMITTED
+05/21/17 02:27:21 2406 seconds since last log event
+05/21/17 02:27:21 Pending DAG nodes:
+05/21/17 02:27:21   Node topic, HTCondor ID 1361, status STATUS_SUBMITTED
+05/21/17 02:27:21   Node extended_topic_1, HTCondor ID 1362, status STATUS_SUBMITTED
+05/21/17 02:37:23 3008 seconds since last log event
+05/21/17 02:37:23 Pending DAG nodes:
+05/21/17 02:37:23   Node topic, HTCondor ID 1361, status STATUS_SUBMITTED
+05/21/17 02:37:23   Node extended_topic_1, HTCondor ID 1362, status STATUS_SUBMITTED
+05/21/17 02:47:25 3610 seconds since last log event
+05/21/17 02:47:25 Pending DAG nodes:
+05/21/17 02:47:25   Node topic, HTCondor ID 1361, status STATUS_SUBMITTED
+05/21/17 02:47:25   Node extended_topic_1, HTCondor ID 1362, status STATUS_SUBMITTED
+05/21/17 02:57:27 4212 seconds since last log event
+05/21/17 02:57:27 Pending DAG nodes:
+05/21/17 02:57:27   Node topic, HTCondor ID 1361, status STATUS_SUBMITTED
+05/21/17 02:57:27   Node extended_topic_1, HTCondor ID 1362, status STATUS_SUBMITTED
+05/21/17 03:07:28 4813 seconds since last log event
+05/21/17 03:07:28 Pending DAG nodes:
+05/21/17 03:07:28   Node topic, HTCondor ID 1361, status STATUS_SUBMITTED
+05/21/17 03:07:28   Node extended_topic_1, HTCondor ID 1362, status STATUS_SUBMITTED
+05/21/17 03:17:30 5415 seconds since last log event
+05/21/17 03:17:30 Pending DAG nodes:
+05/21/17 03:17:30   Node topic, HTCondor ID 1361, status STATUS_SUBMITTED
+05/21/17 03:17:30   Node extended_topic_1, HTCondor ID 1362, status STATUS_SUBMITTED
+05/21/17 03:27:32 6017 seconds since last log event
+05/21/17 03:27:32 Pending DAG nodes:
+05/21/17 03:27:32   Node topic, HTCondor ID 1361, status STATUS_SUBMITTED
+05/21/17 03:27:32   Node extended_topic_1, HTCondor ID 1362, status STATUS_SUBMITTED
+05/21/17 03:37:34 6619 seconds since last log event
+05/21/17 03:37:34 Pending DAG nodes:
+05/21/17 03:37:34   Node topic, HTCondor ID 1361, status STATUS_SUBMITTED
+05/21/17 03:37:34   Node extended_topic_1, HTCondor ID 1362, status STATUS_SUBMITTED
+05/21/17 03:47:36 7221 seconds since last log event
+05/21/17 03:47:36 Pending DAG nodes:
+05/21/17 03:47:36   Node topic, HTCondor ID 1361, status STATUS_SUBMITTED
+05/21/17 03:47:36   Node extended_topic_1, HTCondor ID 1362, status STATUS_SUBMITTED
+05/21/17 03:57:37 7822 seconds since last log event
+05/21/17 03:57:37 Pending DAG nodes:
+05/21/17 03:57:37   Node topic, HTCondor ID 1361, status STATUS_SUBMITTED
+05/21/17 03:57:37   Node extended_topic_1, HTCondor ID 1362, status STATUS_SUBMITTED
+05/21/17 04:07:37 8422 seconds since last log event
+05/21/17 04:07:37 Pending DAG nodes:
+05/21/17 04:07:37   Node topic, HTCondor ID 1361, status STATUS_SUBMITTED
+05/21/17 04:07:37   Node extended_topic_1, HTCondor ID 1362, status STATUS_SUBMITTED
+05/21/17 04:17:40 9025 seconds since last log event
+05/21/17 04:17:40 Pending DAG nodes:
+05/21/17 04:17:40   Node topic, HTCondor ID 1361, status STATUS_SUBMITTED
+05/21/17 04:17:40   Node extended_topic_1, HTCondor ID 1362, status STATUS_SUBMITTED
+05/21/17 04:27:41 9626 seconds since last log event
+05/21/17 04:27:41 Pending DAG nodes:
+05/21/17 04:27:41   Node topic, HTCondor ID 1361, status STATUS_SUBMITTED
+05/21/17 04:27:41   Node extended_topic_1, HTCondor ID 1362, status STATUS_SUBMITTED
+05/21/17 04:37:43 10228 seconds since last log event
+05/21/17 04:37:43 Pending DAG nodes:
+05/21/17 04:37:43   Node topic, HTCondor ID 1361, status STATUS_SUBMITTED
+05/21/17 04:37:43   Node extended_topic_1, HTCondor ID 1362, status STATUS_SUBMITTED
+05/21/17 04:47:45 10830 seconds since last log event
+05/21/17 04:47:45 Pending DAG nodes:
+05/21/17 04:47:45   Node topic, HTCondor ID 1361, status STATUS_SUBMITTED
+05/21/17 04:47:45   Node extended_topic_1, HTCondor ID 1362, status STATUS_SUBMITTED
+05/21/17 04:57:47 11432 seconds since last log event
+05/21/17 04:57:47 Pending DAG nodes:
+05/21/17 04:57:47   Node topic, HTCondor ID 1361, status STATUS_SUBMITTED
+05/21/17 04:57:47   Node extended_topic_1, HTCondor ID 1362, status STATUS_SUBMITTED
+05/21/17 05:07:49 12034 seconds since last log event
+05/21/17 05:07:49 Pending DAG nodes:
+05/21/17 05:07:49   Node topic, HTCondor ID 1361, status STATUS_SUBMITTED
+05/21/17 05:07:49   Node extended_topic_1, HTCondor ID 1362, status STATUS_SUBMITTED
+05/21/17 05:17:51 12636 seconds since last log event
+05/21/17 05:17:51 Pending DAG nodes:
+05/21/17 05:17:51   Node topic, HTCondor ID 1361, status STATUS_SUBMITTED
+05/21/17 05:17:51   Node extended_topic_1, HTCondor ID 1362, status STATUS_SUBMITTED
+05/21/17 05:27:52 13237 seconds since last log event
+05/21/17 05:27:52 Pending DAG nodes:
+05/21/17 05:27:52   Node topic, HTCondor ID 1361, status STATUS_SUBMITTED
+05/21/17 05:27:52   Node extended_topic_1, HTCondor ID 1362, status STATUS_SUBMITTED
+05/21/17 05:37:54 13839 seconds since last log event
+05/21/17 05:37:54 Pending DAG nodes:
+05/21/17 05:37:54   Node topic, HTCondor ID 1361, status STATUS_SUBMITTED
+05/21/17 05:37:54   Node extended_topic_1, HTCondor ID 1362, status STATUS_SUBMITTED
+05/21/17 05:47:55 14440 seconds since last log event
+05/21/17 05:47:55 Pending DAG nodes:
+05/21/17 05:47:55   Node topic, HTCondor ID 1361, status STATUS_SUBMITTED
+05/21/17 05:47:55   Node extended_topic_1, HTCondor ID 1362, status STATUS_SUBMITTED
+05/21/17 05:57:56 15041 seconds since last log event
+05/21/17 05:57:56 Pending DAG nodes:
+05/21/17 05:57:56   Node topic, HTCondor ID 1361, status STATUS_SUBMITTED
+05/21/17 05:57:56   Node extended_topic_1, HTCondor ID 1362, status STATUS_SUBMITTED
+05/21/17 06:07:58 15643 seconds since last log event
+05/21/17 06:07:58 Pending DAG nodes:
+05/21/17 06:07:58   Node topic, HTCondor ID 1361, status STATUS_SUBMITTED
+05/21/17 06:07:58   Node extended_topic_1, HTCondor ID 1362, status STATUS_SUBMITTED
+05/21/17 06:18:00 16245 seconds since last log event
+05/21/17 06:18:00 Pending DAG nodes:
+05/21/17 06:18:00   Node topic, HTCondor ID 1361, status STATUS_SUBMITTED
+05/21/17 06:18:00   Node extended_topic_1, HTCondor ID 1362, status STATUS_SUBMITTED
+05/21/17 06:28:01 16846 seconds since last log event
+05/21/17 06:28:01 Pending DAG nodes:
+05/21/17 06:28:01   Node topic, HTCondor ID 1361, status STATUS_SUBMITTED
+05/21/17 06:28:01   Node extended_topic_1, HTCondor ID 1362, status STATUS_SUBMITTED
+05/21/17 06:38:02 17447 seconds since last log event
+05/21/17 06:38:02 Pending DAG nodes:
+05/21/17 06:38:02   Node topic, HTCondor ID 1361, status STATUS_SUBMITTED
+05/21/17 06:38:02   Node extended_topic_1, HTCondor ID 1362, status STATUS_SUBMITTED
+05/21/17 06:48:04 18049 seconds since last log event
+05/21/17 06:48:04 Pending DAG nodes:
+05/21/17 06:48:04   Node topic, HTCondor ID 1361, status STATUS_SUBMITTED
+05/21/17 06:48:04   Node extended_topic_1, HTCondor ID 1362, status STATUS_SUBMITTED
+05/21/17 06:58:05 18650 seconds since last log event
+05/21/17 06:58:05 Pending DAG nodes:
+05/21/17 06:58:05   Node topic, HTCondor ID 1361, status STATUS_SUBMITTED
+05/21/17 06:58:05   Node extended_topic_1, HTCondor ID 1362, status STATUS_SUBMITTED
+05/21/17 07:08:07 19252 seconds since last log event
+05/21/17 07:08:07 Pending DAG nodes:
+05/21/17 07:08:07   Node topic, HTCondor ID 1361, status STATUS_SUBMITTED
+05/21/17 07:08:07   Node extended_topic_1, HTCondor ID 1362, status STATUS_SUBMITTED
+05/21/17 07:18:08 19853 seconds since last log event
+05/21/17 07:18:08 Pending DAG nodes:
+05/21/17 07:18:08   Node topic, HTCondor ID 1361, status STATUS_SUBMITTED
+05/21/17 07:18:08   Node extended_topic_1, HTCondor ID 1362, status STATUS_SUBMITTED
+05/21/17 07:28:09 20454 seconds since last log event
+05/21/17 07:28:09 Pending DAG nodes:
+05/21/17 07:28:09   Node topic, HTCondor ID 1361, status STATUS_SUBMITTED
+05/21/17 07:28:09   Node extended_topic_1, HTCondor ID 1362, status STATUS_SUBMITTED
+05/21/17 07:38:11 21056 seconds since last log event
+05/21/17 07:38:11 Pending DAG nodes:
+05/21/17 07:38:11   Node topic, HTCondor ID 1361, status STATUS_SUBMITTED
+05/21/17 07:38:11   Node extended_topic_1, HTCondor ID 1362, status STATUS_SUBMITTED
+05/21/17 07:48:13 21658 seconds since last log event
+05/21/17 07:48:13 Pending DAG nodes:
+05/21/17 07:48:13   Node topic, HTCondor ID 1361, status STATUS_SUBMITTED
+05/21/17 07:48:13   Node extended_topic_1, HTCondor ID 1362, status STATUS_SUBMITTED
+05/21/17 07:58:14 22259 seconds since last log event
+05/21/17 07:58:14 Pending DAG nodes:
+05/21/17 07:58:14   Node topic, HTCondor ID 1361, status STATUS_SUBMITTED
+05/21/17 07:58:14   Node extended_topic_1, HTCondor ID 1362, status STATUS_SUBMITTED
+05/21/17 08:08:16 22861 seconds since last log event
+05/21/17 08:08:16 Pending DAG nodes:
+05/21/17 08:08:16   Node topic, HTCondor ID 1361, status STATUS_SUBMITTED
+05/21/17 08:08:16   Node extended_topic_1, HTCondor ID 1362, status STATUS_SUBMITTED
+05/21/17 08:18:18 23463 seconds since last log event
+05/21/17 08:18:18 Pending DAG nodes:
+05/21/17 08:18:18   Node topic, HTCondor ID 1361, status STATUS_SUBMITTED
+05/21/17 08:18:18   Node extended_topic_1, HTCondor ID 1362, status STATUS_SUBMITTED
+05/21/17 08:28:19 24064 seconds since last log event
+05/21/17 08:28:19 Pending DAG nodes:
+05/21/17 08:28:19   Node topic, HTCondor ID 1361, status STATUS_SUBMITTED
+05/21/17 08:28:19   Node extended_topic_1, HTCondor ID 1362, status STATUS_SUBMITTED
+05/21/17 08:38:21 24666 seconds since last log event
+05/21/17 08:38:21 Pending DAG nodes:
+05/21/17 08:38:21   Node topic, HTCondor ID 1361, status STATUS_SUBMITTED
+05/21/17 08:38:21   Node extended_topic_1, HTCondor ID 1362, status STATUS_SUBMITTED
+05/21/17 08:48:22 25267 seconds since last log event
+05/21/17 08:48:22 Pending DAG nodes:
+05/21/17 08:48:22   Node topic, HTCondor ID 1361, status STATUS_SUBMITTED
+05/21/17 08:48:22   Node extended_topic_1, HTCondor ID 1362, status STATUS_SUBMITTED
+05/21/17 08:58:24 25869 seconds since last log event
+05/21/17 08:58:24 Pending DAG nodes:
+05/21/17 08:58:24   Node topic, HTCondor ID 1361, status STATUS_SUBMITTED
+05/21/17 08:58:24   Node extended_topic_1, HTCondor ID 1362, status STATUS_SUBMITTED
+05/21/17 09:08:26 26471 seconds since last log event
+05/21/17 09:08:26 Pending DAG nodes:
+05/21/17 09:08:26   Node topic, HTCondor ID 1361, status STATUS_SUBMITTED
+05/21/17 09:08:26   Node extended_topic_1, HTCondor ID 1362, status STATUS_SUBMITTED
+05/21/17 09:18:27 27072 seconds since last log event
+05/21/17 09:18:27 Pending DAG nodes:
+05/21/17 09:18:27   Node topic, HTCondor ID 1361, status STATUS_SUBMITTED
+05/21/17 09:18:27   Node extended_topic_1, HTCondor ID 1362, status STATUS_SUBMITTED

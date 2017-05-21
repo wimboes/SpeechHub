@@ -1,0 +1,39 @@
+I tensorflow/stream_executor/dso_loader.cc:128] successfully opened CUDA library libcublas.so locally
+I tensorflow/stream_executor/dso_loader.cc:128] successfully opened CUDA library libcudnn.so locally
+I tensorflow/stream_executor/dso_loader.cc:128] successfully opened CUDA library libcufft.so locally
+I tensorflow/stream_executor/dso_loader.cc:128] successfully opened CUDA library libcuda.so.1 locally
+I tensorflow/stream_executor/dso_loader.cc:128] successfully opened CUDA library libcurand.so locally
+/users/start2014/r0364650/.local/lib/python2.7/site-packages/gensim/utils.py:1015: UserWarning: Pattern library is not installed, lemmatization won't be available.
+  warnings.warn("Pattern library is not installed, lemmatization won't be available.")
+Traceback (most recent call last):
+  File "lm_extended_topic_1_ds.py", line 546, in <module>
+    tf.app.run()
+  File "/users/start2014/r0364650/.local/lib/python2.7/site-packages/tensorflow/python/platform/app.py", line 43, in run
+    sys.exit(main(sys.argv[:1] + flags_passthrough))
+  File "lm_extended_topic_1_ds.py", line 478, in main
+    m = ds_extended_topic_1_model(is_training=True, config=config, input_sentence = train_data_sentence, input_continuous = train_data_continuous, topic_matrix = topic_matrix, initializer_reg = initializer_reg, initializer_lda = initializer_lda, initializer_int = initializer_int)
+  File "lm_extended_topic_1_ds.py", line 104, in __init__
+    embedding_reg = tf.get_variable("embedding_reg", [vocab_size+1, config.embedded_size_reg], initializer=tf.constant_initializer(embedding_np),  dtype=data_type())
+  File "/users/start2014/r0364650/.local/lib/python2.7/site-packages/tensorflow/python/ops/variable_scope.py", line 1024, in get_variable
+    custom_getter=custom_getter)
+  File "/users/start2014/r0364650/.local/lib/python2.7/site-packages/tensorflow/python/ops/variable_scope.py", line 850, in get_variable
+    custom_getter=custom_getter)
+  File "/users/start2014/r0364650/.local/lib/python2.7/site-packages/tensorflow/python/ops/variable_scope.py", line 346, in get_variable
+    validate_shape=validate_shape)
+  File "/users/start2014/r0364650/.local/lib/python2.7/site-packages/tensorflow/python/ops/variable_scope.py", line 331, in _true_getter
+    caching_device=caching_device, validate_shape=validate_shape)
+  File "/users/start2014/r0364650/.local/lib/python2.7/site-packages/tensorflow/python/ops/variable_scope.py", line 677, in _get_single_variable
+    expected_shape=shape)
+  File "/users/start2014/r0364650/.local/lib/python2.7/site-packages/tensorflow/python/ops/variables.py", line 224, in __init__
+    expected_shape=expected_shape)
+  File "/users/start2014/r0364650/.local/lib/python2.7/site-packages/tensorflow/python/ops/variables.py", line 327, in _init_from_args
+    initial_value(), name="initial_value", dtype=dtype)
+  File "/users/start2014/r0364650/.local/lib/python2.7/site-packages/tensorflow/python/ops/variable_scope.py", line 665, in <lambda>
+    shape.as_list(), dtype=dtype, partition_info=partition_info)
+  File "/users/start2014/r0364650/.local/lib/python2.7/site-packages/tensorflow/python/ops/init_ops.py", line 149, in _initializer
+    return constant_op.constant(value, dtype=dtype, shape=shape)
+  File "/users/start2014/r0364650/.local/lib/python2.7/site-packages/tensorflow/python/framework/constant_op.py", line 165, in constant
+    tensor_util.make_tensor_proto(value, dtype=dtype, shape=shape, verify_shape=verify_shape))
+  File "/users/start2014/r0364650/.local/lib/python2.7/site-packages/tensorflow/python/framework/tensor_util.py", line 421, in make_tensor_proto
+    (shape_size, nparray.size))
+ValueError: Too many elements provided. Needed at most 2500050, but received 2750055

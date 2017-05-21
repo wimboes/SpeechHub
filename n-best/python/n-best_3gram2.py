@@ -66,7 +66,7 @@ else:
     os.mkdir(output_dir)
         
 fv_files, fv_files_amount = find_n_best_lists(input_path)
-for i in range(100,len(fv_files)):
+for i in range(160,len(fv_files)):
     print(fv_files[i])
     for j in range(fv_files_amount[i]+1):
         name_file = fv_files[i] + '.0.' + str(j) + '.10000-best.txt'
