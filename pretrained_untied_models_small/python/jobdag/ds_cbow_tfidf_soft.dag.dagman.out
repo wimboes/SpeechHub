@@ -1,1256 +1,374 @@
-05/12/17 09:15:57 ******************************************************
-05/12/17 09:15:57 ** condor_scheduniv_exec.1237.0 (CONDOR_DAGMAN) STARTING UP
-05/12/17 09:15:57 ** /usr/bin/condor_dagman
-05/12/17 09:15:57 ** SubsystemInfo: name=DAGMAN type=DAGMAN(10) class=DAEMON(1)
-05/12/17 09:15:57 ** Configuration: subsystem:DAGMAN local:<NONE> class:DAEMON
-05/12/17 09:15:57 ** $CondorVersion: 8.6.2 Apr 23 2017 BuildID: 404257 $
-05/12/17 09:15:57 ** $CondorPlatform: x86_64_RedHat7 $
-05/12/17 09:15:57 ** PID = 16769
-05/12/17 09:15:57 ** Log last touched time unavailable (No such file or directory)
-05/12/17 09:15:57 ******************************************************
-05/12/17 09:15:57 Using config source: /etc/condor/condor_config
-05/12/17 09:15:57 Using local config sources: 
-05/12/17 09:15:57    /etc/condor/config.d/00esat.config
-05/12/17 09:15:57    /etc/condor/config.d/01java.config
-05/12/17 09:15:57    /etc/condor/config.d/80optout_users.config
-05/12/17 09:15:57    /etc/condor/condor_config.local
-05/12/17 09:15:57 config Macros = 166, Sorted = 166, StringBytes = 6040, TablesBytes = 6048
-05/12/17 09:15:57 CLASSAD_CACHING is ENABLED
-05/12/17 09:15:57 Daemon Log is logging: D_ALWAYS D_ERROR
-05/12/17 09:15:57 DaemonCore: No command port requested.
-05/12/17 09:15:57 DAGMAN_USE_STRICT setting: 1
-05/12/17 09:15:57 DAGMAN_VERBOSITY setting: 3
-05/12/17 09:15:57 DAGMAN_DEBUG_CACHE_SIZE setting: 5242880
-05/12/17 09:15:57 DAGMAN_DEBUG_CACHE_ENABLE setting: False
-05/12/17 09:15:57 DAGMAN_SUBMIT_DELAY setting: 0
-05/12/17 09:15:57 DAGMAN_MAX_SUBMIT_ATTEMPTS setting: 6
-05/12/17 09:15:57 DAGMAN_STARTUP_CYCLE_DETECT setting: False
-05/12/17 09:15:57 DAGMAN_MAX_SUBMITS_PER_INTERVAL setting: 5
-05/12/17 09:15:57 DAGMAN_USER_LOG_SCAN_INTERVAL setting: 5
-05/12/17 09:15:57 DAGMAN_DEFAULT_PRIORITY setting: 0
-05/12/17 09:15:57 DAGMAN_SUPPRESS_NOTIFICATION setting: True
-05/12/17 09:15:57 allow_events (DAGMAN_ALLOW_EVENTS) setting: 114
-05/12/17 09:15:57 DAGMAN_RETRY_SUBMIT_FIRST setting: True
-05/12/17 09:15:57 DAGMAN_RETRY_NODE_FIRST setting: False
-05/12/17 09:15:57 DAGMAN_MAX_JOBS_IDLE setting: 1000
-05/12/17 09:15:57 DAGMAN_MAX_JOBS_SUBMITTED setting: 0
-05/12/17 09:15:57 DAGMAN_MAX_PRE_SCRIPTS setting: 20
-05/12/17 09:15:57 DAGMAN_MAX_POST_SCRIPTS setting: 20
-05/12/17 09:15:57 DAGMAN_MUNGE_NODE_NAMES setting: True
-05/12/17 09:15:57 DAGMAN_PROHIBIT_MULTI_JOBS setting: False
-05/12/17 09:15:57 DAGMAN_SUBMIT_DEPTH_FIRST setting: False
-05/12/17 09:15:57 DAGMAN_ALWAYS_RUN_POST setting: False
-05/12/17 09:15:57 DAGMAN_ABORT_DUPLICATES setting: True
-05/12/17 09:15:57 DAGMAN_ABORT_ON_SCARY_SUBMIT setting: True
-05/12/17 09:15:57 DAGMAN_PENDING_REPORT_INTERVAL setting: 600
-05/12/17 09:15:57 DAGMAN_AUTO_RESCUE setting: True
-05/12/17 09:15:57 DAGMAN_MAX_RESCUE_NUM setting: 100
-05/12/17 09:15:57 DAGMAN_WRITE_PARTIAL_RESCUE setting: True
-05/12/17 09:15:57 DAGMAN_DEFAULT_NODE_LOG setting: @(DAG_DIR)/@(DAG_FILE).nodes.log
-05/12/17 09:15:57 DAGMAN_GENERATE_SUBDAG_SUBMITS setting: True
-05/12/17 09:15:57 DAGMAN_MAX_JOB_HOLDS setting: 100
-05/12/17 09:15:57 DAGMAN_HOLD_CLAIM_TIME setting: 20
-05/12/17 09:15:57 ALL_DEBUG setting: 
-05/12/17 09:15:57 DAGMAN_DEBUG setting: 
-05/12/17 09:15:57 DAGMAN_SUPPRESS_JOB_LOGS setting: False
-05/12/17 09:15:57 DAGMAN_REMOVE_NODE_JOBS setting: True
-05/12/17 09:15:57 argv[0] == "condor_scheduniv_exec.1237.0"
-05/12/17 09:15:57 argv[1] == "-Lockfile"
-05/12/17 09:15:57 argv[2] == "ds_cbow_tfidf_soft.dag.lock"
-05/12/17 09:15:57 argv[3] == "-AutoRescue"
-05/12/17 09:15:57 argv[4] == "1"
-05/12/17 09:15:57 argv[5] == "-DoRescueFrom"
-05/12/17 09:15:57 argv[6] == "0"
-05/12/17 09:15:57 argv[7] == "-Dag"
-05/12/17 09:15:57 argv[8] == "ds_cbow_tfidf_soft.dag"
-05/12/17 09:15:57 argv[9] == "-Suppress_notification"
-05/12/17 09:15:57 argv[10] == "-CsdVersion"
-05/12/17 09:15:57 argv[11] == "$CondorVersion: 8.6.2 Apr 23 2017 BuildID: 404257 $"
-05/12/17 09:15:57 argv[12] == "-Dagman"
-05/12/17 09:15:57 argv[13] == "/usr/bin/condor_dagman"
-05/12/17 09:15:57 Workflow batch-name: <ds_cbow_tfidf_soft.dag+1237>
-05/12/17 09:15:57 Workflow accounting_group: <>
-05/12/17 09:15:57 Workflow accounting_group_user: <>
-05/12/17 09:15:57 Warning: failed to get attribute DAGNodeName
-05/12/17 09:15:57 DAGMAN_LOG_ON_NFS_IS_ERROR setting: False
-05/12/17 09:15:57 Default node log file is: </esat/spchtemp/scratch/robbe/SpeechHub/pretrained_untied_models_small/python/jobdag/./ds_cbow_tfidf_soft.dag.nodes.log>
-05/12/17 09:15:57 DAG Lockfile will be written to ds_cbow_tfidf_soft.dag.lock
-05/12/17 09:15:57 DAG Input file is ds_cbow_tfidf_soft.dag
-05/12/17 09:15:57 Parsing 1 dagfiles
-05/12/17 09:15:57 Parsing ds_cbow_tfidf_soft.dag ...
-05/12/17 09:15:57 Dag contains 2 total jobs
-05/12/17 09:15:57 Sleeping for 3 seconds to ensure ProcessId uniqueness
-05/12/17 09:16:00 Bootstrapping...
-05/12/17 09:16:00 Number of pre-completed nodes: 0
-05/12/17 09:16:00 MultiLogFiles: truncating log file /esat/spchtemp/scratch/robbe/SpeechHub/pretrained_untied_models_small/python/jobdag/./ds_cbow_tfidf_soft.dag.nodes.log
-05/12/17 09:16:00 DAG status: 0 (DAG_STATUS_OK)
-05/12/17 09:16:00 Of 2 nodes total:
-05/12/17 09:16:00  Done     Pre   Queued    Post   Ready   Un-Ready   Failed
-05/12/17 09:16:00   ===     ===      ===     ===     ===        ===      ===
-05/12/17 09:16:00     0       0        0       0       1          1        0
-05/12/17 09:16:00 0 job proc(s) currently held
-05/12/17 09:16:00 Registering condor_event_timer...
-05/12/17 09:16:01 Submitting HTCondor Node cbow_tfidf_soft job(s)...
-05/12/17 09:16:01 Adding a DAGMan workflow log /esat/spchtemp/scratch/robbe/SpeechHub/pretrained_untied_models_small/python/jobdag/./ds_cbow_tfidf_soft.dag.nodes.log
-05/12/17 09:16:01 Masking the events recorded in the DAGMAN workflow log
-05/12/17 09:16:01 Mask for workflow log is 0,1,2,4,5,7,9,10,11,12,13,16,17,24,27
-05/12/17 09:16:01 submitting: /usr/bin/condor_submit -a dag_node_name' '=' 'cbow_tfidf_soft -a +DAGManJobId' '=' '1237 -a DAGManJobId' '=' '1237 -batch-name ds_cbow_tfidf_soft.dag+1237 -a submit_event_notes' '=' 'DAG' 'Node:' 'cbow_tfidf_soft -a dagman_log' '=' '/esat/spchtemp/scratch/robbe/SpeechHub/pretrained_untied_models_small/python/jobdag/./ds_cbow_tfidf_soft.dag.nodes.log -a +DAGManNodesMask' '=' '"0,1,2,4,5,7,9,10,11,12,13,16,17,24,27" -a data_set' '=' 'ds -a test_name' '=' 'cbow_tfidf_soft -a num_run' '=' '0 -a combination' '=' 'tfidf -a DAG_STATUS' '=' '0 -a FAILED_COUNT' '=' '0 -a +KeepClaimIdle' '=' '20 -a notification' '=' 'never -a +DAGParentNodeNames' '=' '"" jobdag/cbow_soft.job
-05/12/17 09:16:01 From submit: Submitting job(s).
-05/12/17 09:16:01 From submit: 1 job(s) submitted to cluster 1241.
-05/12/17 09:16:01 	assigned HTCondor ID (1241.0.0)
-05/12/17 09:16:01 Just submitted 1 job this cycle...
-05/12/17 09:16:01 Currently monitoring 1 HTCondor log file(s)
-05/12/17 09:16:01 Reassigning the id of job cbow_tfidf_soft from (1241.0.0) to (1241.0.0)
-05/12/17 09:16:01 Event: ULOG_SUBMIT for HTCondor Node cbow_tfidf_soft (1241.0.0) {05/12/17 09:16:01}
-05/12/17 09:16:01 Number of idle job procs: 1
-05/12/17 09:16:01 DAG status: 0 (DAG_STATUS_OK)
-05/12/17 09:16:01 Of 2 nodes total:
-05/12/17 09:16:01  Done     Pre   Queued    Post   Ready   Un-Ready   Failed
-05/12/17 09:16:01   ===     ===      ===     ===     ===        ===      ===
-05/12/17 09:16:01     0       0        1       0       0          1        0
-05/12/17 09:16:01 0 job proc(s) currently held
-05/12/17 09:26:03 602 seconds since last log event
-05/12/17 09:26:03 Pending DAG nodes:
-05/12/17 09:26:03   Node cbow_tfidf_soft, HTCondor ID 1241, status STATUS_SUBMITTED
-05/12/17 09:36:05 1204 seconds since last log event
-05/12/17 09:36:05 Pending DAG nodes:
-05/12/17 09:36:05   Node cbow_tfidf_soft, HTCondor ID 1241, status STATUS_SUBMITTED
-05/12/17 09:46:07 1806 seconds since last log event
-05/12/17 09:46:07 Pending DAG nodes:
-05/12/17 09:46:07   Node cbow_tfidf_soft, HTCondor ID 1241, status STATUS_SUBMITTED
-05/12/17 09:56:09 2408 seconds since last log event
-05/12/17 09:56:09 Pending DAG nodes:
-05/12/17 09:56:09   Node cbow_tfidf_soft, HTCondor ID 1241, status STATUS_SUBMITTED
-05/12/17 10:06:11 3010 seconds since last log event
-05/12/17 10:06:11 Pending DAG nodes:
-05/12/17 10:06:11   Node cbow_tfidf_soft, HTCondor ID 1241, status STATUS_SUBMITTED
-05/12/17 10:16:13 3612 seconds since last log event
-05/12/17 10:16:13 Pending DAG nodes:
-05/12/17 10:16:13   Node cbow_tfidf_soft, HTCondor ID 1241, status STATUS_SUBMITTED
-05/12/17 10:26:15 4214 seconds since last log event
-05/12/17 10:26:15 Pending DAG nodes:
-05/12/17 10:26:15   Node cbow_tfidf_soft, HTCondor ID 1241, status STATUS_SUBMITTED
-05/12/17 10:36:17 4816 seconds since last log event
-05/12/17 10:36:17 Pending DAG nodes:
-05/12/17 10:36:17   Node cbow_tfidf_soft, HTCondor ID 1241, status STATUS_SUBMITTED
-05/12/17 10:46:19 5418 seconds since last log event
-05/12/17 10:46:19 Pending DAG nodes:
-05/12/17 10:46:19   Node cbow_tfidf_soft, HTCondor ID 1241, status STATUS_SUBMITTED
-05/12/17 10:56:22 6021 seconds since last log event
-05/12/17 10:56:22 Pending DAG nodes:
-05/12/17 10:56:22   Node cbow_tfidf_soft, HTCondor ID 1241, status STATUS_SUBMITTED
-05/12/17 11:06:24 6623 seconds since last log event
-05/12/17 11:06:24 Pending DAG nodes:
-05/12/17 11:06:24   Node cbow_tfidf_soft, HTCondor ID 1241, status STATUS_SUBMITTED
-05/12/17 11:16:26 7225 seconds since last log event
-05/12/17 11:16:26 Pending DAG nodes:
-05/12/17 11:16:26   Node cbow_tfidf_soft, HTCondor ID 1241, status STATUS_SUBMITTED
-05/12/17 11:26:28 7827 seconds since last log event
-05/12/17 11:26:28 Pending DAG nodes:
-05/12/17 11:26:28   Node cbow_tfidf_soft, HTCondor ID 1241, status STATUS_SUBMITTED
-05/12/17 11:36:30 8429 seconds since last log event
-05/12/17 11:36:30 Pending DAG nodes:
-05/12/17 11:36:30   Node cbow_tfidf_soft, HTCondor ID 1241, status STATUS_SUBMITTED
-05/12/17 11:46:32 9031 seconds since last log event
-05/12/17 11:46:32 Pending DAG nodes:
-05/12/17 11:46:32   Node cbow_tfidf_soft, HTCondor ID 1241, status STATUS_SUBMITTED
-05/12/17 11:56:35 9634 seconds since last log event
-05/12/17 11:56:35 Pending DAG nodes:
-05/12/17 11:56:35   Node cbow_tfidf_soft, HTCondor ID 1241, status STATUS_SUBMITTED
-05/12/17 12:06:36 10235 seconds since last log event
-05/12/17 12:06:36 Pending DAG nodes:
-05/12/17 12:06:36   Node cbow_tfidf_soft, HTCondor ID 1241, status STATUS_SUBMITTED
-05/12/17 12:16:39 10838 seconds since last log event
-05/12/17 12:16:39 Pending DAG nodes:
-05/12/17 12:16:39   Node cbow_tfidf_soft, HTCondor ID 1241, status STATUS_SUBMITTED
-05/12/17 12:26:40 11439 seconds since last log event
-05/12/17 12:26:40 Pending DAG nodes:
-05/12/17 12:26:40   Node cbow_tfidf_soft, HTCondor ID 1241, status STATUS_SUBMITTED
-05/12/17 12:36:42 12041 seconds since last log event
-05/12/17 12:36:42 Pending DAG nodes:
-05/12/17 12:36:42   Node cbow_tfidf_soft, HTCondor ID 1241, status STATUS_SUBMITTED
-05/12/17 12:46:44 12643 seconds since last log event
-05/12/17 12:46:44 Pending DAG nodes:
-05/12/17 12:46:44   Node cbow_tfidf_soft, HTCondor ID 1241, status STATUS_SUBMITTED
-05/12/17 12:56:46 13245 seconds since last log event
-05/12/17 12:56:46 Pending DAG nodes:
-05/12/17 12:56:46   Node cbow_tfidf_soft, HTCondor ID 1241, status STATUS_SUBMITTED
-05/12/17 13:06:48 13847 seconds since last log event
-05/12/17 13:06:48 Pending DAG nodes:
-05/12/17 13:06:48   Node cbow_tfidf_soft, HTCondor ID 1241, status STATUS_SUBMITTED
-05/12/17 13:16:50 14449 seconds since last log event
-05/12/17 13:16:50 Pending DAG nodes:
-05/12/17 13:16:50   Node cbow_tfidf_soft, HTCondor ID 1241, status STATUS_SUBMITTED
-05/12/17 13:26:53 15052 seconds since last log event
-05/12/17 13:26:53 Pending DAG nodes:
-05/12/17 13:26:53   Node cbow_tfidf_soft, HTCondor ID 1241, status STATUS_SUBMITTED
-05/12/17 13:36:56 15655 seconds since last log event
-05/12/17 13:36:56 Pending DAG nodes:
-05/12/17 13:36:56   Node cbow_tfidf_soft, HTCondor ID 1241, status STATUS_SUBMITTED
-05/12/17 13:46:58 16257 seconds since last log event
-05/12/17 13:46:58 Pending DAG nodes:
-05/12/17 13:46:58   Node cbow_tfidf_soft, HTCondor ID 1241, status STATUS_SUBMITTED
-05/12/17 13:57:01 16860 seconds since last log event
-05/12/17 13:57:01 Pending DAG nodes:
-05/12/17 13:57:01   Node cbow_tfidf_soft, HTCondor ID 1241, status STATUS_SUBMITTED
-05/12/17 14:07:05 17464 seconds since last log event
-05/12/17 14:07:05 Pending DAG nodes:
-05/12/17 14:07:05   Node cbow_tfidf_soft, HTCondor ID 1241, status STATUS_SUBMITTED
-05/12/17 14:17:06 18065 seconds since last log event
-05/12/17 14:17:06 Pending DAG nodes:
-05/12/17 14:17:06   Node cbow_tfidf_soft, HTCondor ID 1241, status STATUS_SUBMITTED
-05/12/17 14:27:09 18668 seconds since last log event
-05/12/17 14:27:09 Pending DAG nodes:
-05/12/17 14:27:09   Node cbow_tfidf_soft, HTCondor ID 1241, status STATUS_SUBMITTED
-05/12/17 14:37:11 19270 seconds since last log event
-05/12/17 14:37:11 Pending DAG nodes:
-05/12/17 14:37:11   Node cbow_tfidf_soft, HTCondor ID 1241, status STATUS_SUBMITTED
-05/12/17 14:47:13 19872 seconds since last log event
-05/12/17 14:47:13 Pending DAG nodes:
-05/12/17 14:47:13   Node cbow_tfidf_soft, HTCondor ID 1241, status STATUS_SUBMITTED
-05/12/17 14:57:16 20475 seconds since last log event
-05/12/17 14:57:16 Pending DAG nodes:
-05/12/17 14:57:16   Node cbow_tfidf_soft, HTCondor ID 1241, status STATUS_SUBMITTED
-05/12/17 15:07:18 21077 seconds since last log event
-05/12/17 15:07:18 Pending DAG nodes:
-05/12/17 15:07:18   Node cbow_tfidf_soft, HTCondor ID 1241, status STATUS_SUBMITTED
-05/12/17 15:17:20 21679 seconds since last log event
-05/12/17 15:17:20 Pending DAG nodes:
-05/12/17 15:17:20   Node cbow_tfidf_soft, HTCondor ID 1241, status STATUS_SUBMITTED
-05/12/17 15:27:22 22281 seconds since last log event
-05/12/17 15:27:22 Pending DAG nodes:
-05/12/17 15:27:22   Node cbow_tfidf_soft, HTCondor ID 1241, status STATUS_SUBMITTED
-05/12/17 15:37:25 22884 seconds since last log event
-05/12/17 15:37:25 Pending DAG nodes:
-05/12/17 15:37:25   Node cbow_tfidf_soft, HTCondor ID 1241, status STATUS_SUBMITTED
-05/12/17 15:47:27 23486 seconds since last log event
-05/12/17 15:47:27 Pending DAG nodes:
-05/12/17 15:47:27   Node cbow_tfidf_soft, HTCondor ID 1241, status STATUS_SUBMITTED
-05/12/17 15:57:28 24087 seconds since last log event
-05/12/17 15:57:28 Pending DAG nodes:
-05/12/17 15:57:28   Node cbow_tfidf_soft, HTCondor ID 1241, status STATUS_SUBMITTED
-05/12/17 16:07:30 24689 seconds since last log event
-05/12/17 16:07:30 Pending DAG nodes:
-05/12/17 16:07:30   Node cbow_tfidf_soft, HTCondor ID 1241, status STATUS_SUBMITTED
-05/12/17 16:17:32 25291 seconds since last log event
-05/12/17 16:17:32 Pending DAG nodes:
-05/12/17 16:17:32   Node cbow_tfidf_soft, HTCondor ID 1241, status STATUS_SUBMITTED
-05/12/17 16:27:34 25893 seconds since last log event
-05/12/17 16:27:34 Pending DAG nodes:
-05/12/17 16:27:34   Node cbow_tfidf_soft, HTCondor ID 1241, status STATUS_SUBMITTED
-05/12/17 16:37:37 26496 seconds since last log event
-05/12/17 16:37:37 Pending DAG nodes:
-05/12/17 16:37:37   Node cbow_tfidf_soft, HTCondor ID 1241, status STATUS_SUBMITTED
-05/12/17 16:47:38 27097 seconds since last log event
-05/12/17 16:47:38 Pending DAG nodes:
-05/12/17 16:47:38   Node cbow_tfidf_soft, HTCondor ID 1241, status STATUS_SUBMITTED
-05/12/17 16:57:41 27700 seconds since last log event
-05/12/17 16:57:41 Pending DAG nodes:
-05/12/17 16:57:41   Node cbow_tfidf_soft, HTCondor ID 1241, status STATUS_SUBMITTED
-05/12/17 17:07:43 28302 seconds since last log event
-05/12/17 17:07:43 Pending DAG nodes:
-05/12/17 17:07:43   Node cbow_tfidf_soft, HTCondor ID 1241, status STATUS_SUBMITTED
-05/12/17 17:17:45 28904 seconds since last log event
-05/12/17 17:17:45 Pending DAG nodes:
-05/12/17 17:17:45   Node cbow_tfidf_soft, HTCondor ID 1241, status STATUS_SUBMITTED
-05/12/17 17:27:46 29505 seconds since last log event
-05/12/17 17:27:46 Pending DAG nodes:
-05/12/17 17:27:46   Node cbow_tfidf_soft, HTCondor ID 1241, status STATUS_SUBMITTED
-05/12/17 17:37:48 30107 seconds since last log event
-05/12/17 17:37:48 Pending DAG nodes:
-05/12/17 17:37:48   Node cbow_tfidf_soft, HTCondor ID 1241, status STATUS_SUBMITTED
-05/12/17 17:47:51 30710 seconds since last log event
-05/12/17 17:47:51 Pending DAG nodes:
-05/12/17 17:47:51   Node cbow_tfidf_soft, HTCondor ID 1241, status STATUS_SUBMITTED
-05/12/17 17:57:54 31313 seconds since last log event
-05/12/17 17:57:54 Pending DAG nodes:
-05/12/17 17:57:54   Node cbow_tfidf_soft, HTCondor ID 1241, status STATUS_SUBMITTED
-05/12/17 18:07:57 31916 seconds since last log event
-05/12/17 18:07:57 Pending DAG nodes:
-05/12/17 18:07:57   Node cbow_tfidf_soft, HTCondor ID 1241, status STATUS_SUBMITTED
-05/12/17 18:17:58 32517 seconds since last log event
-05/12/17 18:17:58 Pending DAG nodes:
-05/12/17 18:17:58   Node cbow_tfidf_soft, HTCondor ID 1241, status STATUS_SUBMITTED
-05/12/17 18:28:00 33119 seconds since last log event
-05/12/17 18:28:00 Pending DAG nodes:
-05/12/17 18:28:00   Node cbow_tfidf_soft, HTCondor ID 1241, status STATUS_SUBMITTED
-05/12/17 18:38:02 33721 seconds since last log event
-05/12/17 18:38:02 Pending DAG nodes:
-05/12/17 18:38:02   Node cbow_tfidf_soft, HTCondor ID 1241, status STATUS_SUBMITTED
-05/12/17 18:48:03 34322 seconds since last log event
-05/12/17 18:48:03 Pending DAG nodes:
-05/12/17 18:48:03   Node cbow_tfidf_soft, HTCondor ID 1241, status STATUS_SUBMITTED
-05/12/17 18:58:06 34925 seconds since last log event
-05/12/17 18:58:06 Pending DAG nodes:
-05/12/17 18:58:06   Node cbow_tfidf_soft, HTCondor ID 1241, status STATUS_SUBMITTED
-05/12/17 19:08:08 35527 seconds since last log event
-05/12/17 19:08:08 Pending DAG nodes:
-05/12/17 19:08:08   Node cbow_tfidf_soft, HTCondor ID 1241, status STATUS_SUBMITTED
-05/12/17 19:18:11 36130 seconds since last log event
-05/12/17 19:18:11 Pending DAG nodes:
-05/12/17 19:18:11   Node cbow_tfidf_soft, HTCondor ID 1241, status STATUS_SUBMITTED
-05/12/17 19:28:14 36733 seconds since last log event
-05/12/17 19:28:14 Pending DAG nodes:
-05/12/17 19:28:14   Node cbow_tfidf_soft, HTCondor ID 1241, status STATUS_SUBMITTED
-05/12/17 19:38:16 37335 seconds since last log event
-05/12/17 19:38:16 Pending DAG nodes:
-05/12/17 19:38:16   Node cbow_tfidf_soft, HTCondor ID 1241, status STATUS_SUBMITTED
-05/12/17 19:48:18 37937 seconds since last log event
-05/12/17 19:48:18 Pending DAG nodes:
-05/12/17 19:48:18   Node cbow_tfidf_soft, HTCondor ID 1241, status STATUS_SUBMITTED
-05/12/17 19:58:20 38539 seconds since last log event
-05/12/17 19:58:20 Pending DAG nodes:
-05/12/17 19:58:20   Node cbow_tfidf_soft, HTCondor ID 1241, status STATUS_SUBMITTED
-05/12/17 20:08:22 39141 seconds since last log event
-05/12/17 20:08:22 Pending DAG nodes:
-05/12/17 20:08:22   Node cbow_tfidf_soft, HTCondor ID 1241, status STATUS_SUBMITTED
-05/12/17 20:18:25 39744 seconds since last log event
-05/12/17 20:18:25 Pending DAG nodes:
-05/12/17 20:18:25   Node cbow_tfidf_soft, HTCondor ID 1241, status STATUS_SUBMITTED
-05/12/17 20:28:26 40345 seconds since last log event
-05/12/17 20:28:26 Pending DAG nodes:
-05/12/17 20:28:26   Node cbow_tfidf_soft, HTCondor ID 1241, status STATUS_SUBMITTED
-05/12/17 20:38:28 40947 seconds since last log event
-05/12/17 20:38:28 Pending DAG nodes:
-05/12/17 20:38:28   Node cbow_tfidf_soft, HTCondor ID 1241, status STATUS_SUBMITTED
-05/12/17 20:48:30 41549 seconds since last log event
-05/12/17 20:48:30 Pending DAG nodes:
-05/12/17 20:48:30   Node cbow_tfidf_soft, HTCondor ID 1241, status STATUS_SUBMITTED
-05/12/17 20:58:32 42151 seconds since last log event
-05/12/17 20:58:32 Pending DAG nodes:
-05/12/17 20:58:32   Node cbow_tfidf_soft, HTCondor ID 1241, status STATUS_SUBMITTED
-05/12/17 21:08:35 42754 seconds since last log event
-05/12/17 21:08:35 Pending DAG nodes:
-05/12/17 21:08:35   Node cbow_tfidf_soft, HTCondor ID 1241, status STATUS_SUBMITTED
-05/12/17 21:18:37 43356 seconds since last log event
-05/12/17 21:18:37 Pending DAG nodes:
-05/12/17 21:18:37   Node cbow_tfidf_soft, HTCondor ID 1241, status STATUS_SUBMITTED
-05/12/17 21:28:39 43958 seconds since last log event
-05/12/17 21:28:39 Pending DAG nodes:
-05/12/17 21:28:39   Node cbow_tfidf_soft, HTCondor ID 1241, status STATUS_SUBMITTED
-05/12/17 21:38:41 44560 seconds since last log event
-05/12/17 21:38:41 Pending DAG nodes:
-05/12/17 21:38:41   Node cbow_tfidf_soft, HTCondor ID 1241, status STATUS_SUBMITTED
-05/12/17 21:48:43 45162 seconds since last log event
-05/12/17 21:48:43 Pending DAG nodes:
-05/12/17 21:48:43   Node cbow_tfidf_soft, HTCondor ID 1241, status STATUS_SUBMITTED
-05/12/17 21:58:45 45764 seconds since last log event
-05/12/17 21:58:45 Pending DAG nodes:
-05/12/17 21:58:45   Node cbow_tfidf_soft, HTCondor ID 1241, status STATUS_SUBMITTED
-05/12/17 22:08:48 46367 seconds since last log event
-05/12/17 22:08:48 Pending DAG nodes:
-05/12/17 22:08:48   Node cbow_tfidf_soft, HTCondor ID 1241, status STATUS_SUBMITTED
-05/12/17 22:18:50 46969 seconds since last log event
-05/12/17 22:18:50 Pending DAG nodes:
-05/12/17 22:18:50   Node cbow_tfidf_soft, HTCondor ID 1241, status STATUS_SUBMITTED
-05/12/17 22:28:52 47571 seconds since last log event
-05/12/17 22:28:52 Pending DAG nodes:
-05/12/17 22:28:52   Node cbow_tfidf_soft, HTCondor ID 1241, status STATUS_SUBMITTED
-05/12/17 22:38:53 48172 seconds since last log event
-05/12/17 22:38:53 Pending DAG nodes:
-05/12/17 22:38:53   Node cbow_tfidf_soft, HTCondor ID 1241, status STATUS_SUBMITTED
-05/12/17 22:48:55 48774 seconds since last log event
-05/12/17 22:48:55 Pending DAG nodes:
-05/12/17 22:48:55   Node cbow_tfidf_soft, HTCondor ID 1241, status STATUS_SUBMITTED
-05/12/17 22:58:58 49377 seconds since last log event
-05/12/17 22:58:58 Pending DAG nodes:
-05/12/17 22:58:58   Node cbow_tfidf_soft, HTCondor ID 1241, status STATUS_SUBMITTED
-05/12/17 23:08:59 49978 seconds since last log event
-05/12/17 23:08:59 Pending DAG nodes:
-05/12/17 23:08:59   Node cbow_tfidf_soft, HTCondor ID 1241, status STATUS_SUBMITTED
-05/12/17 23:19:01 50580 seconds since last log event
-05/12/17 23:19:01 Pending DAG nodes:
-05/12/17 23:19:01   Node cbow_tfidf_soft, HTCondor ID 1241, status STATUS_SUBMITTED
-05/12/17 23:29:03 51182 seconds since last log event
-05/12/17 23:29:03 Pending DAG nodes:
-05/12/17 23:29:03   Node cbow_tfidf_soft, HTCondor ID 1241, status STATUS_SUBMITTED
-05/12/17 23:39:05 51784 seconds since last log event
-05/12/17 23:39:05 Pending DAG nodes:
-05/12/17 23:39:05   Node cbow_tfidf_soft, HTCondor ID 1241, status STATUS_SUBMITTED
-05/12/17 23:49:07 52386 seconds since last log event
-05/12/17 23:49:07 Pending DAG nodes:
-05/12/17 23:49:07   Node cbow_tfidf_soft, HTCondor ID 1241, status STATUS_SUBMITTED
-05/12/17 23:59:09 52988 seconds since last log event
-05/12/17 23:59:09 Pending DAG nodes:
-05/12/17 23:59:09   Node cbow_tfidf_soft, HTCondor ID 1241, status STATUS_SUBMITTED
-05/13/17 00:09:11 53590 seconds since last log event
-05/13/17 00:09:11 Pending DAG nodes:
-05/13/17 00:09:11   Node cbow_tfidf_soft, HTCondor ID 1241, status STATUS_SUBMITTED
-05/13/17 00:19:13 54192 seconds since last log event
-05/13/17 00:19:13 Pending DAG nodes:
-05/13/17 00:19:13   Node cbow_tfidf_soft, HTCondor ID 1241, status STATUS_SUBMITTED
-05/13/17 00:29:15 54794 seconds since last log event
-05/13/17 00:29:15 Pending DAG nodes:
-05/13/17 00:29:15   Node cbow_tfidf_soft, HTCondor ID 1241, status STATUS_SUBMITTED
-05/13/17 00:39:17 55396 seconds since last log event
-05/13/17 00:39:17 Pending DAG nodes:
-05/13/17 00:39:17   Node cbow_tfidf_soft, HTCondor ID 1241, status STATUS_SUBMITTED
-05/13/17 00:49:19 55998 seconds since last log event
-05/13/17 00:49:19 Pending DAG nodes:
-05/13/17 00:49:19   Node cbow_tfidf_soft, HTCondor ID 1241, status STATUS_SUBMITTED
-05/13/17 00:59:22 56601 seconds since last log event
-05/13/17 00:59:22 Pending DAG nodes:
-05/13/17 00:59:22   Node cbow_tfidf_soft, HTCondor ID 1241, status STATUS_SUBMITTED
-05/13/17 01:09:24 57203 seconds since last log event
-05/13/17 01:09:24 Pending DAG nodes:
-05/13/17 01:09:24   Node cbow_tfidf_soft, HTCondor ID 1241, status STATUS_SUBMITTED
-05/13/17 01:19:26 57805 seconds since last log event
-05/13/17 01:19:26 Pending DAG nodes:
-05/13/17 01:19:26   Node cbow_tfidf_soft, HTCondor ID 1241, status STATUS_SUBMITTED
-05/13/17 01:29:28 58407 seconds since last log event
-05/13/17 01:29:28 Pending DAG nodes:
-05/13/17 01:29:28   Node cbow_tfidf_soft, HTCondor ID 1241, status STATUS_SUBMITTED
-05/13/17 01:39:30 59009 seconds since last log event
-05/13/17 01:39:30 Pending DAG nodes:
-05/13/17 01:39:30   Node cbow_tfidf_soft, HTCondor ID 1241, status STATUS_SUBMITTED
-05/13/17 01:49:32 59611 seconds since last log event
-05/13/17 01:49:32 Pending DAG nodes:
-05/13/17 01:49:32   Node cbow_tfidf_soft, HTCondor ID 1241, status STATUS_SUBMITTED
-05/13/17 01:59:34 60213 seconds since last log event
-05/13/17 01:59:34 Pending DAG nodes:
-05/13/17 01:59:34   Node cbow_tfidf_soft, HTCondor ID 1241, status STATUS_SUBMITTED
-05/13/17 02:09:36 60815 seconds since last log event
-05/13/17 02:09:36 Pending DAG nodes:
-05/13/17 02:09:36   Node cbow_tfidf_soft, HTCondor ID 1241, status STATUS_SUBMITTED
-05/13/17 02:19:39 61418 seconds since last log event
-05/13/17 02:19:39 Pending DAG nodes:
-05/13/17 02:19:39   Node cbow_tfidf_soft, HTCondor ID 1241, status STATUS_SUBMITTED
-05/13/17 02:29:40 62019 seconds since last log event
-05/13/17 02:29:40 Pending DAG nodes:
-05/13/17 02:29:40   Node cbow_tfidf_soft, HTCondor ID 1241, status STATUS_SUBMITTED
-05/13/17 02:39:42 62621 seconds since last log event
-05/13/17 02:39:42 Pending DAG nodes:
-05/13/17 02:39:42   Node cbow_tfidf_soft, HTCondor ID 1241, status STATUS_SUBMITTED
-05/13/17 02:49:44 63223 seconds since last log event
-05/13/17 02:49:44 Pending DAG nodes:
-05/13/17 02:49:44   Node cbow_tfidf_soft, HTCondor ID 1241, status STATUS_SUBMITTED
-05/13/17 02:59:46 63825 seconds since last log event
-05/13/17 02:59:46 Pending DAG nodes:
-05/13/17 02:59:46   Node cbow_tfidf_soft, HTCondor ID 1241, status STATUS_SUBMITTED
-05/13/17 03:09:47 64426 seconds since last log event
-05/13/17 03:09:47 Pending DAG nodes:
-05/13/17 03:09:47   Node cbow_tfidf_soft, HTCondor ID 1241, status STATUS_SUBMITTED
-05/13/17 03:19:49 65028 seconds since last log event
-05/13/17 03:19:49 Pending DAG nodes:
-05/13/17 03:19:49   Node cbow_tfidf_soft, HTCondor ID 1241, status STATUS_SUBMITTED
-05/13/17 03:29:51 65630 seconds since last log event
-05/13/17 03:29:51 Pending DAG nodes:
-05/13/17 03:29:51   Node cbow_tfidf_soft, HTCondor ID 1241, status STATUS_SUBMITTED
-05/13/17 03:39:54 66233 seconds since last log event
-05/13/17 03:39:54 Pending DAG nodes:
-05/13/17 03:39:54   Node cbow_tfidf_soft, HTCondor ID 1241, status STATUS_SUBMITTED
-05/13/17 03:49:55 66834 seconds since last log event
-05/13/17 03:49:55 Pending DAG nodes:
-05/13/17 03:49:55   Node cbow_tfidf_soft, HTCondor ID 1241, status STATUS_SUBMITTED
-05/13/17 03:59:58 67437 seconds since last log event
-05/13/17 03:59:58 Pending DAG nodes:
-05/13/17 03:59:58   Node cbow_tfidf_soft, HTCondor ID 1241, status STATUS_SUBMITTED
-05/13/17 04:09:59 68038 seconds since last log event
-05/13/17 04:09:59 Pending DAG nodes:
-05/13/17 04:09:59   Node cbow_tfidf_soft, HTCondor ID 1241, status STATUS_SUBMITTED
-05/13/17 04:20:00 68639 seconds since last log event
-05/13/17 04:20:00 Pending DAG nodes:
-05/13/17 04:20:00   Node cbow_tfidf_soft, HTCondor ID 1241, status STATUS_SUBMITTED
-05/13/17 04:30:03 69242 seconds since last log event
-05/13/17 04:30:03 Pending DAG nodes:
-05/13/17 04:30:03   Node cbow_tfidf_soft, HTCondor ID 1241, status STATUS_SUBMITTED
-05/13/17 04:40:05 69844 seconds since last log event
-05/13/17 04:40:05 Pending DAG nodes:
-05/13/17 04:40:05   Node cbow_tfidf_soft, HTCondor ID 1241, status STATUS_SUBMITTED
-05/13/17 04:50:06 70445 seconds since last log event
-05/13/17 04:50:06 Pending DAG nodes:
-05/13/17 04:50:06   Node cbow_tfidf_soft, HTCondor ID 1241, status STATUS_SUBMITTED
-05/13/17 05:00:09 71048 seconds since last log event
-05/13/17 05:00:09 Pending DAG nodes:
-05/13/17 05:00:09   Node cbow_tfidf_soft, HTCondor ID 1241, status STATUS_SUBMITTED
-05/13/17 05:10:11 71650 seconds since last log event
-05/13/17 05:10:11 Pending DAG nodes:
-05/13/17 05:10:11   Node cbow_tfidf_soft, HTCondor ID 1241, status STATUS_SUBMITTED
-05/13/17 05:20:13 72252 seconds since last log event
-05/13/17 05:20:13 Pending DAG nodes:
-05/13/17 05:20:13   Node cbow_tfidf_soft, HTCondor ID 1241, status STATUS_SUBMITTED
-05/13/17 05:30:15 72854 seconds since last log event
-05/13/17 05:30:15 Pending DAG nodes:
-05/13/17 05:30:15   Node cbow_tfidf_soft, HTCondor ID 1241, status STATUS_SUBMITTED
-05/13/17 05:40:17 73456 seconds since last log event
-05/13/17 05:40:17 Pending DAG nodes:
-05/13/17 05:40:17   Node cbow_tfidf_soft, HTCondor ID 1241, status STATUS_SUBMITTED
-05/13/17 05:50:18 74057 seconds since last log event
-05/13/17 05:50:18 Pending DAG nodes:
-05/13/17 05:50:18   Node cbow_tfidf_soft, HTCondor ID 1241, status STATUS_SUBMITTED
-05/13/17 06:00:20 74659 seconds since last log event
-05/13/17 06:00:20 Pending DAG nodes:
-05/13/17 06:00:20   Node cbow_tfidf_soft, HTCondor ID 1241, status STATUS_SUBMITTED
-05/13/17 06:10:23 75262 seconds since last log event
-05/13/17 06:10:23 Pending DAG nodes:
-05/13/17 06:10:23   Node cbow_tfidf_soft, HTCondor ID 1241, status STATUS_SUBMITTED
-05/13/17 06:20:25 75864 seconds since last log event
-05/13/17 06:20:25 Pending DAG nodes:
-05/13/17 06:20:25   Node cbow_tfidf_soft, HTCondor ID 1241, status STATUS_SUBMITTED
-05/13/17 06:30:27 76466 seconds since last log event
-05/13/17 06:30:27 Pending DAG nodes:
-05/13/17 06:30:27   Node cbow_tfidf_soft, HTCondor ID 1241, status STATUS_SUBMITTED
-05/13/17 06:40:29 77068 seconds since last log event
-05/13/17 06:40:29 Pending DAG nodes:
-05/13/17 06:40:29   Node cbow_tfidf_soft, HTCondor ID 1241, status STATUS_SUBMITTED
-05/13/17 06:50:31 77670 seconds since last log event
-05/13/17 06:50:31 Pending DAG nodes:
-05/13/17 06:50:31   Node cbow_tfidf_soft, HTCondor ID 1241, status STATUS_SUBMITTED
-05/13/17 07:00:33 78272 seconds since last log event
-05/13/17 07:00:33 Pending DAG nodes:
-05/13/17 07:00:33   Node cbow_tfidf_soft, HTCondor ID 1241, status STATUS_SUBMITTED
-05/13/17 07:10:34 78873 seconds since last log event
-05/13/17 07:10:34 Pending DAG nodes:
-05/13/17 07:10:34   Node cbow_tfidf_soft, HTCondor ID 1241, status STATUS_SUBMITTED
-05/13/17 07:20:36 79475 seconds since last log event
-05/13/17 07:20:36 Pending DAG nodes:
-05/13/17 07:20:36   Node cbow_tfidf_soft, HTCondor ID 1241, status STATUS_SUBMITTED
-05/13/17 07:30:38 80077 seconds since last log event
-05/13/17 07:30:38 Pending DAG nodes:
-05/13/17 07:30:38   Node cbow_tfidf_soft, HTCondor ID 1241, status STATUS_SUBMITTED
-05/13/17 07:40:40 80679 seconds since last log event
-05/13/17 07:40:40 Pending DAG nodes:
-05/13/17 07:40:40   Node cbow_tfidf_soft, HTCondor ID 1241, status STATUS_SUBMITTED
-05/13/17 07:50:42 81281 seconds since last log event
-05/13/17 07:50:42 Pending DAG nodes:
-05/13/17 07:50:42   Node cbow_tfidf_soft, HTCondor ID 1241, status STATUS_SUBMITTED
-05/13/17 08:00:43 81882 seconds since last log event
-05/13/17 08:00:43 Pending DAG nodes:
-05/13/17 08:00:43   Node cbow_tfidf_soft, HTCondor ID 1241, status STATUS_SUBMITTED
-05/13/17 08:10:46 82485 seconds since last log event
-05/13/17 08:10:46 Pending DAG nodes:
-05/13/17 08:10:46   Node cbow_tfidf_soft, HTCondor ID 1241, status STATUS_SUBMITTED
-05/13/17 08:20:47 83086 seconds since last log event
-05/13/17 08:20:47 Pending DAG nodes:
-05/13/17 08:20:47   Node cbow_tfidf_soft, HTCondor ID 1241, status STATUS_SUBMITTED
-05/13/17 08:30:48 83687 seconds since last log event
-05/13/17 08:30:48 Pending DAG nodes:
-05/13/17 08:30:48   Node cbow_tfidf_soft, HTCondor ID 1241, status STATUS_SUBMITTED
-05/13/17 08:40:50 84289 seconds since last log event
-05/13/17 08:40:50 Pending DAG nodes:
-05/13/17 08:40:50   Node cbow_tfidf_soft, HTCondor ID 1241, status STATUS_SUBMITTED
-05/13/17 08:50:52 84891 seconds since last log event
-05/13/17 08:50:52 Pending DAG nodes:
-05/13/17 08:50:52   Node cbow_tfidf_soft, HTCondor ID 1241, status STATUS_SUBMITTED
-05/13/17 09:00:54 85493 seconds since last log event
-05/13/17 09:00:54 Pending DAG nodes:
-05/13/17 09:00:54   Node cbow_tfidf_soft, HTCondor ID 1241, status STATUS_SUBMITTED
-05/13/17 09:10:56 86095 seconds since last log event
-05/13/17 09:10:56 Pending DAG nodes:
-05/13/17 09:10:56   Node cbow_tfidf_soft, HTCondor ID 1241, status STATUS_SUBMITTED
-05/13/17 09:20:59 86698 seconds since last log event
-05/13/17 09:20:59 Pending DAG nodes:
-05/13/17 09:20:59   Node cbow_tfidf_soft, HTCondor ID 1241, status STATUS_SUBMITTED
-05/13/17 09:31:01 87300 seconds since last log event
-05/13/17 09:31:01 Pending DAG nodes:
-05/13/17 09:31:01   Node cbow_tfidf_soft, HTCondor ID 1241, status STATUS_SUBMITTED
-05/13/17 09:41:01 87900 seconds since last log event
-05/13/17 09:41:01 Pending DAG nodes:
-05/13/17 09:41:01   Node cbow_tfidf_soft, HTCondor ID 1241, status STATUS_SUBMITTED
-05/13/17 09:51:03 88502 seconds since last log event
-05/13/17 09:51:03 Pending DAG nodes:
-05/13/17 09:51:03   Node cbow_tfidf_soft, HTCondor ID 1241, status STATUS_SUBMITTED
-05/13/17 10:01:05 89104 seconds since last log event
-05/13/17 10:01:05 Pending DAG nodes:
-05/13/17 10:01:05   Node cbow_tfidf_soft, HTCondor ID 1241, status STATUS_SUBMITTED
-05/13/17 10:11:07 89706 seconds since last log event
-05/13/17 10:11:07 Pending DAG nodes:
-05/13/17 10:11:07   Node cbow_tfidf_soft, HTCondor ID 1241, status STATUS_SUBMITTED
-05/13/17 10:21:10 90309 seconds since last log event
-05/13/17 10:21:10 Pending DAG nodes:
-05/13/17 10:21:10   Node cbow_tfidf_soft, HTCondor ID 1241, status STATUS_SUBMITTED
-05/13/17 10:31:12 90911 seconds since last log event
-05/13/17 10:31:12 Pending DAG nodes:
-05/13/17 10:31:12   Node cbow_tfidf_soft, HTCondor ID 1241, status STATUS_SUBMITTED
-05/13/17 10:41:14 91513 seconds since last log event
-05/13/17 10:41:14 Pending DAG nodes:
-05/13/17 10:41:14   Node cbow_tfidf_soft, HTCondor ID 1241, status STATUS_SUBMITTED
-05/13/17 10:51:16 92115 seconds since last log event
-05/13/17 10:51:16 Pending DAG nodes:
-05/13/17 10:51:16   Node cbow_tfidf_soft, HTCondor ID 1241, status STATUS_SUBMITTED
-05/13/17 11:01:18 92717 seconds since last log event
-05/13/17 11:01:18 Pending DAG nodes:
-05/13/17 11:01:18   Node cbow_tfidf_soft, HTCondor ID 1241, status STATUS_SUBMITTED
-05/13/17 11:11:21 93320 seconds since last log event
-05/13/17 11:11:21 Pending DAG nodes:
-05/13/17 11:11:21   Node cbow_tfidf_soft, HTCondor ID 1241, status STATUS_SUBMITTED
-05/13/17 11:21:23 93922 seconds since last log event
-05/13/17 11:21:23 Pending DAG nodes:
-05/13/17 11:21:23   Node cbow_tfidf_soft, HTCondor ID 1241, status STATUS_SUBMITTED
-05/13/17 11:31:25 94524 seconds since last log event
-05/13/17 11:31:25 Pending DAG nodes:
-05/13/17 11:31:25   Node cbow_tfidf_soft, HTCondor ID 1241, status STATUS_SUBMITTED
-05/13/17 11:41:27 95126 seconds since last log event
-05/13/17 11:41:27 Pending DAG nodes:
-05/13/17 11:41:27   Node cbow_tfidf_soft, HTCondor ID 1241, status STATUS_SUBMITTED
-05/13/17 11:51:29 95728 seconds since last log event
-05/13/17 11:51:29 Pending DAG nodes:
-05/13/17 11:51:29   Node cbow_tfidf_soft, HTCondor ID 1241, status STATUS_SUBMITTED
-05/13/17 12:01:31 96330 seconds since last log event
-05/13/17 12:01:31 Pending DAG nodes:
-05/13/17 12:01:31   Node cbow_tfidf_soft, HTCondor ID 1241, status STATUS_SUBMITTED
-05/13/17 12:11:33 96932 seconds since last log event
-05/13/17 12:11:33 Pending DAG nodes:
-05/13/17 12:11:33   Node cbow_tfidf_soft, HTCondor ID 1241, status STATUS_SUBMITTED
-05/13/17 12:21:35 97534 seconds since last log event
-05/13/17 12:21:35 Pending DAG nodes:
-05/13/17 12:21:35   Node cbow_tfidf_soft, HTCondor ID 1241, status STATUS_SUBMITTED
-05/13/17 12:31:37 98136 seconds since last log event
-05/13/17 12:31:37 Pending DAG nodes:
-05/13/17 12:31:37   Node cbow_tfidf_soft, HTCondor ID 1241, status STATUS_SUBMITTED
-05/13/17 12:41:39 98738 seconds since last log event
-05/13/17 12:41:39 Pending DAG nodes:
-05/13/17 12:41:39   Node cbow_tfidf_soft, HTCondor ID 1241, status STATUS_SUBMITTED
-05/13/17 12:51:41 99340 seconds since last log event
-05/13/17 12:51:41 Pending DAG nodes:
-05/13/17 12:51:41   Node cbow_tfidf_soft, HTCondor ID 1241, status STATUS_SUBMITTED
-05/13/17 13:01:42 99941 seconds since last log event
-05/13/17 13:01:42 Pending DAG nodes:
-05/13/17 13:01:42   Node cbow_tfidf_soft, HTCondor ID 1241, status STATUS_SUBMITTED
-05/13/17 13:11:44 100543 seconds since last log event
-05/13/17 13:11:44 Pending DAG nodes:
-05/13/17 13:11:44   Node cbow_tfidf_soft, HTCondor ID 1241, status STATUS_SUBMITTED
-05/13/17 13:21:45 101144 seconds since last log event
-05/13/17 13:21:45 Pending DAG nodes:
-05/13/17 13:21:45   Node cbow_tfidf_soft, HTCondor ID 1241, status STATUS_SUBMITTED
-05/13/17 13:31:47 101746 seconds since last log event
-05/13/17 13:31:47 Pending DAG nodes:
-05/13/17 13:31:47   Node cbow_tfidf_soft, HTCondor ID 1241, status STATUS_SUBMITTED
-05/13/17 13:41:49 102348 seconds since last log event
-05/13/17 13:41:49 Pending DAG nodes:
-05/13/17 13:41:49   Node cbow_tfidf_soft, HTCondor ID 1241, status STATUS_SUBMITTED
-05/13/17 13:51:51 102950 seconds since last log event
-05/13/17 13:51:51 Pending DAG nodes:
-05/13/17 13:51:51   Node cbow_tfidf_soft, HTCondor ID 1241, status STATUS_SUBMITTED
-05/13/17 14:01:52 103551 seconds since last log event
-05/13/17 14:01:52 Pending DAG nodes:
-05/13/17 14:01:52   Node cbow_tfidf_soft, HTCondor ID 1241, status STATUS_SUBMITTED
-05/13/17 14:11:54 104153 seconds since last log event
-05/13/17 14:11:54 Pending DAG nodes:
-05/13/17 14:11:54   Node cbow_tfidf_soft, HTCondor ID 1241, status STATUS_SUBMITTED
-05/13/17 14:21:57 104756 seconds since last log event
-05/13/17 14:21:57 Pending DAG nodes:
-05/13/17 14:21:57   Node cbow_tfidf_soft, HTCondor ID 1241, status STATUS_SUBMITTED
-05/13/17 14:31:59 105358 seconds since last log event
-05/13/17 14:31:59 Pending DAG nodes:
-05/13/17 14:31:59   Node cbow_tfidf_soft, HTCondor ID 1241, status STATUS_SUBMITTED
-05/13/17 14:42:01 105960 seconds since last log event
-05/13/17 14:42:01 Pending DAG nodes:
-05/13/17 14:42:01   Node cbow_tfidf_soft, HTCondor ID 1241, status STATUS_SUBMITTED
-05/13/17 14:52:04 106563 seconds since last log event
-05/13/17 14:52:04 Pending DAG nodes:
-05/13/17 14:52:04   Node cbow_tfidf_soft, HTCondor ID 1241, status STATUS_SUBMITTED
-05/13/17 15:02:06 107165 seconds since last log event
-05/13/17 15:02:06 Pending DAG nodes:
-05/13/17 15:02:06   Node cbow_tfidf_soft, HTCondor ID 1241, status STATUS_SUBMITTED
-05/13/17 15:12:08 107767 seconds since last log event
-05/13/17 15:12:08 Pending DAG nodes:
-05/13/17 15:12:08   Node cbow_tfidf_soft, HTCondor ID 1241, status STATUS_SUBMITTED
-05/13/17 15:22:10 108369 seconds since last log event
-05/13/17 15:22:10 Pending DAG nodes:
-05/13/17 15:22:10   Node cbow_tfidf_soft, HTCondor ID 1241, status STATUS_SUBMITTED
-05/13/17 15:32:13 108972 seconds since last log event
-05/13/17 15:32:13 Pending DAG nodes:
-05/13/17 15:32:13   Node cbow_tfidf_soft, HTCondor ID 1241, status STATUS_SUBMITTED
-05/13/17 15:42:15 109574 seconds since last log event
-05/13/17 15:42:15 Pending DAG nodes:
-05/13/17 15:42:15   Node cbow_tfidf_soft, HTCondor ID 1241, status STATUS_SUBMITTED
-05/13/17 15:52:18 110177 seconds since last log event
-05/13/17 15:52:18 Pending DAG nodes:
-05/13/17 15:52:18   Node cbow_tfidf_soft, HTCondor ID 1241, status STATUS_SUBMITTED
-05/13/17 16:02:20 110779 seconds since last log event
-05/13/17 16:02:20 Pending DAG nodes:
-05/13/17 16:02:20   Node cbow_tfidf_soft, HTCondor ID 1241, status STATUS_SUBMITTED
-05/13/17 16:12:22 111381 seconds since last log event
-05/13/17 16:12:22 Pending DAG nodes:
-05/13/17 16:12:22   Node cbow_tfidf_soft, HTCondor ID 1241, status STATUS_SUBMITTED
-05/13/17 16:22:24 111983 seconds since last log event
-05/13/17 16:22:24 Pending DAG nodes:
-05/13/17 16:22:24   Node cbow_tfidf_soft, HTCondor ID 1241, status STATUS_SUBMITTED
-05/13/17 16:32:27 112586 seconds since last log event
-05/13/17 16:32:27 Pending DAG nodes:
-05/13/17 16:32:27   Node cbow_tfidf_soft, HTCondor ID 1241, status STATUS_SUBMITTED
-05/13/17 16:42:30 113189 seconds since last log event
-05/13/17 16:42:30 Pending DAG nodes:
-05/13/17 16:42:30   Node cbow_tfidf_soft, HTCondor ID 1241, status STATUS_SUBMITTED
-05/13/17 16:52:32 113791 seconds since last log event
-05/13/17 16:52:32 Pending DAG nodes:
-05/13/17 16:52:32   Node cbow_tfidf_soft, HTCondor ID 1241, status STATUS_SUBMITTED
-05/13/17 17:02:35 114394 seconds since last log event
-05/13/17 17:02:35 Pending DAG nodes:
-05/13/17 17:02:35   Node cbow_tfidf_soft, HTCondor ID 1241, status STATUS_SUBMITTED
-05/13/17 17:12:37 114996 seconds since last log event
-05/13/17 17:12:37 Pending DAG nodes:
-05/13/17 17:12:37   Node cbow_tfidf_soft, HTCondor ID 1241, status STATUS_SUBMITTED
-05/13/17 17:22:40 115599 seconds since last log event
-05/13/17 17:22:40 Pending DAG nodes:
-05/13/17 17:22:40   Node cbow_tfidf_soft, HTCondor ID 1241, status STATUS_SUBMITTED
-05/13/17 17:32:42 116201 seconds since last log event
-05/13/17 17:32:42 Pending DAG nodes:
-05/13/17 17:32:42   Node cbow_tfidf_soft, HTCondor ID 1241, status STATUS_SUBMITTED
-05/13/17 17:42:44 116803 seconds since last log event
-05/13/17 17:42:44 Pending DAG nodes:
-05/13/17 17:42:44   Node cbow_tfidf_soft, HTCondor ID 1241, status STATUS_SUBMITTED
-05/13/17 17:52:46 117405 seconds since last log event
-05/13/17 17:52:46 Pending DAG nodes:
-05/13/17 17:52:46   Node cbow_tfidf_soft, HTCondor ID 1241, status STATUS_SUBMITTED
-05/13/17 18:02:48 118007 seconds since last log event
-05/13/17 18:02:48 Pending DAG nodes:
-05/13/17 18:02:48   Node cbow_tfidf_soft, HTCondor ID 1241, status STATUS_SUBMITTED
-05/13/17 18:12:51 118610 seconds since last log event
-05/13/17 18:12:51 Pending DAG nodes:
-05/13/17 18:12:51   Node cbow_tfidf_soft, HTCondor ID 1241, status STATUS_SUBMITTED
-05/13/17 18:22:52 119211 seconds since last log event
-05/13/17 18:22:52 Pending DAG nodes:
-05/13/17 18:22:52   Node cbow_tfidf_soft, HTCondor ID 1241, status STATUS_SUBMITTED
-05/13/17 18:32:54 119813 seconds since last log event
-05/13/17 18:32:54 Pending DAG nodes:
-05/13/17 18:32:54   Node cbow_tfidf_soft, HTCondor ID 1241, status STATUS_SUBMITTED
-05/13/17 18:42:55 120414 seconds since last log event
-05/13/17 18:42:55 Pending DAG nodes:
-05/13/17 18:42:55   Node cbow_tfidf_soft, HTCondor ID 1241, status STATUS_SUBMITTED
-05/13/17 18:52:57 121016 seconds since last log event
-05/13/17 18:52:57 Pending DAG nodes:
-05/13/17 18:52:57   Node cbow_tfidf_soft, HTCondor ID 1241, status STATUS_SUBMITTED
-05/13/17 19:02:59 121618 seconds since last log event
-05/13/17 19:02:59 Pending DAG nodes:
-05/13/17 19:02:59   Node cbow_tfidf_soft, HTCondor ID 1241, status STATUS_SUBMITTED
-05/13/17 19:13:02 122221 seconds since last log event
-05/13/17 19:13:02 Pending DAG nodes:
-05/13/17 19:13:02   Node cbow_tfidf_soft, HTCondor ID 1241, status STATUS_SUBMITTED
-05/13/17 19:23:02 122821 seconds since last log event
-05/13/17 19:23:02 Pending DAG nodes:
-05/13/17 19:23:02   Node cbow_tfidf_soft, HTCondor ID 1241, status STATUS_SUBMITTED
-05/13/17 19:33:05 123424 seconds since last log event
-05/13/17 19:33:05 Pending DAG nodes:
-05/13/17 19:33:05   Node cbow_tfidf_soft, HTCondor ID 1241, status STATUS_SUBMITTED
-05/13/17 19:43:07 124026 seconds since last log event
-05/13/17 19:43:07 Pending DAG nodes:
-05/13/17 19:43:07   Node cbow_tfidf_soft, HTCondor ID 1241, status STATUS_SUBMITTED
-05/13/17 19:53:09 124628 seconds since last log event
-05/13/17 19:53:09 Pending DAG nodes:
-05/13/17 19:53:09   Node cbow_tfidf_soft, HTCondor ID 1241, status STATUS_SUBMITTED
-05/13/17 20:03:11 125230 seconds since last log event
-05/13/17 20:03:11 Pending DAG nodes:
-05/13/17 20:03:11   Node cbow_tfidf_soft, HTCondor ID 1241, status STATUS_SUBMITTED
-05/13/17 20:13:13 125832 seconds since last log event
-05/13/17 20:13:13 Pending DAG nodes:
-05/13/17 20:13:13   Node cbow_tfidf_soft, HTCondor ID 1241, status STATUS_SUBMITTED
-05/13/17 20:23:15 126434 seconds since last log event
-05/13/17 20:23:15 Pending DAG nodes:
-05/13/17 20:23:15   Node cbow_tfidf_soft, HTCondor ID 1241, status STATUS_SUBMITTED
-05/13/17 20:33:16 127035 seconds since last log event
-05/13/17 20:33:16 Pending DAG nodes:
-05/13/17 20:33:16   Node cbow_tfidf_soft, HTCondor ID 1241, status STATUS_SUBMITTED
-05/13/17 20:43:18 127637 seconds since last log event
-05/13/17 20:43:18 Pending DAG nodes:
-05/13/17 20:43:18   Node cbow_tfidf_soft, HTCondor ID 1241, status STATUS_SUBMITTED
-05/13/17 20:53:20 128239 seconds since last log event
-05/13/17 20:53:20 Pending DAG nodes:
-05/13/17 20:53:20   Node cbow_tfidf_soft, HTCondor ID 1241, status STATUS_SUBMITTED
-05/13/17 21:03:23 128842 seconds since last log event
-05/13/17 21:03:23 Pending DAG nodes:
-05/13/17 21:03:23   Node cbow_tfidf_soft, HTCondor ID 1241, status STATUS_SUBMITTED
-05/13/17 21:13:25 129444 seconds since last log event
-05/13/17 21:13:25 Pending DAG nodes:
-05/13/17 21:13:25   Node cbow_tfidf_soft, HTCondor ID 1241, status STATUS_SUBMITTED
-05/13/17 21:23:26 130045 seconds since last log event
-05/13/17 21:23:26 Pending DAG nodes:
-05/13/17 21:23:26   Node cbow_tfidf_soft, HTCondor ID 1241, status STATUS_SUBMITTED
-05/13/17 21:33:28 130647 seconds since last log event
-05/13/17 21:33:28 Pending DAG nodes:
-05/13/17 21:33:28   Node cbow_tfidf_soft, HTCondor ID 1241, status STATUS_SUBMITTED
-05/13/17 21:43:30 131249 seconds since last log event
-05/13/17 21:43:30 Pending DAG nodes:
-05/13/17 21:43:30   Node cbow_tfidf_soft, HTCondor ID 1241, status STATUS_SUBMITTED
-05/13/17 21:53:33 131852 seconds since last log event
-05/13/17 21:53:33 Pending DAG nodes:
-05/13/17 21:53:33   Node cbow_tfidf_soft, HTCondor ID 1241, status STATUS_SUBMITTED
-05/13/17 22:03:36 132455 seconds since last log event
-05/13/17 22:03:36 Pending DAG nodes:
-05/13/17 22:03:36   Node cbow_tfidf_soft, HTCondor ID 1241, status STATUS_SUBMITTED
-05/13/17 22:13:38 133057 seconds since last log event
-05/13/17 22:13:38 Pending DAG nodes:
-05/13/17 22:13:38   Node cbow_tfidf_soft, HTCondor ID 1241, status STATUS_SUBMITTED
-05/13/17 22:23:39 133658 seconds since last log event
-05/13/17 22:23:39 Pending DAG nodes:
-05/13/17 22:23:39   Node cbow_tfidf_soft, HTCondor ID 1241, status STATUS_SUBMITTED
-05/13/17 22:33:42 134261 seconds since last log event
-05/13/17 22:33:42 Pending DAG nodes:
-05/13/17 22:33:42   Node cbow_tfidf_soft, HTCondor ID 1241, status STATUS_SUBMITTED
-05/13/17 22:43:44 134863 seconds since last log event
-05/13/17 22:43:44 Pending DAG nodes:
-05/13/17 22:43:44   Node cbow_tfidf_soft, HTCondor ID 1241, status STATUS_SUBMITTED
-05/13/17 22:53:46 135465 seconds since last log event
-05/13/17 22:53:46 Pending DAG nodes:
-05/13/17 22:53:46   Node cbow_tfidf_soft, HTCondor ID 1241, status STATUS_SUBMITTED
-05/13/17 23:03:48 136067 seconds since last log event
-05/13/17 23:03:48 Pending DAG nodes:
-05/13/17 23:03:48   Node cbow_tfidf_soft, HTCondor ID 1241, status STATUS_SUBMITTED
-05/13/17 23:13:50 136669 seconds since last log event
-05/13/17 23:13:50 Pending DAG nodes:
-05/13/17 23:13:50   Node cbow_tfidf_soft, HTCondor ID 1241, status STATUS_SUBMITTED
-05/13/17 23:23:52 137271 seconds since last log event
-05/13/17 23:23:52 Pending DAG nodes:
-05/13/17 23:23:52   Node cbow_tfidf_soft, HTCondor ID 1241, status STATUS_SUBMITTED
-05/13/17 23:33:55 137874 seconds since last log event
-05/13/17 23:33:55 Pending DAG nodes:
-05/13/17 23:33:55   Node cbow_tfidf_soft, HTCondor ID 1241, status STATUS_SUBMITTED
-05/13/17 23:43:58 138477 seconds since last log event
-05/13/17 23:43:58 Pending DAG nodes:
-05/13/17 23:43:58   Node cbow_tfidf_soft, HTCondor ID 1241, status STATUS_SUBMITTED
-05/13/17 23:54:00 139079 seconds since last log event
-05/13/17 23:54:00 Pending DAG nodes:
-05/13/17 23:54:00   Node cbow_tfidf_soft, HTCondor ID 1241, status STATUS_SUBMITTED
-05/14/17 00:04:02 139681 seconds since last log event
-05/14/17 00:04:02 Pending DAG nodes:
-05/14/17 00:04:02   Node cbow_tfidf_soft, HTCondor ID 1241, status STATUS_SUBMITTED
-05/14/17 00:14:05 140284 seconds since last log event
-05/14/17 00:14:05 Pending DAG nodes:
-05/14/17 00:14:05   Node cbow_tfidf_soft, HTCondor ID 1241, status STATUS_SUBMITTED
-05/14/17 00:24:07 140886 seconds since last log event
-05/14/17 00:24:07 Pending DAG nodes:
-05/14/17 00:24:07   Node cbow_tfidf_soft, HTCondor ID 1241, status STATUS_SUBMITTED
-05/14/17 00:34:09 141488 seconds since last log event
-05/14/17 00:34:09 Pending DAG nodes:
-05/14/17 00:34:09   Node cbow_tfidf_soft, HTCondor ID 1241, status STATUS_SUBMITTED
-05/14/17 00:44:12 142091 seconds since last log event
-05/14/17 00:44:12 Pending DAG nodes:
-05/14/17 00:44:12   Node cbow_tfidf_soft, HTCondor ID 1241, status STATUS_SUBMITTED
-05/14/17 00:54:14 142693 seconds since last log event
-05/14/17 00:54:14 Pending DAG nodes:
-05/14/17 00:54:14   Node cbow_tfidf_soft, HTCondor ID 1241, status STATUS_SUBMITTED
-05/14/17 01:04:16 143295 seconds since last log event
-05/14/17 01:04:16 Pending DAG nodes:
-05/14/17 01:04:16   Node cbow_tfidf_soft, HTCondor ID 1241, status STATUS_SUBMITTED
-05/14/17 01:14:19 143898 seconds since last log event
-05/14/17 01:14:19 Pending DAG nodes:
-05/14/17 01:14:19   Node cbow_tfidf_soft, HTCondor ID 1241, status STATUS_SUBMITTED
-05/14/17 01:24:21 144500 seconds since last log event
-05/14/17 01:24:21 Pending DAG nodes:
-05/14/17 01:24:21   Node cbow_tfidf_soft, HTCondor ID 1241, status STATUS_SUBMITTED
-05/14/17 01:34:24 145103 seconds since last log event
-05/14/17 01:34:24 Pending DAG nodes:
-05/14/17 01:34:24   Node cbow_tfidf_soft, HTCondor ID 1241, status STATUS_SUBMITTED
-05/14/17 01:44:26 145705 seconds since last log event
-05/14/17 01:44:26 Pending DAG nodes:
-05/14/17 01:44:26   Node cbow_tfidf_soft, HTCondor ID 1241, status STATUS_SUBMITTED
-05/14/17 01:54:29 146308 seconds since last log event
-05/14/17 01:54:29 Pending DAG nodes:
-05/14/17 01:54:29   Node cbow_tfidf_soft, HTCondor ID 1241, status STATUS_SUBMITTED
-05/14/17 02:04:32 146911 seconds since last log event
-05/14/17 02:04:32 Pending DAG nodes:
-05/14/17 02:04:32   Node cbow_tfidf_soft, HTCondor ID 1241, status STATUS_SUBMITTED
-05/14/17 02:14:34 147513 seconds since last log event
-05/14/17 02:14:34 Pending DAG nodes:
-05/14/17 02:14:34   Node cbow_tfidf_soft, HTCondor ID 1241, status STATUS_SUBMITTED
-05/14/17 02:24:36 148115 seconds since last log event
-05/14/17 02:24:36 Pending DAG nodes:
-05/14/17 02:24:36   Node cbow_tfidf_soft, HTCondor ID 1241, status STATUS_SUBMITTED
-05/14/17 02:34:39 148718 seconds since last log event
-05/14/17 02:34:39 Pending DAG nodes:
-05/14/17 02:34:39   Node cbow_tfidf_soft, HTCondor ID 1241, status STATUS_SUBMITTED
-05/14/17 02:44:41 149320 seconds since last log event
-05/14/17 02:44:41 Pending DAG nodes:
-05/14/17 02:44:41   Node cbow_tfidf_soft, HTCondor ID 1241, status STATUS_SUBMITTED
-05/14/17 02:54:43 149922 seconds since last log event
-05/14/17 02:54:43 Pending DAG nodes:
-05/14/17 02:54:43   Node cbow_tfidf_soft, HTCondor ID 1241, status STATUS_SUBMITTED
-05/14/17 03:04:46 150525 seconds since last log event
-05/14/17 03:04:46 Pending DAG nodes:
-05/14/17 03:04:46   Node cbow_tfidf_soft, HTCondor ID 1241, status STATUS_SUBMITTED
-05/14/17 03:14:48 151127 seconds since last log event
-05/14/17 03:14:48 Pending DAG nodes:
-05/14/17 03:14:48   Node cbow_tfidf_soft, HTCondor ID 1241, status STATUS_SUBMITTED
-05/14/17 03:24:50 151729 seconds since last log event
-05/14/17 03:24:50 Pending DAG nodes:
-05/14/17 03:24:50   Node cbow_tfidf_soft, HTCondor ID 1241, status STATUS_SUBMITTED
-05/14/17 03:34:52 152331 seconds since last log event
-05/14/17 03:34:52 Pending DAG nodes:
-05/14/17 03:34:52   Node cbow_tfidf_soft, HTCondor ID 1241, status STATUS_SUBMITTED
-05/14/17 03:44:55 152934 seconds since last log event
-05/14/17 03:44:55 Pending DAG nodes:
-05/14/17 03:44:55   Node cbow_tfidf_soft, HTCondor ID 1241, status STATUS_SUBMITTED
-05/14/17 03:54:58 153537 seconds since last log event
-05/14/17 03:54:58 Pending DAG nodes:
-05/14/17 03:54:58   Node cbow_tfidf_soft, HTCondor ID 1241, status STATUS_SUBMITTED
-05/14/17 04:05:00 154139 seconds since last log event
-05/14/17 04:05:00 Pending DAG nodes:
-05/14/17 04:05:00   Node cbow_tfidf_soft, HTCondor ID 1241, status STATUS_SUBMITTED
-05/14/17 04:15:02 154741 seconds since last log event
-05/14/17 04:15:02 Pending DAG nodes:
-05/14/17 04:15:02   Node cbow_tfidf_soft, HTCondor ID 1241, status STATUS_SUBMITTED
-05/14/17 04:25:04 155343 seconds since last log event
-05/14/17 04:25:04 Pending DAG nodes:
-05/14/17 04:25:04   Node cbow_tfidf_soft, HTCondor ID 1241, status STATUS_SUBMITTED
-05/14/17 04:35:06 155945 seconds since last log event
-05/14/17 04:35:06 Pending DAG nodes:
-05/14/17 04:35:06   Node cbow_tfidf_soft, HTCondor ID 1241, status STATUS_SUBMITTED
-05/14/17 04:45:08 156547 seconds since last log event
-05/14/17 04:45:08 Pending DAG nodes:
-05/14/17 04:45:08   Node cbow_tfidf_soft, HTCondor ID 1241, status STATUS_SUBMITTED
-05/14/17 04:55:11 157150 seconds since last log event
-05/14/17 04:55:11 Pending DAG nodes:
-05/14/17 04:55:11   Node cbow_tfidf_soft, HTCondor ID 1241, status STATUS_SUBMITTED
-05/14/17 05:05:12 157751 seconds since last log event
-05/14/17 05:05:12 Pending DAG nodes:
-05/14/17 05:05:12   Node cbow_tfidf_soft, HTCondor ID 1241, status STATUS_SUBMITTED
-05/14/17 05:15:15 158354 seconds since last log event
-05/14/17 05:15:15 Pending DAG nodes:
-05/14/17 05:15:15   Node cbow_tfidf_soft, HTCondor ID 1241, status STATUS_SUBMITTED
-05/14/17 05:25:18 158957 seconds since last log event
-05/14/17 05:25:18 Pending DAG nodes:
-05/14/17 05:25:18   Node cbow_tfidf_soft, HTCondor ID 1241, status STATUS_SUBMITTED
-05/14/17 05:35:20 159559 seconds since last log event
-05/14/17 05:35:20 Pending DAG nodes:
-05/14/17 05:35:20   Node cbow_tfidf_soft, HTCondor ID 1241, status STATUS_SUBMITTED
-05/14/17 05:45:23 160162 seconds since last log event
-05/14/17 05:45:23 Pending DAG nodes:
-05/14/17 05:45:23   Node cbow_tfidf_soft, HTCondor ID 1241, status STATUS_SUBMITTED
-05/14/17 05:55:25 160764 seconds since last log event
-05/14/17 05:55:25 Pending DAG nodes:
-05/14/17 05:55:25   Node cbow_tfidf_soft, HTCondor ID 1241, status STATUS_SUBMITTED
-05/14/17 06:05:27 161366 seconds since last log event
-05/14/17 06:05:27 Pending DAG nodes:
-05/14/17 06:05:27   Node cbow_tfidf_soft, HTCondor ID 1241, status STATUS_SUBMITTED
-05/14/17 06:15:29 161968 seconds since last log event
-05/14/17 06:15:29 Pending DAG nodes:
-05/14/17 06:15:29   Node cbow_tfidf_soft, HTCondor ID 1241, status STATUS_SUBMITTED
-05/14/17 06:25:31 162570 seconds since last log event
-05/14/17 06:25:31 Pending DAG nodes:
-05/14/17 06:25:31   Node cbow_tfidf_soft, HTCondor ID 1241, status STATUS_SUBMITTED
-05/14/17 06:35:33 163172 seconds since last log event
-05/14/17 06:35:33 Pending DAG nodes:
-05/14/17 06:35:33   Node cbow_tfidf_soft, HTCondor ID 1241, status STATUS_SUBMITTED
-05/14/17 06:45:36 163775 seconds since last log event
-05/14/17 06:45:36 Pending DAG nodes:
-05/14/17 06:45:36   Node cbow_tfidf_soft, HTCondor ID 1241, status STATUS_SUBMITTED
-05/14/17 06:55:39 164378 seconds since last log event
-05/14/17 06:55:39 Pending DAG nodes:
-05/14/17 06:55:39   Node cbow_tfidf_soft, HTCondor ID 1241, status STATUS_SUBMITTED
-05/14/17 07:05:42 164981 seconds since last log event
-05/14/17 07:05:42 Pending DAG nodes:
-05/14/17 07:05:42   Node cbow_tfidf_soft, HTCondor ID 1241, status STATUS_SUBMITTED
-05/14/17 07:15:44 165583 seconds since last log event
-05/14/17 07:15:44 Pending DAG nodes:
-05/14/17 07:15:44   Node cbow_tfidf_soft, HTCondor ID 1241, status STATUS_SUBMITTED
-05/14/17 07:25:47 166186 seconds since last log event
-05/14/17 07:25:47 Pending DAG nodes:
-05/14/17 07:25:47   Node cbow_tfidf_soft, HTCondor ID 1241, status STATUS_SUBMITTED
-05/14/17 07:35:49 166788 seconds since last log event
-05/14/17 07:35:49 Pending DAG nodes:
-05/14/17 07:35:49   Node cbow_tfidf_soft, HTCondor ID 1241, status STATUS_SUBMITTED
-05/14/17 07:45:51 167390 seconds since last log event
-05/14/17 07:45:51 Pending DAG nodes:
-05/14/17 07:45:51   Node cbow_tfidf_soft, HTCondor ID 1241, status STATUS_SUBMITTED
-05/14/17 07:55:53 167992 seconds since last log event
-05/14/17 07:55:53 Pending DAG nodes:
-05/14/17 07:55:53   Node cbow_tfidf_soft, HTCondor ID 1241, status STATUS_SUBMITTED
-05/14/17 08:05:56 168595 seconds since last log event
-05/14/17 08:05:56 Pending DAG nodes:
-05/14/17 08:05:56   Node cbow_tfidf_soft, HTCondor ID 1241, status STATUS_SUBMITTED
-05/14/17 08:15:59 169198 seconds since last log event
-05/14/17 08:15:59 Pending DAG nodes:
-05/14/17 08:15:59   Node cbow_tfidf_soft, HTCondor ID 1241, status STATUS_SUBMITTED
-05/14/17 08:26:01 169800 seconds since last log event
-05/14/17 08:26:01 Pending DAG nodes:
-05/14/17 08:26:01   Node cbow_tfidf_soft, HTCondor ID 1241, status STATUS_SUBMITTED
-05/14/17 08:36:03 170402 seconds since last log event
-05/14/17 08:36:03 Pending DAG nodes:
-05/14/17 08:36:03   Node cbow_tfidf_soft, HTCondor ID 1241, status STATUS_SUBMITTED
-05/14/17 08:46:05 171004 seconds since last log event
-05/14/17 08:46:05 Pending DAG nodes:
-05/14/17 08:46:05   Node cbow_tfidf_soft, HTCondor ID 1241, status STATUS_SUBMITTED
-05/14/17 08:56:08 171607 seconds since last log event
-05/14/17 08:56:08 Pending DAG nodes:
-05/14/17 08:56:08   Node cbow_tfidf_soft, HTCondor ID 1241, status STATUS_SUBMITTED
-05/14/17 09:06:11 172210 seconds since last log event
-05/14/17 09:06:11 Pending DAG nodes:
-05/14/17 09:06:11   Node cbow_tfidf_soft, HTCondor ID 1241, status STATUS_SUBMITTED
-05/14/17 09:16:13 172812 seconds since last log event
-05/14/17 09:16:13 Pending DAG nodes:
-05/14/17 09:16:13   Node cbow_tfidf_soft, HTCondor ID 1241, status STATUS_SUBMITTED
-05/14/17 09:26:16 173415 seconds since last log event
-05/14/17 09:26:16 Pending DAG nodes:
-05/14/17 09:26:16   Node cbow_tfidf_soft, HTCondor ID 1241, status STATUS_SUBMITTED
-05/14/17 09:36:18 174017 seconds since last log event
-05/14/17 09:36:18 Pending DAG nodes:
-05/14/17 09:36:18   Node cbow_tfidf_soft, HTCondor ID 1241, status STATUS_SUBMITTED
-05/14/17 09:46:20 174619 seconds since last log event
-05/14/17 09:46:20 Pending DAG nodes:
-05/14/17 09:46:20   Node cbow_tfidf_soft, HTCondor ID 1241, status STATUS_SUBMITTED
-05/14/17 09:56:23 175222 seconds since last log event
-05/14/17 09:56:23 Pending DAG nodes:
-05/14/17 09:56:23   Node cbow_tfidf_soft, HTCondor ID 1241, status STATUS_SUBMITTED
-05/14/17 10:06:26 175825 seconds since last log event
-05/14/17 10:06:26 Pending DAG nodes:
-05/14/17 10:06:26   Node cbow_tfidf_soft, HTCondor ID 1241, status STATUS_SUBMITTED
-05/14/17 10:16:28 176427 seconds since last log event
-05/14/17 10:16:28 Pending DAG nodes:
-05/14/17 10:16:28   Node cbow_tfidf_soft, HTCondor ID 1241, status STATUS_SUBMITTED
-05/14/17 10:26:31 177030 seconds since last log event
-05/14/17 10:26:31 Pending DAG nodes:
-05/14/17 10:26:31   Node cbow_tfidf_soft, HTCondor ID 1241, status STATUS_SUBMITTED
-05/14/17 10:36:34 177633 seconds since last log event
-05/14/17 10:36:34 Pending DAG nodes:
-05/14/17 10:36:34   Node cbow_tfidf_soft, HTCondor ID 1241, status STATUS_SUBMITTED
-05/14/17 10:46:36 178235 seconds since last log event
-05/14/17 10:46:36 Pending DAG nodes:
-05/14/17 10:46:36   Node cbow_tfidf_soft, HTCondor ID 1241, status STATUS_SUBMITTED
-05/14/17 10:56:39 178838 seconds since last log event
-05/14/17 10:56:39 Pending DAG nodes:
-05/14/17 10:56:39   Node cbow_tfidf_soft, HTCondor ID 1241, status STATUS_SUBMITTED
-05/14/17 11:06:41 179440 seconds since last log event
-05/14/17 11:06:41 Pending DAG nodes:
-05/14/17 11:06:41   Node cbow_tfidf_soft, HTCondor ID 1241, status STATUS_SUBMITTED
-05/14/17 11:16:43 180042 seconds since last log event
-05/14/17 11:16:43 Pending DAG nodes:
-05/14/17 11:16:43   Node cbow_tfidf_soft, HTCondor ID 1241, status STATUS_SUBMITTED
-05/14/17 11:26:45 180644 seconds since last log event
-05/14/17 11:26:45 Pending DAG nodes:
-05/14/17 11:26:45   Node cbow_tfidf_soft, HTCondor ID 1241, status STATUS_SUBMITTED
-05/14/17 11:36:48 181247 seconds since last log event
-05/14/17 11:36:48 Pending DAG nodes:
-05/14/17 11:36:48   Node cbow_tfidf_soft, HTCondor ID 1241, status STATUS_SUBMITTED
-05/14/17 11:46:50 181849 seconds since last log event
-05/14/17 11:46:50 Pending DAG nodes:
-05/14/17 11:46:50   Node cbow_tfidf_soft, HTCondor ID 1241, status STATUS_SUBMITTED
-05/14/17 11:56:53 182452 seconds since last log event
-05/14/17 11:56:53 Pending DAG nodes:
-05/14/17 11:56:53   Node cbow_tfidf_soft, HTCondor ID 1241, status STATUS_SUBMITTED
-05/14/17 12:06:55 183054 seconds since last log event
-05/14/17 12:06:55 Pending DAG nodes:
-05/14/17 12:06:55   Node cbow_tfidf_soft, HTCondor ID 1241, status STATUS_SUBMITTED
-05/14/17 12:16:58 183657 seconds since last log event
-05/14/17 12:16:58 Pending DAG nodes:
-05/14/17 12:16:58   Node cbow_tfidf_soft, HTCondor ID 1241, status STATUS_SUBMITTED
-05/14/17 12:27:00 184259 seconds since last log event
-05/14/17 12:27:00 Pending DAG nodes:
-05/14/17 12:27:00   Node cbow_tfidf_soft, HTCondor ID 1241, status STATUS_SUBMITTED
-05/14/17 12:37:03 184862 seconds since last log event
-05/14/17 12:37:03 Pending DAG nodes:
-05/14/17 12:37:03   Node cbow_tfidf_soft, HTCondor ID 1241, status STATUS_SUBMITTED
-05/14/17 12:47:05 185464 seconds since last log event
-05/14/17 12:47:05 Pending DAG nodes:
-05/14/17 12:47:05   Node cbow_tfidf_soft, HTCondor ID 1241, status STATUS_SUBMITTED
-05/14/17 12:57:06 186065 seconds since last log event
-05/14/17 12:57:06 Pending DAG nodes:
-05/14/17 12:57:06   Node cbow_tfidf_soft, HTCondor ID 1241, status STATUS_SUBMITTED
-05/14/17 13:07:09 186668 seconds since last log event
-05/14/17 13:07:09 Pending DAG nodes:
-05/14/17 13:07:09   Node cbow_tfidf_soft, HTCondor ID 1241, status STATUS_SUBMITTED
-05/14/17 13:17:11 187270 seconds since last log event
-05/14/17 13:17:11 Pending DAG nodes:
-05/14/17 13:17:11   Node cbow_tfidf_soft, HTCondor ID 1241, status STATUS_SUBMITTED
-05/14/17 13:27:13 187872 seconds since last log event
-05/14/17 13:27:13 Pending DAG nodes:
-05/14/17 13:27:13   Node cbow_tfidf_soft, HTCondor ID 1241, status STATUS_SUBMITTED
-05/14/17 13:37:16 188475 seconds since last log event
-05/14/17 13:37:16 Pending DAG nodes:
-05/14/17 13:37:16   Node cbow_tfidf_soft, HTCondor ID 1241, status STATUS_SUBMITTED
-05/14/17 13:47:18 189077 seconds since last log event
-05/14/17 13:47:18 Pending DAG nodes:
-05/14/17 13:47:18   Node cbow_tfidf_soft, HTCondor ID 1241, status STATUS_SUBMITTED
-05/14/17 13:57:21 189680 seconds since last log event
-05/14/17 13:57:21 Pending DAG nodes:
-05/14/17 13:57:21   Node cbow_tfidf_soft, HTCondor ID 1241, status STATUS_SUBMITTED
-05/14/17 14:07:25 190284 seconds since last log event
-05/14/17 14:07:25 Pending DAG nodes:
-05/14/17 14:07:25   Node cbow_tfidf_soft, HTCondor ID 1241, status STATUS_SUBMITTED
-05/14/17 14:17:27 190886 seconds since last log event
-05/14/17 14:17:27 Pending DAG nodes:
-05/14/17 14:17:27   Node cbow_tfidf_soft, HTCondor ID 1241, status STATUS_SUBMITTED
-05/14/17 14:27:29 191488 seconds since last log event
-05/14/17 14:27:29 Pending DAG nodes:
-05/14/17 14:27:29   Node cbow_tfidf_soft, HTCondor ID 1241, status STATUS_SUBMITTED
-05/14/17 14:37:32 192091 seconds since last log event
-05/14/17 14:37:32 Pending DAG nodes:
-05/14/17 14:37:32   Node cbow_tfidf_soft, HTCondor ID 1241, status STATUS_SUBMITTED
-05/14/17 14:47:34 192693 seconds since last log event
-05/14/17 14:47:34 Pending DAG nodes:
-05/14/17 14:47:34   Node cbow_tfidf_soft, HTCondor ID 1241, status STATUS_SUBMITTED
-05/14/17 14:57:36 193295 seconds since last log event
-05/14/17 14:57:36 Pending DAG nodes:
-05/14/17 14:57:36   Node cbow_tfidf_soft, HTCondor ID 1241, status STATUS_SUBMITTED
-05/14/17 15:07:39 193898 seconds since last log event
-05/14/17 15:07:39 Pending DAG nodes:
-05/14/17 15:07:39   Node cbow_tfidf_soft, HTCondor ID 1241, status STATUS_SUBMITTED
-05/14/17 15:17:40 194499 seconds since last log event
-05/14/17 15:17:40 Pending DAG nodes:
-05/14/17 15:17:40   Node cbow_tfidf_soft, HTCondor ID 1241, status STATUS_SUBMITTED
-05/14/17 15:27:43 195102 seconds since last log event
-05/14/17 15:27:43 Pending DAG nodes:
-05/14/17 15:27:43   Node cbow_tfidf_soft, HTCondor ID 1241, status STATUS_SUBMITTED
-05/14/17 15:37:45 195704 seconds since last log event
-05/14/17 15:37:45 Pending DAG nodes:
-05/14/17 15:37:45   Node cbow_tfidf_soft, HTCondor ID 1241, status STATUS_SUBMITTED
-05/14/17 15:47:48 196307 seconds since last log event
-05/14/17 15:47:48 Pending DAG nodes:
-05/14/17 15:47:48   Node cbow_tfidf_soft, HTCondor ID 1241, status STATUS_SUBMITTED
-05/14/17 15:57:50 196909 seconds since last log event
-05/14/17 15:57:50 Pending DAG nodes:
-05/14/17 15:57:50   Node cbow_tfidf_soft, HTCondor ID 1241, status STATUS_SUBMITTED
-05/14/17 16:07:52 197511 seconds since last log event
-05/14/17 16:07:52 Pending DAG nodes:
-05/14/17 16:07:52   Node cbow_tfidf_soft, HTCondor ID 1241, status STATUS_SUBMITTED
-05/14/17 16:17:54 198113 seconds since last log event
-05/14/17 16:17:54 Pending DAG nodes:
-05/14/17 16:17:54   Node cbow_tfidf_soft, HTCondor ID 1241, status STATUS_SUBMITTED
-05/14/17 16:27:56 198715 seconds since last log event
-05/14/17 16:27:56 Pending DAG nodes:
-05/14/17 16:27:56   Node cbow_tfidf_soft, HTCondor ID 1241, status STATUS_SUBMITTED
-05/14/17 16:37:58 199317 seconds since last log event
-05/14/17 16:37:58 Pending DAG nodes:
-05/14/17 16:37:58   Node cbow_tfidf_soft, HTCondor ID 1241, status STATUS_SUBMITTED
-05/14/17 16:48:01 199920 seconds since last log event
-05/14/17 16:48:01 Pending DAG nodes:
-05/14/17 16:48:01   Node cbow_tfidf_soft, HTCondor ID 1241, status STATUS_SUBMITTED
-05/14/17 16:58:02 200521 seconds since last log event
-05/14/17 16:58:02 Pending DAG nodes:
-05/14/17 16:58:02   Node cbow_tfidf_soft, HTCondor ID 1241, status STATUS_SUBMITTED
-05/14/17 17:08:04 201123 seconds since last log event
-05/14/17 17:08:04 Pending DAG nodes:
-05/14/17 17:08:04   Node cbow_tfidf_soft, HTCondor ID 1241, status STATUS_SUBMITTED
-05/14/17 17:18:06 201725 seconds since last log event
-05/14/17 17:18:06 Pending DAG nodes:
-05/14/17 17:18:06   Node cbow_tfidf_soft, HTCondor ID 1241, status STATUS_SUBMITTED
-05/14/17 17:28:08 202327 seconds since last log event
-05/14/17 17:28:08 Pending DAG nodes:
-05/14/17 17:28:08   Node cbow_tfidf_soft, HTCondor ID 1241, status STATUS_SUBMITTED
-05/14/17 17:38:10 202929 seconds since last log event
-05/14/17 17:38:10 Pending DAG nodes:
-05/14/17 17:38:10   Node cbow_tfidf_soft, HTCondor ID 1241, status STATUS_SUBMITTED
-05/14/17 17:48:13 203532 seconds since last log event
-05/14/17 17:48:13 Pending DAG nodes:
-05/14/17 17:48:13   Node cbow_tfidf_soft, HTCondor ID 1241, status STATUS_SUBMITTED
-05/14/17 17:58:15 204134 seconds since last log event
-05/14/17 17:58:15 Pending DAG nodes:
-05/14/17 17:58:15   Node cbow_tfidf_soft, HTCondor ID 1241, status STATUS_SUBMITTED
-05/14/17 18:08:17 204736 seconds since last log event
-05/14/17 18:08:17 Pending DAG nodes:
-05/14/17 18:08:17   Node cbow_tfidf_soft, HTCondor ID 1241, status STATUS_SUBMITTED
-05/14/17 18:18:19 205338 seconds since last log event
-05/14/17 18:18:19 Pending DAG nodes:
-05/14/17 18:18:19   Node cbow_tfidf_soft, HTCondor ID 1241, status STATUS_SUBMITTED
-05/14/17 18:28:22 205941 seconds since last log event
-05/14/17 18:28:22 Pending DAG nodes:
-05/14/17 18:28:22   Node cbow_tfidf_soft, HTCondor ID 1241, status STATUS_SUBMITTED
-05/14/17 18:38:24 206543 seconds since last log event
-05/14/17 18:38:24 Pending DAG nodes:
-05/14/17 18:38:24   Node cbow_tfidf_soft, HTCondor ID 1241, status STATUS_SUBMITTED
-05/14/17 18:48:25 207144 seconds since last log event
-05/14/17 18:48:25 Pending DAG nodes:
-05/14/17 18:48:25   Node cbow_tfidf_soft, HTCondor ID 1241, status STATUS_SUBMITTED
-05/14/17 18:58:27 207746 seconds since last log event
-05/14/17 18:58:27 Pending DAG nodes:
-05/14/17 18:58:27   Node cbow_tfidf_soft, HTCondor ID 1241, status STATUS_SUBMITTED
-05/14/17 19:08:29 208348 seconds since last log event
-05/14/17 19:08:29 Pending DAG nodes:
-05/14/17 19:08:29   Node cbow_tfidf_soft, HTCondor ID 1241, status STATUS_SUBMITTED
-05/14/17 19:18:31 208950 seconds since last log event
-05/14/17 19:18:31 Pending DAG nodes:
-05/14/17 19:18:31   Node cbow_tfidf_soft, HTCondor ID 1241, status STATUS_SUBMITTED
-05/14/17 19:28:33 209552 seconds since last log event
-05/14/17 19:28:33 Pending DAG nodes:
-05/14/17 19:28:33   Node cbow_tfidf_soft, HTCondor ID 1241, status STATUS_SUBMITTED
-05/14/17 19:38:35 210154 seconds since last log event
-05/14/17 19:38:35 Pending DAG nodes:
-05/14/17 19:38:35   Node cbow_tfidf_soft, HTCondor ID 1241, status STATUS_SUBMITTED
-05/14/17 19:48:37 210756 seconds since last log event
-05/14/17 19:48:37 Pending DAG nodes:
-05/14/17 19:48:37   Node cbow_tfidf_soft, HTCondor ID 1241, status STATUS_SUBMITTED
-05/14/17 19:58:39 211358 seconds since last log event
-05/14/17 19:58:39 Pending DAG nodes:
-05/14/17 19:58:39   Node cbow_tfidf_soft, HTCondor ID 1241, status STATUS_SUBMITTED
-05/14/17 20:08:41 211960 seconds since last log event
-05/14/17 20:08:41 Pending DAG nodes:
-05/14/17 20:08:41   Node cbow_tfidf_soft, HTCondor ID 1241, status STATUS_SUBMITTED
-05/14/17 20:18:44 212563 seconds since last log event
-05/14/17 20:18:44 Pending DAG nodes:
-05/14/17 20:18:44   Node cbow_tfidf_soft, HTCondor ID 1241, status STATUS_SUBMITTED
-05/14/17 20:28:46 213165 seconds since last log event
-05/14/17 20:28:46 Pending DAG nodes:
-05/14/17 20:28:46   Node cbow_tfidf_soft, HTCondor ID 1241, status STATUS_SUBMITTED
-05/14/17 20:38:49 213768 seconds since last log event
-05/14/17 20:38:49 Pending DAG nodes:
-05/14/17 20:38:49   Node cbow_tfidf_soft, HTCondor ID 1241, status STATUS_SUBMITTED
-05/14/17 20:48:51 214370 seconds since last log event
-05/14/17 20:48:51 Pending DAG nodes:
-05/14/17 20:48:51   Node cbow_tfidf_soft, HTCondor ID 1241, status STATUS_SUBMITTED
-05/14/17 20:58:54 214973 seconds since last log event
-05/14/17 20:58:54 Pending DAG nodes:
-05/14/17 20:58:54   Node cbow_tfidf_soft, HTCondor ID 1241, status STATUS_SUBMITTED
-05/14/17 21:08:56 215575 seconds since last log event
-05/14/17 21:08:56 Pending DAG nodes:
-05/14/17 21:08:56   Node cbow_tfidf_soft, HTCondor ID 1241, status STATUS_SUBMITTED
-05/14/17 21:18:58 216177 seconds since last log event
-05/14/17 21:18:58 Pending DAG nodes:
-05/14/17 21:18:58   Node cbow_tfidf_soft, HTCondor ID 1241, status STATUS_SUBMITTED
-05/14/17 21:29:01 216780 seconds since last log event
-05/14/17 21:29:01 Pending DAG nodes:
-05/14/17 21:29:01   Node cbow_tfidf_soft, HTCondor ID 1241, status STATUS_SUBMITTED
-05/14/17 21:39:03 217382 seconds since last log event
-05/14/17 21:39:03 Pending DAG nodes:
-05/14/17 21:39:03   Node cbow_tfidf_soft, HTCondor ID 1241, status STATUS_SUBMITTED
-05/14/17 21:49:05 217984 seconds since last log event
-05/14/17 21:49:05 Pending DAG nodes:
-05/14/17 21:49:05   Node cbow_tfidf_soft, HTCondor ID 1241, status STATUS_SUBMITTED
-05/14/17 21:59:08 218587 seconds since last log event
-05/14/17 21:59:08 Pending DAG nodes:
-05/14/17 21:59:08   Node cbow_tfidf_soft, HTCondor ID 1241, status STATUS_SUBMITTED
-05/14/17 22:09:09 219188 seconds since last log event
-05/14/17 22:09:09 Pending DAG nodes:
-05/14/17 22:09:09   Node cbow_tfidf_soft, HTCondor ID 1241, status STATUS_SUBMITTED
-05/14/17 22:19:11 219790 seconds since last log event
-05/14/17 22:19:11 Pending DAG nodes:
-05/14/17 22:19:11   Node cbow_tfidf_soft, HTCondor ID 1241, status STATUS_SUBMITTED
-05/14/17 22:29:14 220393 seconds since last log event
-05/14/17 22:29:14 Pending DAG nodes:
-05/14/17 22:29:14   Node cbow_tfidf_soft, HTCondor ID 1241, status STATUS_SUBMITTED
-05/14/17 22:39:16 220995 seconds since last log event
-05/14/17 22:39:16 Pending DAG nodes:
-05/14/17 22:39:16   Node cbow_tfidf_soft, HTCondor ID 1241, status STATUS_SUBMITTED
-05/14/17 22:49:18 221597 seconds since last log event
-05/14/17 22:49:18 Pending DAG nodes:
-05/14/17 22:49:18   Node cbow_tfidf_soft, HTCondor ID 1241, status STATUS_SUBMITTED
-05/14/17 22:59:20 222199 seconds since last log event
-05/14/17 22:59:20 Pending DAG nodes:
-05/14/17 22:59:20   Node cbow_tfidf_soft, HTCondor ID 1241, status STATUS_SUBMITTED
-05/14/17 23:09:23 222802 seconds since last log event
-05/14/17 23:09:23 Pending DAG nodes:
-05/14/17 23:09:23   Node cbow_tfidf_soft, HTCondor ID 1241, status STATUS_SUBMITTED
-05/14/17 23:19:25 223404 seconds since last log event
-05/14/17 23:19:25 Pending DAG nodes:
-05/14/17 23:19:25   Node cbow_tfidf_soft, HTCondor ID 1241, status STATUS_SUBMITTED
-05/14/17 23:29:27 224006 seconds since last log event
-05/14/17 23:29:27 Pending DAG nodes:
-05/14/17 23:29:27   Node cbow_tfidf_soft, HTCondor ID 1241, status STATUS_SUBMITTED
-05/14/17 23:39:29 224608 seconds since last log event
-05/14/17 23:39:29 Pending DAG nodes:
-05/14/17 23:39:29   Node cbow_tfidf_soft, HTCondor ID 1241, status STATUS_SUBMITTED
-05/14/17 23:49:31 225210 seconds since last log event
-05/14/17 23:49:31 Pending DAG nodes:
-05/14/17 23:49:31   Node cbow_tfidf_soft, HTCondor ID 1241, status STATUS_SUBMITTED
-05/14/17 23:59:33 225812 seconds since last log event
-05/14/17 23:59:33 Pending DAG nodes:
-05/14/17 23:59:33   Node cbow_tfidf_soft, HTCondor ID 1241, status STATUS_SUBMITTED
-05/15/17 00:03:11 Received SIGUSR1
-05/15/17 00:03:11 Aborting DAG...
-05/15/17 00:03:11 Writing Rescue DAG to ds_cbow_tfidf_soft.dag.rescue001...
-05/15/17 00:03:11 Removing submitted jobs...
-05/15/17 00:03:11 Removing any/all submitted HTCondor jobs...
-05/15/17 00:03:11 Running: /usr/bin/condor_rm -const DAGManJobId' '=?=' '1237
-05/15/17 00:03:11 Note: 0 total job deferrals because of -MaxJobs limit (0)
-05/15/17 00:03:11 Note: 0 total job deferrals because of -MaxIdle limit (1000)
-05/15/17 00:03:11 Note: 0 total job deferrals because of node category throttles
-05/15/17 00:03:11 Note: 0 total PRE script deferrals because of -MaxPre limit (20) or DEFER
-05/15/17 00:03:11 Note: 0 total POST script deferrals because of -MaxPost limit (20) or DEFER
-05/15/17 00:03:11 DAG status: 4 (DAG_STATUS_RM)
-05/15/17 00:03:11 Of 2 nodes total:
-05/15/17 00:03:11  Done     Pre   Queued    Post   Ready   Un-Ready   Failed
-05/15/17 00:03:11   ===     ===      ===     ===     ===        ===      ===
-05/15/17 00:03:11     0       0        1       0       0          1        0
-05/15/17 00:03:11 0 job proc(s) currently held
-05/15/17 00:03:11 Wrote metrics file ds_cbow_tfidf_soft.dag.metrics.
-05/15/17 00:03:11 Metrics not sent because of PEGASUS_METRICS or CONDOR_DEVELOPERS setting.
-05/15/17 00:03:11 **** condor_scheduniv_exec.1237.0 (condor_DAGMAN) pid 16769 EXITING WITH STATUS 2
+05/21/17 17:05:51 ******************************************************
+05/21/17 17:05:51 ** condor_scheduniv_exec.1387.0 (CONDOR_DAGMAN) STARTING UP
+05/21/17 17:05:51 ** /usr/bin/condor_dagman
+05/21/17 17:05:51 ** SubsystemInfo: name=DAGMAN type=DAGMAN(10) class=DAEMON(1)
+05/21/17 17:05:51 ** Configuration: subsystem:DAGMAN local:<NONE> class:DAEMON
+05/21/17 17:05:51 ** $CondorVersion: 8.6.2 Apr 23 2017 BuildID: 404257 $
+05/21/17 17:05:51 ** $CondorPlatform: x86_64_RedHat7 $
+05/21/17 17:05:51 ** PID = 27799
+05/21/17 17:05:51 ** Log last touched time unavailable (No such file or directory)
+05/21/17 17:05:51 ******************************************************
+05/21/17 17:05:51 Using config source: /etc/condor/condor_config
+05/21/17 17:05:51 Using local config sources: 
+05/21/17 17:05:51    /etc/condor/config.d/00esat.config
+05/21/17 17:05:51    /etc/condor/config.d/01java.config
+05/21/17 17:05:51    /etc/condor/config.d/80optout_users.config
+05/21/17 17:05:51    /etc/condor/condor_config.local
+05/21/17 17:05:51 config Macros = 166, Sorted = 166, StringBytes = 6040, TablesBytes = 6048
+05/21/17 17:05:51 CLASSAD_CACHING is ENABLED
+05/21/17 17:05:51 Daemon Log is logging: D_ALWAYS D_ERROR
+05/21/17 17:05:51 DaemonCore: No command port requested.
+05/21/17 17:05:51 DAGMAN_USE_STRICT setting: 1
+05/21/17 17:05:51 DAGMAN_VERBOSITY setting: 3
+05/21/17 17:05:51 DAGMAN_DEBUG_CACHE_SIZE setting: 5242880
+05/21/17 17:05:51 DAGMAN_DEBUG_CACHE_ENABLE setting: False
+05/21/17 17:05:51 DAGMAN_SUBMIT_DELAY setting: 0
+05/21/17 17:05:51 DAGMAN_MAX_SUBMIT_ATTEMPTS setting: 6
+05/21/17 17:05:51 DAGMAN_STARTUP_CYCLE_DETECT setting: False
+05/21/17 17:05:51 DAGMAN_MAX_SUBMITS_PER_INTERVAL setting: 5
+05/21/17 17:05:51 DAGMAN_USER_LOG_SCAN_INTERVAL setting: 5
+05/21/17 17:05:51 DAGMAN_DEFAULT_PRIORITY setting: 0
+05/21/17 17:05:51 DAGMAN_SUPPRESS_NOTIFICATION setting: True
+05/21/17 17:05:51 allow_events (DAGMAN_ALLOW_EVENTS) setting: 114
+05/21/17 17:05:51 DAGMAN_RETRY_SUBMIT_FIRST setting: True
+05/21/17 17:05:51 DAGMAN_RETRY_NODE_FIRST setting: False
+05/21/17 17:05:51 DAGMAN_MAX_JOBS_IDLE setting: 1000
+05/21/17 17:05:51 DAGMAN_MAX_JOBS_SUBMITTED setting: 0
+05/21/17 17:05:51 DAGMAN_MAX_PRE_SCRIPTS setting: 20
+05/21/17 17:05:51 DAGMAN_MAX_POST_SCRIPTS setting: 20
+05/21/17 17:05:51 DAGMAN_MUNGE_NODE_NAMES setting: True
+05/21/17 17:05:51 DAGMAN_PROHIBIT_MULTI_JOBS setting: False
+05/21/17 17:05:51 DAGMAN_SUBMIT_DEPTH_FIRST setting: False
+05/21/17 17:05:51 DAGMAN_ALWAYS_RUN_POST setting: False
+05/21/17 17:05:51 DAGMAN_ABORT_DUPLICATES setting: True
+05/21/17 17:05:51 DAGMAN_ABORT_ON_SCARY_SUBMIT setting: True
+05/21/17 17:05:51 DAGMAN_PENDING_REPORT_INTERVAL setting: 600
+05/21/17 17:05:51 DAGMAN_AUTO_RESCUE setting: True
+05/21/17 17:05:51 DAGMAN_MAX_RESCUE_NUM setting: 100
+05/21/17 17:05:51 DAGMAN_WRITE_PARTIAL_RESCUE setting: True
+05/21/17 17:05:51 DAGMAN_DEFAULT_NODE_LOG setting: @(DAG_DIR)/@(DAG_FILE).nodes.log
+05/21/17 17:05:51 DAGMAN_GENERATE_SUBDAG_SUBMITS setting: True
+05/21/17 17:05:51 DAGMAN_MAX_JOB_HOLDS setting: 100
+05/21/17 17:05:51 DAGMAN_HOLD_CLAIM_TIME setting: 20
+05/21/17 17:05:51 ALL_DEBUG setting: 
+05/21/17 17:05:51 DAGMAN_DEBUG setting: 
+05/21/17 17:05:51 DAGMAN_SUPPRESS_JOB_LOGS setting: False
+05/21/17 17:05:51 DAGMAN_REMOVE_NODE_JOBS setting: True
+05/21/17 17:05:51 argv[0] == "condor_scheduniv_exec.1387.0"
+05/21/17 17:05:51 argv[1] == "-Lockfile"
+05/21/17 17:05:51 argv[2] == "ds_cbow_tfidf_soft.dag.lock"
+05/21/17 17:05:51 argv[3] == "-AutoRescue"
+05/21/17 17:05:51 argv[4] == "1"
+05/21/17 17:05:51 argv[5] == "-DoRescueFrom"
+05/21/17 17:05:51 argv[6] == "0"
+05/21/17 17:05:51 argv[7] == "-Dag"
+05/21/17 17:05:51 argv[8] == "ds_cbow_tfidf_soft.dag"
+05/21/17 17:05:51 argv[9] == "-Suppress_notification"
+05/21/17 17:05:51 argv[10] == "-CsdVersion"
+05/21/17 17:05:51 argv[11] == "$CondorVersion: 8.6.2 Apr 23 2017 BuildID: 404257 $"
+05/21/17 17:05:51 argv[12] == "-Dagman"
+05/21/17 17:05:51 argv[13] == "/usr/bin/condor_dagman"
+05/21/17 17:05:51 Workflow batch-name: <ds_cbow_tfidf_soft.dag+1387>
+05/21/17 17:05:51 Workflow accounting_group: <>
+05/21/17 17:05:51 Workflow accounting_group_user: <>
+05/21/17 17:05:51 Warning: failed to get attribute DAGNodeName
+05/21/17 17:05:51 DAGMAN_LOG_ON_NFS_IS_ERROR setting: False
+05/21/17 17:05:51 Default node log file is: </esat/spchtemp/scratch/robbe/SpeechHub/pretrained_untied_models_small/python/jobdag/./ds_cbow_tfidf_soft.dag.nodes.log>
+05/21/17 17:05:51 DAG Lockfile will be written to ds_cbow_tfidf_soft.dag.lock
+05/21/17 17:05:51 DAG Input file is ds_cbow_tfidf_soft.dag
+05/21/17 17:05:51 Parsing 1 dagfiles
+05/21/17 17:05:51 Parsing ds_cbow_tfidf_soft.dag ...
+05/21/17 17:05:51 Dag contains 2 total jobs
+05/21/17 17:05:51 Sleeping for 3 seconds to ensure ProcessId uniqueness
+05/21/17 17:05:54 Bootstrapping...
+05/21/17 17:05:54 Number of pre-completed nodes: 0
+05/21/17 17:05:54 MultiLogFiles: truncating log file /esat/spchtemp/scratch/robbe/SpeechHub/pretrained_untied_models_small/python/jobdag/./ds_cbow_tfidf_soft.dag.nodes.log
+05/21/17 17:05:54 DAG status: 0 (DAG_STATUS_OK)
+05/21/17 17:05:54 Of 2 nodes total:
+05/21/17 17:05:54  Done     Pre   Queued    Post   Ready   Un-Ready   Failed
+05/21/17 17:05:54   ===     ===      ===     ===     ===        ===      ===
+05/21/17 17:05:54     0       0        0       0       1          1        0
+05/21/17 17:05:54 0 job proc(s) currently held
+05/21/17 17:05:54 Registering condor_event_timer...
+05/21/17 17:05:55 Submitting HTCondor Node cbow_tfidf_soft job(s)...
+05/21/17 17:05:55 Adding a DAGMan workflow log /esat/spchtemp/scratch/robbe/SpeechHub/pretrained_untied_models_small/python/jobdag/./ds_cbow_tfidf_soft.dag.nodes.log
+05/21/17 17:05:55 Masking the events recorded in the DAGMAN workflow log
+05/21/17 17:05:55 Mask for workflow log is 0,1,2,4,5,7,9,10,11,12,13,16,17,24,27
+05/21/17 17:05:55 submitting: /usr/bin/condor_submit -a dag_node_name' '=' 'cbow_tfidf_soft -a +DAGManJobId' '=' '1387 -a DAGManJobId' '=' '1387 -batch-name ds_cbow_tfidf_soft.dag+1387 -a submit_event_notes' '=' 'DAG' 'Node:' 'cbow_tfidf_soft -a dagman_log' '=' '/esat/spchtemp/scratch/robbe/SpeechHub/pretrained_untied_models_small/python/jobdag/./ds_cbow_tfidf_soft.dag.nodes.log -a +DAGManNodesMask' '=' '"0,1,2,4,5,7,9,10,11,12,13,16,17,24,27" -a data_set' '=' 'ds -a test_name' '=' 'cbow_tfidf_soft -a num_run' '=' '0 -a combination' '=' 'tfidf -a DAG_STATUS' '=' '0 -a FAILED_COUNT' '=' '0 -a +KeepClaimIdle' '=' '20 -a notification' '=' 'never -a +DAGParentNodeNames' '=' '"" jobdag/cbow_soft.job
+05/21/17 17:05:55 From submit: Submitting job(s).
+05/21/17 17:05:55 From submit: 1 job(s) submitted to cluster 1389.
+05/21/17 17:05:55 	assigned HTCondor ID (1389.0.0)
+05/21/17 17:05:55 Just submitted 1 job this cycle...
+05/21/17 17:05:55 Currently monitoring 1 HTCondor log file(s)
+05/21/17 17:05:55 Reassigning the id of job cbow_tfidf_soft from (1389.0.0) to (1389.0.0)
+05/21/17 17:05:55 Event: ULOG_SUBMIT for HTCondor Node cbow_tfidf_soft (1389.0.0) {05/21/17 17:05:55}
+05/21/17 17:05:55 Number of idle job procs: 1
+05/21/17 17:05:55 DAG status: 0 (DAG_STATUS_OK)
+05/21/17 17:05:55 Of 2 nodes total:
+05/21/17 17:05:55  Done     Pre   Queued    Post   Ready   Un-Ready   Failed
+05/21/17 17:05:55   ===     ===      ===     ===     ===        ===      ===
+05/21/17 17:05:55     0       0        1       0       0          1        0
+05/21/17 17:05:55 0 job proc(s) currently held
+05/21/17 17:15:57 602 seconds since last log event
+05/21/17 17:15:57 Pending DAG nodes:
+05/21/17 17:15:57   Node cbow_tfidf_soft, HTCondor ID 1389, status STATUS_SUBMITTED
+05/21/17 17:25:58 1203 seconds since last log event
+05/21/17 17:25:58 Pending DAG nodes:
+05/21/17 17:25:58   Node cbow_tfidf_soft, HTCondor ID 1389, status STATUS_SUBMITTED
+05/21/17 17:36:00 1805 seconds since last log event
+05/21/17 17:36:00 Pending DAG nodes:
+05/21/17 17:36:00   Node cbow_tfidf_soft, HTCondor ID 1389, status STATUS_SUBMITTED
+05/21/17 17:46:01 2406 seconds since last log event
+05/21/17 17:46:01 Pending DAG nodes:
+05/21/17 17:46:01   Node cbow_tfidf_soft, HTCondor ID 1389, status STATUS_SUBMITTED
+05/21/17 17:56:02 3007 seconds since last log event
+05/21/17 17:56:02 Pending DAG nodes:
+05/21/17 17:56:02   Node cbow_tfidf_soft, HTCondor ID 1389, status STATUS_SUBMITTED
+05/21/17 18:06:04 3609 seconds since last log event
+05/21/17 18:06:04 Pending DAG nodes:
+05/21/17 18:06:04   Node cbow_tfidf_soft, HTCondor ID 1389, status STATUS_SUBMITTED
+05/21/17 18:16:06 4211 seconds since last log event
+05/21/17 18:16:06 Pending DAG nodes:
+05/21/17 18:16:06   Node cbow_tfidf_soft, HTCondor ID 1389, status STATUS_SUBMITTED
+05/21/17 18:26:08 4813 seconds since last log event
+05/21/17 18:26:08 Pending DAG nodes:
+05/21/17 18:26:08   Node cbow_tfidf_soft, HTCondor ID 1389, status STATUS_SUBMITTED
+05/21/17 18:36:09 5414 seconds since last log event
+05/21/17 18:36:09 Pending DAG nodes:
+05/21/17 18:36:09   Node cbow_tfidf_soft, HTCondor ID 1389, status STATUS_SUBMITTED
+05/21/17 18:46:11 6016 seconds since last log event
+05/21/17 18:46:11 Pending DAG nodes:
+05/21/17 18:46:11   Node cbow_tfidf_soft, HTCondor ID 1389, status STATUS_SUBMITTED
+05/21/17 18:56:13 6618 seconds since last log event
+05/21/17 18:56:13 Pending DAG nodes:
+05/21/17 18:56:13   Node cbow_tfidf_soft, HTCondor ID 1389, status STATUS_SUBMITTED
+05/21/17 19:06:14 7219 seconds since last log event
+05/21/17 19:06:14 Pending DAG nodes:
+05/21/17 19:06:14   Node cbow_tfidf_soft, HTCondor ID 1389, status STATUS_SUBMITTED
+05/21/17 19:16:16 7821 seconds since last log event
+05/21/17 19:16:16 Pending DAG nodes:
+05/21/17 19:16:16   Node cbow_tfidf_soft, HTCondor ID 1389, status STATUS_SUBMITTED
+05/21/17 19:26:18 8423 seconds since last log event
+05/21/17 19:26:18 Pending DAG nodes:
+05/21/17 19:26:18   Node cbow_tfidf_soft, HTCondor ID 1389, status STATUS_SUBMITTED
+05/21/17 19:36:20 9025 seconds since last log event
+05/21/17 19:36:20 Pending DAG nodes:
+05/21/17 19:36:20   Node cbow_tfidf_soft, HTCondor ID 1389, status STATUS_SUBMITTED
+05/21/17 19:46:21 9626 seconds since last log event
+05/21/17 19:46:21 Pending DAG nodes:
+05/21/17 19:46:21   Node cbow_tfidf_soft, HTCondor ID 1389, status STATUS_SUBMITTED
+05/21/17 19:54:18 Currently monitoring 1 HTCondor log file(s)
+05/21/17 19:54:18 Event: ULOG_EXECUTE for HTCondor Node cbow_tfidf_soft (1389.0.0) {05/21/17 19:54:17}
+05/21/17 19:54:18 Number of idle job procs: 0
+05/21/17 20:04:19 601 seconds since last log event
+05/21/17 20:04:19 Pending DAG nodes:
+05/21/17 20:04:19   Node cbow_tfidf_soft, HTCondor ID 1389, status STATUS_SUBMITTED
+05/21/17 20:14:21 1203 seconds since last log event
+05/21/17 20:14:21 Pending DAG nodes:
+05/21/17 20:14:21   Node cbow_tfidf_soft, HTCondor ID 1389, status STATUS_SUBMITTED
+05/21/17 20:24:23 1805 seconds since last log event
+05/21/17 20:24:23 Pending DAG nodes:
+05/21/17 20:24:23   Node cbow_tfidf_soft, HTCondor ID 1389, status STATUS_SUBMITTED
+05/21/17 20:34:25 2407 seconds since last log event
+05/21/17 20:34:25 Pending DAG nodes:
+05/21/17 20:34:25   Node cbow_tfidf_soft, HTCondor ID 1389, status STATUS_SUBMITTED
+05/21/17 20:44:26 3008 seconds since last log event
+05/21/17 20:44:26 Pending DAG nodes:
+05/21/17 20:44:26   Node cbow_tfidf_soft, HTCondor ID 1389, status STATUS_SUBMITTED
+05/21/17 20:54:28 3610 seconds since last log event
+05/21/17 20:54:28 Pending DAG nodes:
+05/21/17 20:54:28   Node cbow_tfidf_soft, HTCondor ID 1389, status STATUS_SUBMITTED
+05/21/17 21:04:30 4212 seconds since last log event
+05/21/17 21:04:30 Pending DAG nodes:
+05/21/17 21:04:30   Node cbow_tfidf_soft, HTCondor ID 1389, status STATUS_SUBMITTED
+05/21/17 21:14:31 4813 seconds since last log event
+05/21/17 21:14:31 Pending DAG nodes:
+05/21/17 21:14:31   Node cbow_tfidf_soft, HTCondor ID 1389, status STATUS_SUBMITTED
+05/21/17 21:20:42 Currently monitoring 1 HTCondor log file(s)
+05/21/17 21:20:42 Event: ULOG_JOB_SUSPENDED for HTCondor Node cbow_tfidf_soft (1389.0.0) {05/21/17 21:20:40}
+05/21/17 21:20:42 Number of idle job procs: 1
+05/21/17 21:23:28 Currently monitoring 1 HTCondor log file(s)
+05/21/17 21:23:28 Event: ULOG_JOB_UNSUSPENDED for HTCondor Node cbow_tfidf_soft (1389.0.0) {05/21/17 21:23:27}
+05/21/17 21:23:28 Number of idle job procs: 0
+05/21/17 21:33:29 601 seconds since last log event
+05/21/17 21:33:29 Pending DAG nodes:
+05/21/17 21:33:29   Node cbow_tfidf_soft, HTCondor ID 1389, status STATUS_SUBMITTED
+05/21/17 21:43:31 1203 seconds since last log event
+05/21/17 21:43:31 Pending DAG nodes:
+05/21/17 21:43:31   Node cbow_tfidf_soft, HTCondor ID 1389, status STATUS_SUBMITTED
+05/21/17 21:53:32 1804 seconds since last log event
+05/21/17 21:53:32 Pending DAG nodes:
+05/21/17 21:53:32   Node cbow_tfidf_soft, HTCondor ID 1389, status STATUS_SUBMITTED
+05/21/17 22:03:33 2405 seconds since last log event
+05/21/17 22:03:33 Pending DAG nodes:
+05/21/17 22:03:33   Node cbow_tfidf_soft, HTCondor ID 1389, status STATUS_SUBMITTED
+05/21/17 22:13:35 3007 seconds since last log event
+05/21/17 22:13:35 Pending DAG nodes:
+05/21/17 22:13:35   Node cbow_tfidf_soft, HTCondor ID 1389, status STATUS_SUBMITTED
+05/21/17 22:23:36 3608 seconds since last log event
+05/21/17 22:23:36 Pending DAG nodes:
+05/21/17 22:23:36   Node cbow_tfidf_soft, HTCondor ID 1389, status STATUS_SUBMITTED
+05/21/17 22:33:38 4210 seconds since last log event
+05/21/17 22:33:38 Pending DAG nodes:
+05/21/17 22:33:38   Node cbow_tfidf_soft, HTCondor ID 1389, status STATUS_SUBMITTED
+05/21/17 22:43:39 4811 seconds since last log event
+05/21/17 22:43:39 Pending DAG nodes:
+05/21/17 22:43:39   Node cbow_tfidf_soft, HTCondor ID 1389, status STATUS_SUBMITTED
+05/21/17 22:53:41 5413 seconds since last log event
+05/21/17 22:53:41 Pending DAG nodes:
+05/21/17 22:53:41   Node cbow_tfidf_soft, HTCondor ID 1389, status STATUS_SUBMITTED
+05/21/17 23:03:42 6014 seconds since last log event
+05/21/17 23:03:42 Pending DAG nodes:
+05/21/17 23:03:42   Node cbow_tfidf_soft, HTCondor ID 1389, status STATUS_SUBMITTED
+05/21/17 23:13:44 6616 seconds since last log event
+05/21/17 23:13:44 Pending DAG nodes:
+05/21/17 23:13:44   Node cbow_tfidf_soft, HTCondor ID 1389, status STATUS_SUBMITTED
+05/21/17 23:23:45 7217 seconds since last log event
+05/21/17 23:23:45 Pending DAG nodes:
+05/21/17 23:23:45   Node cbow_tfidf_soft, HTCondor ID 1389, status STATUS_SUBMITTED
+05/21/17 23:33:47 7819 seconds since last log event
+05/21/17 23:33:47 Pending DAG nodes:
+05/21/17 23:33:47   Node cbow_tfidf_soft, HTCondor ID 1389, status STATUS_SUBMITTED
+05/21/17 23:43:48 8420 seconds since last log event
+05/21/17 23:43:48 Pending DAG nodes:
+05/21/17 23:43:48   Node cbow_tfidf_soft, HTCondor ID 1389, status STATUS_SUBMITTED
+05/21/17 23:53:50 9022 seconds since last log event
+05/21/17 23:53:50 Pending DAG nodes:
+05/21/17 23:53:50   Node cbow_tfidf_soft, HTCondor ID 1389, status STATUS_SUBMITTED
+05/22/17 00:03:51 9623 seconds since last log event
+05/22/17 00:03:51 Pending DAG nodes:
+05/22/17 00:03:51   Node cbow_tfidf_soft, HTCondor ID 1389, status STATUS_SUBMITTED
+05/22/17 00:13:53 10225 seconds since last log event
+05/22/17 00:13:53 Pending DAG nodes:
+05/22/17 00:13:53   Node cbow_tfidf_soft, HTCondor ID 1389, status STATUS_SUBMITTED
+05/22/17 00:23:55 10827 seconds since last log event
+05/22/17 00:23:55 Pending DAG nodes:
+05/22/17 00:23:55   Node cbow_tfidf_soft, HTCondor ID 1389, status STATUS_SUBMITTED
+05/22/17 00:33:56 11428 seconds since last log event
+05/22/17 00:33:56 Pending DAG nodes:
+05/22/17 00:33:56   Node cbow_tfidf_soft, HTCondor ID 1389, status STATUS_SUBMITTED
+05/22/17 00:43:58 12030 seconds since last log event
+05/22/17 00:43:58 Pending DAG nodes:
+05/22/17 00:43:58   Node cbow_tfidf_soft, HTCondor ID 1389, status STATUS_SUBMITTED
+05/22/17 00:53:59 12631 seconds since last log event
+05/22/17 00:53:59 Pending DAG nodes:
+05/22/17 00:53:59   Node cbow_tfidf_soft, HTCondor ID 1389, status STATUS_SUBMITTED
+05/22/17 01:04:01 13233 seconds since last log event
+05/22/17 01:04:01 Pending DAG nodes:
+05/22/17 01:04:01   Node cbow_tfidf_soft, HTCondor ID 1389, status STATUS_SUBMITTED
+05/22/17 01:14:02 13834 seconds since last log event
+05/22/17 01:14:02 Pending DAG nodes:
+05/22/17 01:14:02   Node cbow_tfidf_soft, HTCondor ID 1389, status STATUS_SUBMITTED
+05/22/17 01:24:04 14436 seconds since last log event
+05/22/17 01:24:04 Pending DAG nodes:
+05/22/17 01:24:04   Node cbow_tfidf_soft, HTCondor ID 1389, status STATUS_SUBMITTED
+05/22/17 01:34:05 15037 seconds since last log event
+05/22/17 01:34:05 Pending DAG nodes:
+05/22/17 01:34:05   Node cbow_tfidf_soft, HTCondor ID 1389, status STATUS_SUBMITTED
+05/22/17 01:44:07 15639 seconds since last log event
+05/22/17 01:44:07 Pending DAG nodes:
+05/22/17 01:44:07   Node cbow_tfidf_soft, HTCondor ID 1389, status STATUS_SUBMITTED
+05/22/17 01:54:08 16240 seconds since last log event
+05/22/17 01:54:08 Pending DAG nodes:
+05/22/17 01:54:08   Node cbow_tfidf_soft, HTCondor ID 1389, status STATUS_SUBMITTED
+05/22/17 02:04:09 16841 seconds since last log event
+05/22/17 02:04:09 Pending DAG nodes:
+05/22/17 02:04:09   Node cbow_tfidf_soft, HTCondor ID 1389, status STATUS_SUBMITTED
+05/22/17 02:14:11 17443 seconds since last log event
+05/22/17 02:14:11 Pending DAG nodes:
+05/22/17 02:14:11   Node cbow_tfidf_soft, HTCondor ID 1389, status STATUS_SUBMITTED
+05/22/17 02:24:12 18044 seconds since last log event
+05/22/17 02:24:12 Pending DAG nodes:
+05/22/17 02:24:12   Node cbow_tfidf_soft, HTCondor ID 1389, status STATUS_SUBMITTED
+05/22/17 02:34:14 18646 seconds since last log event
+05/22/17 02:34:14 Pending DAG nodes:
+05/22/17 02:34:14   Node cbow_tfidf_soft, HTCondor ID 1389, status STATUS_SUBMITTED
+05/22/17 02:44:15 19247 seconds since last log event
+05/22/17 02:44:15 Pending DAG nodes:
+05/22/17 02:44:15   Node cbow_tfidf_soft, HTCondor ID 1389, status STATUS_SUBMITTED
+05/22/17 02:54:17 19849 seconds since last log event
+05/22/17 02:54:17 Pending DAG nodes:
+05/22/17 02:54:17   Node cbow_tfidf_soft, HTCondor ID 1389, status STATUS_SUBMITTED
+05/22/17 03:04:19 20451 seconds since last log event
+05/22/17 03:04:19 Pending DAG nodes:
+05/22/17 03:04:19   Node cbow_tfidf_soft, HTCondor ID 1389, status STATUS_SUBMITTED
+05/22/17 03:14:21 21053 seconds since last log event
+05/22/17 03:14:21 Pending DAG nodes:
+05/22/17 03:14:21   Node cbow_tfidf_soft, HTCondor ID 1389, status STATUS_SUBMITTED
+05/22/17 03:24:23 21655 seconds since last log event
+05/22/17 03:24:23 Pending DAG nodes:
+05/22/17 03:24:23   Node cbow_tfidf_soft, HTCondor ID 1389, status STATUS_SUBMITTED
+05/22/17 03:34:25 22257 seconds since last log event
+05/22/17 03:34:25 Pending DAG nodes:
+05/22/17 03:34:25   Node cbow_tfidf_soft, HTCondor ID 1389, status STATUS_SUBMITTED
+05/22/17 03:44:27 22859 seconds since last log event
+05/22/17 03:44:27 Pending DAG nodes:
+05/22/17 03:44:27   Node cbow_tfidf_soft, HTCondor ID 1389, status STATUS_SUBMITTED
+05/22/17 03:54:29 23461 seconds since last log event
+05/22/17 03:54:29 Pending DAG nodes:
+05/22/17 03:54:29   Node cbow_tfidf_soft, HTCondor ID 1389, status STATUS_SUBMITTED
+05/22/17 04:04:31 24063 seconds since last log event
+05/22/17 04:04:31 Pending DAG nodes:
+05/22/17 04:04:31   Node cbow_tfidf_soft, HTCondor ID 1389, status STATUS_SUBMITTED
+05/22/17 04:14:33 24665 seconds since last log event
+05/22/17 04:14:33 Pending DAG nodes:
+05/22/17 04:14:33   Node cbow_tfidf_soft, HTCondor ID 1389, status STATUS_SUBMITTED
+05/22/17 04:23:14 Currently monitoring 1 HTCondor log file(s)
+05/22/17 04:23:14 Event: ULOG_JOB_TERMINATED for HTCondor Node cbow_tfidf_soft (1389.0.0) {05/22/17 04:23:11}
+05/22/17 04:23:14 Number of idle job procs: 0
+05/22/17 04:23:14 Node cbow_tfidf_soft job proc (1389.0.0) completed successfully.
+05/22/17 04:23:14 Node cbow_tfidf_soft job completed
+05/22/17 04:23:14 DAG status: 0 (DAG_STATUS_OK)
+05/22/17 04:23:14 Of 2 nodes total:
+05/22/17 04:23:14  Done     Pre   Queued    Post   Ready   Un-Ready   Failed
+05/22/17 04:23:14   ===     ===      ===     ===     ===        ===      ===
+05/22/17 04:23:14     1       0        0       0       1          0        0
+05/22/17 04:23:14 0 job proc(s) currently held
+05/22/17 04:23:19 Submitting HTCondor Node cbow_tfidf_soft_test job(s)...
+05/22/17 04:23:19 Adding a DAGMan workflow log /esat/spchtemp/scratch/robbe/SpeechHub/pretrained_untied_models_small/python/jobdag/./ds_cbow_tfidf_soft.dag.nodes.log
+05/22/17 04:23:19 Masking the events recorded in the DAGMAN workflow log
+05/22/17 04:23:19 Mask for workflow log is 0,1,2,4,5,7,9,10,11,12,13,16,17,24,27
+05/22/17 04:23:19 submitting: /usr/bin/condor_submit -a dag_node_name' '=' 'cbow_tfidf_soft_test -a +DAGManJobId' '=' '1387 -a DAGManJobId' '=' '1387 -batch-name ds_cbow_tfidf_soft.dag+1387 -a submit_event_notes' '=' 'DAG' 'Node:' 'cbow_tfidf_soft_test -a dagman_log' '=' '/esat/spchtemp/scratch/robbe/SpeechHub/pretrained_untied_models_small/python/jobdag/./ds_cbow_tfidf_soft.dag.nodes.log -a +DAGManNodesMask' '=' '"0,1,2,4,5,7,9,10,11,12,13,16,17,24,27" -a data_set' '=' 'ds -a test_name' '=' 'cbow_tfidf_soft -a num_run' '=' '0 -a DAG_STATUS' '=' '0 -a FAILED_COUNT' '=' '0 -a notification' '=' 'never -a +DAGParentNodeNames' '=' '"cbow_tfidf_soft" jobdag/cbow_soft_test.job
+05/22/17 04:23:19 From submit: Submitting job(s).
+05/22/17 04:23:19 From submit: 1 job(s) submitted to cluster 1395.
+05/22/17 04:23:19 	assigned HTCondor ID (1395.0.0)
+05/22/17 04:23:19 Just submitted 1 job this cycle...
+05/22/17 04:23:19 Currently monitoring 1 HTCondor log file(s)
+05/22/17 04:23:19 Reassigning the id of job cbow_tfidf_soft_test from (1395.0.0) to (1395.0.0)
+05/22/17 04:23:19 Event: ULOG_SUBMIT for HTCondor Node cbow_tfidf_soft_test (1395.0.0) {05/22/17 04:23:19}
+05/22/17 04:23:19 Number of idle job procs: 1
+05/22/17 04:23:19 DAG status: 0 (DAG_STATUS_OK)
+05/22/17 04:23:19 Of 2 nodes total:
+05/22/17 04:23:19  Done     Pre   Queued    Post   Ready   Un-Ready   Failed
+05/22/17 04:23:19   ===     ===      ===     ===     ===        ===      ===
+05/22/17 04:23:19     1       0        1       0       0          0        0
+05/22/17 04:23:19 0 job proc(s) currently held
+05/22/17 04:32:46 Currently monitoring 1 HTCondor log file(s)
+05/22/17 04:32:46 Event: ULOG_EXECUTE for HTCondor Node cbow_tfidf_soft_test (1395.0.0) {05/22/17 04:32:42}
+05/22/17 04:32:46 Number of idle job procs: 0
+05/22/17 04:32:56 Currently monitoring 1 HTCondor log file(s)
+05/22/17 04:32:56 Event: ULOG_JOB_TERMINATED for HTCondor Node cbow_tfidf_soft_test (1395.0.0) {05/22/17 04:32:56}
+05/22/17 04:32:56 Number of idle job procs: 0
+05/22/17 04:32:56 Node cbow_tfidf_soft_test job proc (1395.0.0) completed successfully.
+05/22/17 04:32:56 Node cbow_tfidf_soft_test job completed
+05/22/17 04:32:56 DAG status: 0 (DAG_STATUS_OK)
+05/22/17 04:32:56 Of 2 nodes total:
+05/22/17 04:32:56  Done     Pre   Queued    Post   Ready   Un-Ready   Failed
+05/22/17 04:32:56   ===     ===      ===     ===     ===        ===      ===
+05/22/17 04:32:56     2       0        0       0       0          0        0
+05/22/17 04:32:56 0 job proc(s) currently held
+05/22/17 04:32:56 All jobs Completed!
+05/22/17 04:32:56 Note: 0 total job deferrals because of -MaxJobs limit (0)
+05/22/17 04:32:56 Note: 0 total job deferrals because of -MaxIdle limit (1000)
+05/22/17 04:32:56 Note: 0 total job deferrals because of node category throttles
+05/22/17 04:32:56 Note: 0 total PRE script deferrals because of -MaxPre limit (20) or DEFER
+05/22/17 04:32:56 Note: 0 total POST script deferrals because of -MaxPost limit (20) or DEFER
+05/22/17 04:32:56 DAG status: 0 (DAG_STATUS_OK)
+05/22/17 04:32:56 Of 2 nodes total:
+05/22/17 04:32:56  Done     Pre   Queued    Post   Ready   Un-Ready   Failed
+05/22/17 04:32:56   ===     ===      ===     ===     ===        ===      ===
+05/22/17 04:32:56     2       0        0       0       0          0        0
+05/22/17 04:32:56 0 job proc(s) currently held
+05/22/17 04:32:56 Wrote metrics file ds_cbow_tfidf_soft.dag.metrics.
+05/22/17 04:32:56 Metrics not sent because of PEGASUS_METRICS or CONDOR_DEVELOPERS setting.
+05/22/17 04:32:56 **** condor_scheduniv_exec.1387.0 (condor_DAGMAN) pid 27799 EXITING WITH STATUS 0

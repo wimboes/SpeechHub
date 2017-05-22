@@ -1,0 +1,10 @@
+#python n-best_original.py --test_name="original" --num_run="0" --model_name="tied_models_small" --name="tied_n_best_original_small"
+#python n-best_topic_tied.py --test_name="topic" --num_run="0" --model_name="tied_models_medium" --name="tied_n_best_topic_medium"
+#python n-best_extended_topic_1_tied.py --test_name="extended_topic_1" --num_run="0" --model_name="tied_models_medium" --name="tied_n_best_textended_topic_1_medium"
+#python n-best_cbow_soft_tied.py --test_name="cbow_mean_soft" --num_run="0" --model_name="tied_models_small" --name="tied_n_best_cbow_mean_soft_small"
+#python n-best_cbow_soft_tied.py --test_name="cbow_exp_soft" --num_run="0" --model_name="tied_models_small" --name="tied_n_best_cbow_exp_soft_small"
+python n-best_cbow_soft_tied.py --test_name="cbow_tfidf_soft" --num_run="0" --model_name="tied_models_small" --name="tied_n_best_cbow_tfidf_soft_small"
+python n-best_cbow_lstm_tied.py --test_name="cbow_mean_lstm" --num_run="0" --model_name="tied_models_small" --name="tied_n_best_cbow_mean_lstm_small"
+python n-best_cbow_lstm_tied.py --test_name="cbow_exp_lstm" --num_run="0" --model_name="tied_models_small" --name="tied_n_best_cbow_exp_lstm_small"
+python n-best_cbow_lstm_tied.py --test_name="cbow_tfidf_lstm" --num_run="0" --model_name="tied_models_small" --name="tied_n_best_cbow_tfidf_lstm_small"
+

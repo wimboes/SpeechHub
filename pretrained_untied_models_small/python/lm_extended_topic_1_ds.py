@@ -40,7 +40,7 @@ flags.DEFINE_float("init_scale_reg", 0.05, "init_scale_reg")
 flags.DEFINE_integer("num_layers_reg", 1, "num_layers_reg")
 flags.DEFINE_integer("hidden_size_reg", 128, "hidden_size_reg")
 flags.DEFINE_float("keep_prob_reg", 0.5, "keep_prob_reg")
-flags.DEFINE_integer("embedded_size_reg", 50, "embedded_size_reg")
+flags.DEFINE_integer("embedded_size_reg", 55, "embedded_size_reg")
 
 ### lda
 
@@ -48,7 +48,7 @@ flags.DEFINE_float("init_scale_lda", 0.05, "init_scale_lda")
 flags.DEFINE_integer("num_layers_lda", 1, "num_layers_lda")
 flags.DEFINE_integer("hidden_size_lda", 128, "hidden_size_lda")
 flags.DEFINE_float("keep_prob_lda", 0.5, "keep_prob_lda")
-flags.DEFINE_integer("embedded_size_lda", 50, "embedded_size_lda")
+flags.DEFINE_integer("embedded_size_lda", 55, "embedded_size_lda")
 
 ### interpol
 
@@ -64,8 +64,8 @@ flags.DEFINE_float("max_grad_norm", 5, "max_grad_norm")
 flags.DEFINE_integer("max_epoch", 3, "max_epoch")
 flags.DEFINE_integer("max_max_epoch", 3, "max_max_epoch")
 flags.DEFINE_float("lr_decay", 0.8, "lr_decay")
-flags.DEFINE_integer("batch_size", 55, "batch_size")
-flags.DEFINE_integer("num_steps", 55, "num_steps")
+flags.DEFINE_integer("batch_size", 50, "batch_size")
+flags.DEFINE_integer("num_steps", 50, "num_steps")
 
 flags.DEFINE_integer("num_run", 0, "num_run")
 flags.DEFINE_string("test_name","extended_topic_1","test_name")
