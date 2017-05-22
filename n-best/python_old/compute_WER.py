@@ -47,9 +47,9 @@ for file in n_best_files:
 	if fv_files_amount[-1] < int(file.split('.')[2]):
 	    fv_files_amount[-1] = int(file.split('.')[2])
 print(fv_files)
-print(fv_files[159])
-print(fv_files_amount[159])
-print(fv_files.index('fv600513'))
+print(fv_files[300])
+print(fv_files_amount[300])
+print(fv_files.index('fv600814'))
 
 with open(os.path.join(out_folder, 'reference.txt'), 'w') as reference, open(os.path.join(out_folder, 'recognized.txt'), 'w') as recognized:
     for i in range(len(fv_files)):
