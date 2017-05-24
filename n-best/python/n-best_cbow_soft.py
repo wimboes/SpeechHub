@@ -35,13 +35,13 @@ flags = tf.flags
 logging = tf.logging
 
 flags.DEFINE_integer("num_run", 0, "num_run")
-flags.DEFINE_string("test_name","cbow_exp_soft","test_name")
+flags.DEFINE_string("test_name","cbow_mean_soft","test_name")
 
-flags.DEFINE_string("name","n-best-cbow_exp_soft","name")
+flags.DEFINE_string("name","pretrained_untied_n_best_cbow_mean_soft_small","name")
 
 flags.DEFINE_string("input_path", input_path, "data_path")
 flags.DEFINE_string("data_path", data_path, "data_path")
-flags.DEFINE_string("model_name", "n-best", "model_name")
+flags.DEFINE_string("model_name", "pretrained_untied_models_small", "model_name")
 flags.DEFINE_string("save_path", output_path, "save_path")
 flags.DEFINE_bool("use_fp16", False, "train using 16-bit floats instead of 32bit floats")
 
